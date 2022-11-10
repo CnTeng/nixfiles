@@ -1,0 +1,9 @@
+{ ... }:
+
+{
+  imports = [
+    ./device
+    ./wireless
+    ./language
+  ];
+}

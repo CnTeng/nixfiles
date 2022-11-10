@@ -1,0 +1,9 @@
+{ ... }:
+
+{
+  imports = [
+    ./system
+    ./shell
+    ./environment
+  ];
+}
