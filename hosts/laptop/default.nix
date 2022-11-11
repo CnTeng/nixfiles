@@ -32,30 +32,36 @@
     networkmanager.enable = true;
   };
 
+  age = {
+    secrets = {
+      rxtxHostname = {
+        file = ../../secrets/ssh/rxtxHostname.age;
+        owner = "${user}";
+        group = "users";
+        mode = "644";
+      };
+      rxtxKey = {
+        file = ../../secrets/ssh/rxtxKey.age;
+        owner = "${user}";
+        group = "users";
+        mode = "600";
+      };
+    };
+  };
 
   home-manager.users.${user} = {
     programs.ssh = {
       enable = true;
       matchBlocks = {
         "rxtx" = {
-          hostname = builtins.readFile config.age.secrets.rxtx_hostname.path;
+          hostname = builtins.readFile config.age.secrets.rxtxHostname.path;
           user = "yufei";
           port = 23;
           identityFile = [
-            config.age.secrets.rxtx_ed25519.path
-          ];
-        };
-
-        "github.com" = {
-          hostname = "ssh.github.com";
-          user = "git";
-          port = 443;
-          identityFile = [
-            config.age.secrets.github_auth_ed25519.path
+            config.age.secrets.rxtxKey.path
           ];
         };
       };
     };
   };
-
 }

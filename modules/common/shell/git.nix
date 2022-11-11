@@ -1,7 +1,21 @@
-{ pkgs, user, ... }:
+{ config, pkgs, user, ... }:
 
 {
   home-manager.users.${user} = {
+    programs.ssh = {
+      enable = true;
+      matchBlocks = {
+        "github.com" = {
+          hostname = "ssh.github.com";
+          user = "git";
+          port = 443;
+          identityFile = [
+            config.age.secrets.githubAuthKey.path
+          ];
+        };
+      };
+    };
+
     programs.git = {
       enable = true;
       userName = "CnTeng";
@@ -14,5 +28,12 @@
       commitizen
       commitlint
     ];
+  };
+
+  age.secrets.githubAuthKey = {
+    file = ../../../secrets/ssh/githubAuthKey.age;
+    owner = "${user}";
+    group = "users";
+    mode = "600";
   };
 }

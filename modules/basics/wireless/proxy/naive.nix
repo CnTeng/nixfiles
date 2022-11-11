@@ -1,8 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, config, user, ... }:
 
 let
   naive = config.nur.repos.oluceps.naiveproxy;
-  configFile = config.age.secrets.naiveconfig.path;
+  configFile = config.age.secrets.naiveConfig.path;
 
 in
 {
@@ -18,5 +18,12 @@ in
     serviceConfig = {
       ExecStart = "${naive}/bin/naive --config ${configFile}";
     };
+  };
+
+  age.secrets.naiveConfig = {
+    file = ../../../../secrets/server/naiveConfig.age;
+    owner = "${user}";
+    group = "users";
+    mode = "644";
   };
 }

@@ -3,12 +3,12 @@ let
 
 in
 {
-  "publickeys.age".publicKeys = [ agenix ];
+  "ssh/publicKeys.age".publicKeys = [ agenix ];
+  "ssh/githubAuthKey.age".publicKeys = [ agenix ];
+  "ssh/rxtxHostname.age".publicKeys = [ agenix ];
+  "ssh/rxtxKey.age".publicKeys = [ agenix ];
 
-  "rxtx_hostname.age".publicKeys = [ agenix ];
-  "rxtx_ed25519.age".publicKeys = [ agenix ];
-
-  "github_auth_ed25519.age".publicKeys = [ agenix ];
-  "vaultwarden.env.age".publicKeys = [ agenix ];
-  "Caddyfile.age".publicKeys = [ agenix ];
+  "server/naiveConfig.age".publicKeys = [ agenix ];
+  "server/caddyFile.age".publicKeys = [ agenix ];
+  "server/vaultwardenEnv.age".publicKeys = [ agenix ];
 }

@@ -36,20 +36,4 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM/Y4kiqZIPYgYLvwNPe7Vx09ix6dSxnzaV6Awn7Lm+D rxtx@nixos"
     ];
   };
-
-  home-manager.users.${user} = {
-    programs.ssh = {
-      enable = true;
-      matchBlocks = {
-        "github.com" = {
-          hostname = "ssh.github.com";
-          user = "git";
-          port = 443;
-          identityFile = [
-            config.age.secrets.github_auth_ed25519.path
-          ];
-        };
-      };
-    };
-  };
 }

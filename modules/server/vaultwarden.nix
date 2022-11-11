@@ -23,6 +23,14 @@
       WEBSOCKET_ADDRESS = "127.0.0.1";
       WEBSOCKET_PORT = 3222;
     };
-    environmentFile = config.age.secrets."vaultwarden.env".path;
+    environmentFile = config.age.secrets.vaultwardenEnv.path;
+  };
+
+  age.secrets.vaultwardenEnv = {
+    file = ../../secrets/server/vaultwardenEnv.age;
+    path = "/var/lib/vaultwarden.env";
+    owner = "vaultwarden";
+    group = "vaultwarden";
+    mode = "644";
   };
 }
