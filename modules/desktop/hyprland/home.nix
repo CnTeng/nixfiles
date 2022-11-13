@@ -25,7 +25,7 @@ let
   swaybg = "${pkgs.swaybg}/bin/swaybg";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   terminal = "${pkgs.kitty}/bin/kitty";
-  rofi = "${pkgs.rofi-wayland}/bin/rofi -show drun";
+  rofi = "rofi -show drun";
   pcmanfm = "${pkgs.pcmanfm}/bin/pcmanfm";
   light = "${pkgs.light}/bin/light";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
@@ -33,7 +33,6 @@ let
   grim = "${pkgs.grim}/bin/grim";
   slurp = "${pkgs.slurp}/bin/slurp";
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-
 in
 {
   imports = [ hyprland.homeManagerModules.default ];
@@ -258,7 +257,8 @@ in
       # bind=SUPER_SHIFT,0,movetoworkspace,10
 
       windowrulev2=opacity 0.95,class:^(kitty)$
-      windowrulev2=opacity 0.95,title:^(Spotify)$
+      windowrulev2=tile,class:^(Spotify)$
+      windowrulev2=opacity 0.95,class:^(Spotify)$
       windowrulev2=float,class:^(nm-connection-editor)$
       windowrulev2=float,class:^(.blueman-manager-wrapped)$
       windowrulev2=float,class:^(org.fcitx.)$

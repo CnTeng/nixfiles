@@ -48,11 +48,14 @@ in
           border-radius: 10px;
         }
 
-        #workspaces button {
+        #workspaces {
           color: #${base05};
           background-color: #${base00};
-          padding: 0 15px;
+          border-radius: 10px;
           margin-right: 3px;
+        }
+        #workspaces button {
+          padding: 0 15px;
           border-radius: 10px;
         }
         #workspaces button.hidden {

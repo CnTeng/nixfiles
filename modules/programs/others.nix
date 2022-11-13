@@ -16,6 +16,8 @@
 
         # Music
         spotify
+        spotifywm
+        spotify-tray
 
         # Video & Picture
         ffmpeg
