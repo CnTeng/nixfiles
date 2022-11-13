@@ -10,16 +10,13 @@
         stdenv.cc.cc
         openssl
         nss
+        gcc
         # ...
       ];
       NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
     };
 
     home.packages = [ pkgs.neovim ];
-    programs.neovim = {
-      viAlias = true;
-      vimAlias = true;
-    };
 
     xdg.configFile."nvim/lua".source = ./nvim/lua;
     xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;

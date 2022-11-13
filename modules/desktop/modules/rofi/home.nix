@@ -1,7 +1,28 @@
 { config, pkgs, ... }:
 
 let
+  # Catppuccin Macchiato
+  # Copy from https://github.com/catppuccin/catppuccin
+  base00 = "24273a"; # base
+  base01 = "1e2030"; # mantle
+  base02 = "363a4f"; # surface0
+  base03 = "494d64"; # surface1
+  base04 = "5b6078"; # surface2
+  base05 = "cad3f5"; # text
+  base06 = "f4dbd6"; # rosewater
+  base07 = "b7bdf8"; # lavender
+  base08 = "ed8796"; # red
+  base09 = "f5a97f"; # peach
+  base0A = "eed49f"; # yellow
+  base0B = "a6da95"; # green
+  base0C = "8bd5ca"; # teal
+  base0D = "8aadf4"; # blue
+  base0E = "c6a0f6"; # mauve
+  base0F = "f0c6c6"; # flamingo
+
+  powermenu = ./scripts/powermenu.sh;
   inherit (config.lib.formats.rasi) mkLiteral;
+
 in
 {
   home.packages = with pkgs;[
@@ -11,119 +32,139 @@ in
     enable = true;
     package = pkgs.rofi-wayland;
     plugins = with pkgs;[
-      rofi-calc
       rofi-emoji
     ];
-    font = "RobotoMono Nerd Font 13";
+    font = "RobotoMono Nerd Font 15";
     location = "top";
     terminal = "${pkgs.kitty}/bin/kitty";
     extraConfig = {
-      modi = "run,drun,p:rofi-power-menu";
-      icon-theme = "Papirus-Dark";
-      show-icons = true;
-      drun-display-format = "{icon} {name}";
+      steal-focus = true;
       disable-history = false;
       hide-scrollbar = true;
-      display-drun = "   Apps ";
-      display-run = "   Run ";
-      display-window = " 﩯  Window";
-      display-Network = " 󰤨  Network";
       sidebar-mode = true;
+      modes = "drun,run,emoji,power:${powermenu}";
+      show-icons = true;
+      icon-theme = "Papirus-Dark";
+      drun-display-format = "{icon} {name}";
+      display-drun = "  Apps ";
+      display-run = " 異 Run ";
+      display-emoji = "  Emoji ";
+      display-power = " 襤 Power ";
+
+      # Key binding
+      kb-remove-char-back = "BackSpace,Shift+BackSpace"; # unbind ctrl+h
+      kb-move-char-back = "Left,Control+h";
+
+      kb-mode-complete = ""; # unbind ctrl+l
+      kb-move-char-forward = "Right,Control+l";
+
+      kb-accept-entry = "Control+m,Return,KP_Enter"; # unbind ctrl+j
+      kb-element-next = "Tab,Control+j";
+
+      kb-remove-to-eol = ""; # unbind ctrl+k
+      kb-element-prev = "ISO_Left_Tab,Control+k";
     };
 
-    theme = {
-      "*" = {
-        bg-col = mkLiteral "#24273a";
-        bg-col-light = mkLiteral "#24273a";
-        border-col = mkLiteral "#24273a";
-        selected-col = mkLiteral "#24273a";
-        blue = mkLiteral "#8aadf4";
-        fg-col = mkLiteral "#cad3f5";
-        fg-col2 = mkLiteral "#ed8796";
-        grey = mkLiteral "#6e738d";
-        width = mkLiteral "600";
+    theme = rec {
+      "window" = {
+        location = mkLiteral "north";
+        anchor = mkLiteral "north";
+        width = mkLiteral "600px";
+        border = mkLiteral "0";
+        background-color = mkLiteral "#${base00}f2";
+        transparency = "real";
+        border-radius = mkLiteral "10px";
+        y-offset = mkLiteral "5px";
+      };
+      # mainbox -> window
+      "mainbox" = {
+        background-color = mkLiteral "transparent";
+        text-color = mkLiteral "#${base05}";
       };
 
-      "element-text, element-icon, mode-switcher" = {
+      # inputbar -> mainbox
+      "inputbar" = {
+        spacing = mkLiteral "10px";
+        padding = mkLiteral "12px";
+        border-radius = mkLiteral "10px 10px 0 0";
+        background-color = mkLiteral "#${base0D}";
+        text-color = mkLiteral "#${base00}";
+        children = map mkLiteral [ "prompt" "entry" ];
+      };
+      # prompt -> inputbar
+      "prompt" = {
         background-color = mkLiteral "inherit";
         text-color = mkLiteral "inherit";
       };
-      "window" = {
-        height = mkLiteral "360px";
-        border = mkLiteral "3px";
-        border-color = mkLiteral "@border-col";
-        background-color = mkLiteral "@bg-col";
-        border-radius = mkLiteral "10px";
-      };
-      "mainbox" = {
-        background-color = mkLiteral "@bg-col";
-      };
-      "inputbar" = {
-        children = map mkLiteral [ "prompt" "entry" ];
-        background-color = mkLiteral "@bg-col";
-        border-radius = mkLiteral "10px";
-        padding = mkLiteral "2px";
-      };
-
-      "prompt" = {
-        background-color = mkLiteral "@blue";
-        padding = mkLiteral "6px";
-        text-color = mkLiteral "@bg-col";
-        border-radius = mkLiteral "3px";
-        margin = mkLiteral "20px 0px 0px 20px";
-      };
-
-      "textbox-prompt-colon" = {
-        expand = false;
-        str = ":";
-      };
-
+      # entry -> inputbar
       "entry" = {
-        padding = mkLiteral "6px";
-        margin = mkLiteral "20px 0px 0px 10px";
-        text-color = mkLiteral "@fg-col";
-        background-color = mkLiteral "@bg-col";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+        cursor = mkLiteral "text";
+        vertical-align = mkLiteral "0.5";
       };
 
+      # message -> mainbox
+      "message" = {
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+      };
+      # textbox -> message
+      "textbox" = {
+        padding = mkLiteral "0 12px";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+        vertical-align = mkLiteral "0.5";
+      };
+
+      # listview -> mainbox
       "listview" = {
-        border = mkLiteral "0px 0px 0px";
-        padding = mkLiteral "6px 0px 0px";
-        margin = mkLiteral "10px 0px 0px 20px";
-        columns = 2;
+        margin = mkLiteral "12px 0";
+        columns = 1;
         lines = 5;
-        background-color = mkLiteral "@bg-col";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+        dynamic = mkLiteral "true";
       };
-
+      # element -> listview
       "element" = {
-        padding = mkLiteral "5px";
-        background-color = mkLiteral "@bg-col";
-        text-color = mkLiteral "@fg-col";
+        spacing = mkLiteral "10px";
+        padding = mkLiteral "12px";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
       };
       "element-icon" = {
-        size = mkLiteral "48px";
+        size = mkLiteral "32px";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
       };
-
+      "element-text" = {
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+        vertical-align = mkLiteral "0.5";
+      };
       "element selected" = {
-        background-color = mkLiteral "@selected-col";
-        text-color = mkLiteral "@fg-col2";
+        background-color = mkLiteral "#${base02}";
+        text-color = mkLiteral "inherit";
       };
 
+      # mode-switcher -> mainbox
       "mode-switcher" = {
-        spacing = 0;
+        border-radius = mkLiteral "0 0 10px 10px";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
       };
-
+      # button -> mode-switcher
       "button" = {
-        padding = mkLiteral "10px";
-        background-color = mkLiteral "@bg-col-light";
-        text-color = mkLiteral "@grey";
+        padding = mkLiteral "12px";
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
         vertical-align = mkLiteral "0.5";
         horizontal-align = mkLiteral "0.5";
-        border-radius = mkLiteral "10px";
       };
-
       "button selected" = {
-        background-color = mkLiteral "@blue";
-        text-color = "@fg-col";
+        background-color = mkLiteral "#${base0D}";
+        text-color = mkLiteral "#${base00}";
       };
     };
   };
