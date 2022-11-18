@@ -22,7 +22,6 @@ let
 
   powermenu = ./scripts/powermenu.sh;
   inherit (config.lib.formats.rasi) mkLiteral;
-
 in
 {
   home.packages = with pkgs;[

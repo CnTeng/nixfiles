@@ -52,7 +52,7 @@ in
           color: #${base05};
           background-color: #${base00};
           border-radius: 10px;
-          margin-right: 3px;
+          margin-right: 6px;
         }
         #workspaces button {
           padding: 0 15px;
