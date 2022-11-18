@@ -1,4 +1,4 @@
-{ pkgs, config, user, ... }:
+{ pkgs, config, ... }:
 
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
@@ -33,9 +33,5 @@ in
       # enable = true;
       finegrained = true;
     };
-  };
-
-  home-manager.users.${user} = {
-    home.packages = [ pkgs.pciutils ];
   };
 }
