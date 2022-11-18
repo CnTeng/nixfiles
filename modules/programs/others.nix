@@ -17,13 +17,15 @@
         # Music
         spotify
         spotifywm
-        spotify-tray
 
         # Video & Picture
         ffmpeg
         vlc
         gimp
         krita
+
+        bitwarden
+        bitwarden-cli
 
         # Office
         libreoffice
@@ -37,6 +39,8 @@
 
         # Manager
         font-manager
+
+        microsoft-edge
       ] ++ (with config;[
         nur.repos.yes.electronic-wechat
       ]);
