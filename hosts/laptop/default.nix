@@ -17,6 +17,7 @@
     ../../modules/programs/onedrive.nix
     ../../modules/programs/kdeconnect.nix
     ../../modules/programs/steam.nix
+    ../../modules/programs/obs-studio.nix
     ../../modules/programs/others.nix
 
     # develop
