@@ -51,7 +51,7 @@ in
     recommendedEnvironment = false;
     extraConfig = ''
       monitor=eDP-1,1920x1080@60,0x0,1
-      monitor=DP-3,2560x1440@60,0x1920,1
+      monitor=,preferred,auto,1
 
       workspace=DP-3,2
 
