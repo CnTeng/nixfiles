@@ -4,7 +4,7 @@
   imports = [
     ./naive.nix
     ./v2ray.nix
-    ./nix.nix
+    # ./nix.nix
     ./git.nix
     ./cargo.nix
   ];
