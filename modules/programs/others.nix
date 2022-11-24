@@ -10,6 +10,7 @@
         # for okular menu bar working successfully
         okular
         foliate
+        calibre
 
         # Dict
         ydict
@@ -19,7 +20,6 @@
         spotifywm
 
         # Video & Picture
-        ffmpeg
         vlc
         gimp
         krita
