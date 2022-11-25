@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
   home-manager.users.${user} = {
@@ -43,9 +43,7 @@
 
         # Browser
         microsoft-edge
-      ] ++ (with config;[
-        nur.repos.yes.electronic-wechat
-      ]);
+      ];
     };
   };
 }
