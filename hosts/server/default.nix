@@ -7,10 +7,11 @@
 
     ../../modules/programs/onedrive.nix
 
-    ../../modules/server/caddy.nix
-    ../../modules/server/naive.nix
-    ../../modules/server/vaultwarden.nix
-    ../../modules/server/freshrss.nix
+    ../../modules/services/caddy.nix
+    ../../modules/services/naive.nix
+    ../../modules/services/vaultwarden.nix
+    ../../modules/services/freshrss.nix
+    ../../modules/services/calibre.nix
   ];
 
   services.openssh = {

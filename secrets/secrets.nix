@@ -8,7 +8,7 @@ in
   "ssh/rxtxHostname.age".publicKeys = [ agenix ];
   "ssh/rxtxKey.age".publicKeys = [ agenix ];
 
-  "server/naiveConfig.age".publicKeys = [ agenix ];
-  "server/caddyFile.age".publicKeys = [ agenix ];
-  "server/vaultwardenEnv.age".publicKeys = [ agenix ];
+  "services/naiveConfig.age".publicKeys = [ agenix ];
+  "services/caddyFile.age".publicKeys = [ agenix ];
+  "services/vaultwardenEnv.age".publicKeys = [ agenix ];
 }
