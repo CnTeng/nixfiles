@@ -44,7 +44,9 @@
     ];
   };
 
+  # Enable trash can for pcmanfm
   services.gvfs.enable = true;
+
   home-manager.users.${user} = {
     imports = [ ./home.nix ];
   };
