@@ -8,6 +8,7 @@
     ../modules/rofi
     ../modules/swayidle.nix
     ../modules/swaylock.nix
+    ../modules/udiskie.nix
   ];
 
   programs.dconf.enable = true;
@@ -43,6 +44,7 @@
     ];
   };
 
+  services.gvfs.enable = true;
   home-manager.users.${user} = {
     imports = [ ./home.nix ];
   };
