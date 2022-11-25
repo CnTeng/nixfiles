@@ -4,6 +4,10 @@
   home-manager.users.${user} = {
     home = {
       packages = with pkgs; [
+        # Password manager
+        bitwarden
+        bitwarden-cli
+
         # Reading
         # Use pkgs.wdisplays align the single screen to the top
         # or place the specified output at 0 0 in sway config
@@ -24,9 +28,6 @@
         gimp
         krita
 
-        bitwarden
-        bitwarden-cli
-
         # Office
         libreoffice
 
@@ -40,6 +41,7 @@
         # Manager
         font-manager
 
+        # Browser
         microsoft-edge
       ] ++ (with config;[
         nur.repos.yes.electronic-wechat
