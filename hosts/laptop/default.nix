@@ -1,4 +1,4 @@
-{ config, user, ... }:
+{ lib, config, user, ... }:
 
 {
   imports = [
@@ -26,7 +26,7 @@
   ];
 
   networking = {
-    useDHCP = true;
+    useDHCP = lib.mkDefault true;
     hostName = "rxdell";
     networkmanager.enable = true;
   };
