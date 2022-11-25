@@ -1,11 +1,18 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
 
   # Use the latest kernel
@@ -31,8 +38,6 @@
     device = "/dev/disk/by-label/swap";
   }];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  security.tpm2.enable = true;
+  powerManagement.cpuFreqGovernor = "ondemand";
+  hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
 }

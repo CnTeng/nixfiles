@@ -1,4 +1,4 @@
-{ lib, config, user, ... }:
+{ config, user, ... }:
 
 {
   imports = [
@@ -10,25 +10,23 @@
 
     ../../modules/desktop/hyprland
 
-    # programs
-    ../../modules/programs/alacritty.nix
+    # Programs
     ../../modules/programs/kitty.nix
-    ../../modules/programs/firefox.nix
+    ../../modules/programs/alacritty.nix
     ../../modules/programs/onedrive.nix
+    ../../modules/programs/firefox.nix
+    ../../modules/programs/kvm.nix
+    # ../../modules/programs/looking-glass.nix
+    ../../modules/programs/vscode.nix
+    ../../modules/programs/idea.nix
     ../../modules/programs/kdeconnect.nix
     ../../modules/programs/steam.nix
     ../../modules/programs/obs-studio.nix
     ../../modules/programs/others.nix
-
-    # develop
-    ../../modules/develop/java.nix
-    ../../modules/develop/vscode.nix
-    ../../modules/develop/kvm.nix
-
   ];
 
   networking = {
-    useDHCP = lib.mkDefault true;
+    useDHCP = true;
     hostName = "rxdell";
     networkmanager.enable = true;
   };
@@ -55,6 +53,7 @@
       enable = true;
       matchBlocks = {
         "rxtx" = {
+          # ReadFile is not recommended for agenix just hide ssh ip
           hostname = builtins.readFile config.age.secrets.rxtxHostname.path;
           user = "yufei";
           port = 23;

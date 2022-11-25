@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./device
+    ./devices
     ./wireless
     ./language
   ];
