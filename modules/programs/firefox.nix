@@ -3,14 +3,15 @@
 {
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
-    # For vscode and idea opening urls
-    xdg-utils
+    libva-utils
+    xdg-utils # For vscode and idea opening urls
   ];
 
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
+      vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
     ];
