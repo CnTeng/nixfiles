@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+
     ../../modules/common
 
     ../../modules/programs/onedrive.nix
@@ -10,8 +11,8 @@
     ../../modules/services/caddy.nix
     ../../modules/services/naive.nix
     ../../modules/services/vaultwarden.nix
-    ../../modules/services/freshrss.nix
     ../../modules/services/calibre.nix
+    ../../modules/services/freshrss.nix
   ];
 
   services.openssh = {

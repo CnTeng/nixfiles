@@ -2,6 +2,7 @@
 
 {
   security = {
+    tpm2.enable = true;
     rtkit.enable = true;
     sudo.wheelNeedsPassword = false;
   };

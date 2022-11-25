@@ -1,9 +1,6 @@
 { pkgs, user, ... }:
 
 {
-  # Enable looking-glass
-  # imports = [ ./looking-glass.nix ];
-
   # IGVT-g $ nvidia passthrough refer to 
   # https://wiki.archlinux.org/title/Intel_GVT-g
   # https://nixos.wiki/wiki/IGVT-g
