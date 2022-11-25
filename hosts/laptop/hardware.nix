@@ -1,4 +1,4 @@
-{ lib, config, pkgs, modulesPath, ... }:
+{ pkgs, modulesPath, ... }:
 
 {
   imports = [
@@ -38,6 +38,6 @@
     device = "/dev/disk/by-label/swap";
   }];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  powerManagement.cpuFreqGovernor = "ondemand";
+  hardware.cpu.intel.updateMicrocode = true;
 }
