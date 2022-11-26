@@ -58,6 +58,12 @@
           modules = [ ./hosts/laptop ] ++ commonModules;
         };
 
+        surface = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = { inherit nur agenix user; };
+          modules = [ ./hosts/surface ] ++ commonModules;
+        };
+
         server = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit nur agenix user; };
