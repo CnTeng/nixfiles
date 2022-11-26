@@ -21,7 +21,7 @@ in
   };
 
   age.secrets.naiveConfig = {
-    file = ../../../../secrets/services/naiveConfig.age;
+    file = ../../../secrets/services/naiveConfig.age;
     owner = "${user}";
     group = "users";
     mode = "644";
