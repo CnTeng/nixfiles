@@ -5,7 +5,6 @@ in
 {
   "ssh/publicKeys.age".publicKeys = [ agenix ];
   "ssh/githubAuthKey.age".publicKeys = [ agenix ];
-  "ssh/rxtxHostname.age".publicKeys = [ agenix ];
   "ssh/rxtxKey.age".publicKeys = [ agenix ];
 
   "services/naiveConfig.age".publicKeys = [ agenix ];
