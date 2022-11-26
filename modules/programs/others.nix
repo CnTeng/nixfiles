@@ -2,48 +2,46 @@
 
 {
   home-manager.users.${user} = {
-    home = {
-      packages = with pkgs; [
-        # Password manager
-        bitwarden
-        bitwarden-cli
+    home.packages = with pkgs; [
+      # Password manager
+      bitwarden
+      bitwarden-cli
 
-        # Reading
-        # Use pkgs.wdisplays align the single screen to the top
-        # or place the specified output at 0 0 in sway config
-        # for okular menu bar working successfully
-        okular
-        foliate
-        calibre
+      # Reading
+      # Use pkgs.wdisplays align the single screen to the top
+      # or place the specified output at 0 0 in sway config
+      # for okular menu bar working successfully
+      okular
+      foliate
+      calibre
 
-        # Dict
-        ydict
+      # Dict
+      ydict
 
-        # Music
-        spotify
-        spotifywm
+      # Music
+      spotify
+      spotifywm
 
-        # Video & Picture
-        vlc
-        gimp
-        krita
+      # Video & Picture
+      vlc
+      gimp
+      krita
 
-        # Office
-        libreoffice
+      # Office
+      libreoffice
 
-        # Community
-        tdesktop
-        discord
+      # Community
+      tdesktop
+      discord
 
-        # Games
-        tetrio-desktop
+      # Games
+      tetrio-desktop
 
-        # Manager
-        font-manager
+      # Manager
+      font-manager
 
-        # Browser
-        microsoft-edge
-      ];
-    };
+      # Browser
+      microsoft-edge
+    ];
   };
 }

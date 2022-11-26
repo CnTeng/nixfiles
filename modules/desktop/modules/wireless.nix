@@ -1,7 +1,10 @@
 { user, ... }:
 
 {
-  hardware.bluetooth.enable = true;
+  # Network
+  programs.nm-applet.enable = true;
+
+  # Blueman
   services.blueman.enable = true;
 
   home-manager.users.${user} = {

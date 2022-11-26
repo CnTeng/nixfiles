@@ -1,13 +1,20 @@
-{ user, ... }:
+{ ... }:
 
 {
+  # Power
+  services = {
+    tlp.enable = true;
+    auto-cpufreq.enable = true;
+    thermald.enable = true;
+  };
+
+  # Sound
   sound = {
     enable = true;
     mediaKeys = {
       enable = true;
     };
   };
-
   services.pipewire = {
     enable = true;
     alsa = {
@@ -17,5 +24,6 @@
     pulse.enable = true;
   };
 
-  users.users.${user}.extraGroups = [ "audio" ];
+  # Light
+  programs.light.enable = true;
 }
