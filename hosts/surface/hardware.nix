@@ -17,7 +17,7 @@
   # Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.kernelModules = [ ];
+  # boot.kernelModules = [ "kvm-intel" ];
 
   # Only use S3 suspend mode, but it not work
   # boot.kernelParams = [ "acpi_rev_override=1" "acpi_osi=Linux" "mem_sleep_default=deep" ];

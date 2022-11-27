@@ -10,7 +10,7 @@
 
     ../../modules/basics
 
-    ../../modules/desktop/gnome
+    ../../modules/desktop/kde
 
     # Programs
     ../../modules/programs/kitty.nix
