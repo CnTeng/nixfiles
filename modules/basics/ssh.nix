@@ -12,7 +12,7 @@
     programs.ssh = {
       enable = true;
       matchBlocks."rxtx" = {
-        hostname = "43.134.194.35";
+        hostname = "ssh.snakepi.xyz";
         user = "yufei";
         port = 23;
         identityFile = [
