@@ -68,7 +68,6 @@ in
           background-color: #${base0D};
         }
 
-        #window,
         #tray,
         #cpu,
         #memory,
@@ -77,6 +76,7 @@ in
         #battery,
         #clock {
           color: #${base05};
+          padding: 0 12px;
           margin: 0 3px;
         }
         #battery.warning {
