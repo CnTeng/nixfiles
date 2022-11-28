@@ -2,10 +2,6 @@
 
 {
   imports = [
-    ../modules/devices.nix
-    ../modules/wireless.nix
-    ../modules/nvidia.nix
-
     ../modules/theme.nix
     ../modules/waybar.nix
     ../modules/mako.nix
