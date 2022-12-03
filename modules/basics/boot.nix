@@ -20,5 +20,8 @@
       # };
       timeout = 1;
     };
+    plymouth = {
+      enable = true;
+    };
   };
 }
