@@ -1,5 +1,25 @@
 { pkgs, user, ... }:
 
+let
+  # Catppuccin Macchiato
+  # Copy from https://github.com/catppuccin/catppuccin
+  base00 = "24273a"; # base
+  base01 = "1e2030"; # mantle
+  base02 = "363a4f"; # surface0
+  base03 = "494d64"; # surface1
+  base04 = "5b6078"; # surface2
+  base05 = "cad3f5"; # text
+  base06 = "f4dbd6"; # rosewater
+  base07 = "b7bdf8"; # lavender
+  base08 = "ed8796"; # red
+  base09 = "f5a97f"; # peach
+  base0A = "eed49f"; # yellow
+  base0B = "a6da95"; # green
+  base0C = "8bd5ca"; # teal
+  base0D = "8aadf4"; # blue
+  base0E = "c6a0f6"; # mauve
+  base0F = "f0c6c6"; # flamingo
+in
 {
   i18n.inputMethod = {
     enabled = "fcitx5";
@@ -10,14 +30,9 @@
     ];
   };
 
-  environment.variables = {
-    GLFW_IM_MODULE = "ibus";
-  };
-
   home-manager.users.${user} = {
     # Copy from https://github.com/catppuccin/fcitx5
     xdg.dataFile."fcitx5/themes/catppuccin/theme.conf".text = ''
-      # vim: ft=dosini
       [Metadata]
       Name=Catppuccin Macchiato
       Version=0.2
@@ -26,38 +41,28 @@
       ScaleWithDPI=True
 
       [InputPanel]
-      # 字体
       Font=Sans 13
-      # 非选中候选字颜色
       # Blue
-      NormalColor=#8AADF4
-      # 选中候选字颜色
+      NormalColor=#${base0D}
       # Peach
-      HighlightCandidateColor=#F5A97F
-      # 高亮前景颜色(输入字符颜色)
+      HighlightCandidateColor=#${base09}
       #Peach
-      HighlightColor=#F5A97F
-      # 输入字符背景颜色
-      # Black3/surface0
-      HighlightBackgroundColor=#363A4F
-      #
+      HighlightColor=#${base09}
+      # Surface0
+      HighlightBackgroundColor=#${base02}
       Spacing=3
 
       [InputPanel/TextMargin]
-      # 候选字对左边距
       Left=10
-      # 候选字对右边距
       Right=10
-      # 候选字向上边距
       Top=6
-      # 候选字向下边距
       Bottom=6
 
       [InputPanel/Background]
-      # Black3/surface0
-      Color=#363A4F
-      # Black3/surface0
-      BorderColor=#363A4F
+      # Surface0
+      Color=#${base02}
+      # Surface0
+      BorderColor=#${base02}
       BorderWidth=2
 
       [InputPanel/Background/Margin]
@@ -67,29 +72,24 @@
       Bottom=2
 
       [InputPanel/Highlight]
-      # Black3/surface0
-      Color=#363A4F
+      # Surface0
+      Color=#${base02}
 
       [InputPanel/Highlight/Margin]
-      # 高亮区域左边距
       Left=10
-      # 高亮区域右边距
       Right=10
-      # 高亮区域上边距
       Top=7
-      # 高亮区域下边距
       Bottom=7
 
       [Menu]
       Font=Sans 10
-      # White/Text
-      NormalColor=#CAD3F5
-      #HighlightColor=#4c566a
+      # Text
+      NormalColor=#${base05}
       Spacing=3
 
       [Menu/Background]
-      # Black3/surface0
-      Color=#363A4F
+      # Surface0
+      Color=#${base02}
 
       [Menu/Background/Margin]
       Left=2
@@ -104,8 +104,8 @@
       Bottom=2
 
       [Menu/Highlight]
-      # Pink
-      Color=#F5BDE6 
+      # Peach
+      Color=#${base09}
 
       [Menu/Highlight/Margin]
       Left=10
@@ -114,8 +114,8 @@
       Bottom=5
 
       [Menu/Separator]
-      # Black2/base
-      Color=#24273A
+      # Base
+      Color=#${base00}
 
       [Menu/CheckBox]
       # Image=radio.png
