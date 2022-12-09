@@ -1,14 +1,12 @@
 { pkgs, config, user, ... }:
 
 let
-  naive = config.nur.repos.oluceps.naiveproxy;
+  naive = pkgs.naiveproxy;
   configFile = config.age.secrets.naiveConfig.path;
 
 in
 {
-  environment.systemPackages = with config; [
-    nur.repos.oluceps.naiveproxy
-  ];
+  environment.systemPackages = [ pkgs.naiveproxy ];
 
 
   systemd.services.naiveproxy = {
