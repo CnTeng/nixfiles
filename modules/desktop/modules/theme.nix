@@ -12,13 +12,12 @@
 
   home-manager.users.${user} = {
     # Set the theme of cursor for the whole system
-    home = {
-      pointerCursor = {
-        name = "phinger-cursors";
-        package = pkgs.phinger-cursors;
-        size = 32;
-        gtk.enable = true;
-      };
+    home.pointerCursor = {
+      name = "phinger-cursors";
+      package = pkgs.phinger-cursors;
+      size = 32;
+      gtk.enable = true;
+      x11.enable = true;
     };
 
     # Set the gtk theme
