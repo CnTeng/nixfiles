@@ -1,4 +1,4 @@
-{ user, ... }:
+{ pkgs, user, ... }:
 
 {
 
@@ -8,7 +8,10 @@
   programs.nm-applet.enable = true;
 
   # Bluetooth
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    package = pkgs.bluezFull;
+  };
   services.blueman.enable = true;
 
   home-manager.users.${user} = {
