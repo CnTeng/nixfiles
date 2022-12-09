@@ -32,9 +32,7 @@
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
       XCURSOR_SIZE = "32";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
       # NIXOS_OZONE_WL = "1"; # Vscode need to run under xwayland to use fcitx5
-      XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
