@@ -28,6 +28,8 @@
   #   "f /dev/shm/looking-glass 0660 ${user} qemu-libvirtd -"
   # ];
 
+  fonts.fonts = [ pkgs.dejavu_fonts ]; # Need for looking-glass
+
   home-manager.users.${user} = {
     programs.looking-glass-client = {
       enable = true;

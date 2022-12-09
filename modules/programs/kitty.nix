@@ -3,6 +3,7 @@
 {
   environment.variables = {
     TERMINAL = "kitty";
+    GLFW_IM_MODULE = "ibus"; # Enable fcitx for kitty
   };
 
   home-manager.users.${user} = {
