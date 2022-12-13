@@ -19,6 +19,7 @@
     ../../modules/programs/firefox.nix
     ../../modules/programs/kvm.nix
     # ../../modules/programs/looking-glass.nix
+    ../../modules/programs/yubikey.nix
     ../../modules/programs/vscode.nix
     ../../modules/programs/idea.nix
     ../../modules/programs/kdeconnect.nix

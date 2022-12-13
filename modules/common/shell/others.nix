@@ -10,6 +10,8 @@
       wget
       nix-index
       neofetch
+      rage
+      age-plugin-yubikey
     ];
   };
 }
