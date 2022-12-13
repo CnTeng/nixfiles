@@ -31,7 +31,7 @@
   };
 
   age.secrets.githubAuthKey = {
-    file = ../../../secrets/ssh/githubAuthKey.age;
+    file = ../../../secrets/common/githubAuthKey.age;
     owner = "${user}";
     group = "users";
     mode = "600";

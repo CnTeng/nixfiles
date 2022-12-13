@@ -8,7 +8,6 @@ in
 {
   environment.systemPackages = [ pkgs.naiveproxy ];
 
-
   systemd.services.naiveproxy = {
     description = "naiveproxy Daemon";
     after = [ "network.target" ];
@@ -19,7 +18,7 @@ in
   };
 
   age.secrets.naiveConfig = {
-    file = ../../../secrets/services/naiveConfig.age;
+    file = ../../../secrets/laptop/naiveConfig.age;
     owner = "${user}";
     group = "users";
     mode = "644";

@@ -1,13 +1,6 @@
 { config, user, ... }:
 
 {
-  age.secrets.rxtxKey = {
-    file = ../../secrets/ssh/rxtxKey.age;
-    owner = "${user}";
-    group = "users";
-    mode = "600";
-  };
-
   home-manager.users.${user} = {
     programs.ssh = {
       enable = true;
@@ -20,5 +13,12 @@
         ];
       };
     };
+  };
+
+  age.secrets.rxtxKey = {
+    file = ../../secrets/laptop/rxtxKey.age;
+    owner = "${user}";
+    group = "users";
+    mode = "600";
   };
 }

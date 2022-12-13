@@ -1,13 +1,18 @@
 let
-  agenix = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL07kChgxyYZ+jF5IdxttkqOOZ4M9IBfxc+ANZL7PUaW agenix";
+  yufei = "age1yubikey1q27kxdp7zrdlu40vjcma83xxv7ustj735hnnvs4sqwu8wgwjs96t2m89wfq";
+  users = [ yufei ];
 
+  rxdell = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAwO3kofZ73tOjY4dQ7AWO+ykzX/qJ+t2sYAe9C08BLh rxdell";
+  rxtx = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF014xXMNozcSPRuXMlnw+S5eDdzHIDIAyDMhb0VW2q1 rxtx";
+  hosts = [ rxdell rxtx ];
 in
 {
-  "ssh/publicKeys.age".publicKeys = [ agenix ];
-  "ssh/githubAuthKey.age".publicKeys = [ agenix ];
-  "ssh/rxtxKey.age".publicKeys = [ agenix ];
+  "common/publicKeys.age".publicKeys = users ++ hosts;
+  "common/githubAuthKey.age".publicKeys = users ++ hosts;
 
-  "services/naiveConfig.age".publicKeys = [ agenix ];
-  "services/caddyFile.age".publicKeys = [ agenix ];
-  "services/vaultwardenEnv.age".publicKeys = [ agenix ];
+  "laptop/rxtxKey.age".publicKeys = [ yufei rxdell ];
+  "laptop/naiveConfig.age".publicKeys = [ yufei rxdell ];
+
+  "server/caddyFile.age".publicKeys = [ yufei rxtx ];
+  "server/vaultwardenEnv.age".publicKeys = [ yufei rxtx ];
 }

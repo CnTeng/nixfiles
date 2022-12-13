@@ -1,4 +1,4 @@
-{ pkgs, agenix, user, ... }:
+{ lib, config, pkgs, agenix, user, ... }:
 
 {
   security = {
@@ -10,7 +10,12 @@
   environment.systemPackages = [
     agenix.defaultPackage.x86_64-linux
   ];
-  age.identityPaths = [
-    "/home/${user}/OneDrive/Backups/agenix/agenix_ed25519"
-  ];
+
+  age.identityPaths =
+    map
+      (e: e.path)
+      (lib.filter (e: e.type == "rsa" || e.type == "ed25519") config.services.openssh.hostKeys)
+    ++ [
+      ../../../secrets/identities/yubikey-yufei.txt
+    ];
 }
