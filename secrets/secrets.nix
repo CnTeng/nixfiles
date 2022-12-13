@@ -10,7 +10,6 @@ in
   "common/publicKeys.age".publicKeys = users ++ hosts;
   "common/githubAuthKey.age".publicKeys = users ++ hosts;
 
-  "laptop/rxtxKey.age".publicKeys = [ yufei rxdell ];
   "laptop/naiveConfig.age".publicKeys = [ yufei rxdell ];
 
   "server/caddyFile.age".publicKeys = [ yufei rxtx ];
