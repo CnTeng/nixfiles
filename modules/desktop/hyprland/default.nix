@@ -1,7 +1,9 @@
-{ pkgs, user, ... }:
+{ pkgs, hyprland, user, ... }:
 
 {
   imports = [
+    hyprland.nixosModules.default
+
     ../modules/theme.nix
     ../modules/waybar.nix
     ../modules/mako.nix
@@ -11,11 +13,9 @@
     ../modules/udiskie.nix
   ];
 
-  programs.dconf.enable = true;
-
-  xdg.portal = {
+  programs.hyprland = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    recommendedEnvironment = false;
   };
 
   # Customize the recommended environment
