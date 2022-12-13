@@ -35,5 +35,12 @@
           ]
           oldAttrs.installPhase;
       });
+
+      yubioath-flutter = prev.yubioath-flutter.overrideAttrs (oldAttrs: {
+        postInstall = oldAttrs.postInstall + ''
+          sed -i "s:^Icon=.*:Icon=yubioath:" "$out/share/applications/com.yubico.authenticator.desktop"
+          sed -i "s:^Exec=.*:Exec=authenticator:" "$out/share/applications/com.yubico.authenticator.desktop"
+        '';
+      });
     };
 }
