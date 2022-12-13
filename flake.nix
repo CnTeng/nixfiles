@@ -54,7 +54,7 @@
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
-          specialArgs = { inherit nur agenix user; };
+          specialArgs = { inherit nur agenix hyprland user; };
           modules = [ ./hosts/laptop ] ++ commonModules;
         };
 
