@@ -27,7 +27,7 @@
   };
 
   age.secrets.vaultwardenEnv = {
-    file = ../../secrets/services/vaultwardenEnv.age;
+    file = ../../secrets/server/vaultwardenEnv.age;
     path = "/var/lib/vaultwarden.env";
     owner = "vaultwarden";
     group = "vaultwarden";

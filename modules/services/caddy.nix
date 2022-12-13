@@ -15,7 +15,7 @@
   };
 
   age.secrets.caddyFile = {
-    file = ../../secrets/services/caddyFile.age;
+    file = ../../secrets/server/caddyFile.age;
     owner = "${user}";
     group = "users";
     mode = "644";
