@@ -35,7 +35,7 @@ in
       };
       style = ''
         * {
-          font-family: RobotoMono Nerd Font, Noto Sans Mono CJK SC;
+          font-family: RobotoMono Nerd Font, Sarasa Gothic SC;
           font-weight: bold;
           font-size: 17px;
         }
