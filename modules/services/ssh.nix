@@ -16,4 +16,11 @@
       "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJsesttoCaugSKmHFIORINbEhvvqa7IhKO4viq3WLYktAAAADnNzaDpyeHR4QE5peE9T ssh:rxtx@NixOS"
     ];
   };
+
+  home-manager.users.${user} = {
+    programs.ssh = {
+      enable = true;
+      forwardAgent = true;
+    };
+  };
 }
