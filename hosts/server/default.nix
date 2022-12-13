@@ -10,7 +10,7 @@
 
     ../../modules/programs/onedrive.nix
 
-    ../../modules/services/openssh.nix
+    ../../modules/services/ssh.nix
     ../../modules/services/firewall.nix
     ../../modules/services/caddy.nix
     ../../modules/services/naive.nix

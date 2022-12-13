@@ -7,9 +7,6 @@ let
   hosts = [ rxdell rxtx ];
 in
 {
-  "common/publicKeys.age".publicKeys = users ++ hosts;
-  "common/githubAuthKey.age".publicKeys = users ++ hosts;
-
   "laptop/naiveConfig.age".publicKeys = [ yufei rxdell ];
 
   "server/caddyFile.age".publicKeys = [ yufei rxtx ];
