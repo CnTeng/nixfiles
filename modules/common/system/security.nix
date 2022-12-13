@@ -9,13 +9,14 @@
 
   environment.systemPackages = [
     agenix.defaultPackage.x86_64-linux
-  ];
+  ] ++ (with pkgs; [
+    rage
+    age-plugin-yubikey
+  ]);
 
-  age.identityPaths =
-    map
-      (e: e.path)
-      (lib.filter (e: e.type == "rsa" || e.type == "ed25519") config.services.openssh.hostKeys)
-    ++ [
-      ../../../secrets/identities/yubikey-yufei.txt
-    ];
+  age.identityPaths = [
+    # To do list
+    # ../../../secrets/identities/yubikey-yufei.txt
+    /home/yufei/.ssh/id_ed25519
+  ];
 }
