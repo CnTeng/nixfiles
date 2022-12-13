@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
   home-manager.users.${user} = {
@@ -10,7 +10,7 @@
           user = "git";
           port = 443;
           identityFile = [
-            config.age.secrets.githubAuthKey.path
+            "/home/${user}/.ssh/id_ed25519_sk_rk_auth@Github"
           ];
         };
       };
@@ -28,12 +28,5 @@
       commitizen
       commitlint
     ];
-  };
-
-  age.secrets.githubAuthKey = {
-    file = ../../../secrets/common/githubAuthKey.age;
-    owner = "${user}";
-    group = "users";
-    mode = "600";
   };
 }
