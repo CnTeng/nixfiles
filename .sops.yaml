@@ -1,0 +1,23 @@
+keys:
+  - &users:
+    - &yufei E423C720F4BD53DD
+  - &hosts:
+    - &rxdell 076333B76547EE88
+    - &rxtx C33A544C903D44D4
+creation_rules:
+  - path_regex: secrets/laptop.yaml$
+    key_groups:
+    - pgp:
+      - *yufei
+      - *rxdell
+  - path_regex: secrets/server.yaml$
+    key_groups:
+    - pgp:
+      - *yufei
+      - *rxtx
+  - path_regex: secrets/common.yaml$
+    key_groups:
+    - pgp:
+      - *yufei
+      - *rxdell
+      - *rxtx
