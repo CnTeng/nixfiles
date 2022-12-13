@@ -17,10 +17,5 @@
     ];
   };
 
-  home-manager.users.${user} = {
-    programs.ssh = {
-      enable = true;
-      forwardAgent = true;
-    };
-  };
+  programs.ssh.startAgent = true;
 }

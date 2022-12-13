@@ -1,10 +1,11 @@
 { user, ... }:
 
 {
+  programs.ssh.startAgent = true;
+
   home-manager.users.${user} = {
     programs.ssh = {
       enable = true;
-      forwardAgent = true;
       matchBlocks.rxtx = {
         hostname = "ssh.snakepi.xyz";
         user = "yufei";
