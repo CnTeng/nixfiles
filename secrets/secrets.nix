@@ -11,4 +11,5 @@ in
 
   "server/caddyFile.age".publicKeys = [ yufei rxtx ];
   "server/vaultwardenEnv.age".publicKeys = [ yufei rxtx ];
+  "server/minifluxAdmin.age".publicKeys = [ yufei rxtx ];
 }
