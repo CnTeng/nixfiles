@@ -16,6 +16,6 @@
     ../../modules/services/naive.nix
     ../../modules/services/vaultwarden.nix
     ../../modules/services/calibre.nix
-    ../../modules/services/freshrss.nix
+    ../../modules/services/miniflux.nix
   ];
 }
