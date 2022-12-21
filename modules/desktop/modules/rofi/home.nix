@@ -66,14 +66,14 @@ in
 
     theme = rec {
       "window" = {
+        transparency = "real";
         location = mkLiteral "north";
         anchor = mkLiteral "north";
         width = mkLiteral "600px";
-        border = mkLiteral "0";
-        background-color = mkLiteral "#${base00}f2";
-        transparency = "real";
-        border-radius = mkLiteral "10px";
         y-offset = mkLiteral "5px";
+        border = mkLiteral "0";
+        border-radius = mkLiteral "10px";
+        background-color = mkLiteral "#${base00}f2";
       };
       # mainbox -> window
       "mainbox" = {
@@ -83,8 +83,8 @@ in
 
       # inputbar -> mainbox
       "inputbar" = {
-        spacing = mkLiteral "10px";
         padding = mkLiteral "12px";
+        spacing = mkLiteral "10px";
         border-radius = mkLiteral "10px 10px 0 0";
         background-color = mkLiteral "#${base0D}";
         text-color = mkLiteral "#${base00}";
@@ -127,8 +127,8 @@ in
       };
       # element -> listview
       "element" = {
-        spacing = mkLiteral "10px";
         padding = mkLiteral "12px";
+        spacing = mkLiteral "10px";
         background-color = mkLiteral "inherit";
         text-color = mkLiteral "inherit";
       };
@@ -143,6 +143,8 @@ in
         vertical-align = mkLiteral "0.5";
       };
       "element selected" = {
+        border = mkLiteral "0 0 0 4px";
+        border-color = mkLiteral "#${base0D}";
         background-color = mkLiteral "#${base02}";
         text-color = mkLiteral "inherit";
       };
