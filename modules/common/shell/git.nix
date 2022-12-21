@@ -19,7 +19,7 @@
     programs.git = {
       enable = true;
       userName = "CnTeng";
-      userEmail = "tengyufei@live.com";
+      userEmail = "istengyf@outlook.com";
     };
 
     home.packages = with pkgs;[
