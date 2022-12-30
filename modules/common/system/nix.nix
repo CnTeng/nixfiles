@@ -4,6 +4,7 @@
   nix = {
     settings = {
       auto-optimise-store = true;
+      system-features = [ "big-parallel" ];
     };
     gc = {
       automatic = true;

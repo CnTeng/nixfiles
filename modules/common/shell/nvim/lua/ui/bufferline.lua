@@ -26,7 +26,14 @@ bufferline.setup {
 		tab_size = 20,
 		diagnostics = false,
 		diagnostics_update_in_insert = false,
-		offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+		offsets = {
+			{
+				filetype = "neo-tree",
+				text = "File Explorer",
+				text_align = "center",
+				separator = true,
+			},
+		},
 		color_icons = true,
 		show_buffer_icons = true,
 		show_buffer_close_icons = true,
