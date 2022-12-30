@@ -1,8 +1,7 @@
-local status_ok, lualine = pcall(require, "lualine")
-if not status_ok then
-	vim.notify("lualine not found!", "error")
-	return
-end
+local plugin = require "utils.plugin"
+
+local lualine = plugin.pcall "lualine"
+if not lualine then return end
 
 local hide_in_width = function() return vim.fn.winwidth(0) > 80 end
 
@@ -63,8 +62,9 @@ lualine.setup {
 		theme = "auto",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
+		disabled_filetypes = { "alpha", "dashboard", "Outline" },
 		always_divide_middle = true,
+		globalstatus = true,
 	},
 	sections = {
 		lualine_a = { branch, diagnostics },

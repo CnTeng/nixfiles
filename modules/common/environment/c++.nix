@@ -5,12 +5,8 @@
     home.packages = with pkgs; [
       gnumake
       cmake
-      # gcc
-      gcc12
+      gcc
       gdb
-      # clang
-      # clang_14
-      # lldb
     ];
   };
 }

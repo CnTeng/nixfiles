@@ -34,7 +34,7 @@ catppuccin.setup {
 		gitsigns = true,
 		cmp = true,
 		notify = true,
-		nvimtree = true,
+    neotree = true,
 		treesitter_context = true,
 		treesitter = true,
 		telescope = true,

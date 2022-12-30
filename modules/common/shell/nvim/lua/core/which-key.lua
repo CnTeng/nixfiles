@@ -110,8 +110,9 @@ local mappings = {
 	-- Bufdelete
 	["c"] = { "<cmd>Bdelete<cr>", "Close buffer" },
 
-	-- Nvim-Tree
-	["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+	-- Neo-Tree
+	["e"] = { "<cmd>Neotree toggle<cr>", "Explorer" },
+	["o"] = { "<cmd>Neotree focus<cr>", "Explorer" },
 
 	-- Comment
 	["/"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment line" },

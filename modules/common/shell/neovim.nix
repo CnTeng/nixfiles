@@ -11,7 +11,6 @@
         openssl
         nss
         gcc
-        # ...
       ];
       NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
     };
