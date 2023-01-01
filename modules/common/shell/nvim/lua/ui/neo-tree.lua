@@ -1,4 +1,5 @@
 local plugin = require "utils.plugin"
+
 local neo_tree = plugin.pcall "neo-tree"
 if not neo_tree then return end
 
@@ -7,8 +8,8 @@ neo_tree.setup {
 	enable_git_status = true,
 	enable_diagnostics = false,
 	source_selector = {
-		winbar = true,
-		statusline = false,
+		winbar = false,
+		statusline = true,
 		content_layout = "center",
 	},
 	default_component_configs = {

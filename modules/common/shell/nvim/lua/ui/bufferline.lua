@@ -1,8 +1,7 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
-	vim.notify("bufferline not found!", "error")
-	return
-end
+local plugin = require "utils.plugin"
+
+local bufferline = plugin.pcall "bufferline"
+if not bufferline then return end
 
 bufferline.setup {
 	options = {
@@ -40,10 +39,16 @@ bufferline.setup {
 		show_buffer_default_icon = true,
 		show_close_icon = true,
 		show_tab_indicators = true,
+		show_duplicate_prefix = true,
 		persist_buffer_sort = true,
 		separator_style = "thin",
 		enforce_regular_tabs = true,
 		always_show_bufferline = true,
+		hover = {
+			enabled = true,
+			delay = 200,
+			reveal = { "close" },
+		},
 	},
 	highlights = require("catppuccin.groups.integrations.bufferline").get {
 		styles = { "bold" },
