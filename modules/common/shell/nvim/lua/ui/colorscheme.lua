@@ -1,22 +1,14 @@
-vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
+local plugin = require "utils.plugin"
 
-local status_ok, catppuccin = pcall(require, "catppuccin")
-if not status_ok then
-	vim.notify("catppuccin not found!", "error")
-	return
-end
+local catppuccin = plugin.pcall "catppuccin"
+if not catppuccin then return end
 
 local ucolors = require "catppuccin.utils.colors"
 local cp = require("catppuccin.palettes").get_palette()
+
 catppuccin.setup {
-	highlight_overrides = {
-		all = {
-			QuickFixLine = { bg = ucolors.darken(cp.blue, 0.36), style = { "bold" } },
-			Visual = { bg = ucolors.darken(cp.blue, 0.36), style = { "bold" } },
-			VisualNOS = { bg = ucolors.darken(cp.blue, 0.36), style = { "bold" } },
-		},
-	},
-  styles = {
+	flavour = "macchiato", -- latte, frappe, macchiato, mocha
+	styles = {
 		comments = { "italic" },
 		conditionals = {},
 		loops = {},
@@ -30,14 +22,32 @@ catppuccin.setup {
 		types = {},
 		operators = {},
 	},
+	highlight_overrides = {
+		all = {
+			QuickFixLine = {
+				bg = ucolors.darken(cp.blue, 0.36),
+				style = { "bold" },
+			},
+			Visual = {
+				bg = ucolors.darken(cp.blue, 0.36),
+				style = { "bold" },
+			},
+			VisualNOS = {
+				bg = ucolors.darken(cp.blue, 0.36),
+				style = { "bold" },
+			},
+		},
+	},
 	integrations = {
 		gitsigns = true,
+		mason = true,
+		neotree = true,
 		cmp = true,
 		notify = true,
-    neotree = true,
 		treesitter_context = true,
 		treesitter = true,
 		telescope = true,
+		illuminate = true,
 		which_key = true,
 		indent_blankline = {
 			enabled = true,
@@ -61,4 +71,4 @@ catppuccin.setup {
 	},
 }
 
-vim.cmd [[colorscheme catppuccin]]
+vim.cmd.colorscheme "catppuccin"

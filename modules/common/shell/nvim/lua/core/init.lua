@@ -1,9 +1,13 @@
-local plugin = require "utils.plugin"
-local add = plugin.add
-plugin.init()
-require "ui"
-require "editor"
-require "code"
+for _, source in ipairs {
+	"core.options",
+	"core.keymaps",
+	"core.autocommands",
+} do
+	local status_ok, fault = pcall(require, source)
+	if not status_ok then vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault) end
+end
+
+local add = require("utils.plugin").add
 
 -- Fuzzy finder
 add {
@@ -29,5 +33,7 @@ add {
 	config = function() require "core.which-key" end,
 }
 
-
-plugin.load()
+add {
+	"s1n7ax/nvim-window-picker",
+	config = function() require("window-picker").setup() end,
+}
