@@ -1,5 +1,12 @@
 local add = require("utils.plugin").add
 
+-- Startup
+add {
+	"goolord/alpha-nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	config = function() require "ui.alpha" end,
+}
+
 add {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v2.x",
@@ -13,16 +20,10 @@ add {
 	config = function() require "ui.neo-tree" end,
 }
 
--- Startup
-add {
-	"goolord/alpha-nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function() require "ui.alpha" end,
-}
-
 -- Bufferline
 add {
 	"akinsho/bufferline.nvim",
+	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function() require "ui.bufferline" end,
 }
 -- Better buffer closing
@@ -37,8 +38,12 @@ add {
 
 -- Colorschemes
 add {
-	"catppuccin/nvim",
+	"CnTeng/catppuccin-nvim",
+	commit = "main",
 	name = "catppuccin",
+	lazy = false,
+	priority = 1000,
+	config = function() require "ui.colorscheme" end,
 }
 
 -- Notification Enhancer
@@ -51,4 +56,15 @@ add {
 add {
 	"lewis6991/gitsigns.nvim",
 	config = function() require "ui.gitsigns" end,
+}
+
+add {
+	"utilyre/barbecue.nvim",
+	branch = "dev", -- omit this if you only want stable updates
+	dependencies = {
+		"neovim/nvim-lspconfig",
+		"smiteshp/nvim-navic",
+		"nvim-tree/nvim-web-devicons",
+	},
+	config = function() require "ui.barbecue" end,
 }
