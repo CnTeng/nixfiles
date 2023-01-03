@@ -26,5 +26,6 @@
     ../../modules/programs/steam.nix
     ../../modules/programs/obs-studio.nix
     ../../modules/programs/others.nix
+    ../../modules/programs/adb.nix
   ];
 }
