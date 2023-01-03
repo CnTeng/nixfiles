@@ -7,7 +7,7 @@
 
   boot = {
     # Use the latest kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
 
     initrd.availableKernelModules = [
       "xhci_pci"
