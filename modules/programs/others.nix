@@ -39,9 +39,6 @@
 
       # Manager
       font-manager
-
-      # Browser
-      microsoft-edge
     ];
   };
 }
