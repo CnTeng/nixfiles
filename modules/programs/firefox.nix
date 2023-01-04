@@ -11,9 +11,12 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
+      intel-ocl
+      # vaapiIntel
+    ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      intel-media-driver
+      # vaapiIntel
     ];
   };
 
