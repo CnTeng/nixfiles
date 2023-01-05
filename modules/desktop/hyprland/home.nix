@@ -21,7 +21,7 @@ let
   base0F = "f0c6c6"; # flamingo
 
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  wallpaper = "../wallpapers/digital_sea.jpg";
+  wallpaper = "$HOME/OneDrive/Pictures/wallpapers/digital_sea.jpg";
   swaybg = "${pkgs.swaybg}/bin/swaybg";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   terminal = "${pkgs.kitty}/bin/kitty";
