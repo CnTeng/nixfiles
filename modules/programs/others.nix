@@ -33,6 +33,7 @@
       # Community
       tdesktop
       discord
+      qq
 
       # Games
       tetrio-desktop
