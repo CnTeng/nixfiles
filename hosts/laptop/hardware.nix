@@ -41,6 +41,9 @@
     device = "/dev/disk/by-label/swap";
   }];
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = "powersave";
   hardware.cpu.intel.updateMicrocode = true;
+
+  # Support for firmware update
+  services.fwupd.enable = true;
 }

@@ -24,6 +24,7 @@
     ../../modules/programs/vscode.nix
     ../../modules/programs/idea.nix
     ../../modules/programs/adb.nix
+    ../../modules/programs/android-studio.nix
     ../../modules/programs/kdeconnect.nix
     ../../modules/programs/steam.nix
     ../../modules/programs/obs-studio.nix
