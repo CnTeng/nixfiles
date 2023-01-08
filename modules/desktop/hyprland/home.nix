@@ -31,8 +31,6 @@ let
   pamixer = "${pkgs.pamixer}/bin/pamixer";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   grim = "${pkgs.grim}/bin/grim";
-  slurp = "${pkgs.slurp}/bin/slurp";
-  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 in
 {
   imports = [ hyprland.homeManagerModules.default ];
@@ -131,7 +129,7 @@ in
       bind=SUPER,e,exec,${pcmanfm}
 
       # Screenshots
-      bind=,print,exec,${grim} -g "$(${slurp})" | ${wl-copy}
+      bind=,print,exec,${grim} -g "$(slurp)" - | wl-copy --type image/png
 
 
       # Keyboard control
