@@ -41,8 +41,9 @@
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
     };
-    systemPackages = with pkgs;[
+    systemPackages = with pkgs; [
       wl-clipboard
+      slurp
     ];
   };
 
