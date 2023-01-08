@@ -24,9 +24,7 @@
 
     home.packages = with pkgs;[
       gh
-      pre-commit
       commitizen
-      commitlint
     ];
   };
 }
