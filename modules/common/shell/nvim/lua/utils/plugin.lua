@@ -10,12 +10,12 @@ function M.init()
 			"git",
 			"clone",
 			"--filter=blob:none",
-			"--single-branch",
 			"https://github.com/folke/lazy.nvim.git",
+			"--branch=stable", -- latest stable release
 			lazypath,
 		}
 	end
-	vim.opt.runtimepath:prepend(lazypath)
+	vim.opt.rtp:prepend(lazypath)
 end
 
 --- Require plugin and check if it exists
