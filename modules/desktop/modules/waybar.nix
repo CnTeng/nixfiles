@@ -27,6 +27,9 @@ let
 in
 {
   home-manager.users.${user} = {
+    # Maybe necessary for tray
+    home.packages = with pkgs; [ libappindicator ];
+
     programs.waybar = {
       enable = true;
       systemd = {
