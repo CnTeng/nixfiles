@@ -1,4 +1,4 @@
-{ user, ... }:
+{ pkgs, user, ... }:
 
 let
   # Catppuccin Macchiato
@@ -22,6 +22,8 @@ let
 in
 {
   home-manager.users.${user} = {
+    home.packages = with pkgs; [ jq ];
+
     programs.mako = {
       enable = true;
       backgroundColor = "#${base00}f2";
@@ -33,12 +35,14 @@ in
         border-color=#${base09}
       '';
 
-      width = 360;
+      width = 400;
+      height = 150;
       margin = "5";
       borderSize = 4;
       borderRadius = 10;
+      maxIconSize = 128;
       defaultTimeout = 10000;
-      font = "RobotoMono Nerd Font 13";
+      font = "RobotoMono Nerd Font 15";
     };
   };
 }
