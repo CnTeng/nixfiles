@@ -38,7 +38,7 @@ add {
 
 -- Colorschemes
 add {
-	"CnTeng/catppuccin-nvim",
+	"catppuccin/nvim",
 	commit = "main",
 	name = "catppuccin",
 	lazy = false,
@@ -58,13 +58,13 @@ add {
 	config = function() require "ui.gitsigns" end,
 }
 
-add {
-	"utilyre/barbecue.nvim",
-	branch = "dev", -- omit this if you only want stable updates
-	dependencies = {
-		"neovim/nvim-lspconfig",
-		"smiteshp/nvim-navic",
-		"nvim-tree/nvim-web-devicons",
-	},
-	config = function() require "ui.barbecue" end,
-}
+--[[ add { ]]
+--[[ 	"utilyre/barbecue.nvim", ]]
+--[[ 	branch = "dev", ]]
+--[[ 	dependencies = { ]]
+--[[ 		"neovim/nvim-lspconfig", ]]
+--[[ 		"smiteshp/nvim-navic", ]]
+--[[ 		"nvim-tree/nvim-web-devicons", ]]
+--[[ 	}, ]]
+--[[ 	config = function() require "ui.barbecue" end, ]]
+--[[ } ]]
