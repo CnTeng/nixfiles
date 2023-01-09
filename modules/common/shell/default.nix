@@ -5,6 +5,7 @@
     ./zsh.nix
     ./starship.nix
     ./neovim.nix
+    ./tmux.nix
     ./git.nix
     ./fzf.nix
     ./zoxide.nix
