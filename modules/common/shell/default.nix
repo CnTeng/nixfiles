@@ -5,9 +5,10 @@
     ./zsh.nix
     ./starship.nix
     ./neovim.nix
-    ./fzf.nix
-    ./btop.nix
     ./git.nix
+    ./fzf.nix
+    ./zoxide.nix
+    ./btop.nix
     ./others.nix
   ];
 
