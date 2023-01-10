@@ -42,7 +42,7 @@ in
       borderRadius = 10;
       maxIconSize = 128;
       defaultTimeout = 10000;
-      font = "RobotoMono Nerd Font 15";
+      font = "RobotoMono Nerd Font 13";
     };
   };
 }
