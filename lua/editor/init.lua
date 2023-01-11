@@ -7,46 +7,23 @@ add {
 }
 
 -- Snippet engine
-add { "L3MON4D3/LuaSnip" }
-
--- Snippet collection
-add { "rafamadriz/friendly-snippets" }
+add {
+	"L3MON4D3/LuaSnip",
+	dependencies = { "rafamadriz/friendly-snippets" },
+}
 
 -- [[CMP]]
--- Completion engine
 add {
 	"hrsh7th/nvim-cmp",
+	event = "InsertEnter",
+	dependencies = {
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-nvim-lsp",
+		"saadparwaiz1/cmp_luasnip",
+	},
 	config = function() require "editor.cmp" end,
-}
-
--- Buffer completion source
-add {
-	"hrsh7th/cmp-buffer",
-}
-
--- Path completion source
-add {
-	"hrsh7th/cmp-path",
-}
-
--- Cmdline completion source
-add {
-	"hrsh7th/cmp-cmdline",
-}
-
--- LSP completion source
-add {
-	"hrsh7th/cmp-nvim-lsp",
-}
-
--- Lua completion source
-add {
-	"hrsh7th/cmp-nvim-lua",
-}
-
--- Snippet completion source
-add {
-	"saadparwaiz1/cmp_luasnip",
 }
 
 -- Cursorline
@@ -66,6 +43,7 @@ add {
 }
 add {
 	"folke/todo-comments.nvim",
+	dependencies = "nvim-lua/plenary.nvim",
 	config = function() require "editor.todo-comments" end,
 }
 

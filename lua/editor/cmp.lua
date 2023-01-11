@@ -1,14 +1,10 @@
-local cmp_ok, cmp = pcall(require, "cmp")
-if not cmp_ok then
-	vim.notify("cmp not found!", "error")
-	return
-end
+local plugin = require "utils.plugin"
 
-local luasnip_ok, luasnip = pcall(require, "luasnip")
-if not luasnip_ok then
-	vim.notify("luasnip not found!", "error")
-	return
-end
+local cmp = plugin.pcall "cmp"
+if not cmp then return end
+
+local luasnip = plugin.pcall "luasnip"
+if not luasnip then return end
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -98,10 +94,7 @@ cmp.setup {
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
@@ -110,10 +103,7 @@ cmp.setup {
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 	},
 	sources = {
 		{ name = "nvim_lsp" },

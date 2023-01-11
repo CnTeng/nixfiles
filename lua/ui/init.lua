@@ -23,11 +23,12 @@ add {
 -- Bufferline
 add {
 	"akinsho/bufferline.nvim",
-	dependencies = "nvim-tree/nvim-web-devicons",
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+		"famiu/bufdelete.nvim",
+	},
 	config = function() require "ui.bufferline" end,
 }
--- Better buffer closing
-add { "famiu/bufdelete.nvim" }
 
 -- Statusline
 add {
@@ -39,7 +40,6 @@ add {
 -- Colorschemes
 add {
 	"catppuccin/nvim",
-	commit = "main",
 	name = "catppuccin",
 	lazy = false,
 	priority = 1000,
@@ -57,14 +57,3 @@ add {
 	"lewis6991/gitsigns.nvim",
 	config = function() require "ui.gitsigns" end,
 }
-
---[[ add { ]]
---[[ 	"utilyre/barbecue.nvim", ]]
---[[ 	branch = "dev", ]]
---[[ 	dependencies = { ]]
---[[ 		"neovim/nvim-lspconfig", ]]
---[[ 		"smiteshp/nvim-navic", ]]
---[[ 		"nvim-tree/nvim-web-devicons", ]]
---[[ 	}, ]]
---[[ 	config = function() require "ui.barbecue" end, ]]
---[[ } ]]
