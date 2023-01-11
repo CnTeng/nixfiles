@@ -44,7 +44,14 @@ function M.add(plugin) table.insert(M.plugins, plugin) end
 function M.load()
 	local lazy = M.pcall "lazy"
 	if not lazy then return end
-	lazy.setup { M.plugins }
+	local opts = {
+		defaults = { lazy = false },
+		install = {
+			missing = true,
+			colorscheme = { "catppuccin", "habamax" },
+		},
+	}
+	lazy.setup (M.plugins, opts)
 end
 
 return M
