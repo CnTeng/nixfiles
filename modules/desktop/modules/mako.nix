@@ -40,7 +40,7 @@ in
       margin = "5";
       borderSize = 4;
       borderRadius = 10;
-      maxIconSize = 128;
+      maxIconSize = 96;
       defaultTimeout = 10000;
       font = "RobotoMono Nerd Font 13";
     };
