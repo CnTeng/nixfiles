@@ -15,7 +15,11 @@
       NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
     };
 
-    home.packages = [ pkgs.neovim ];
+    home.packages = with pkgs; [
+      neovim
+      # Dependency for neovim plugins
+      ripgrep
+    ];
 
     xdg.configFile."nvim/lua".source = ./nvim/lua;
     xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
