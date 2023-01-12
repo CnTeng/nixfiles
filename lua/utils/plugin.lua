@@ -48,10 +48,15 @@ function M.load()
 		defaults = { lazy = false },
 		install = {
 			missing = true,
-			colorscheme = { "catppuccin", "habamax" },
+			colorscheme = { "habamax" },
 		},
 	}
-	lazy.setup (M.plugins, opts)
+	lazy.setup({
+		M.plugins,
+		{ import = "ui" },
+		{ import = "editor" },
+		{ import = "coding" },
+	}, opts)
 end
 
 return M
