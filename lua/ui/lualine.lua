@@ -1,8 +1,3 @@
-local plugin = require "utils.plugin"
-
-local lualine = plugin.pcall "lualine"
-if not lualine then return end
-
 local hide_in_width = function() return vim.fn.winwidth(0) > 80 end
 
 local branch = {
@@ -44,34 +39,39 @@ local filetype = {
 }
 
 local progress = {
-  "progress",
+	"progress",
 	fmt = function() return "%P/%L" end,
 }
 
-lualine.setup {
-	options = {
-		icons_enabled = true,
-		theme = "catppuccin",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "alpha", "neo-tree" },
-		always_divide_middle = true,
-		globalstatus = true,
-	},
-	sections = {
-		lualine_a = { branch, diagnostics },
-		lualine_b = { mode },
-		lualine_c = {},
-		lualine_x = { diff, encoding, filetype },
-		lualine_y = { "location" },
-		lualine_z = { progress },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
+-- TODO:add support for lazy
+return {
+	"nvim-lualine/lualine.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	opts = {
+		options = {
+			icons_enabled = true,
+			theme = "catppuccin",
+			component_separators = { left = "", right = "" },
+			section_separators = { left = "", right = "" },
+			disabled_filetypes = { "alpha", "neo-tree" },
+			always_divide_middle = true,
+			globalstatus = true,
+		},
+		sections = {
+			lualine_a = { branch, diagnostics },
+			lualine_b = { mode },
+			lualine_c = {},
+			lualine_x = { diff, encoding, filetype },
+			lualine_y = { "location" },
+			lualine_z = { progress },
+		},
+		inactive_sections = {
+			lualine_a = {},
+			lualine_b = {},
+			lualine_c = { "filename" },
+			lualine_x = { "location" },
+			lualine_y = {},
+			lualine_z = {},
+		},
 	},
 }
