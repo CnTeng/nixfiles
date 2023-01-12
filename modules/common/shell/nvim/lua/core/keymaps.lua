@@ -35,8 +35,6 @@ keymap("n", "<C-Left>", "<cmd>vertical resize -2<cr>", extend "Resize split left
 keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", extend "Resize split right")
 
 -- Navigate buffers
-keymap("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", extend "Next buffer tab")
-keymap("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", extend "Previous buffer tab")
 
 -- Insert --
 -- Press jk fast to exit insert mode
