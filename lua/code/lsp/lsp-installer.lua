@@ -10,7 +10,7 @@ local servers = {
 	"clangd",
 	"gopls",
 	"pyright",
-	"rnix",
+	"nil_ls",
 }
 
 mason_lspconfig.setup {
