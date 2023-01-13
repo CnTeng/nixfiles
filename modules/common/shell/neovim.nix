@@ -19,6 +19,7 @@
       neovim
       # Dependency for neovim plugins
       ripgrep
+      fd
     ];
 
     xdg.configFile."nvim/lua".source = ./nvim/lua;

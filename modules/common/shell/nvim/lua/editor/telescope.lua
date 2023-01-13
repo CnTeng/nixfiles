@@ -1,115 +1,153 @@
 return {
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			{ "nvim-telescope/telescope-ui-select.nvim" },
-		},
-		opts = function()
-			local actions = require "telescope.actions"
-			return {
-				defaults = {
-					prompt_prefix = " ",
-					selection_caret = " ",
-					path_display = { "smart" },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
+    },
+    cmd = "Telescope",
+    keys = {
+      { "<leader>r", function() require("telescope.builtin").oldfiles() end, desc = "Recent file" },
+      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Files" },
+      {
+        "<leader>fF",
+        function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
+        desc = "All files",
+      },
+      { "<leader>fw", function() require("telescope.builtin").live_grep() end, desc = "Words" },
+      {
+        "<leader>fW",
+        function()
+          require("telescope.builtin").live_grep {
+            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+          }
+        end,
+        desc = "All words",
+      },
+      {
+        "<leader>fu",
+        function() require("telescope.builtin").grep_string() end,
+        desc = "Word under cursor",
+      },
+      { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Buffers" },
+      { "<leader>fm", function() require("telescope.builtin").marks() end, desc = "Marks" },
+      { "<leader>fr", function() require("telescope.builtin").registers() end, desc = "Registers" },
+      { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Help" },
+      { "<leader>fM", function() require("telescope.builtin").man_pages() end, desc = "Man" },
+      { "<leader>fn", function() require("telescope").extensions.notify.notify() end, desc = "Notifications" },
+      { "<leader>fk", function() require("telescope.builtin").keymaps() end, desc = "Keymaps" },
+      { "<leader>fc", function() require("telescope.builtin").commands() end, desc = "Commands" },
 
-					mappings = {
-						i = {
-							["<C-n>"] = actions.cycle_history_next,
-							["<C-p>"] = actions.cycle_history_prev,
+      { "<leader>gt", function() require("telescope.builtin").git_status() end, desc = "Git status" },
+      { "<leader>gb", function() require("telescope.builtin").git_branches() end, desc = "Git branches" },
+      { "<leader>gc", function() require("telescope.builtin").git_commits() end, desc = "Git commits" },
+    },
+    opts = function()
+      local actions = require "telescope.actions"
 
-							["<C-j>"] = actions.move_selection_next,
-							["<C-k>"] = actions.move_selection_previous,
+      local telescope = require "telescope"
+      telescope.load_extension "fzf"
+      telescope.load_extension "ui-select"
 
-							["<C-c>"] = actions.close,
+      return {
+        defaults = {
+          prompt_prefix = " ",
+          selection_caret = " ",
+          path_display = { "smart" },
 
-							["<Down>"] = actions.move_selection_next,
-							["<Up>"] = actions.move_selection_previous,
+          mappings = {
+            i = {
+              ["<C-n>"] = actions.cycle_history_next,
+              ["<C-p>"] = actions.cycle_history_prev,
 
-							["<CR>"] = actions.select_default,
-							["<C-x>"] = actions.select_horizontal,
-							["<C-v>"] = actions.select_vertical,
-							["<C-t>"] = actions.select_tab,
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
 
-							["<C-u>"] = actions.preview_scrolling_up,
-							["<C-d>"] = actions.preview_scrolling_down,
+              ["<C-c>"] = actions.close,
 
-							["<PageUp>"] = actions.results_scrolling_up,
-							["<PageDown>"] = actions.results_scrolling_down,
+              ["<Down>"] = actions.move_selection_next,
+              ["<Up>"] = actions.move_selection_previous,
 
-							["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-							["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-							["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-							["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-							["<C-l>"] = actions.complete_tag,
-							["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
-						},
+              ["<CR>"] = actions.select_default,
+              ["<C-x>"] = actions.select_horizontal,
+              ["<C-v>"] = actions.select_vertical,
+              ["<C-t>"] = actions.select_tab,
 
-						n = {
-							["<esc>"] = actions.close,
-							["<CR>"] = actions.select_default,
-							["<C-x>"] = actions.select_horizontal,
-							["<C-v>"] = actions.select_vertical,
-							["<C-t>"] = actions.select_tab,
+              ["<C-u>"] = actions.preview_scrolling_up,
+              ["<C-d>"] = actions.preview_scrolling_down,
 
-							["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-							["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-							["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-							["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+              ["<PageUp>"] = actions.results_scrolling_up,
+              ["<PageDown>"] = actions.results_scrolling_down,
 
-							["j"] = actions.move_selection_next,
-							["k"] = actions.move_selection_previous,
-							["H"] = actions.move_to_top,
-							["M"] = actions.move_to_middle,
-							["L"] = actions.move_to_bottom,
+              ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+              ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+              ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+              ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+              ["<C-l>"] = actions.complete_tag,
+              ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+            },
 
-							["<Down>"] = actions.move_selection_next,
-							["<Up>"] = actions.move_selection_previous,
-							["gg"] = actions.move_to_top,
-							["G"] = actions.move_to_bottom,
+            n = {
+              ["<esc>"] = actions.close,
+              ["<CR>"] = actions.select_default,
+              ["<C-x>"] = actions.select_horizontal,
+              ["<C-v>"] = actions.select_vertical,
+              ["<C-t>"] = actions.select_tab,
 
-							["<C-u>"] = actions.preview_scrolling_up,
-							["<C-d>"] = actions.preview_scrolling_down,
+              ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+              ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+              ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+              ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
-							["<PageUp>"] = actions.results_scrolling_up,
-							["<PageDown>"] = actions.results_scrolling_down,
+              ["j"] = actions.move_selection_next,
+              ["k"] = actions.move_selection_previous,
+              ["H"] = actions.move_to_top,
+              ["M"] = actions.move_to_middle,
+              ["L"] = actions.move_to_bottom,
 
-							["?"] = actions.which_key,
-						},
-					},
-				},
-				pickers = {
-					find_files = {
-						theme = "dropdown",
-						previewer = false,
-						-- find_command = { "find", "-type", "f" },
-						find_command = { "fd", "-H", "-I" }, -- "-H" search hidden files, "-I" do not respect to gitignore
-					},
-					buffers = {
-						theme = "dropdown",
-						previewer = false,
-					},
-				},
-				extensions = {
-					fzf = {
-						fuzzy = true, -- false will only do exact matching
-						override_generic_sorter = true, -- override the generic sorter
-						override_file_sorter = true, -- override the file sorter
-						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
-					},
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown {
-							-- even more opts
-						},
-					},
-				},
-			}
-		end,
-		config = function()
-			local telescope = require "telescope"
-			telescope.load_extension "fzf"
-			telescope.load_extension "ui-select"
-		end,
-	},
+              ["<Down>"] = actions.move_selection_next,
+              ["<Up>"] = actions.move_selection_previous,
+              ["gg"] = actions.move_to_top,
+              ["G"] = actions.move_to_bottom,
+
+              ["<C-u>"] = actions.preview_scrolling_up,
+              ["<C-d>"] = actions.preview_scrolling_down,
+
+              ["<PageUp>"] = actions.results_scrolling_up,
+              ["<PageDown>"] = actions.results_scrolling_down,
+
+              ["?"] = actions.which_key,
+            },
+          },
+        },
+        pickers = {
+          find_files = {
+            theme = "dropdown",
+            previewer = false,
+            -- find_command = { "find", "-type", "f" },
+            find_command = { "fd", "-H", "-I" }, -- "-H" search hidden files, "-I" do not respect to gitignore
+          },
+          buffers = {
+            theme = "dropdown",
+            previewer = false,
+          },
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+          },
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+              -- even more opts
+            },
+          },
+        },
+      }
+    end,
+  },
 }
