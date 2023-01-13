@@ -5,7 +5,7 @@
   environment.systemPackages = with pkgs; [
     libsForQt5.qtstyleplugin-kvantum
   ];
-  qt5 = {
+  qt = {
     enable = true;
     platformTheme = "qt5ct";
   };

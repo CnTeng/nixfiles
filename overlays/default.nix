@@ -4,7 +4,6 @@
   modifications = final: prev:
     let
       pkgs = final.pkgs;
-      fetchFromGitHub = final.fetchFromGitHub;
     in
     {
       waybar =
