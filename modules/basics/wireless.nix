@@ -1,7 +1,6 @@
 { pkgs, user, ... }:
 
 {
-
   # Network
   users.users.${user}.extraGroups = [ "networkmanager" ];
   networking.networkmanager.enable = true;
