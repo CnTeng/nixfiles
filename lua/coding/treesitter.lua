@@ -34,9 +34,11 @@ return {
         enable = true,
         disable = {},
       },
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+      },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
+    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   },
 }

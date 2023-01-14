@@ -4,21 +4,8 @@ local add = require("utils.plugin").add
 add { "neovim/nvim-lspconfig" }
 
 -- Package Manager
-add {
-	"williamboman/mason.nvim",
-	config = function() require "code.mason" end,
-}
-
-add {
-	"WhoIsSethDaniel/mason-tool-installer.nvim",
-	config = function() require "code.mason-tool-installer" end,
-}
 
 -- LSP manager
-add {
-	"williamboman/mason-lspconfig.nvim",
-	config = function() require "code.lsp" end,
-}
 
 -- Formatting and linting
 add {
