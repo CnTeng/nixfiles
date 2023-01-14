@@ -21,7 +21,7 @@ let
   base0F = "f0c6c6"; # flamingo
 
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  wallpaper = "$HOME/OneDrive/Pictures/wallpapers/digital_sea.jpg";
+  wallpaper = "$HOME/OneDrive/Pictures/wallpapers/city_lights.jpg";
   swaybg = "${pkgs.swaybg}/bin/swaybg";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   terminal = "${pkgs.kitty}/bin/kitty";
@@ -254,9 +254,9 @@ in
       # bind=SUPER_SHIFT,9,movetoworkspace,9
       # bind=SUPER_SHIFT,0,movetoworkspace,10
 
-      windowrulev2=opacity 0.95,class:^(kitty)$
+      windowrulev2=opacity 0.9,class:^(kitty)$
       windowrulev2=tile,class:^(Spotify)$
-      windowrulev2=opacity 0.95,class:^(Spotify)$
+      windowrulev2=opacity 0.9,class:^(Spotify)$
       windowrulev2=float,class:^(nm-connection-editor)$
       windowrulev2=float,class:^(.blueman-manager-wrapped)$
       windowrulev2=float,class:^(org.fcitx.)$

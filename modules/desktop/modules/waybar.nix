@@ -45,7 +45,7 @@ in
 
         window#waybar {
           color: #${base05};
-          opacity: 0.95;
+          opacity: 0.9;
           background-color: #${base00};
           padding: 0;
           border-radius: 10px;
