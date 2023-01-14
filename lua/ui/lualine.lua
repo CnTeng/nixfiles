@@ -1,6 +1,4 @@
-local hide_in_width = function()
-  return vim.fn.winwidth(0) > 80
-end
+local hide_in_width = function() return vim.fn.winwidth(0) > 80 end
 
 local branch = {
   "branch",
@@ -16,13 +14,6 @@ local diagnostics = {
   colored = false,
   update_in_insert = false,
   always_visible = true,
-}
-
-local mode = {
-  "mode",
-  fmt = function(str)
-    return "-- " .. str .. " --"
-  end,
 }
 
 local lazy = {
@@ -49,9 +40,7 @@ local filetype = {
 
 local progress = {
   "progress",
-  fmt = function()
-    return "%P/%L"
-  end,
+  fmt = function() return "%P/%L" end,
 }
 
 return {
@@ -69,8 +58,8 @@ return {
       globalstatus = true,
     },
     sections = {
-      lualine_a = { branch, diagnostics },
-      lualine_b = { mode },
+      lualine_a = { "mode" },
+      lualine_b = { branch, diagnostics },
       lualine_c = {},
       lualine_x = { lazy, diff, encoding, filetype },
       lualine_y = { "location" },
