@@ -1,4 +1,3 @@
--- TODO:fast_wrap
 return {
   {
     "windwp/nvim-autopairs",

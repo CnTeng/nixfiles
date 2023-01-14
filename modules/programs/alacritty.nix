@@ -5,7 +5,7 @@
     programs.alacritty = {
       enable = true;
       settings = {
-        font = rec {
+        font = {
           normal.family = "FiraCode Nerd Font";
           bold.family = "FiraCode Nerd Font";
           italic.family = "FiraCode Nerd Font";
@@ -13,7 +13,7 @@
           size = 15;
         };
         # Fork from https://github.com/catppuccin/alacritty/blob/main/catppuccin-macchiato.yml
-        colors = rec {
+        colors = {
           # Default colors
           primary = {
             background = "#24273A"; # base
