@@ -1,9 +1,3 @@
-local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not mason_lspconfig_ok then
-	vim.notify("mason_lspconfig not found!", "error")
-	return
-end
-
 local servers = {
 	"jsonls",
 	"sumneko_lua",
@@ -11,11 +5,6 @@ local servers = {
 	"gopls",
 	"pyright",
 	"nil_ls",
-}
-
-mason_lspconfig.setup {
-	ensure_installed = servers,
-	automatic_installation = true,
 }
 
 local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
