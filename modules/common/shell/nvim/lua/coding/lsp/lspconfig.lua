@@ -51,34 +51,18 @@ return {
           { buffer = bufnr, desc = "List diagnostic" })
         keymap("n", "]d", function() vim.diagnostic.goto_next() end, { buffer = bufnr, desc = "Next diagnostic" })
         keymap("n", "[d", function() vim.diagnostic.goto_prev() end, { buffer = bufnr, desc = "Previous diagnostic" })
+
+        keymap("v", "<leader>la", function() vim.lsp.buf.code_action() end,
+          { buffer = bufnr, desc = "Range code action" })
+        keymap("v", "<leader>lf", function() vim.lsp.buf.format() end, { buffer = bufnr, desc = "Range format code" })
       end
 
-      require("mason-lspconfig").setup_handlers {
-        function(server_name)
-          require("lspconfig")[server_name].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-          }
-        end,
-
-        ["sumneko_lua"] = function()
-          require("lspconfig").sumneko_lua.setup(
-            vim.tbl_deep_extend("force", {
-              on_attach = on_attach,
-              capabilities = capabilities,
-            }, require("coding.lsp.lang.lua"))
-          )
-        end,
-
-        ["nil_ls"] = function()
-          require("lspconfig").nil_ls.setup(
-            vim.tbl_deep_extend("force", {
-              on_attach = on_attach,
-              capabilities = capabilities,
-            }, require("coding.lsp.lang.nix"))
-          )
-        end
+      local default_handlers = {
+        on_attach = on_attach,
+        capabilities = capabilities,
       }
+
+      require("core.utils.lsp").setup_handlers(default_handlers)
     end,
   },
 }
