@@ -1,6 +1,8 @@
-local plugin = require "utils.plugin"
-plugin.init()
 require "core"
-require "code"
 
-plugin.load()
+require "core.utils.plugin".load({
+  { import = "ui" },
+  { import = "editor" },
+  { import = "coding" },
+  { import = "coding.lsp" }
+})
