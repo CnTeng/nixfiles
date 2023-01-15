@@ -1,7 +1,7 @@
 local M = {}
 
---- Bootstrap the plugin manager lazy
-function M.init()
+--- Bootstrap plugin manager Lazy
+local function pm_bootstrap()
   local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
@@ -16,10 +16,22 @@ function M.init()
   vim.opt.rtp:prepend(lazypath)
 end
 
+--- Set Lazy keymaps
+local function pm_keymap()
+  local keymap = vim.keymap.set
+
+  keymap("n", "<leader>ph", "<cmd>Lazy<cr>", { desc = "Lazy home" })
+  keymap("n", "<leader>pp", "<cmd>Lazy profile<cr>", { desc = "Lazy profile" })
+  keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>", { desc = "Lazy sync" })
+  keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
+  keymap("n", "<leader>pu", "<cmd>Lazy update<cr>", { desc = "Lazy update" })
+end
+
 --- Load plugins
 ---@param plugins table
 function M.load(plugins)
-  M.init()
+  pm_bootstrap()
+  pm_keymap()
 
   local opts = {
     defaults = { lazy = false },

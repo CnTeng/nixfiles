@@ -5,14 +5,6 @@ local keymap = vim.keymap.set
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
-
 -- Normal --
 -- Standed operations
 keymap("n", "<leader>w", "<cmd>w<cr>", { desc = "Write" })
@@ -20,6 +12,12 @@ keymap("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 keymap("n", "<leader>h", "<cmd>nohlsearch<cr>", { desc = "No highlight" })
 keymap("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
 keymap("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
+
+keymap("n", "<leader>ph", "<cmd>Lazy<cr>", { desc = "Lazy home" })
+keymap("n", "<leader>pp", "<cmd>Lazy profile<cr>", { desc = "Lazy profile" })
+keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>", { desc = "Lazy sync" })
+keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
+keymap("n", "<leader>pu", "<cmd>Lazy update<cr>", { desc = "Lazy update" })
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", { desc = "Move to left split" })
