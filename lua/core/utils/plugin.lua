@@ -28,8 +28,8 @@ local function pm_keymap()
 end
 
 --- Load plugins
----@param plugins table
-function M.load(plugins)
+---@param spec table
+function M.load(spec)
   pm_bootstrap()
   pm_keymap()
 
@@ -40,7 +40,7 @@ function M.load(plugins)
       colorscheme = { "catppuccin", "habamax" },
     },
   }
-  require("lazy").setup(plugins, opts)
+  require("lazy").setup(spec, opts)
 end
 
 return M
