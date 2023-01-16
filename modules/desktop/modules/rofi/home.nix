@@ -64,7 +64,7 @@ in
       kb-element-prev = "ISO_Left_Tab,Control+k";
     };
 
-    theme = rec {
+    theme = {
       "window" = {
         transparency = "real";
         location = mkLiteral "north";
@@ -73,7 +73,7 @@ in
         y-offset = mkLiteral "5px";
         border = mkLiteral "0";
         border-radius = mkLiteral "10px";
-        background-color = mkLiteral "#${base00}f2";
+        background-color = mkLiteral "#${base00}e6";
       };
       # mainbox -> window
       "mainbox" = {
