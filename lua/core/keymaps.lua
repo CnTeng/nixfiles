@@ -19,18 +19,6 @@ keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>", { desc = "Lazy sync" })
 keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
 keymap("n", "<leader>pu", "<cmd>Lazy update<cr>", { desc = "Lazy update" })
 
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", { desc = "Move to left split" })
-keymap("n", "<C-j>", "<C-w>j", { desc = "Move to below split" })
-keymap("n", "<C-k>", "<C-w>k", { desc = "Move to above split" })
-keymap("n", "<C-l>", "<C-w>l", { desc = "Move to right split" })
-
--- Resize with arrows
-keymap("n", "<M-k>", "<cmd>resize -2<cr>", { desc = "Resize split up" })
-keymap("n", "<M-j>", "<cmd>resize +2<cr>", { desc = "Resize split down" })
-keymap("n", "<M-l>", "<cmd>vertical resize -2<cr>", { desc = "Resize split left" })
-keymap("n", "<M-h>", "<cmd>vertical resize +2<cr>", { desc = "Resize split right" })
-
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<esc>", { desc = "Exit insert mode" })
