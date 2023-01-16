@@ -26,7 +26,7 @@ in
 
     programs.mako = {
       enable = true;
-      backgroundColor = "#${base00}f2";
+      backgroundColor = "#${base00}e6";
       textColor = "#${base05}";
       borderColor = "#${base0D}";
       progressColor = "over #${base02}";
