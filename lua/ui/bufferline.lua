@@ -3,16 +3,12 @@ return {
     "akinsho/bufferline.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      {
-        "famiu/bufdelete.nvim",
-        keys = {
-          { "<leader>c", function() require("bufdelete").bufdelete(0, false) end, desc = "Close buffer" },
-        },
-      },
+      "famiu/bufdelete.nvim",
     },
     event = "BufEnter",
     keys = {
       -- TODO:add support for buffer move
+      { "<leader>c", function() require("bufdelete").bufdelete(0, false) end, desc = "Close buffer" },
       { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous buffer" },
       { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
     },
