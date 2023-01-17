@@ -14,13 +14,14 @@ return {
         "python",
         "bash",
         "markdown",
+        "markdown_inline",
         "nix",
       },
       ignore_install = {},
       highlight = {
         enable = true,
         disable = {},
-        additional_vim_regex_highlighting = false,
+        additional_vim_regex_highlighting = { "markdown" }
       },
       rainbow = {
         enable = true,
