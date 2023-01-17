@@ -1,3 +1,4 @@
+# TODO:change font size
 { pkgs, user, ... }:
 
 let
@@ -42,7 +43,7 @@ in
       borderRadius = 10;
       maxIconSize = 96;
       defaultTimeout = 10000;
-      font = "RobotoMono Nerd Font 13";
+      font = "RobotoMono Nerd Font 14";
     };
   };
 }
