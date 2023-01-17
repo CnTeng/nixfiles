@@ -10,6 +10,7 @@ vim.g.maplocalleader = " "
 keymap("n", "<leader>w", "<cmd>w<cr>", { desc = "Write" })
 keymap("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 keymap("n", "<leader>h", "<cmd>nohlsearch<cr>", { desc = "No highlight" })
+keymap("n", "<leader>fn", "<cmd>ene <bar> startinsert <cr>", { desc = "New file" })
 keymap("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
 keymap("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
 
