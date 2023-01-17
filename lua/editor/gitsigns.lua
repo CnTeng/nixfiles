@@ -2,8 +2,8 @@ return {
   "lewis6991/gitsigns.nvim",
   event = "VeryLazy",
   keys = {
-    { "<leader>gj", function() require("gitsigns").next_hunk() end, desc = "Next hunk" },
-    { "<leader>gk", function() require("gitsigns").prev_hunk() end, desc = "Prev hunk" },
+    { "]h", function() require("gitsigns").next_hunk() end, desc = "Next hunk" },
+    { "[h", function() require("gitsigns").prev_hunk() end, desc = "Previous hunk" },
     { "<leader>gl", function() require("gitsigns").blame_line() end, desc = "View blame" },
     { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview hunk" },
     { "<leader>gr", function() require("gitsigns").reset_hunk() end, desc = "Reset hunk" },
@@ -21,5 +21,6 @@ return {
       changedelete = { text = "▎" },
       untracked = { text = "▎" },
     },
+    current_line_blame = true,
   },
 }

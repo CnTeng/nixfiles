@@ -1,4 +1,4 @@
--- TODO:change keymap
+-- TODO:change dashboard section
 return {
   {
     "goolord/alpha-nvim",
@@ -9,6 +9,8 @@ return {
     },
     opts = function()
       local dashboard = require "alpha.themes.dashboard"
+      dashboard.opts.layout[1].val = 6
+
       dashboard.section.header.val = {
         "                                                          ",
         "  ██████  ██   ██       ███    ██ ██    ██ ██ ███    ███  ",
@@ -20,21 +22,22 @@ return {
       }
 
       dashboard.section.buttons.val = {
-        dashboard.button("f", "  > Find file", ":Telescope find_files <CR>"),
-        dashboard.button("n", "  > New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("r", "  > Recent file", ":Telescope oldfiles <CR>"),
-        dashboard.button("t", "  > Find text", ":Telescope live_grep <CR>"),
-        dashboard.button("q", "  > Quit Neovim", ":qa<CR>"),
+        dashboard.button("LDR f f", "  > Find files", ":Telescope find_files <CR>"),
+        dashboard.button("LDR f l", "  > New file", ":ene <BAR> startinsert <CR>"),
+        dashboard.button("LDR f r", "  > Recent file", ":Telescope oldfiles <CR>"),
+        dashboard.button("LDR s w", "  > Search text", ":Telescope live_grep <CR>"),
+        dashboard.button("LDR q", "  > Quit Neovim", ":qa<CR>"),
       }
 
-      dashboard.section.footer.val = "Just for fun!"
-      dashboard.section.footer.opts.hl = "Type"
-      dashboard.section.header.opts.hl = "Include"
-      dashboard.section.buttons.opts.hl = "Keyword"
+      for _, button in ipairs(dashboard.section.buttons.val) do
+        button.opts.hl = "keyword"
+        button.opts.hl_shortcut = "DashboardShortCut"
+      end
+      dashboard.section.header.opts.hl = "DashboardHeader"
+      dashboard.section.footer.opts.hl = "DashboardFooter"
+
       return dashboard
     end,
-    config = function(_, dashboard)
-      require("alpha").setup(dashboard.opts)
-    end,
+    config = function(_, dashboard) require("alpha").setup(dashboard.opts) end,
   },
 }
