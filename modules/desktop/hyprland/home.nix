@@ -257,6 +257,7 @@ in
       windowrulev2=opacity 0.9,class:^(kitty)$
       windowrulev2=tile,class:^(Spotify)$
       windowrulev2=opacity 0.9,class:^(Spotify)$
+      windowrulev2=opacity 0.9,class:^(YouTube Music)$
       windowrulev2=float,class:^(nm-connection-editor)$
       windowrulev2=float,class:^(.blueman-manager-wrapped)$
       windowrulev2=float,class:^(org.fcitx.)$

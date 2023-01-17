@@ -20,9 +20,11 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, agenix, hyprland, ... }:
+  outputs = { self, nixpkgs, home-manager, nur, agenix, hyprland, nix-alien, ... }:
     let
       system = "x86_64-linux";
       user = "yufei";
@@ -33,7 +35,10 @@
         config = {
           allowUnfree = true;
         };
-        overlays = with overlays; [ additions modifications ];
+        overlays = with overlays; [
+          additions
+          modifications
+        ] ++ [ self.inputs.nix-alien.overlays.default ];
       };
 
       hmOptions = [{
