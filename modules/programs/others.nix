@@ -21,6 +21,7 @@
       # Music
       spotify
       spotifywm
+      youtube-music
 
       # Video & Picture
       vlc

@@ -1,29 +1,23 @@
-{ lib, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
   # Dependency for Telescope man_pages
   documentation.man.generateCaches = true;
 
-  programs.nix-ld.enable = true;
-
   home-manager.users.${user} = {
-    home.sessionVariables = {
-      NIX_LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
-        stdenv.cc.cc
-        openssl
-        nss
-        gcc
-      ];
-      NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
-    };
-
     home.packages = with pkgs; [
       # Dependency for neovim plugins
       ripgrep
       fd
 
       nixpkgs-fmt
+      marksman
     ];
+
+    home.sessionVariables = {
+      # Dependency for marksman
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = 1;
+    };
 
     programs.neovim = {
       enable = true;
