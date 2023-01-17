@@ -1,6 +1,9 @@
 return {
   {
     "williamboman/mason.nvim",
+    keys = {
+      { "<leader>lI", "<cmd>Mason<cr>", desc = "Installer info" },
+    },
     opts = {
       ensure_installed = {
         -- Linter
