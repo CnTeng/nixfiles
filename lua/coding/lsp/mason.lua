@@ -5,13 +5,6 @@ return {
       ensure_installed = {
         -- Linter
         "flake8",
-
-        -- Formatter
-        --"prettier",
-        "stylua",
-        "clang-format",
-        "golines",
-        "black",
       },
     },
     config = function(_, opts)
