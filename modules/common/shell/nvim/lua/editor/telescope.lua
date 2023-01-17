@@ -8,37 +8,40 @@ return {
     },
     cmd = "Telescope",
     keys = {
-      { "<leader>r", function() require("telescope.builtin").oldfiles() end, desc = "Recent file" },
-      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Files" },
+      -- buffer
+      { "<leader>bs", function() require("telescope.builtin").buffers() end, desc = "Swicth buffer" },
+      -- file
+      { "<leader>fr", function() require("telescope.builtin").oldfiles() end, desc = "Recent files" },
+      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
       {
         "<leader>fF",
         function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
-        desc = "All files",
+        desc = "Find files (no hidden)",
       },
-      { "<leader>fw", function() require("telescope.builtin").live_grep() end, desc = "Words" },
+      -- search
+      { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer" },
+      { "<leader>sc", function() require("telescope.builtin").commands() end, desc = "Commands" },
+      { "<leader>sC", function() require("telescope.builtin").Command_history() end, desc = "Command History" },
+      { "<leader>sh", function() require("telescope.builtin").help_tags() end, desc = "Help pages" },
+      { "<leader>sH", function() require("telescope.builtin").highlights() end, desc = "Highlight groups" },
+      { "<leader>sk", function() require("telescope.builtin").keymaps() end, desc = "Key maps" },
+      { "<leader>sm", function() require("telescope.builtin").man_pages() end, desc = "Man pages" },
+      { "<leader>sn", function() require("telescope").extensions.notify.notify() end, desc = "Notifications" },
+      { "<leader>so", function() require("telescope.builtin").vim_options() end, desc = "Options" },
+      { "<leader>sr", function() require("telescope.builtin").registers() end, desc = "Registers" },
+      { "<leader>su", function() require("telescope.builtin").grep_string() end, desc = "Current word" },
+      { "<leader>sw", function() require("telescope.builtin").live_grep() end, desc = "Word" },
       {
-        "<leader>fW",
+        "<leader>sW",
         function()
           require("telescope.builtin").live_grep {
             additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
           }
         end,
-        desc = "All words",
+        desc = "Word (no hidden)",
       },
-      {
-        "<leader>fu",
-        function() require("telescope.builtin").grep_string() end,
-        desc = "Word under cursor",
-      },
-      { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Buffers" },
-      { "<leader>fm", function() require("telescope.builtin").marks() end, desc = "Marks" },
-      { "<leader>fr", function() require("telescope.builtin").registers() end, desc = "Registers" },
-      { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Help" },
-      { "<leader>fM", function() require("telescope.builtin").man_pages() end, desc = "Man" },
-      { "<leader>fn", function() require("telescope").extensions.notify.notify() end, desc = "Notifications" },
-      { "<leader>fk", function() require("telescope.builtin").keymaps() end, desc = "Keymaps" },
-      { "<leader>fc", function() require("telescope.builtin").commands() end, desc = "Commands" },
 
+      -- git
       { "<leader>gt", function() require("telescope.builtin").git_status() end, desc = "Git status" },
       { "<leader>gb", function() require("telescope.builtin").git_branches() end, desc = "Git branches" },
       { "<leader>gc", function() require("telescope.builtin").git_commits() end, desc = "Git commits" },

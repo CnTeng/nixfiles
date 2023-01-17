@@ -25,10 +25,12 @@ return {
         ["]"] = { name = "+Next" },
         ["["] = { name = "+Prev" },
         ["g"] = { name = "+Goto" },
-        ["<leader>f"] = { name = "+Search" },
+        ["<leader>b"] = { name = "+Buffer" },
+        ["<leader>f"] = { name = "+File" },
         ["<leader>g"] = { name = "+Git" },
         ["<leader>l"] = { name = "+LSP" },
         ["<leader>p"] = { name = "+Plugin" },
+        ["<leader>s"] = { name = "+Search" },
       }
     end,
   },
