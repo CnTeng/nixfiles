@@ -145,7 +145,7 @@ in
       "element selected" = {
         border = mkLiteral "0 0 0 4px";
         border-color = mkLiteral "#${base0D}";
-        background-color = mkLiteral "#${base02}";
+        background-color = mkLiteral "#${base03}";
         text-color = mkLiteral "inherit";
       };
 
