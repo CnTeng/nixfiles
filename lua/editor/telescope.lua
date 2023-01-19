@@ -2,9 +2,9 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "nvim-lua/plenary.nvim" },
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "nvim-telescope/telescope-ui-select.nvim" },
     },
     cmd = "Telescope",
     keys = {
@@ -21,7 +21,7 @@ return {
       -- search
       { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer" },
       { "<leader>sc", function() require("telescope.builtin").commands() end, desc = "Commands" },
-      { "<leader>sC", function() require("telescope.builtin").Command_history() end, desc = "Command History" },
+      { "<leader>sC", function() require("telescope.builtin").command_history() end, desc = "Command History" },
       { "<leader>sh", function() require("telescope.builtin").help_tags() end, desc = "Help pages" },
       { "<leader>sH", function() require("telescope.builtin").highlights() end, desc = "Highlight groups" },
       { "<leader>sk", function() require("telescope.builtin").keymaps() end, desc = "Key maps" },

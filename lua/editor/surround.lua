@@ -1,6 +1,7 @@
+-- TODO:finsh
 return {
   {
     "kylechui/nvim-surround",
-    config = true;
-  }
+    config = true,
+  },
 }

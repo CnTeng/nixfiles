@@ -8,6 +8,8 @@ return {
     event = "BufEnter",
     init = function() vim.opt.mousemoveevent = true end, -- require for hover
     keys = {
+      { "[b", "<cmd>bprevious<cr>", desc = "Previous buffer" },
+      { "]b", "<cmd>bnext<cr>", desc = "Next buffer" },
       { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous buffer" },
       { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
       { "<leader>c", "<cmd>bdelete<cr>", desc = "Close buffer" },

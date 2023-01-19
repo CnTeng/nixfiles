@@ -1,7 +1,7 @@
 return {
   {
     "windwp/nvim-autopairs",
-    event = "BufReadPost",
+    event = "InsertEnter",
     opts = function()
       return {
         check_ts = true,
