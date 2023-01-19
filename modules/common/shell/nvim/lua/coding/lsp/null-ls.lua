@@ -2,7 +2,7 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "BufReadPre",
-    dependencies = { "mason.nvim" },
+    dependencies = "williamboman/mason.nvim",
     opts = function()
       local nls = require "null-ls"
       return {
@@ -14,8 +14,10 @@ return {
       }
     end,
   },
+
   {
     "jay-babu/mason-null-ls.nvim",
+    dependencies = "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
