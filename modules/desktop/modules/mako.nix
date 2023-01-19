@@ -1,4 +1,3 @@
-# TODO:change font size
 { pkgs, user, ... }:
 
 let

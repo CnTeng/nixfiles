@@ -1,3 +1,5 @@
+# TODO:add submap 0.9.17
+# TODO:test mpris
 { pkgs, user, ... }:
 
 let
@@ -152,6 +154,7 @@ in
           format = "";
           interval = "once";
           tooltip = false;
+          on-click = "rofi -show drun";
         };
 
         "custom/separator" = {
