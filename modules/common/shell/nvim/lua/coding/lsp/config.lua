@@ -8,6 +8,12 @@ local signs = {
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+    },
+    event = "BufReadPre",
     keys = {
       { "<leader>li", "<cmd>LspInfo<cr>", desc = "LSP info" },
     },
@@ -29,28 +35,24 @@ return {
       vim.diagnostic.config(opts.diagnostics)
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-      ---@diagnostic disable-next-line: unused-local
-      local on_attach = function(client, bufnr)
+      local on_attach = function(_, bufnr)
         local keymap = require("core.utils.lsp").keymap
 
-        keymap("n", "K", function() vim.lsp.buf.hover() end, { buffer = bufnr, desc = "Hover" })
-        keymap("n", "gd", function() vim.lsp.buf.definition() end, { buffer = bufnr, desc = "Go to definition" })
-        keymap("n", "gD", function() vim.lsp.buf.declaration() end, { buffer = bufnr, desc = "Go to declaration" })
-        keymap("n", "gI", function() vim.lsp.buf.implementation() end, { buffer = bufnr, desc = "Go to implementation" })
-        keymap("n", "gr", function() vim.lsp.buf.references() end, { buffer = bufnr, desc = "Go to references" })
-        keymap("n", "gt", function() vim.lsp.buf.type_definitions() end, { buffer = bufnr, desc = "Go to type definitions" })
-        keymap("n", "<leader>lf", function() vim.lsp.buf.format() end, { buffer = bufnr, desc = "Format code" })
-        keymap("n", "<leader>la", function() vim.lsp.buf.code_action() end, { buffer = bufnr, desc = "Code action" })
-        keymap("n", "<leader>lr", function() vim.lsp.buf.rename() end, { buffer = bufnr, desc = "Rename current symbol" })
-        keymap("n", "<leader>ls", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature help" })
-        keymap("n", "<leader>lL", function() vim.lsp.codelens.run() end, { buffer = bufnr, desc = "CodeLens action" })
-        keymap("n", "<leader>ll", function() vim.diagnostic.open_float() end, { buffer = bufnr, desc = "Line diagnostics" })
-        keymap("n", "<leader>lq", function() vim.diagnostic.setloclist() end, { buffer = bufnr, desc = "List diagnostic" })
-        keymap("n", "]d", function() vim.diagnostic.goto_next() end, { buffer = bufnr, desc = "Next diagnostic" })
-        keymap("n", "[d", function() vim.diagnostic.goto_prev() end, { buffer = bufnr, desc = "Previous diagnostic" })
-
-        keymap("v", "<leader>la", function() vim.lsp.buf.code_action() end, { buffer = bufnr, desc = "Range code action" })
-        keymap("v", "<leader>lf", function() vim.lsp.buf.format() end, { buffer = bufnr, desc = "Range format code" })
+        keymap("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
+        keymap("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+        keymap("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
+        keymap("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation" })
+        keymap("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Go to references" })
+        keymap("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to type definitions" })
+        keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
+        keymap({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format code" })
+        keymap("n", "<leader>ll", vim.diagnostic.open_float, { buffer = bufnr, desc = "Line diagnostics" })
+        keymap("n", "<leader>lL", vim.lsp.codelens.run, { buffer = bufnr, desc = "CodeLens action" })
+        keymap("n", "<leader>lq", vim.diagnostic.setloclist, { buffer = bufnr, desc = "List diagnostic" })
+        keymap("n", "<leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename current symbol" })
+        keymap("n", "<leader>ls", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
+        keymap("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostic" })
+        keymap("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Previous diagnostic" })
       end
 
       local default_handlers = {

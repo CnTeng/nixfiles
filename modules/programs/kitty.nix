@@ -14,6 +14,10 @@
         size = 15;
       };
       theme = "Catppuccin-Macchiato";
+      extraConfig = ''
+        modify_font underline_position +3
+        modify_font underline_thickness 150%
+      '';
     };
 
     # Solve ssh errors in kitty
