@@ -21,9 +21,10 @@ local function pm_keymap()
   local keymap = vim.keymap.set
 
   keymap("n", "<leader>ph", "<cmd>Lazy<cr>", { desc = "Lazy home" })
+  keymap("n", "<leader>pc", "<cmd>Lazy check<cr>", { desc = "Lazy check" })
+  keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
   keymap("n", "<leader>pp", "<cmd>Lazy profile<cr>", { desc = "Lazy profile" })
   keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>", { desc = "Lazy sync" })
-  keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
   keymap("n", "<leader>pu", "<cmd>Lazy update<cr>", { desc = "Lazy update" })
 end
 
