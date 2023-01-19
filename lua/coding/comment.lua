@@ -1,7 +1,7 @@
 return {
   {
     "numToStr/Comment.nvim",
-    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+    dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
     event = "VeryLazy",
     keys = {
       { "<leader>/", function() require("Comment.api").toggle.linewise.current() end, desc = "Comment line" },
