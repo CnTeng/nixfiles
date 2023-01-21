@@ -9,6 +9,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",

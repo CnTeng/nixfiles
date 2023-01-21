@@ -1,7 +1,7 @@
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
+    -- event = "BufReadPre",
     dependencies = "williamboman/mason.nvim",
     opts = function()
       local nls = require "null-ls"
