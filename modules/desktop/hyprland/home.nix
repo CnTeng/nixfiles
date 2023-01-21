@@ -96,6 +96,7 @@ in
         natural_scroll=false
         numlock_by_default=true
         force_no_accel=true
+        scroll_method=edge
         sensitivity=-0.8
         touchpad {
           natural_scroll=true
