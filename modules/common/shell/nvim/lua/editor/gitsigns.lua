@@ -22,5 +22,8 @@ return {
       untracked = { text = "▎" },
     },
     current_line_blame = true,
+    preview_config = {
+      border = "none",
+    },
   },
 }
