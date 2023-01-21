@@ -4,8 +4,10 @@
   services.openssh = {
     enable = true;
     ports = [ 23 ];
-    passwordAuthentication = true;
-    permitRootLogin = "yes";
+    settings = {
+      PasswordAuthentication = true;
+      PermitRootLogin = "yes";
+    };
   };
 
   users.users = {
