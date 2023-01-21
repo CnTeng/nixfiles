@@ -1,5 +1,3 @@
-# TODO:add submap 0.9.17
-# TODO:test mpris
 { pkgs, user, ... }:
 
 let
@@ -30,7 +28,11 @@ in
 {
   home-manager.users.${user} = {
     # Maybe necessary for tray
-    home.packages = with pkgs; [ libappindicator ];
+    home.packages = with pkgs; [
+      libappindicator
+      # TODO:add mpris and set max-length
+      # playerctl
+    ];
 
     programs.waybar = {
       enable = true;
@@ -88,12 +90,18 @@ in
         }
         #workspaces button.urgent {
           color: #${base05};
-          background-color: #${base08};
+          background-color: #${base09};
           border-bottom: 4px solid #${base0D};
           padding: 8px 15px 4px;
         }
 
+        #submap {
+          color: #${base05};
+          margin-left: 6px;
+        }
+
         #tray,
+        #mpris,
         #idle_inhibitor,
         #cpu,
         #memory,
@@ -102,6 +110,7 @@ in
         #battery {
           color: #${base05};
         }
+
         #clock {
           color: #${base05};
           margin-right: 15px;
@@ -134,6 +143,7 @@ in
         ];
         modules-right = [
           "tray"
+          "hyprland/submap"
           "custom/separator"
           "idle_inhibitor"
           "custom/separator"
@@ -152,9 +162,6 @@ in
 
         "custom/nixos" = {
           format = "";
-          interval = "once";
-          tooltip = false;
-          on-click = "rofi -show drun";
         };
 
         "custom/separator" = {
@@ -166,23 +173,20 @@ in
         "wlr/workspaces" = {
           on-click = "activate";
           all-outputs = true;
-          # format = "{icon}";
-          # format-icons = {
-          #   "1" = "";
-          #   "2" = "";
-          #   "3" = "";
-          #   "4" = "";
-          #   "5" = "";
-          #   "6" = "";
-          #   "7" = "";
-          #   "8" = "";
-          # };
+          sort-by-number = true;
+          on-scroll-up = "hyprctl dispatch workspace e+1";
+          on-scroll-down = "hyprctl dispatch workspace e-1";
         };
 
         tray = {
           icon-size = 22;
           spacing = 15;
         };
+
+        "hyprland/submap" = {
+          format = "<span color='#${base0D}'>SMAP</span> {}";
+        };
+
         idle_inhibitor = {
           format = "<span color='#${base0D}'>IDLE</span> {icon}";
           format-icons = {
@@ -190,27 +194,18 @@ in
             deactivated = "ON";
           };
         };
+
         cpu = {
-          # format = "{usage}% {icon}";
-          # format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
           format = "<span color='#${base0D}'>CPU</span> {usage}%";
           on-click = "${btop}";
         };
 
         memory = {
-          # format = "{percentage}% ";
           format = "<span color='#${base0D}'>RAM</span> {percentage}%";
           on-click = "${btop}";
         };
 
         pulseaudio = {
-          # format = "{volume}% {icon}";
-          # format-muted = "";
-          # format-bluetooth = "{volume}% ";
-          # format-icons = {
-          #   default = [ "" "" "" ];
-          #   headphone = "";
-          # };
           format = "<span color='#${base0D}'>VOL</span> {volume}%";
           format-muted = "<span color='#${base0D}'>MUT</span>";
           format-bluetooth = "<span color='#${base0D}'>BT</span> {volume}%";
@@ -220,17 +215,20 @@ in
         };
 
         network = {
-          # format-wifi = "{signalStrength}% 直";
-          # format-ethernet = " {ifname}: {ipaddr}/{cidr}";
-          # format-linked = "直 {ifname} (No IP)";
-          # format-disconnected = " Not connected";
           format-wifi = "<span color='#${base0D}'>WLAN</span> {essid}";
           format-ethernet = "<span color='#${base0D}'>{ifname}</span> {ipaddr}/{cidr}";
           format-linked = "<span color='#${base0D}'>{ifname}</span> No IP";
           format-disconnected = "Not connected";
           format-alt = "<span color='#${base0D}'>{ifname}</span> {ipaddr}/{cidr}";
-          tooltip-format = "{ifname} {ipaddr}/{cidr}";
-          tooltip-format-wifi = "{essid} {signalStrength}%";
+          max-length = 10;
+          tooltip-format = ''
+            {ifname} {ipaddr}/{cidr}
+            Up: {bandwidthUpBits}
+            Down: {bandwidthDownBits}'';
+          tooltip-format-wifi = ''
+            {essid} {signalStrength}%
+            Up: {bandwidthUpBits}
+            Down: {bandwidthDownBits}'';
           on-click-right = "${networkmanager}";
         };
 
@@ -239,10 +237,6 @@ in
             warning = 30;
             critical = 15;
           };
-          # format = "{capacity}% {icon}";
-          # format-charging = " {capacity}%";
-          # format-icons = [ "" "" "" "" "" ];
-          # format-charging = " {capacity}%";
           format = "<span color='#${base0D}'>BAT</span> {capacity}%";
           format-charging = "<span color='#${base0D}'>CHG</span> {capacity}%";
           max-length = 25;
