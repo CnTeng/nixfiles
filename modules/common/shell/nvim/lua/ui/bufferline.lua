@@ -21,7 +21,6 @@ return {
     opts = function()
       return {
         options = {
-          tab_size = 20,
           diagnostics = "nvim_lsp",
           offsets = {
             {
