@@ -60,7 +60,7 @@ in
           background-color: #${base00};
           border-radius: 10px;
           padding-left: 15px;
-          padding-right: 18px;
+          padding-right: 20px;
         }
 
         #custom-separator {
@@ -174,8 +174,6 @@ in
           on-click = "activate";
           all-outputs = true;
           sort-by-number = true;
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
         };
 
         tray = {
