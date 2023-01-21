@@ -1,3 +1,4 @@
+# TODO:change powermenu script
 #!/usr/bin/env bash
 
 # This script defines just a mode for rofi instead of being a self-contained
