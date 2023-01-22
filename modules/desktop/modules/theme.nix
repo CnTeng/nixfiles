@@ -13,8 +13,8 @@
   home-manager.users.${user} = {
     # Set the theme of cursor for the whole system
     home.pointerCursor = {
-      name = "phinger-cursors";
-      package = pkgs.phinger-cursors;
+      name = "Catppuccin-Macchiato-Dark-Cursors";
+      package = pkgs.catppuccin-cursors.macchiatoDark;
       size = 32;
       gtk.enable = true;
       x11.enable = true;
@@ -24,8 +24,11 @@
     gtk = {
       enable = true;
       theme = {
-        name = "Catppuccin-Dark";
-        package = pkgs.catppuccin-gtk;
+        name = "Catppuccin-Macchiato-Standard-Blue-Dark";
+        package = pkgs.catppuccin-gtk.override {
+          variant = "macchiato";
+          tweaks = [ "rimless" ];
+        };
       };
       iconTheme = {
         name = "Papirus-Dark";
