@@ -15,8 +15,7 @@
     };
 
     home.packages = with pkgs; [
-      # TODO:pytest have some bugs due to bash 5.2
-      # nix-alien
+      nix-alien
       nix-index
       nix-index-update
     ];
