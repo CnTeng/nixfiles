@@ -74,6 +74,7 @@ in
           border-radius: 0;
         }
         #workspaces button {
+          color: #${base05};
           padding: 0 15px;
           border-radius: 0;
         }
@@ -90,9 +91,13 @@ in
         }
         #workspaces button.urgent {
           color: #${base05};
-          background-color: #${base09};
+          background-color: #${base08};
           border-bottom: 4px solid #${base0D};
           padding: 8px 15px 4px;
+        }
+
+        #window {
+          color: #${base05};
         }
 
         #submap {
