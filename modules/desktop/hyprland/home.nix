@@ -116,7 +116,7 @@ in
       # Startup
       exec-once=${swaybg} -m fit -i ${wallpaper}
       exec-once=fcitx5
-      exec-once=hyprctl setcursor phinger-cursors 32
+      exec-once=hyprctl setcursor Catppuccin-Macchiato-Dark-Cursors 32
       # Hidpi for xwayland, but can't work
       # exec-once=xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
 
