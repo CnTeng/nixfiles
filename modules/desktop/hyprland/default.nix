@@ -44,6 +44,8 @@
     systemPackages = with pkgs; [
       wl-clipboard
       slurp
+    ] ++ [
+      inputs.hyprpicker.packages.${system}.hyprpicker
     ];
   };
 
