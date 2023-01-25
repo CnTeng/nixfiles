@@ -14,7 +14,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
-    event = "BufReadPre",
+    -- event = "BufReadPre",
     keys = {
       { "<leader>li", "<cmd>LspInfo<cr>", desc = "LSP info" },
     },
