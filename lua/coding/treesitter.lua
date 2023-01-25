@@ -9,7 +9,7 @@ return {
         "lua",
         "vim",
         "c",
-        "cpp",
+        -- "cpp",
         "go",
         "python",
         "bash",
