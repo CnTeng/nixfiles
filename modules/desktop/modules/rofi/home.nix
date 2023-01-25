@@ -1,24 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  # Catppuccin Macchiato
-  # Copy from https://github.com/catppuccin/catppuccin
-  base00 = "24273a"; # base
-  base01 = "1e2030"; # mantle
-  base02 = "363a4f"; # surface0
-  base03 = "494d64"; # surface1
-  base04 = "5b6078"; # surface2
-  base05 = "cad3f5"; # text
-  base06 = "f4dbd6"; # rosewater
-  base07 = "b7bdf8"; # lavender
-  base08 = "ed8796"; # red
-  base09 = "f5a97f"; # peach
-  base0A = "eed49f"; # yellow
-  base0B = "a6da95"; # green
-  base0C = "8bd5ca"; # teal
-  base0D = "8aadf4"; # blue
-  base0E = "c6a0f6"; # mauve
-  base0F = "f0c6c6"; # flamingo
+  colorScheme = import ../colorscheme.nix;
 
   powermenu = ./scripts/powermenu.sh;
   inherit (config.lib.formats.rasi) mkLiteral;
@@ -73,12 +56,12 @@ in
         y-offset = mkLiteral "5px";
         border = mkLiteral "0";
         border-radius = mkLiteral "10px";
-        background-color = mkLiteral "#${base00}e6";
+        background-color = mkLiteral "#${colorScheme.base00}e6";
       };
       # mainbox -> window
       "mainbox" = {
         background-color = mkLiteral "transparent";
-        text-color = mkLiteral "#${base05}";
+        text-color = mkLiteral "#${colorScheme.base05}";
       };
 
       # inputbar -> mainbox
@@ -86,8 +69,8 @@ in
         padding = mkLiteral "12px";
         spacing = mkLiteral "10px";
         border-radius = mkLiteral "10px 10px 0 0";
-        background-color = mkLiteral "#${base0D}";
-        text-color = mkLiteral "#${base00}";
+        background-color = mkLiteral "#${colorScheme.base0D}";
+        text-color = mkLiteral "#${colorScheme.base00}";
         children = map mkLiteral [ "prompt" "entry" ];
       };
       # prompt -> inputbar
@@ -144,8 +127,8 @@ in
       };
       "element selected" = {
         border = mkLiteral "0 0 0 4px";
-        border-color = mkLiteral "#${base0D}";
-        background-color = mkLiteral "#${base03}";
+        border-color = mkLiteral "#${colorScheme.base0D}";
+        background-color = mkLiteral "#${colorScheme.base03}";
         text-color = mkLiteral "inherit";
       };
 
@@ -164,8 +147,8 @@ in
         horizontal-align = mkLiteral "0.5";
       };
       "button selected" = {
-        background-color = mkLiteral "#${base0D}";
-        text-color = mkLiteral "#${base00}";
+        background-color = mkLiteral "#${colorScheme.base0D}";
+        text-color = mkLiteral "#${colorScheme.base00}";
       };
     };
   };

@@ -1,24 +1,7 @@
 { pkgs, user, ... }:
 
 let
-  # Catppuccin Macchiato
-  # Copy from https://github.com/catppuccin/catppuccin
-  base00 = "24273a"; # base
-  base01 = "1e2030"; # mantle
-  base02 = "363a4f"; # surface0
-  base03 = "494d64"; # surface1
-  base04 = "5b6078"; # surface2
-  base05 = "cad3f5"; # text
-  base06 = "f4dbd6"; # rosewater
-  base07 = "b7bdf8"; # lavender
-  base08 = "ed8796"; # red
-  base09 = "f5a97f"; # peach
-  base0A = "eed49f"; # yellow
-  base0B = "a6da95"; # green
-  base0C = "8bd5ca"; # teal
-  base0D = "8aadf4"; # blue
-  base0E = "c6a0f6"; # mauve
-  base0F = "f0c6c6"; # flamingo
+  colorScheme = import ../desktop/modules/colorscheme.nix;
 in
 {
   i18n.inputMethod = {
@@ -43,13 +26,13 @@ in
       [InputPanel]
       Font=Sans 13
       # Blue
-      NormalColor=#${base0D}
+      NormalColor=#${colorScheme.base0D}
       # Peach
-      HighlightCandidateColor=#${base09}
+      HighlightCandidateColor=#${colorScheme.base09}
       #Peach
-      HighlightColor=#${base09}
+      HighlightColor=#${colorScheme.base09}
       # Surface0
-      HighlightBackgroundColor=#${base02}
+      HighlightBackgroundColor=#${colorScheme.base02}
       Spacing=3
 
       [InputPanel/TextMargin]
@@ -60,9 +43,9 @@ in
 
       [InputPanel/Background]
       # Surface0
-      Color=#${base02}
+      Color=#${colorScheme.base02}
       # Surface0
-      BorderColor=#${base02}
+      BorderColor=#${colorScheme.base02}
       BorderWidth=2
 
       [InputPanel/Background/Margin]
@@ -73,7 +56,7 @@ in
 
       [InputPanel/Highlight]
       # Surface0
-      Color=#${base02}
+      Color=#${colorScheme.base02}
 
       [InputPanel/Highlight/Margin]
       Left=10
@@ -84,12 +67,12 @@ in
       [Menu]
       Font=Sans 10
       # Text
-      NormalColor=#${base05}
+      NormalColor=#${colorScheme.base05}
       Spacing=3
 
       [Menu/Background]
       # Surface0
-      Color=#${base02}
+      Color=#${colorScheme.base02}
 
       [Menu/Background/Margin]
       Left=2
@@ -105,7 +88,7 @@ in
 
       [Menu/Highlight]
       # Peach
-      Color=#${base09}
+      Color=#${colorScheme.base09}
 
       [Menu/Highlight/Margin]
       Left=10
@@ -114,8 +97,8 @@ in
       Bottom=5
 
       [Menu/Separator]
-      # Base
-      Color=#${base00}
+      # colorScheme.base
+      Color=#${colorScheme.base00}
 
       [Menu/CheckBox]
       # Image=radio.png
