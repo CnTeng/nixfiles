@@ -1,24 +1,7 @@
 { pkgs, hyprland, ... }:
 
 let
-  # Catppuccin Macchiato
-  # Copy from https://github.com/catppuccin/catppuccin
-  base00 = "24273a"; # base
-  base01 = "1e2030"; # mantle
-  base02 = "363a4f"; # surface0
-  base03 = "494d64"; # surface1
-  base04 = "5b6078"; # surface2
-  base05 = "cad3f5"; # text
-  base06 = "f4dbd6"; # rosewater
-  base07 = "b7bdf8"; # lavender
-  base08 = "ed8796"; # red
-  base09 = "f5a97f"; # peach
-  base0A = "eed49f"; # yellow
-  base0B = "a6da95"; # green
-  base0C = "8bd5ca"; # teal
-  base0D = "8aadf4"; # blue
-  base0E = "c6a0f6"; # mauve
-  base0F = "f0c6c6"; # flamingo
+  colorScheme = import ../modules/colorscheme.nix;
 
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   wallpaper = "$HOME/OneDrive/Pictures/wallpapers/snowy_mountain.jpg";
@@ -57,8 +40,8 @@ in
         border_size=4
         gaps_in=3
         gaps_out=5
-        col.active_border=rgb(${base0D})
-        col.inactive_border=rgb(${base00})
+        col.active_border=rgb(${colorScheme.base0D})
+        col.inactive_border=rgb(${colorScheme.base00})
         cursor_inactive_timeout=30
         layout=dwindle
       }
@@ -83,8 +66,8 @@ in
       }
 
       dwindle {
-        col.group_border_active=rgb(${base0B})
-        col.group_border=rgb(${base00})
+        col.group_border_active=rgb(${colorScheme.base0B})
+        col.group_border=rgb(${colorScheme.base00})
         force_split=2
       }
 
