@@ -21,6 +21,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+
     nix-alien.url = "github:thiagokokada/nix-alien";
   };
 

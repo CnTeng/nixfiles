@@ -3,7 +3,6 @@
 let
   colorScheme = import ../modules/colorscheme.nix;
 
-  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   wallpaper = "$HOME/OneDrive/Pictures/wallpapers/snowy_mountain.jpg";
   swaybg = "${pkgs.swaybg}/bin/swaybg";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
@@ -115,6 +114,8 @@ in
       # Screenshots
       bind=,print,exec,${grim} -g "$(slurp)" - | wl-copy --type image/png
 
+      # Colorpicker
+      bind=SUPER_SHIFT,p,exec,hyprpicker --autocopy
 
       # Keyboard control
       bind=,XF86MonBrightnessUP,exec,${light} -A 5
