@@ -1,24 +1,7 @@
 { pkgs, user, ... }:
 
 let
-  # Catppuccin Macchiato
-  # Copy from https://github.com/catppuccin/catppuccin
-  base00 = "24273a"; # base
-  base01 = "1e2030"; # mantle
-  base02 = "363a4f"; # surface0
-  base03 = "494d64"; # surface1
-  base04 = "5b6078"; # surface2
-  base05 = "cad3f5"; # text
-  base06 = "f4dbd6"; # rosewater
-  base07 = "b7bdf8"; # lavender
-  base08 = "ed8796"; # red
-  base09 = "f5a97f"; # peach
-  base0A = "eed49f"; # yellow
-  base0B = "a6da95"; # green
-  base0C = "8bd5ca"; # teal
-  base0D = "8aadf4"; # blue
-  base0E = "c6a0f6"; # mauve
-  base0F = "f0c6c6"; # flamingo
+  colorScheme = import ./colorscheme.nix;
 
   btop = "${pkgs.kitty}/bin/kitty -e btop";
   mute = "${pkgs.pamixer}/bin/pamixer -t";
@@ -28,11 +11,12 @@ in
 {
   home-manager.users.${user} = {
     # Maybe necessary for tray
-    home.packages = with pkgs; [
-      libappindicator
-      # TODO:add mpris and set max-length
-      # playerctl
-    ];
+    home.packages = with pkgs;
+      [
+        libappindicator
+        # TODO:add mpris and set max-length
+        # playerctl
+      ];
 
     programs.waybar = {
       enable = true;
@@ -48,60 +32,60 @@ in
         }
 
         window#waybar {
-          color: #${base05};
+          color: #${colorScheme.base05};
           opacity: 0.9;
-          background-color: #${base00};
+          background-color: #${colorScheme.base00};
           padding: 0;
           border-radius: 10px;
         }
 
         #custom-nixos {
-          color: #${base05};
-          background-color: #${base00};
+          color: #${colorScheme.base05};
+          background-color: #${colorScheme.base00};
           border-radius: 10px;
           padding-left: 15px;
           padding-right: 20px;
         }
 
         #custom-separator {
-          color: #${base05};
+          color: #${colorScheme.base05};
           margin: 0 6px;
         }
 
         #workspaces {
-          color: #${base05};
-          background-color: #${base00};
+          color: #${colorScheme.base05};
+          background-color: #${colorScheme.base00};
           border-radius: 0;
         }
         #workspaces button {
-          color: #${base05};
+          color: #${colorScheme.base05};
           padding: 0 15px;
           border-radius: 0;
         }
         #workspaces button.hidden {
-          color: #${base05};
-          background-color: #${base00};
+          color: #${colorScheme.base05};
+          background-color: #${colorScheme.base00};
         }
         #workspaces button.focused,
         #workspaces button.active {
-          color: #${base05};
-          background-color: #${base02};
-          border-bottom: 4px solid #${base0D};
+          color: #${colorScheme.base05};
+          background-color: #${colorScheme.base02};
+          border-bottom: 4px solid #${colorScheme.base0D};
           padding: 8px 15px 4px;
         }
         #workspaces button.urgent {
-          color: #${base05};
-          background-color: #${base08};
-          border-bottom: 4px solid #${base0D};
+          color: #${colorScheme.base05};
+          background-color: #${colorScheme.base08};
+          border-bottom: 4px solid #${colorScheme.base0D};
           padding: 8px 15px 4px;
         }
 
         #window {
-          color: #${base05};
+          color: #${colorScheme.base05};
         }
 
         #submap {
-          color: #${base05};
+          color: #${colorScheme.base05};
           margin-left: 6px;
         }
 
@@ -113,22 +97,22 @@ in
         #pulseaudio,
         #network,
         #battery {
-          color: #${base05};
+          color: #${colorScheme.base05};
         }
 
         #clock {
-          color: #${base05};
+          color: #${colorScheme.base05};
           margin-right: 15px;
         }
 
         #battery.warning {
-          color: #${base0A};
+          color: #${colorScheme.base0A};
         }
         #battery.critical {
-          color: #${base08};
+          color: #${colorScheme.base08};
         }
         #battery.charging {
-          color: #${base0B};
+          color: #${colorScheme.base0B};
         }
       '';
       settings = [{
@@ -187,11 +171,11 @@ in
         };
 
         "hyprland/submap" = {
-          format = "<span color='#${base0D}'>SMAP</span> {}";
+          format = "<span color='#${colorScheme.base0D}'>SMAP</span> {}";
         };
 
         idle_inhibitor = {
-          format = "<span color='#${base0D}'>IDLE</span> {icon}";
+          format = "<span color='#${colorScheme.base0D}'>IDLE</span> {icon}";
           format-icons = {
             activated = "OFF";
             deactivated = "ON";
@@ -199,30 +183,30 @@ in
         };
 
         cpu = {
-          format = "<span color='#${base0D}'>CPU</span> {usage}%";
+          format = "<span color='#${colorScheme.base0D}'>CPU</span> {usage}%";
           on-click = "${btop}";
         };
 
         memory = {
-          format = "<span color='#${base0D}'>RAM</span> {percentage}%";
+          format = "<span color='#${colorScheme.base0D}'>RAM</span> {percentage}%";
           on-click = "${btop}";
         };
 
         pulseaudio = {
-          format = "<span color='#${base0D}'>VOL</span> {volume}%";
-          format-muted = "<span color='#${base0D}'>MUT</span>";
-          format-bluetooth = "<span color='#${base0D}'>BT</span> {volume}%";
+          format = "<span color='#${colorScheme.base0D}'>VOL</span> {volume}%";
+          format-muted = "<span color='#${colorScheme.base0D}'>MUT</span>";
+          format-bluetooth = "<span color='#${colorScheme.base0D}'>BT</span> {volume}%";
           tooltip-format = "{desc} {volume}%";
           on-click = "${mute}";
           on-click-right = "${pavucontrol}";
         };
 
         network = {
-          format-wifi = "<span color='#${base0D}'>WLAN</span> {essid}";
-          format-ethernet = "<span color='#${base0D}'>{ifname}</span> {ipaddr}/{cidr}";
-          format-linked = "<span color='#${base0D}'>{ifname}</span> No IP";
+          format-wifi = "<span color='#${colorScheme.base0D}'>WLAN</span> {essid}";
+          format-ethernet = "<span color='#${colorScheme.base0D}'>{ifname}</span> {ipaddr}/{cidr}";
+          format-linked = "<span color='#${colorScheme.base0D}'>{ifname}</span> No IP";
           format-disconnected = "Not connected";
-          format-alt = "<span color='#${base0D}'>{ifname}</span> {ipaddr}/{cidr}";
+          format-alt = "<span color='#${colorScheme.base0D}'>{ifname}</span> {ipaddr}/{cidr}";
           max-length = 10;
           tooltip-format = ''
             {ifname} {ipaddr}/{cidr}
@@ -240,15 +224,15 @@ in
             warning = 30;
             critical = 15;
           };
-          format = "<span color='#${base0D}'>BAT</span> {capacity}%";
-          format-charging = "<span color='#${base0D}'>CHG</span> {capacity}%";
+          format = "<span color='#${colorScheme.base0D}'>BAT</span> {capacity}%";
+          format-charging = "<span color='#${colorScheme.base0D}'>CHG</span> {capacity}%";
           max-length = 25;
         };
 
         clock = {
-          format = "{:<span color='#${base0D}'>%b %d</span> %H:%M}";
+          format = "{:<span color='#${colorScheme.base0D}'>%b %d</span> %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "{:<span color='#${base0D}'>%A %B</span> %d %Y}";
+          format-alt = "{:<span color='#${colorScheme.base0D}'>%A %B</span> %d %Y}";
         };
       }];
     };

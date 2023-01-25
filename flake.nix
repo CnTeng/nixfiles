@@ -32,9 +32,7 @@
       overlays = import ./overlays;
       pkgs = import nixpkgs {
         inherit system;
-        config = {
-          allowUnfree = true;
-        };
+        config.allowUnfree = true;
         overlays = with overlays; [
           additions
           modifications
