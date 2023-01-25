@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
+  imports = [ inputs.nur.nixosModules.nur ];
+
   fonts = {
     fontDir.enable = true;
 

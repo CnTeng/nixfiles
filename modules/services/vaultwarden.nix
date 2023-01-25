@@ -1,4 +1,4 @@
-{ config, user, ... }:
+{ config, ... }:
 
 {
   networking.firewall.allowedTCPPorts = [ 587 3222 8222 ];

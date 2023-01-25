@@ -2,7 +2,7 @@
 
 {
   home-manager.users.${user} = {
-    programs.starship = rec {
+    programs.starship = {
       enable = true;
       enableZshIntegration = true;
       settings = {

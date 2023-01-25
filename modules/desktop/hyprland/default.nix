@@ -1,8 +1,8 @@
-{ pkgs, hyprland, user, ... }:
+{ pkgs, inputs, user, ... }:
 
 {
   imports = [
-    hyprland.nixosModules.default
+    inputs.hyprland.nixosModules.default
 
     ../modules/theme.nix
     ../modules/waybar.nix
