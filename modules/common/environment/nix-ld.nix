@@ -15,7 +15,7 @@
     };
 
     home.packages = with pkgs; [
-      nix-alien
+      # nix-alien
       nix-index
       nix-index-update
     ];
