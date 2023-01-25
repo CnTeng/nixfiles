@@ -1,5 +1,5 @@
 # Copy from https://github.com/nix-community/nur-combined/blob/master/repos/oluceps/pkgs/naiveproxy/default.nix
-{ stdenv, lib, fetchurl, pkgs, gzip, autoPatchelfHook, ... }:
+{ lib, stdenv, fetchurl, autoPatchelfHook, ... }:
 
 stdenv.mkDerivation rec {
   pname = "naiveproxy";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/klzgrad/naiveproxy";
-    description = "Make a fortune quietly ";
+    description = "Make a fortune quietly";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ CnTeng ];

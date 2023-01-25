@@ -1,13 +1,13 @@
 # Copy https://github.com/NixOS/nixpkgs/pull/191883#issuecomment-1250652290
 # & https://github.com/NixOS/nixpkgs/issues/14671
-{ fetchFromGitHub, buildGoModule, stdenv, go,srcOnly }:
+{ lib, stdenv, go, srcOnly, fetchFromGitHub, buildGoModule, ... }:
 let
   caddySrc = srcOnly (fetchFromGitHub {
     owner = "caddyserver";
     repo = "caddy";
     rev = "v2.6.2";
     hash = "sha256-Tbf6RB3106OEZGc/Wx7vk+I82Z8/Q3WqnID4f8uZ6z0=";
-  });# Clone from https://github.com/caddyserver/caddy
+  }); # Clone from https://github.com/caddyserver/caddy
 
   forwardProxySrc = srcOnly (fetchFromGitHub {
     owner = "klzgrad";
@@ -81,4 +81,12 @@ buildGoModule {
   postConfigure = ''
     cp vendor/.magic/go.* .
   '';
+
+  meta = with lib; {
+    homepage = "https://github.com/caddyserver/caddy";
+    description = "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
+    license = licenses.asl20;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ CnTeng ];
+  };
 }
