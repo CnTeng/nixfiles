@@ -3,6 +3,7 @@
 let
   packages = ps: with ps; [
     pip
+    ipython
   ];
 in
 {
