@@ -1,4 +1,4 @@
-{ pkgs, hyprland, ... }:
+{ pkgs, inputs, ... }:
 
 let
   colorScheme = import ../modules/colorscheme.nix;
@@ -16,7 +16,7 @@ let
   grim = "${pkgs.grim}/bin/grim";
 in
 {
-  imports = [ hyprland.homeManagerModules.default ];
+  imports = [ inputs.hyprland.homeManagerModules.default ];
 
   programs.zsh = {
     loginExtra = ''

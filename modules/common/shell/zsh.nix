@@ -1,5 +1,6 @@
 { user, ... }:
 
+# TODO:config zsh
 let
   # Fork from https://github.com/catppuccin/zsh-syntax-highlighting
   catppuccin_macchiato-zsh-syntax-highlighting = ''

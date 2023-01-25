@@ -24,11 +24,12 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, agenix, hyprland, nix-alien, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
+      inherit (self) outputs;
+
       system = "x86_64-linux";
       user = "yufei";
-
       overlays = import ./overlays;
       pkgs = import nixpkgs {
         inherit system;
@@ -36,33 +37,33 @@
         overlays = with overlays; [
           additions
           modifications
-        ] ++ [ self.inputs.nix-alien.overlays.default ];
+        ] ++ [
+          inputs.nix-alien.overlays.default
+        ];
       };
 
       hmOptions = [{
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = { inherit hyprland user; };
+          extraSpecialArgs = { inherit outputs inputs user; };
         };
       }];
       commonModules = [
         home-manager.nixosModules.home-manager
-        nur.nixosModules.nur
-        agenix.nixosModule
       ] ++ hmOptions;
     in
     {
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
-          specialArgs = { inherit nur agenix hyprland user; };
+          specialArgs = { inherit outputs inputs user; };
           modules = [ ./hosts/laptop ] ++ commonModules;
         };
 
         server = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
-          specialArgs = { inherit nur agenix user; };
+          specialArgs = { inherit outputs inputs user; };
           modules = [ ./hosts/server ] ++ commonModules;
         };
       };
