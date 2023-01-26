@@ -57,7 +57,7 @@
 
 ## 🛠 Installation
 
-#### FHS linux
+### FHS linux
 
 Make a backup of your current neovim config
 
@@ -71,7 +71,7 @@ Clone the repository to your NixOS config
 git clone https://github.com/CnTeng/RX-Nvim.git ~/.config/nvim
 ```
 
-#### NixOS
+### NixOS
 
 Clone the repository to your NixOS config
 
