@@ -6,11 +6,11 @@
 
 ## ✨ Features
 
-### CORE
+#### CORE
 
 - Plugin manager with [lazy](https://github.com/folke/lazy.nvim)
 
-### UI
+#### UI
 
 - Startup with [alpha](https://github.com/goolord/alpha-nvim)
 - Statusline with [lualine](https://github.com/nvim-lualine/lualine.nvim)
@@ -19,7 +19,7 @@
 - Notification manager with [notify](https://github.com/rcarriga/nvim-notify)
 - Colorscheme with [catppuccin](https://github.com/catppuccin/nvim)
 
-### EDITOR
+#### EDITOR
 
 - Autopairs with [autopairs](https://github.com/windwp/nvim-autopairs)
 - Color highlighter with [colorizer](https://github.com/NvChad/nvim-colorizer.lua)
@@ -34,7 +34,7 @@
 - Terminal with [toggleterm](https://github.com/akinsho/toggleterm.nvim)
 - Key bindings with [which-key](https://github.com/folke/which-key.nvim)
 
-### CODING
+#### CODING
 
 - Completion with [CMP](https://github.com/hrsh7th/nvim-cmp)
 - Comments with [Comment](https://github.com/numToStr/Comment.nvim)
@@ -55,7 +55,7 @@
 
 ## 🛠 Installation
 
-### FHS linux
+#### FHS linux
 
 Make a backup of your current neovim config
 
@@ -69,7 +69,7 @@ Clone the repository to your NixOS config
 git clone https://github.com/CnTeng/RX-Nvim.git ~/.config/nvim
 ```
 
-### NixOS
+#### NixOS
 
 Clone the repository to your NixOS config
 
@@ -118,7 +118,7 @@ Add this config to your NixOS config
 
 Also, you can use [FHS linux installation guide](#fhs-linux)
 
-## Credits
+## ⭐ Credits
 
 - [AstroNvim](https://github.com/AstroNvim/AstroNvim)
 - [LazyVim](https://github.com/LazyVim/LazyVim)
