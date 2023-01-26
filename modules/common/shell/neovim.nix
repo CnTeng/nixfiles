@@ -1,21 +1,21 @@
 { pkgs, user, ... }:
 
 {
-  # Dependency for Telescope man_pages
+  # Require for Telescope man_pages
   documentation.man.generateCaches = true;
 
   home-manager.users.${user} = {
     home.packages = with pkgs; [
-      # Dependency for neovim plugins
+      # Require for telescope
       ripgrep
       fd
-
+      tree-sitter
+      # Require for nix format
       nixpkgs-fmt
-      marksman
     ];
 
     home.sessionVariables = {
-      # Dependency for marksman
+      # Require for marksman
       DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = 1;
     };
 
