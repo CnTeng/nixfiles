@@ -13,11 +13,5 @@
       ];
       NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
     };
-
-    home.packages = with pkgs; [
-      # nix-alien
-      nix-index
-      nix-index-update
-    ];
   };
 }

@@ -19,8 +19,6 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     hyprpicker.url = "github:hyprwm/hyprpicker";
-
-    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
@@ -36,8 +34,6 @@
         overlays = with overlays; [
           additions
           modifications
-        ] ++ [
-          inputs.nix-alien.overlays.default
         ];
       };
 
