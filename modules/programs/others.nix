@@ -29,7 +29,7 @@
       krita
 
       # Office
-      libreoffice
+      # libreoffice
 
       # Community
       tdesktop
