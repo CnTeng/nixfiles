@@ -16,14 +16,20 @@
       "usbhid"
       "usb_storage"
       "sd_mod"
+      "zstd"
+      "z3fold"
     ];
 
-    # Only use S3 suspend mode, but it not work
-    # kernelParams = [
-    #   "acpi_rev_override=1"
-    #   "acpi_osi=Linux"
-    #   "mem_sleep_default=deep"
-    # ];
+    # Enabled zswap
+    kernelModules = [ "zstd" "zsfold" ];
+    kernelParams = [
+      "zswap.enabled=1"
+      "zswap.max_pool_percent=25"
+    ];
+    postBootCommands = ''
+      echo zstd > /sys/module/zswap/parameters/compressor
+      echo z3fold > /sys/module/zswap/parameters/zpool
+    '';
   };
 
   fileSystems = {
@@ -40,8 +46,6 @@
   swapDevices = [{
     device = "/dev/disk/by-label/swap";
   }];
-
-  zramSwap.enable = true;
 
   powerManagement.cpuFreqGovernor = "powersave";
   hardware.cpu.intel.updateMicrocode = true;
