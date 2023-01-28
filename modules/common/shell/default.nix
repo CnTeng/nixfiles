@@ -8,6 +8,7 @@
     ./tmux.nix
     ./git.nix
     ./fzf.nix
+    ./lf.nix
     ./zoxide.nix
     ./btop.nix
     ./others.nix
