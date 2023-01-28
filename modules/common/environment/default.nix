@@ -7,6 +7,6 @@
     ./go.nix
     ./python.nix
     ./javascript.nix
-    ./nix-ld.nix
+    ./nix-utils.nix
   ];
 }
