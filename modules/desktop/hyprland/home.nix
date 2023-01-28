@@ -3,7 +3,7 @@
 let
   colorScheme = import ../modules/colorscheme.nix;
 
-  wallpaper = "$HOME/OneDrive/Pictures/wallpapers/snowy_mountain.jpg";
+  wallpaper = ../../../assets/wallpapers/snowy_mountain.jpg;
   swaybg = "${pkgs.swaybg}/bin/swaybg";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   terminal = "${pkgs.kitty}/bin/kitty";
@@ -112,10 +112,11 @@ in
       bind=SUPER,e,exec,${pcmanfm}
 
       # Screenshots
-      bind=,print,exec,${grim} -g "$(slurp)" - | wl-copy --type image/png
+      bind=,print,exec,${grim} -g "$(slurp)" "$HOME/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
+      bind=SUPER_SHIFT,p,exec,${grim} -g "$(slurp)" - | wl-copy --type image/png
 
       # Colorpicker
-      bind=SUPER_SHIFT,p,exec,hyprpicker --autocopy
+      bind=SUPER_SHIFT,c,exec,hyprpicker --autocopy
 
       # Keyboard control
       bind=,XF86MonBrightnessUP,exec,${light} -A 5
