@@ -41,6 +41,8 @@
     device = "/dev/disk/by-label/swap";
   }];
 
+  zramSwap.enable = true;
+
   powerManagement.cpuFreqGovernor = "powersave";
   hardware.cpu.intel.updateMicrocode = true;
 
