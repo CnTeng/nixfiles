@@ -247,6 +247,7 @@ in
       windowrulev2=float,class:^(nm-connection-editor)$
       windowrulev2=float,class:^(.blueman-manager-wrapped)$
       windowrulev2=float,class:^(org.fcitx.)$
+      windowrulev2=float,class:^(feh)$
     '';
   };
 }
