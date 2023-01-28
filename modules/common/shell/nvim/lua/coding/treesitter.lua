@@ -9,7 +9,7 @@ return {
         "lua",
         "vim",
         "c",
-        -- "cpp",
+        "cpp",
         "go",
         "python",
         "bash",
@@ -21,7 +21,7 @@ return {
       highlight = {
         enable = true,
         disable = {},
-        additional_vim_regex_highlighting = { "markdown" }
+        additional_vim_regex_highlighting = { "markdown" },
       },
       rainbow = {
         enable = true,
