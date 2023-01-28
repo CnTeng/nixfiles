@@ -4,7 +4,7 @@
 
 ## 🌟 Preview
 
-![startup](https://user-images.githubusercontent.com/56501688/214816678-82f7b19a-2469-4005-8f47-bf398ccb6887.png)
+![startup](./assets/screenshots/startup.png)
 
 ## ✨ Features
 
