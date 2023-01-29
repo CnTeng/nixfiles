@@ -16,8 +16,6 @@
       "usbhid"
       "usb_storage"
       "sd_mod"
-      "zstd"
-      "z3fold"
     ];
 
     # Enabled zswap
