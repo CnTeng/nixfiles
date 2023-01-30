@@ -13,7 +13,7 @@
     options = {
       enableBookUploading = true;
       enableBookConversion = true;
-      calibreLibrary = /home/${user}/OneDrive/Calibre;
+      calibreLibrary = "/home/${user}/OneDrive/Calibre";
     };
   };
 }
