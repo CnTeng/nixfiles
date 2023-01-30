@@ -14,6 +14,11 @@
         size = 15;
       };
       theme = "Catppuccin-Macchiato";
+      settings = {
+        tab_fade = "1 1 1";
+        tab_title_template = ''
+          {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}'';
+      };
       extraConfig = ''
         modify_font underline_position +3
         modify_font underline_thickness 150%
