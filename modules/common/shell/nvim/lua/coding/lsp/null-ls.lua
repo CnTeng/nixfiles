@@ -9,6 +9,7 @@ return {
         sources = {
           nls.builtins.formatting.prettier,
           nls.builtins.formatting.stylua,
+          nls.builtins.formatting.shfmt,
           nls.builtins.diagnostics.flake8,
         },
       }
@@ -26,6 +27,7 @@ return {
         "clang-format",
         "golines",
         "black",
+        "shfmt",
       },
     },
   },
