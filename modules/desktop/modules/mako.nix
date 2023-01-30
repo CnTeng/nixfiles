@@ -9,6 +9,7 @@ in
 
     programs.mako = {
       enable = true;
+      # Copy from https://github.com/catppuccin/mako
       backgroundColor = "#${colorScheme.base00}e6";
       textColor = "#${colorScheme.base05}";
       borderColor = "#${colorScheme.base0D}";

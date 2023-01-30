@@ -3,7 +3,6 @@
 let
   naive = pkgs.naiveproxy;
   configFile = config.age.secrets.naiveConfig.path;
-
 in
 {
   environment.systemPackages = [ pkgs.naiveproxy ];

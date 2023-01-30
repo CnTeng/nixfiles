@@ -1,9 +1,11 @@
-{ user, ... }:
+{ ... }:
 
 {
-  programs.nix-ld.enable = true;
+  programs = {
+    nix-ld.enable = true;
 
-  home-manager.users.${user} = {
-    programs.nix-index.enable = true;
+    # Use nix-index instead of cnf
+    command-not-found.enable = false;
+    nix-index.enable = true;
   };
 }
