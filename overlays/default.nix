@@ -6,14 +6,6 @@
       pkgs = final.pkgs;
     in
     {
-      neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oldAttrs: {
-        nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.makeWrapper ];
-        postFixup = ''
-          wrapProgram $out/bin/nvim\
-            --set LD_LIBRARY_PATH ${pkgs.stdenv.cc.cc.lib}/lib
-        '';
-      });
-
       waybar =
         let
           hyprctl = "${pkgs.hyprland}/bin/hyprctl";
