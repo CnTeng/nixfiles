@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 
 {
-  imports = [ inputs.agenix.nixosModule ];
+  imports = [ inputs.agenix.nixosModules.default ];
 
   security = {
     tpm2.enable = true;
@@ -10,7 +10,7 @@
   };
 
   environment.systemPackages = [
-    inputs.agenix.defaultPackage.x86_64-linux
+    inputs.agenix.packages.x86_64-linux.default
   ] ++ (with pkgs; [
     rage
     age-plugin-yubikey
