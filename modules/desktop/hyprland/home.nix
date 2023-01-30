@@ -17,14 +17,7 @@ in
 {
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
-  programs.zsh = {
-    loginExtra = ''
-      # If running from tty1 start hyprland
-      [ "$(tty)" = "/dev/tty1" ] && exec Hyprland
-    '';
-  };
-
-  # Find options from https://github.com/hyprwm/Hyprland/blob/main/nix/hm-module.nix
+  # Find options from https://github.com/hyprwm/Hyprland/blob/main/nix/hm-module.nixa
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true; # Enable hyprland-session.target

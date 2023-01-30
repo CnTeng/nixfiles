@@ -1,4 +1,5 @@
 { pkgs, user, ... }:
+
 let
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";

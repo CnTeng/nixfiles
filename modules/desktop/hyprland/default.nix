@@ -13,6 +13,11 @@
     ../modules/udiskie.nix
   ];
 
+  programs.zsh.loginShellInit = ''
+    # If running from tty1 start hyprland
+    [ "$(tty)" = "/dev/tty1" ] && exec Hyprland
+  '';
+
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
@@ -44,6 +49,7 @@
     systemPackages = with pkgs; [
       wl-clipboard
       slurp
+      xdg-utils # For vscode and idea opening urls
     ] ++ [
       inputs.hyprpicker.packages.${system}.hyprpicker
     ];

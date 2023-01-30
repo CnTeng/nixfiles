@@ -1,11 +1,10 @@
-{ user, ... }:
+{ ... }:
 
+# TODO:finsh tmux config
 {
-  home-manager.users.${user} = {
-    programs.tmux = {
-      enable = true;
-      keyMode = "vi";
-      terminal = "screen-256color";
-    };
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    terminal = "screen-256color";
   };
 }

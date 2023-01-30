@@ -7,6 +7,7 @@ in
   console = {
     font = "Lat2-Terminus16";
     useXkbConfig = true;
+    # Copy from https://github.com/catppuccin/base16
     colors = [
       "${colorScheme.base00}"
       "${colorScheme.base01}"
