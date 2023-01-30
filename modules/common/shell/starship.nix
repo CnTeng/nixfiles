@@ -1,6 +1,5 @@
 { lib, ... }:
 
-# TODO:finsh starship
 {
   programs.starship = {
     enable = true;
@@ -9,13 +8,11 @@
         "[\\[](bold blue)"
         "$username"
         "[@](bold red)"
+        "$nix_shell"
         "$hostname[\\]](bold blue) "
         "$character"
         "$directory"
         "$git_branch"
-        "$git_commit"
-        "$git_state"
-        "$git_metrics"
         "$git_status"
       ];
       add_newline = false;
@@ -50,18 +47,17 @@
         format = "[$path]($style)[$read_only]($read_only_style) ";
         home_symbol = "~";
       };
-      shell = {
-        format = "[$indicator]($style)";
-        fish_indicator = "";
-        powershell_indicator = "_";
-        disabled = false;
-      };
+
       git_branch = {
         format = "(\\((bold)[$symbol$branch]($style)\\)(bold) )";
       };
 
       git_status = {
         format = "([$all_status$ahead_behind]($style) )";
+      };
+
+      nix_shell = {
+        format = "❄️";
       };
     };
   };
