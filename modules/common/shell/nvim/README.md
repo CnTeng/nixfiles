@@ -2,6 +2,12 @@
 
 <p align = "center">RX-Nvim is a custom neovim config that use lazy.vim</p>
 
+<p align = "center">
+  <a href = "https://neovim.io/">
+    <img src = "https://img.shields.io/static/v1?style=for-the-badge&logo=lua&logoColor=white&label=&message=Built%20with%20Lua&color=8aadf4"/>
+  </a>
+</p>
+
 ## 🌟 Preview
 
 ![startup](./assets/screenshots/startup.png)
@@ -65,7 +71,7 @@ Make a backup of your current neovim config
 mv ~/.config/nvim ~/.config/nvim.bak
 ```
 
-Clone the repository to your NixOS config
+Clone this repository
 
 ```shell
 git clone https://github.com/CnTeng/RX-Nvim.git ~/.config/nvim
@@ -73,7 +79,7 @@ git clone https://github.com/CnTeng/RX-Nvim.git ~/.config/nvim
 
 ### NixOS
 
-Clone the repository to your NixOS config
+Clone this repository to your NixOS config
 
 ```shell
 git clone https://github.com/CnTeng/RX-Nvim.git ~/anywhere you want
