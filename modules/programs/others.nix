@@ -8,12 +8,9 @@
       bitwarden-cli
 
       # Reader
-      # Use pkgs.wdisplays align the single screen to the top
-      # or place the specified output at 0 0 in sway config
-      # for okular menu bar working successfully
-      okular
       foliate
       calibre
+      okular
 
       # Dict
       ydict
