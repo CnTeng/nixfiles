@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, user, ... }:
 
 {
   imports = [ inputs.agenix.nixosModules.default ];
@@ -20,6 +20,6 @@
     # TODO:add yubikey-yufei
     # ../../../secrets/identities/yubikey-yufei.txt
 
-    /home/yufei/.ssh/id_ed25519
+    /home/${user}/.ssh/id_ed25519
   ];
 }

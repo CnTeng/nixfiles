@@ -19,88 +19,88 @@ in
         # Copy from https://github.com/catppuccin/alacritty
         colors = {
           primary = {
-            background = "#${colorScheme.base00}";
-            foreground = "#${colorScheme.base05}";
-            dim_foreground = "#${colorScheme.base05}";
-            bright_foreground = "#${colorScheme.base05}";
+            background = "#${colorScheme.base}";
+            foreground = "#${colorScheme.text}";
+            dim_foreground = "#${colorScheme.text}";
+            bright_foreground = "#${colorScheme.text}";
           };
 
           cursor = {
-            text = "#${colorScheme.base00}";
-            cursor = "#${colorScheme.base06}";
+            text = "#${colorScheme.base}";
+            cursor = "#${colorScheme.rosewater}";
           };
           vi_mode_cursor = {
-            text = "#${colorScheme.base00}";
-            cursor = "#${colorScheme.base07}";
+            text = "#${colorScheme.base}";
+            cursor = "#${colorScheme.lavender}";
           };
 
           search = {
             matches = {
-              foreground = "#${colorScheme.base00}";
-              background = "#A5ADCB";
+              foreground = "#${colorScheme.base}";
+              background = "#${colorScheme.subtext0}";
             };
             focused_match = {
-              foreground = "#${colorScheme.base00}";
-              background = "#${colorScheme.base0B}";
+              foreground = "#${colorScheme.base}";
+              background = "#${colorScheme.green}";
             };
             footer_bar = {
-              foreground = "#${colorScheme.base00}";
-              background = "#A5ADCB";
+              foreground = "#${colorScheme.base}";
+              background = "#${colorScheme.subtext0}";
             };
           };
 
           hints = {
             start = {
-              foreground = "#${colorScheme.base00}";
-              background = "#${colorScheme.base0A}";
+              foreground = "#${colorScheme.base}";
+              background = "#${colorScheme.yellow}";
             };
             end = {
-              foreground = "#${colorScheme.base00}";
-              background = "#A5ADCB";
+              foreground = "#${colorScheme.base}";
+              background = "#${colorScheme.subtext0}";
             };
           };
 
           selection = {
-            text = "#${colorScheme.base00}";
-            background = "#${colorScheme.base06}";
+            text = "#${colorScheme.base}";
+            background = "#${colorScheme.rosewater}";
           };
 
           normal = {
-            black = "#${colorScheme.base03}";
-            red = "#${colorScheme.base08}";
-            green = "#${colorScheme.base0B}";
-            yellow = "#${colorScheme.base0A}";
-            blue = "#${colorScheme.base0D}";
-            magenta = "#F5BDE6";
-            cyan = "#${colorScheme.base0C}";
-            white = "#B8C0E0";
+            black = "#${colorScheme.surface1}";
+            red = "#${colorScheme.red}";
+            green = "#${colorScheme.green}";
+            yellow = "#${colorScheme.yellow}";
+            blue = "#${colorScheme.blue}";
+            magenta = "#${colorScheme.pink}";
+            cyan = "#${colorScheme.teal}";
+            white = "#${colorScheme.subtext1}";
           };
 
           bright = {
-            black = "#${colorScheme.base04}";
-            red = "#${colorScheme.base08}";
-            green = "#${colorScheme.base0B}";
-            yellow = "#${colorScheme.base0A}";
-            blue = "#${colorScheme.base0D}";
-            magenta = "#F5BDE6";
-            cyan = "#${colorScheme.base0C}";
-            white = "#A5ADCB";
+            black = "#${colorScheme.surface2}";
+            red = "#${colorScheme.red}";
+            green = "#${colorScheme.green}";
+            yellow = "#${colorScheme.yellow}";
+            blue = "#${colorScheme.blue}";
+            magenta = "#${colorScheme.pink}";
+            cyan = "#${colorScheme.teal}";
+            white = "#${colorScheme.subtext0}";
           };
 
           dim = {
-            black = "#${colorScheme.base03}";
-            red = "#${colorScheme.base08}";
-            green = "#${colorScheme.base0B}";
-            yellow = "#${colorScheme.base0A}";
-            blue = "#${colorScheme.base0D}";
-            magenta = "#F5BDE6";
-            cyan = "#${colorScheme.base0C}";
-            white = "#B8C0E0";
+            black = "#${colorScheme.surface1}";
+            red = "#${colorScheme.red}";
+            green = "#${colorScheme.green}";
+            yellow = "#${colorScheme.yellow}";
+            blue = "#${colorScheme.blue}";
+            magenta = "#${colorScheme.pink}";
+            cyan = "#${colorScheme.teal}";
+            white = "#${colorScheme.subtext1}";
           };
 
           indexed_colors = [
-            { index = 16; color = "#${colorScheme.base09}"; }
-            { index = 17; color = "#${colorScheme.base06}"; }
+            { index = 16; color = "#${colorScheme.peach}"; }
+            { index = 17; color = "#${colorScheme.rosewater}"; }
           ];
         };
       };
