@@ -3,6 +3,7 @@
 {
   imports = [
     ./zsh.nix
+    ./fish.nix
     ./starship.nix
     ./neovim.nix
     ./tmux.nix
