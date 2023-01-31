@@ -27,7 +27,7 @@ let
     owner = "mholt";
     repo = "caddy-webdav";
     rev = "75a603bc69789413e4213ac746906d4357883929";
-    hash = "sha256-tz12CLrXLC00Tjb9yj9rnysS3seLg3GAVFpybu3rIo8=";
+    hash = "sha256-4YgpYKD5TmAEQ6dCJYvrKW4Tk8tE1BBdKRShQe92JzU=";
   });
 
   combinedSrc = stdenv.mkDerivation {
@@ -72,7 +72,7 @@ buildGoModule {
 
   src = combinedSrc;
 
-  vendorHash = "sha256-BHYP2uq4bU4pzpw00TtW7ylLdupcsa5SdBnIRMZ8Wbs=";
+  vendorHash = "sha256-PGMiu3vfoodkwO1N5WPht907exzgdhiOR/ADP6vI7L0=";
 
   overrideModAttrs = _: {
     postPatch = "cd caddywithplugins";
