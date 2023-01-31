@@ -1,4 +1,5 @@
 { pkgs, user, ... }:
+
 let
   colorScheme = import ../../desktop/modules/colorscheme.nix;
 in
