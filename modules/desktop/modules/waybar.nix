@@ -32,60 +32,60 @@ in
         }
 
         window#waybar {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
           opacity: 0.9;
-          background-color: #${colorScheme.base00};
+          background-color: #${colorScheme.base};
           padding: 0;
           border-radius: 10px;
         }
 
         #custom-nixos {
-          color: #${colorScheme.base05};
-          background-color: #${colorScheme.base00};
+          color: #${colorScheme.text};
+          background-color: #${colorScheme.base};
           border-radius: 10px;
           padding-left: 15px;
           padding-right: 20px;
         }
 
         #custom-separator {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
           margin: 0 6px;
         }
 
         #workspaces {
-          color: #${colorScheme.base05};
-          background-color: #${colorScheme.base00};
+          color: #${colorScheme.text};
+          background-color: #${colorScheme.base};
           border-radius: 0;
         }
         #workspaces button {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
           padding: 0 15px;
           border-radius: 0;
         }
         #workspaces button.hidden {
-          color: #${colorScheme.base05};
-          background-color: #${colorScheme.base00};
+          color: #${colorScheme.text};
+          background-color: #${colorScheme.base};
         }
         #workspaces button.focused,
         #workspaces button.active {
-          color: #${colorScheme.base05};
-          background-color: #${colorScheme.base02};
-          border-bottom: 4px solid #${colorScheme.base0D};
+          color: #${colorScheme.text};
+          background-color: #${colorScheme.surface0};
+          border-bottom: 4px solid #${colorScheme.blue};
           padding: 8px 15px 4px;
         }
         #workspaces button.urgent {
-          color: #${colorScheme.base05};
-          background-color: #${colorScheme.base08};
-          border-bottom: 4px solid #${colorScheme.base0D};
+          color: #${colorScheme.text};
+          background-color: #${colorScheme.red};
+          border-bottom: 4px solid #${colorScheme.blue};
           padding: 8px 15px 4px;
         }
 
         #window {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
         }
 
         #submap {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
           margin-left: 6px;
         }
 
@@ -97,22 +97,22 @@ in
         #pulseaudio,
         #network,
         #battery {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
         }
 
         #clock {
-          color: #${colorScheme.base05};
+          color: #${colorScheme.text};
           margin-right: 15px;
         }
 
         #battery.warning {
-          color: #${colorScheme.base0A};
+          color: #${colorScheme.yellow};
         }
         #battery.critical {
-          color: #${colorScheme.base08};
+          color: #${colorScheme.red};
         }
         #battery.charging {
-          color: #${colorScheme.base0B};
+          color: #${colorScheme.green};
         }
       '';
       settings = [{
@@ -171,11 +171,11 @@ in
         };
 
         "hyprland/submap" = {
-          format = "<span color='#${colorScheme.base0D}'>SMAP</span> {}";
+          format = "<span color='#${colorScheme.blue}'>SMAP</span> {}";
         };
 
         idle_inhibitor = {
-          format = "<span color='#${colorScheme.base0D}'>IDLE</span> {icon}";
+          format = "<span color='#${colorScheme.blue}'>IDLE</span> {icon}";
           format-icons = {
             activated = "OFF";
             deactivated = "ON";
@@ -183,30 +183,30 @@ in
         };
 
         cpu = {
-          format = "<span color='#${colorScheme.base0D}'>CPU</span> {usage}%";
+          format = "<span color='#${colorScheme.blue}'>CPU</span> {usage}%";
           on-click = "${btop}";
         };
 
         memory = {
-          format = "<span color='#${colorScheme.base0D}'>RAM</span> {percentage}%";
+          format = "<span color='#${colorScheme.blue}'>RAM</span> {percentage}%";
           on-click = "${btop}";
         };
 
         pulseaudio = {
-          format = "<span color='#${colorScheme.base0D}'>VOL</span> {volume}%";
-          format-muted = "<span color='#${colorScheme.base0D}'>MUT</span>";
-          format-bluetooth = "<span color='#${colorScheme.base0D}'>BT</span> {volume}%";
+          format = "<span color='#${colorScheme.blue}'>VOL</span> {volume}%";
+          format-muted = "<span color='#${colorScheme.blue}'>MUT</span>";
+          format-bluetooth = "<span color='#${colorScheme.blue}'>BT</span> {volume}%";
           tooltip-format = "{desc} {volume}%";
           on-click = "${mute}";
           on-click-right = "${pavucontrol}";
         };
 
         network = {
-          format-wifi = "<span color='#${colorScheme.base0D}'>WLAN</span> {essid}";
-          format-ethernet = "<span color='#${colorScheme.base0D}'>{ifname}</span> {ipaddr}/{cidr}";
-          format-linked = "<span color='#${colorScheme.base0D}'>{ifname}</span> No IP";
+          format-wifi = "<span color='#${colorScheme.blue}'>WLAN</span> {essid}";
+          format-ethernet = "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
+          format-linked = "<span color='#${colorScheme.blue}'>{ifname}</span> No IP";
           format-disconnected = "Not connected";
-          format-alt = "<span color='#${colorScheme.base0D}'>{ifname}</span> {ipaddr}/{cidr}";
+          format-alt = "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
           max-length = 10;
           tooltip-format = ''
             {ifname} {ipaddr}/{cidr}
@@ -224,15 +224,15 @@ in
             warning = 30;
             critical = 15;
           };
-          format = "<span color='#${colorScheme.base0D}'>BAT</span> {capacity}%";
-          format-charging = "<span color='#${colorScheme.base0D}'>CHG</span> {capacity}%";
+          format = "<span color='#${colorScheme.blue}'>BAT</span> {capacity}%";
+          format-charging = "<span color='#${colorScheme.blue}'>CHG</span> {capacity}%";
           max-length = 25;
         };
 
         clock = {
-          format = "{:<span color='#${colorScheme.base0D}'>%b %d</span> %H:%M}";
+          format = "{:<span color='#${colorScheme.blue}'>%b %d</span> %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "{:<span color='#${colorScheme.base0D}'>%A %B</span> %d %Y}";
+          format-alt = "{:<span color='#${colorScheme.blue}'>%A %B</span> %d %Y}";
         };
       }];
     };

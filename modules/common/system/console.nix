@@ -9,22 +9,22 @@ in
     useXkbConfig = true;
     # Copy from https://github.com/catppuccin/base16
     colors = [
-      "${colorScheme.base00}"
-      "${colorScheme.base01}"
-      "${colorScheme.base02}"
-      "${colorScheme.base03}"
-      "${colorScheme.base04}"
-      "${colorScheme.base05}"
-      "${colorScheme.base06}"
-      "${colorScheme.base07}"
-      "${colorScheme.base08}"
-      "${colorScheme.base09}"
-      "${colorScheme.base0A}"
-      "${colorScheme.base0B}"
-      "${colorScheme.base0C}"
-      "${colorScheme.base0D}"
-      "${colorScheme.base0E}"
-      "${colorScheme.base0F}"
+      "${colorScheme.base}"
+      "${colorScheme.mantle}"
+      "${colorScheme.surface0}"
+      "${colorScheme.surface1}"
+      "${colorScheme.surface2}"
+      "${colorScheme.text}"
+      "${colorScheme.rosewater}"
+      "${colorScheme.lavender}"
+      "${colorScheme.red}"
+      "${colorScheme.peach}"
+      "${colorScheme.yellow}"
+      "${colorScheme.green}"
+      "${colorScheme.teal}"
+      "${colorScheme.blue}"
+      "${colorScheme.mauve}"
+      "${colorScheme.flamingo}"
     ];
   };
 }

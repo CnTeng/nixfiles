@@ -53,12 +53,12 @@ in
         y-offset = mkLiteral "5px";
         border = mkLiteral "0";
         border-radius = mkLiteral "10px";
-        background-color = mkLiteral "#${colorScheme.base00}e6";
+        background-color = mkLiteral "#${colorScheme.base}e6";
       };
       # mainbox -> window
       "mainbox" = {
         background-color = mkLiteral "transparent";
-        text-color = mkLiteral "#${colorScheme.base05}";
+        text-color = mkLiteral "#${colorScheme.text}";
       };
 
       # inputbar -> mainbox
@@ -66,8 +66,8 @@ in
         padding = mkLiteral "12px";
         spacing = mkLiteral "10px";
         border-radius = mkLiteral "10px 10px 0 0";
-        background-color = mkLiteral "#${colorScheme.base0D}";
-        text-color = mkLiteral "#${colorScheme.base00}";
+        background-color = mkLiteral "#${colorScheme.blue}";
+        text-color = mkLiteral "#${colorScheme.base}";
         children = map mkLiteral [ "prompt" "entry" ];
       };
       # prompt -> inputbar
@@ -124,8 +124,8 @@ in
       };
       "element selected" = {
         border = mkLiteral "0 0 0 4px";
-        border-color = mkLiteral "#${colorScheme.base0D}";
-        background-color = mkLiteral "#${colorScheme.base03}";
+        border-color = mkLiteral "#${colorScheme.blue}";
+        background-color = mkLiteral "#${colorScheme.surface1}";
         text-color = mkLiteral "inherit";
       };
 
@@ -144,8 +144,8 @@ in
         horizontal-align = mkLiteral "0.5";
       };
       "button selected" = {
-        background-color = mkLiteral "#${colorScheme.base0D}";
-        text-color = mkLiteral "#${colorScheme.base00}";
+        background-color = mkLiteral "#${colorScheme.blue}";
+        text-color = mkLiteral "#${colorScheme.base}";
       };
     };
   };

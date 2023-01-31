@@ -13,9 +13,15 @@
     ../modules/udiskie.nix
   ];
 
-  programs.zsh.loginShellInit = ''
+  programs.bash.loginShellInit = ''
     # If running from tty1 start hyprland
     [ "$(tty)" = "/dev/tty1" ] && exec Hyprland
+  '';
+
+  programs.fish.loginShellInit = ''
+    # If running from tty1 start hyprland
+    set TTY1 (tty)
+    [ "$TTY1" = "/dev/tty1" ] && exec Hyprland
   '';
 
   nix.settings = {

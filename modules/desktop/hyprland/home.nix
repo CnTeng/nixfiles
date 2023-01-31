@@ -32,8 +32,8 @@ in
         border_size=4
         gaps_in=3
         gaps_out=5
-        col.active_border=rgb(${colorScheme.base0D})
-        col.inactive_border=rgb(${colorScheme.base00})
+        col.active_border=rgb(${colorScheme.blue})
+        col.inactive_border=rgb(${colorScheme.base})
         cursor_inactive_timeout=30
         layout=dwindle
       }
@@ -58,8 +58,8 @@ in
       }
 
       dwindle {
-        col.group_border_active=rgb(${colorScheme.base0B})
-        col.group_border=rgb(${colorScheme.base00})
+        col.group_border_active=rgb(${colorScheme.green})
+        col.group_border=rgb(${colorScheme.base})
         force_split=2
       }
 
