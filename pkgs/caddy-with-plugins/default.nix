@@ -23,13 +23,6 @@ let
     hash = "sha256-tz12CLrXLCf8Tjb9yj9rnysS3seLg3GAVFpybu3rIo8=";
   });
 
-  webdavSrc = srcOnly (fetchFromGitHub {
-    owner = "mholt";
-    repo = "caddy-webdav";
-    rev = "75a603bc69789413e4213ac746906d4357883929";
-    hash = "sha256-4YgpYKD5TmAEQ6dCJYvrKW4Tk8tE1BBdKRShQe92JzU=";
-  });
-
   combinedSrc = stdenv.mkDerivation {
     name = "caddy-src";
 
@@ -44,7 +37,6 @@ let
       cp -r ${caddySrc} "$out/caddy"
       cp -r ${forwardProxySrc} "$out/forwardproxy"
       cp -r ${cloudflareSrc} "$out/cloudflare"
-      cp -r ${webdavSrc} "$out/webdav"
 
       cd "$out/caddywithplugins"
 
@@ -54,7 +46,6 @@ let
       echo 'import _ "github.com/caddyserver/caddy/v2/modules/standard"' >> main.go
       echo 'import _ "github.com/caddyserver/forwardproxy"' >> main.go
       echo 'import _ "github.com/caddy-dns/cloudflare"' >> main.go
-      echo 'import _ "github.com/mholt/caddy-webdav"' >> main.go
       echo "func main(){ caddycmd.Main() }" >> main.go
       go mod edit -require=github.com/caddyserver/caddy/v2@v2.6.2
       go mod edit -replace github.com/caddyserver/caddy/v2=../caddy
@@ -62,8 +53,6 @@ let
       go mod edit -replace github.com/caddyserver/forwardproxy=../forwardproxy
       go mod edit -require=github.com/caddy-dns/cloudflare@v0.0.0
       go mod edit -replace github.com/caddy-dns/cloudflare=../cloudflare
-      go mod edit -require=github.com/mholt/caddy-webdav@v0.0.0
-      go mod edit -replace github.com/mholt/caddy-webdav=../webdav
     '';
   };
 in
@@ -72,7 +61,7 @@ buildGoModule {
 
   src = combinedSrc;
 
-  vendorHash = "sha256-PGMiu3vfoodkwO1N5WPht907exzgdhiOR/ADP6vI7L0=";
+  vendorHash = "sha256-BHYP2uq4bU4pzpwKRTtW7ylLdupcsa5SdBnIRMZ8Wbs=";
 
   overrideModAttrs = _: {
     postPatch = "cd caddywithplugins";
