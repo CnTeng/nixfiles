@@ -26,13 +26,13 @@ in
       [InputPanel]
       Font=Sans 13
       # Blue
-      NormalColor=#${colorScheme.base0D}
+      NormalColor=#${colorScheme.blue}
       # Peach
-      HighlightCandidateColor=#${colorScheme.base09}
+      HighlightCandidateColor=#${colorScheme.peach}
       #Peach
-      HighlightColor=#${colorScheme.base09}
+      HighlightColor=#${colorScheme.peach}
       # Surface0
-      HighlightBackgroundColor=#${colorScheme.base02}
+      HighlightBackgroundColor=#${colorScheme.surface0}
       Spacing=3
 
       [InputPanel/TextMargin]
@@ -43,9 +43,9 @@ in
 
       [InputPanel/Background]
       # Surface0
-      Color=#${colorScheme.base02}
+      Color=#${colorScheme.surface0}
       # Surface0
-      BorderColor=#${colorScheme.base02}
+      BorderColor=#${colorScheme.surface0}
       BorderWidth=2
 
       [InputPanel/Background/Margin]
@@ -56,7 +56,7 @@ in
 
       [InputPanel/Highlight]
       # Surface0
-      Color=#${colorScheme.base02}
+      Color=#${colorScheme.surface0}
 
       [InputPanel/Highlight/Margin]
       Left=10
@@ -67,12 +67,12 @@ in
       [Menu]
       Font=Sans 10
       # Text
-      NormalColor=#${colorScheme.base05}
+      NormalColor=#${colorScheme.text}
       Spacing=3
 
       [Menu/Background]
       # Surface0
-      Color=#${colorScheme.base02}
+      Color=#${colorScheme.surface0}
 
       [Menu/Background/Margin]
       Left=2
@@ -88,7 +88,7 @@ in
 
       [Menu/Highlight]
       # Peach
-      Color=#${colorScheme.base09}
+      Color=#${colorScheme.peach}
 
       [Menu/Highlight/Margin]
       Left=10
@@ -98,7 +98,7 @@ in
 
       [Menu/Separator]
       # colorScheme.base
-      Color=#${colorScheme.base00}
+      Color=#${colorScheme.base}
 
       [Menu/CheckBox]
       # Image=radio.png

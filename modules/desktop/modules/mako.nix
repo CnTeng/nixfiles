@@ -10,13 +10,13 @@ in
     programs.mako = {
       enable = true;
       # Copy from https://github.com/catppuccin/mako
-      backgroundColor = "#${colorScheme.base00}e6";
-      textColor = "#${colorScheme.base05}";
-      borderColor = "#${colorScheme.base0D}";
-      progressColor = "over #${colorScheme.base02}";
+      backgroundColor = "#${colorScheme.base}e6";
+      textColor = "#${colorScheme.text}";
+      borderColor = "#${colorScheme.blue}";
+      progressColor = "over #${colorScheme.surface0}";
       extraConfig = ''
         [urgency=high]
-        border-color=#${colorScheme.base09}
+        border-color=#${colorScheme.peach}
       '';
 
       width = 400;

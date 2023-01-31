@@ -5,6 +5,6 @@
     isNormalUser = true;
     password = "passwd";
     extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 }
