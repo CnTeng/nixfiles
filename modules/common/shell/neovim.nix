@@ -9,9 +9,6 @@
       # Require for telescope
       ripgrep
       fd
-      tree-sitter
-      # Require for nix format
-      nixpkgs-fmt
     ];
 
     home.sessionVariables = {
@@ -25,6 +22,10 @@
       withNodeJs = true;
       extraPython3Packages = ps: with ps; [
         pip
+      ];
+      extraPackages = with pkgs; [
+        tree-sitter
+        nixpkgs-fmt # Require for nix format
       ];
     };
 
