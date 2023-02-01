@@ -1,5 +1,8 @@
-{ user, ... }:
+{ config, user, ... }:
 
+let
+  homeDirectory = config.home-manager.users.${user}.home.homeDirectory;
+in
 {
   services.calibre-web = {
     enable = true;
@@ -13,7 +16,7 @@
     options = {
       enableBookUploading = true;
       enableBookConversion = true;
-      calibreLibrary = "/home/${user}/OneDrive/Calibre";
+      calibreLibrary = "${homeDirectory}/OneDrive/Calibre";
     };
   };
 }
