@@ -1,6 +1,7 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, user, ... }:
 
 let
+  homeDirectory = config.home-manager.users.${user}.home.homeDirectory;
   colorScheme = import ../modules/colorscheme.nix;
 
   wallpaper = ../../../assets/wallpapers/snowy_mountain.jpg;
@@ -105,7 +106,7 @@ in
       bind=SUPER,e,exec,${pcmanfm}
 
       # Screenshots
-      bind=,print,exec,${grim} -g "$(slurp)" "$HOME/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
+      bind=,print,exec,${grim} -g "$(slurp)" "${homeDirectory}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
       bind=SUPER_SHIFT,p,exec,${grim} -g "$(slurp)" - | wl-copy --type image/png
 
       # Colorpicker

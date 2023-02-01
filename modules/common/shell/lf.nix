@@ -23,9 +23,7 @@ let
   lfKittyClean = pkgs.writeShellScript "lf_kitty_clean" ''
     kitty +icat --clear --silent --transfer-mode file
   '';
-
 in
-
 {
   home-manager.users.${user} = {
     programs.lf = {

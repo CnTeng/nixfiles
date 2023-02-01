@@ -1,5 +1,8 @@
-{ user, ... }:
+{ config, user, ... }:
 
+let
+  homeDirectory = config.home-manager.users.${user}.home.homeDirectory;
+in
 {
   programs.ssh.startAgent = true;
 
@@ -11,7 +14,7 @@
         user = "yufei";
         forwardAgent = true;
         identityFile = [
-          "/home/${user}/.ssh/id_ed25519_sk_rk_rxtx@NixOS"
+          "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxtx@NixOS"
         ];
       };
     };
