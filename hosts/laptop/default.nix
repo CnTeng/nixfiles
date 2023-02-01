@@ -15,7 +15,7 @@
     # Programs
     ../../modules/programs/kitty.nix
     ../../modules/programs/alacritty.nix
-    ../../modules/programs/onedrive.nix
+    ../../modules/programs/drive.nix
     ../../modules/programs/firefox.nix
     ../../modules/programs/chrome.nix
     ../../modules/programs/kvm.nix
