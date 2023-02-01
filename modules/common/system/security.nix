@@ -1,5 +1,8 @@
-{ pkgs, inputs, user, ... }:
+{ config, pkgs, inputs, user, ... }:
 
+let
+  homeDirectory = config.home-manager.users.${user}.home.homeDirectory;
+in
 {
   imports = [ inputs.agenix.nixosModules.default ];
 
@@ -18,8 +21,8 @@
 
   age.identityPaths = [
     # TODO:add yubikey-yufei
-    # ../../../secrets/identities/yubikey-yufei.txt
+    # "../../../secrets/identities/yubikey-yufei.txt"
 
-    /home/${user}/.ssh/id_ed25519
+    "${homeDirectory}/.ssh/id_ed25519"
   ];
 }

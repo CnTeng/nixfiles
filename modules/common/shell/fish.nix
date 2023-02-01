@@ -19,7 +19,6 @@ in
         fish_config theme choose "Catppuccin Macchiato"
       '';
     };
-
     # Copy from https://github.com/catppuccin/fish
     xdg.configFile."fish/themes/Catppuccin Macchiato.theme".text = ''
       fish_color_normal ${colorScheme.text}

@@ -1,5 +1,8 @@
-{ pkgs, user, ... }:
+{ config, pkgs, user, ... }:
 
+let
+  homeDirectory = config.home-manager.users.${user}.home.homeDirectory;
+in
 {
   home-manager.users.${user} = {
     programs.ssh.matchBlocks = {
@@ -11,7 +14,7 @@
           AddKeysToAgent = "yes";
         };
         identityFile = [
-          "/home/${user}/.ssh/id_ed25519_sk_rk_auth@Github"
+          "${homeDirectory}/.ssh/id_ed25519_sk_rk_auth@Github"
         ];
       };
     };
