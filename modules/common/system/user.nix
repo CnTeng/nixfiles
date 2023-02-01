@@ -2,9 +2,10 @@
 
 {
   users.users.${user} = {
+    uid = 1000;
     isNormalUser = true;
-    password = "passwd";
     extraGroups = [ "wheel" ];
     shell = pkgs.fish;
+    password = "passwd";
   };
 }
