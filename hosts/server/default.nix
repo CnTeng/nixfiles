@@ -8,7 +8,7 @@
 
     ../../modules/common
 
-    ../../modules/programs/drive.nix
+    ../../modules/programs/onedrive.nix
 
     ../../modules/services/ssh.nix
     ../../modules/services/firewall.nix
