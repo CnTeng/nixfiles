@@ -17,6 +17,5 @@
     ../../modules/services/vaultwarden.nix
     ../../modules/services/calibre.nix
     ../../modules/services/miniflux.nix
-    ../../modules/services/memos.nix
   ];
 }
