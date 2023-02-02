@@ -5,7 +5,7 @@
     ./zsh.nix
     ./fish.nix
     ./starship.nix
-    ./neovim.nix
+    ./neovim
     ./tmux.nix
     ./git.nix
     ./fzf.nix

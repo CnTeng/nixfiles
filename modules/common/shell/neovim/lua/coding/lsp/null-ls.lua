@@ -10,7 +10,6 @@ return {
           nls.builtins.formatting.prettier,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.flake8,
         },
       }
     end,
@@ -21,13 +20,12 @@ return {
     dependencies = "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "stylua",
-        "prettier",
-        "cpplint",
-        "clang-format",
-        "golines",
-        "black",
-        "shfmt",
+        -- "stylua",
+        -- "prettier",
+        -- "cpplint",
+        -- "golines",
+        -- "black",
+        -- "shfmt",
       },
     },
   },
