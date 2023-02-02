@@ -34,7 +34,6 @@ return {
       end
 
       vim.diagnostic.config(opts.diagnostics)
-
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       local on_attach = function(_, bufnr)
@@ -61,10 +60,6 @@ return {
         on_attach = on_attach,
         capabilities = capabilities,
       }
-      require("lspconfig").clangd.setup { default_handlers }
-      require("lspconfig").nil_ls.setup { default_handlers }
-      require("lspconfig").pyright.setup { default_handlers }
-      require("lspconfig").marksman.setup { default_handlers }
 
       require("core.utils.lsp").setup_handlers(default_handlers)
     end,
