@@ -3,10 +3,10 @@
 {
   home-manager.users.${user} = {
     home.packages = with pkgs; [
-      gnumake
-      cmake
       gcc
       gdb
+      gnumake
+      cmake
     ];
   };
 }

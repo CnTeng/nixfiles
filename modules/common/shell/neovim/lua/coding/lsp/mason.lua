@@ -8,17 +8,15 @@ return {
     },
     config = true,
   },
-
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "jsonls",
-        "sumneko_lua",
-        "clangd",
-        "gopls",
-        "pyright",
-        "nil_ls",
+        -- "jsonls",
+        -- "sumneko_lua",
+        -- "gopls",
+        -- "pyright",
+        -- "nil_ls",
       },
       automatic_installation = true,
     },
