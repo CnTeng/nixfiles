@@ -9,9 +9,6 @@
       enable = true;
       defaultEditor = true;
       withNodeJs = true;
-      extraPython3Packages = ps: with ps; [
-        pip
-      ];
       extraPackages = with pkgs; [
         tree-sitter
 
@@ -19,23 +16,18 @@
         ripgrep
         fd
 
-        # C & C++
+        /* C & C++ */
         clang-tools # LSP & Formatter
 
-        # Markdown
+        /* Markdown */
         marksman # LSP
 
-        # Nix
+        /* Nix */
         nil # LSP
         nixpkgs-fmt # Formatter
 
-        pyright
-
-        # (python3.withPackages (ps: with ps; [
-        #   pip
-        #   ipython
-        #   python-lsp-server
-        # ]))
+        /* Python */
+        pyright # LSP
       ];
     };
 
