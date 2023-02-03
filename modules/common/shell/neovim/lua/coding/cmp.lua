@@ -1,10 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = {
-      "InsertEnter",
-      "CmdlineEnter ",
-    },
+    event = "VeryLazy",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "saadparwaiz1/cmp_luasnip",
