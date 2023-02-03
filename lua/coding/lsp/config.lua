@@ -9,12 +9,14 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      {
+        "folke/neodev.nvim",
+        opts = { experimental = { pathStrict = true } },
+      },
+      { "j-hui/fidget.nvim", config = true },
+      { "hrsh7th/cmp-nvim-lsp" },
     },
-    -- event = "BufReadPre",
+    event = "BufReadPre",
     keys = {
       { "<leader>li", "<cmd>LspInfo<cr>", desc = "LSP info" },
     },
@@ -61,7 +63,26 @@ return {
         capabilities = capabilities,
       }
 
-      require("core.utils.lsp").setup_handlers(default_handlers)
+      require("lspconfig").pyright.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
+
+      require("lspconfig").clangd.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
+      require("lspconfig").nil_ls.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
+
+      require("lspconfig").sumneko_lua.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
+
+      -- require("core.utils.lsp").setup_handlers(default_handlers)
     end,
   },
 }
