@@ -10,11 +10,16 @@
       defaultEditor = true;
       withNodeJs = true;
       extraPackages = with pkgs; [
+        wl-clipboard
         tree-sitter
 
         # Require for telescope
         ripgrep
         fd
+
+        /* Lua */
+        sumneko-lua-language-server # LSP
+        stylua # Formatter
 
         /* C & C++ */
         clang-tools # LSP & Formatter
