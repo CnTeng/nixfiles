@@ -3,10 +3,10 @@
 {
   services.openssh = {
     enable = true;
-    # ports = [ 23 ];
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "yes";
+      UseDns = false;
     };
   };
 
