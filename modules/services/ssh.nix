@@ -5,8 +5,7 @@
     enable = true;
     settings = {
       PasswordAuthentication = true;
-      PermitRootLogin = true;
-      UseDNS = false;
+      PermitRootLogin = "yes";
       GSSAPIAuthentication = false;
     };
   };
