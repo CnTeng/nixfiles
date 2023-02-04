@@ -10,8 +10,9 @@ return {
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.nixpkgs_fmt,
-          null_ls.builtins.diagnostics.cspell,
-          null_ls.builtins.code_actions.cspell,
+          -- null_ls.builtins.diagnostics.cspell,
+          -- null_ls.builtins.code_actions.cspell,
+          null_ls.builtins.formatting.prettier,
         },
       }
     end,
