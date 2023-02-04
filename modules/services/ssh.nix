@@ -6,7 +6,8 @@
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "yes";
-      UseDns = false;
+      UseDNS = false;
+      GSSAPIAuthentication = "no";
     };
   };
 
