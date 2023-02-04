@@ -17,6 +17,7 @@
         fd
 
         nodePackages.cspell
+        nodePackages.prettier
 
         /* Lua */
         sumneko-lua-language-server # LSP
