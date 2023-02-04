@@ -10,7 +10,8 @@ in
     programs.ssh = {
       enable = true;
       matchBlocks.rxtx = {
-        hostname = "ssh.snakepi.xyz";
+        hostname = "43.134.194.35";
+        port = 33;
         user = "yufei";
         forwardAgent = true;
         identityFile = [
