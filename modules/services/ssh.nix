@@ -3,6 +3,7 @@
 {
   services.openssh = {
     enable = true;
+    ports = [ 33 ];
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "yes";
