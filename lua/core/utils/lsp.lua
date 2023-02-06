@@ -17,7 +17,7 @@ local function keymap(mode, lhs, rhs, opts)
   })
 end
 
-local function setup_capabilities()
+local function setup_lsp_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   capabilities.textDocument.foldingRange = {
@@ -29,13 +29,9 @@ local function setup_capabilities()
   return capabilities
 end
 
-local function setup_on_attach()
-  local on_attach = function(client, bufnr)
+local function setup_lsp_on_attach()
+  local function on_attach(client, bufnr)
     local server_capabilities = client.server_capabilities
-
-    if server_capabilities.hoverProvider then
-      keymap("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
-    end
 
     if server_capabilities.definitionProvider then
       keymap("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
@@ -58,11 +54,11 @@ local function setup_on_attach()
     end
 
     if server_capabilities.codeActionProvider then
-      keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
+      keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action (LSP)" })
     end
 
     if server_capabilities.documentFormattingProvider then
-      keymap({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format code" })
+      keymap({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format code (LSP)" })
     end
 
     if server_capabilities.codeLensProvider then
@@ -88,8 +84,8 @@ end
 
 function M.setup_lspconfig(servers)
   local default_handlers = {
-    on_attach = setup_on_attach(),
-    capabilities = setup_capabilities(),
+    on_attach = setup_lsp_on_attach(),
+    capabilities = setup_lsp_capabilities(),
   }
 
   for _, server in ipairs(servers) do
@@ -101,6 +97,15 @@ function M.setup_lspconfig(servers)
       require("lspconfig")[server].setup(default_handlers)
     end
   end
+end
+
+function M.setup_null_ls_on_attach()
+  local function on_attach(_, bufnr)
+    keymap({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format code (null-ls)" })
+    keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action (null-ls)" })
+  end
+
+  return on_attach
 end
 
 return M

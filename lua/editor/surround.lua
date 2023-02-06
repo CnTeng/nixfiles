@@ -1,7 +1,5 @@
--- TODO:finsh
+-- TODO:finsh surround config
 return {
-  {
-    "kylechui/nvim-surround",
-    config = true,
-  },
+  "kylechui/nvim-surround",
+  config = true,
 }
