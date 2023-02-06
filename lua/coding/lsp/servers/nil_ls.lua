@@ -1,6 +1,6 @@
 return {
   settings = {
-    ['nil'] = {
+    ["nil"] = {
       formatting = {
         command = { "nixpkgs-fmt" },
       },
