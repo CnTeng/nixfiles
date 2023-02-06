@@ -4,6 +4,7 @@ let
   packages = ps: with ps; [
     pip
     ipython
+    debugpy
   ];
 in
 {

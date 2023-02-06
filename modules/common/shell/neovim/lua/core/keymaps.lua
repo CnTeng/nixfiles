@@ -1,11 +1,10 @@
--- Shorten function name
 local keymap = vim.keymap.set
 
 -- Remap space as leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Normal --
+--[[ Normal ]]
 -- Standed operations
 keymap("n", "<leader>w", "<cmd>w<cr>", { desc = "Write" })
 keymap("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
@@ -20,11 +19,11 @@ keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>", { desc = "Lazy sync" })
 keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
 keymap("n", "<leader>pu", "<cmd>Lazy update<cr>", { desc = "Lazy update" })
 
--- Insert --
+--[[ Insert ]]
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<esc>", { desc = "Exit insert mode" })
 
--- Visual --
+--[[ Visual ]]
 -- Stay in indent mode
 keymap("v", "<", "<gv", { desc = "unindent line" })
 keymap("v", ">", ">gv", { desc = "indent line" })
@@ -33,14 +32,14 @@ keymap("v", ">", ">gv", { desc = "indent line" })
 keymap("v", "<A-j>", ":m .+1<cr>==", { desc = "Move text down" })
 keymap("v", "<A-k>", ":m .-2<cr>==", { desc = "Move text up" })
 
--- Visual Block --
+--[[ Visual Block ]]
 -- Move text up and down
 keymap("x", "J", ":move '>+1<cr>gv-gv", { desc = "Move text down" })
 keymap("x", "K", ":move '<-2<cr>gv-gv", { desc = "Move text up" })
 keymap("x", "<A-k>", ":move '<-2<cr>gv-gv", { desc = "Move text up" })
 keymap("x", "<A-j>", ":move '>+1<cr>gv-gv", { desc = "Move text down" })
 
--- Terminal --
+--[[ Terminal ]]
 -- Better terminal navigation
 keymap("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
 keymap("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })

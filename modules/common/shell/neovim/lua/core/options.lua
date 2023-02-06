@@ -1,47 +1,34 @@
-local options = {
-  backup = false, -- creates a backup file
-  clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-  cmdheight = 1, -- more space in the neovim command line for displaying messages
-  completeopt = { "menuone", "noselect" }, -- mostly just for cmp
-  conceallevel = 0, -- so that `` is visible in markdown files
-  fileencoding = "utf-8", -- the encoding written to a file
-  hlsearch = true, -- highlight all matches on previous search pattern
-  ignorecase = true, -- ignore case in search patterns
-  mouse = "a", -- allow the mouse to be used in neovim
-  pumheight = 10, -- pop up menu height
-  showmode = false, -- we don't need to see things like -- INSERT -- anymore
-  showtabline = 2, -- always show tabs
-  smartcase = true, -- smart case
-  smartindent = true, -- make indenting smarter again
-  splitbelow = true, -- force all horizontal splits to go below current window
-  splitright = true, -- force all vertical splits to go to the right of current window
-  swapfile = false, -- creates a swapfile
-  termguicolors = true, -- set term gui colors (most terminals support this)
-  undofile = true, -- enable persistent undo
-  updatetime = 300, -- faster completion (4000ms default)
-  writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-  expandtab = true, -- convert tabs to spaces
-  shiftwidth = 2, -- the number of spaces inserted for each indentation
-  tabstop = 2, -- insert 2 spaces for a tab
-  cursorline = true, -- highlight the current line
-  number = true, -- set numbered lines
-  relativenumber = true, -- set relative numbered lines
-  numberwidth = 2, -- set number column width to 2 {default 4}
-  signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
-  wrap = false, -- display lines as one long line
-  scrolloff = 8, -- is one of my fav
-  sidescrolloff = 8,
-  -- spell = true,
-  -- spelllang = { "en_us", "cjk" },
-  -- spelloptions = "camel",
-}
+local opt = vim.opt
 
-vim.opt.shortmess:append "c"
-
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
-
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+opt.autoindent = true -- Auto indent
+opt.backup = false -- Disable backup
+opt.clipboard = "unnamedplus" -- Connection to the system clipboard
+opt.cmdheight = 1 -- Set command line height
+opt.cursorline = true -- Highlight the text line of the cursor
+opt.expandtab = true -- Enable the use of space in tab
+opt.fileencoding = "utf-8" -- File content encoding for the buffer
+opt.hlsearch = true -- Highlight all matches
+opt.ignorecase = true -- Case insensitive searching
+opt.mouse = "a" -- Enable mouse support
+opt.number = true -- Show numberline
+opt.numberwidth = 2 -- Set numberline width
+opt.pumheight = 10 -- Height of the pop up menu
+opt.relativenumber = true -- Preserve indent structure as much as possible
+opt.scrolloff = 8 -- Number of lines to keep above and below the cursor
+opt.shiftwidth = 2 -- Number of space inserted for indentation
+opt.showmode = false -- Disable showing modes in command line
+opt.showtabline = 2 -- Always display tabline
+opt.sidescrolloff = 8 -- Number of lines to keep left and right the cursor
+opt.signcolumn = "yes" -- Always show the sign column
+opt.smartcase = true -- Case sensitive searching when containing upper case characters
+opt.smartindent = true -- Smart indent
+opt.splitbelow = true -- Splitting a new window below the current one
+opt.splitright = true -- Splitting a new window at the right of the current one
+opt.swapfile = false -- Create a swapfile
+opt.tabstop = 2 -- Number of space in a tab
+opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
+opt.undofile = true -- Enable persistent undo
+opt.updatetime = 300 -- Length of time to wait before triggering the plugin
+opt.whichwrap = "h,l,<,>,[,],~" -- Set which key can jump to the next line
+opt.wrap = false -- Disable wrapping of lines longer than the width of window
+opt.writebackup = false -- Disable making a backup before overwriting a file
