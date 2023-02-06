@@ -10,24 +10,25 @@
       defaultEditor = true;
       withNodeJs = true;
       extraPackages = with pkgs; [
+        # Require for nvim-treesitter 
         tree-sitter
 
-        # Require for telescope
+        # Require for telescope.nvim
         ripgrep
         fd
 
-        nodePackages.cspell
-        nodePackages.prettier
+        nodePackages.cspell # Spell checker
+        nodePackages.prettier # Formatter
 
         /* Lua */
         sumneko-lua-language-server # LSP
         stylua # Formatter
 
-        /* C & C++ */
-        clang-tools # LSP & Formatter
-
         /* Markdown */
         marksman # LSP
+
+        /* C & C++ */
+        clang-tools # LSP & Formatter
 
         /* Nix */
         nil # LSP
