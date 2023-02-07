@@ -34,7 +34,6 @@
 - Git integration with [gitsigns](https://github.com/lewis6991/gitsigns.nvim)
 - Highlight the word with [illuminate](https://github.com/RRethy/vim-illuminate)
 - Indentline with [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
-- Move around with [leap](https://github.com/ggandor/leap.nvim)
 - Split resizing and navigation with [smart-splits](https://github.com/mrjones2014/smart-splits.nvim)
 - Surround selections with [surround](https://github.com/kylechui/nvim-surround)
 - Fuzzy finder with [telescope](https://github.com/nvim-telescope/telescope.nvim)
@@ -49,7 +48,6 @@
 - Snippet engine with [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
 - Markdown preview with [markdown-preview](https://github.com/iamcco/markdown-preview.nvim)
 - Syntax with [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-- LSP installer with [mason](https://github.com/williamboman/mason.nvim)
 - Inject LSP features with [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
 
 ## ⚡ Requirements
