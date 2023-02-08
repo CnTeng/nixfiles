@@ -29,11 +29,12 @@ return {
         severity_sort = true,
       },
       servers = {
-        "sumneko_lua",
-        "marksman",
-        "clangd",
-        "nil_ls",
-        "pyright",
+        "sumneko_lua", -- Lua
+        "bashls", -- Shell
+        "clangd", -- C++ & C
+        "nil_ls", -- Nix
+        "pyright", -- Python
+        "marksman", -- Markdown
       },
     }
   end,

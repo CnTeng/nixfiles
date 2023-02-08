@@ -17,15 +17,13 @@
         ripgrep
         fd
 
-        nodePackages.cspell # Spell checker
-        nodePackages.prettier # Formatter
-
         /* Lua */
         sumneko-lua-language-server # LSP
         stylua # Formatter
 
-        /* Markdown */
-        marksman # LSP
+        /* shell */
+        nodePackages.bash-language-server # LSP
+        shfmt # Formatter
 
         /* C & C++ */
         clang-tools # LSP & Formatter
@@ -36,6 +34,11 @@
 
         /* Python */
         pyright # LSP
+        black # Formatter
+
+        /* Markdown */
+        marksman # LSP
+        nodePackages.prettier # Formatter
       ];
     };
 
