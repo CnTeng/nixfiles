@@ -26,6 +26,7 @@ return {
               vim_item.menu = ({
                 nvim_lsp = "[LSP]",
                 luasnip = "[Snippet]",
+                orgmode = "[Org]",
                 cmdline = "[Cmd]",
                 buffer = "[Buffer]",
                 path = "[Path]",
@@ -74,6 +75,7 @@ return {
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
+          { name = "orgmode" },
           { name = "buffer" },
           { name = "path" },
         },
