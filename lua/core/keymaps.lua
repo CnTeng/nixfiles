@@ -13,11 +13,11 @@ keymap("n", "<leader>fn", "<cmd>ene <bar> startinsert <cr>", { desc = "New file"
 keymap("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
 keymap("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
 
-keymap("n", "<leader>ph", "<cmd>Lazy<cr>", { desc = "Lazy home" })
-keymap("n", "<leader>pp", "<cmd>Lazy profile<cr>", { desc = "Lazy profile" })
-keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>", { desc = "Lazy sync" })
-keymap("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Lazy log" })
-keymap("n", "<leader>pu", "<cmd>Lazy update<cr>", { desc = "Lazy update" })
+-- Better window movement
+keymap("n", "gh", "<C-w>H", { desc = "Move window left" })
+keymap("n", "gj", "<C-w>J", { desc = "Move window down" })
+keymap("n", "gk", "<C-w>K", { desc = "Move window up" })
+keymap("n", "gl", "<C-w>L", { desc = "Move window right" })
 
 --[[ Insert ]]
 -- Press jk fast to exit insert mode
@@ -42,7 +42,6 @@ keymap("x", "<A-j>", ":move '>+1<cr>gv-gv", { desc = "Move text down" })
 --[[ Terminal ]]
 -- Better terminal navigation
 keymap("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
-keymap("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })
 keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Terminal left window navigation" })
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Terminal down window navigation" })
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Terminal up window navigation" })
