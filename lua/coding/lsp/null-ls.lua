@@ -5,12 +5,13 @@ return {
     local null_ls = require "null-ls"
     return {
       sources = {
-        null_ls.builtins.formatting.prettier,
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.shfmt,
-        -- null_ls.builtins.diagnostics.cspell,
-        -- null_ls.builtins.code_actions.cspell,
-        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.stylua.with {
+          filetypes = { "lua", "luau", "org" },
+        }, -- Lua
+        null_ls.builtins.formatting.shfmt, -- Shell
+        null_ls.builtins.formatting.black, -- Python
+        null_ls.builtins.formatting.prettier, -- Markdown
+        null_ls.builtins.diagnostics.todo_comments,
       },
       on_attach = require("core.utils.lsp").setup_null_ls_on_attach(),
     }
