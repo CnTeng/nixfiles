@@ -15,12 +15,13 @@ return {
       "markdown",
       "markdown_inline",
       "nix",
+      "org",
     },
     ignore_install = {},
     highlight = {
       enable = true,
       disable = {},
-      additional_vim_regex_highlighting = { "markdown" },
+      additional_vim_regex_highlighting = { "markdown", "org" },
     },
     rainbow = {
       enable = true,
