@@ -1,7 +1,7 @@
 local M = {}
 
 --- Bootstrap plugin manager Lazy
-local function pm_bootstrap()
+local function plugin_manager_bootstrap()
   local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
@@ -17,7 +17,7 @@ local function pm_bootstrap()
 end
 
 --- Set Lazy keymaps
-local function pm_keymap()
+local function plugin_manager_keymap()
   local keymap = vim.keymap.set
 
   keymap("n", "<leader>ph", "<cmd>Lazy<cr>", { desc = "Lazy home" })
@@ -31,11 +31,10 @@ end
 --- Load plugins
 ---@param spec table
 function M.load(spec)
-  pm_bootstrap()
-  pm_keymap()
+  plugin_manager_bootstrap()
+  plugin_manager_keymap()
 
   local opts = {
-    defaults = { lazy = false },
     install = {
       missing = true,
       colorscheme = { "catppuccin", "habamax" },
