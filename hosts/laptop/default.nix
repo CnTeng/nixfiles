@@ -23,6 +23,7 @@
     ../../modules/programs/yubikey.nix
     ../../modules/programs/vscode.nix
     ../../modules/programs/idea.nix
+    ../../modules/programs/pycharm.nix
     ../../modules/programs/feh.nix
     ../../modules/programs/adb.nix
     ../../modules/programs/android-studio.nix
