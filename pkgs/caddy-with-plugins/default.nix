@@ -5,8 +5,8 @@ let
   caddySrc = srcOnly (fetchFromGitHub {
     owner = "caddyserver";
     repo = "caddy";
-    rev = "v2.6.2";
-    hash = "sha256-Tbf6RB3106OEZGc/Wx7vk+I82Z8/Q3WqnID4f8uZ6z0=";
+    rev = "v2.6.3";
+    hash = "sha256-YH+lo6gKqmhu1/3HZdWXnxTXaUwC8To+OCmGpji6i3k=";
   }); # Clone from https://github.com/caddyserver/caddy
 
   forwardProxySrc = srcOnly (fetchFromGitHub {
@@ -61,7 +61,7 @@ buildGoModule {
 
   src = combinedSrc;
 
-  vendorHash = "sha256-BHYP2uq4bU4pzpwKRTtW7ylLdupcsa5SdBnIRMZ8Wbs=";
+  vendorHash = "sha256-jL51OfzMWJwgJVizevKj4CO84zvwxOzHRoT8E1jF6K8=";
 
   overrideModAttrs = _: {
     postPatch = "cd caddywithplugins";
