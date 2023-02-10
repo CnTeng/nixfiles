@@ -11,10 +11,7 @@
 
     nur.url = "github:nix-community/NUR";
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    agenix.url = "github:ryantm/agenix";
 
     hyprland.url = "github:hyprwm/Hyprland";
 

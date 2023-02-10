@@ -10,13 +10,8 @@ let
 in
 {
   home-manager.users.${user} = {
-    # Maybe necessary for tray
-    home.packages = with pkgs;
-      [
-        libappindicator
-        # TODO:add mpris and set max-length
-        # playerctl
-      ];
+    # TODO:add mpris and set max-length
+    home.packages = [ pkgs.libappindicator ]; # Maybe necessary for tray
 
     programs.waybar = {
       enable = true;

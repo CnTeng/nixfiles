@@ -6,11 +6,9 @@ in
 {
   security.pam.services.swaylock = { }; # Ensure swaylock can verify the password
 
-  environment.systemPackages = with pkgs; [
-    swaylock-effects
-  ];
-
   home-manager.users.${user} = {
+    home.packages = [ pkgs.swaylock-effects ];
+
     programs.swaylock.settings = {
       daemonize = true; # Detach from the controlling terminal after locking
       screenshots = true;
