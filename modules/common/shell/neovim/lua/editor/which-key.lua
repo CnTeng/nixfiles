@@ -18,6 +18,7 @@ return {
       ["<leader>f"] = { name = "+File" },
       ["<leader>g"] = { name = "+Git" },
       ["<leader>l"] = { name = "+LSP" },
+      ["<leader>o"] = { name = "+Org" },
       ["<leader>p"] = { name = "+Plugin" },
       ["<leader>s"] = { name = "+Search" },
       ["<leader>t"] = { name = "+Term" },
