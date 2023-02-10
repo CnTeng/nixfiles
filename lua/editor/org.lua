@@ -1,5 +1,6 @@
 return {
   "nvim-orgmode/orgmode",
+  event = "VeryLazy",
   ft = "org",
   dependencies = {
     { "akinsho/org-bullets.nvim", config = true },
