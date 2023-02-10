@@ -1,6 +1,5 @@
 { user, ... }:
 
 {
-  home-manager.users.${user} =
-    import ./home.nix;
+  home-manager.users.${user} = import ./home.nix;
 }

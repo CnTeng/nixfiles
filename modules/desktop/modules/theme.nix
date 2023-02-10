@@ -1,16 +1,15 @@
 { pkgs, user, ... }:
 
 {
-  # Set the qt theme by using kvantum
-  environment.systemPackages = with pkgs; [
-    libsForQt5.qtstyleplugin-kvantum
-  ];
   qt = {
     enable = true;
     platformTheme = "qt5ct";
   };
 
   home-manager.users.${user} = {
+    # Set the qt theme by using kvantum
+    home.packages = [ pkgs.libsForQt5qtstyleplugin-kvantum ];
+
     # Set the theme of cursor for the whole system
     home.pointerCursor = {
       name = "Catppuccin-Macchiato-Dark-Cursors";

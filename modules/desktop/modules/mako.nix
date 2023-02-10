@@ -5,7 +5,7 @@ let
 in
 {
   home-manager.users.${user} = {
-    home.packages = with pkgs; [ jq ];
+    home.packages = [ pkgs.jq ];
 
     programs.mako = {
       enable = true;
