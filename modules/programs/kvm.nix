@@ -9,45 +9,50 @@
   # Enable kvm support in nix
   nix.settings.system-features = [ "kvm" ];
 
-  # Enable kvm in kernel and add vfio kernel modules 
-  boot.kernelModules = [
-    "kvm-intel"
-    "vfio"
-    "vfio_pci"
-    "vfio_iommu_type1"
-    "vfio_mdev"
-    "vfio_virqfd"
-  ];
+  boot = {
+    # Enable kvm in kernel and add vfio kernel modules 
+    kernelModules = [
+      "kvm-intel"
+      "vfio"
+      "vfio_pci"
+      "vfio_iommu_type1"
+      "vfio_mdev"
+      "vfio_virqfd"
+    ];
 
-  # About IGVT-g
-  boot.kernelParams = [
-    "intel_iommu=on"
-    "kvm.ignore_msrs=1"
-    "i915.enable_guc=2"
-  ];
+    # About IGVT-g
+    kernelParams = [
+      "intel_iommu=on"
+      "kvm.ignore_msrs=1"
+      "i915.enable_guc=2"
+    ];
+
+    # Nvidia GPU passthrough
+    # extraModprobeConfig = "options vfio-pci ids=10de:1f91";
+  };
 
   users.users.${user}.extraGroups = [ "libvirtd" "kvm" ];
 
-  # Nvidia GPU passthrough
-  # boot.extraModprobeConfig = "options vfio-pci ids=10de:1f91";
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      ovmf.enable = true;
-      swtpm.enable = true;
-      # verbatimConfig = ''
-      #   nvram = [ "${pkgs.OVMF}/FV/OVMF.fd:${pkgs.OVMF}/FV/OVMF_VARS.fd" ]
-      # ''; # Nvidia GPU passthrough
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        ovmf.enable = true;
+        swtpm.enable = true;
+        # verbatimConfig = ''
+        #   nvram = [ "${pkgs.OVMF}/FV/OVMF.fd:${pkgs.OVMF}/FV/OVMF_VARS.fd" ]
+        # ''; # Nvidia GPU passthrough
+      };
     };
-  };
 
-  # Enable IGVT-g
-  virtualisation.kvmgt = {
-    enable = true;
-    vgpus = {
-      "i915-GVTg_V5_4" = {
-        uuid = [ "79544a60-667d-11ed-a252-4bef3ca9611e" ];
+    # Enable IGVT-g
+    kvmgt = {
+      enable = true;
+      vgpus = {
+        "i915-GVTg_V5_4" = {
+          uuid = [ "79544a60-667d-11ed-a252-4bef3ca9611e" ];
+        };
       };
     };
   };

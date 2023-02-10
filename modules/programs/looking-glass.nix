@@ -2,13 +2,15 @@
 
 {
   # Enable kvmfr
-  boot.extraModulePackages = with pkgs; [
-    linuxKernel.packages.linux_6_0.kvmfr
-  ];
+  boot = {
+    extraModulePackages = with pkgs; [
+      linuxKernel.packages.linux_6_0.kvmfr
+    ];
 
-  boot.kernelModules = [ "kvmfr" ];
+    kernelModules = [ "kvmfr" ];
 
-  boot.kernelParams = [ "kvmfr.static_size_mb=64" ];
+    kernelParams = [ "kvmfr.static_size_mb=64" ];
+  };
 
   services.udev.extraRules = ''
     SUBSYSTEM=="kvmfr", OWNER="${user}", GROUP="kvm", MODE="0660"

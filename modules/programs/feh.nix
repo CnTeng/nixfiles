@@ -2,8 +2,6 @@
 
 {
   home-manager.users.${user} = {
-    programs.feh = {
-      enable = true;
-    };
+    programs.feh.enable = true;
   };
 }
