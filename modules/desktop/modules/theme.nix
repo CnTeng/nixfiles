@@ -8,7 +8,7 @@
 
   home-manager.users.${user} = {
     # Set the qt theme by using kvantum
-    home.packages = [ pkgs.libsForQt5qtstyleplugin-kvantum ];
+    home.packages = [ pkgs.libsForQt5.qtstyleplugin-kvantum ];
 
     # Set the theme of cursor for the whole system
     home.pointerCursor = {
