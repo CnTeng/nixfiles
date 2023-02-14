@@ -32,5 +32,7 @@
           ]
           oldAttrs.installPhase;
       });
+
+      android-studio = prev.android-studio.override { tiling_wm = true; };
     };
 }
