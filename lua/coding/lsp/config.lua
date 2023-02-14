@@ -33,7 +33,7 @@ return {
         "bashls", -- Shell
         "clangd", -- C++ & C
         "nil_ls", -- Nix
-        "pyright", -- Python
+        "pylsp", -- Python
         "marksman", -- Markdown
       },
     }
