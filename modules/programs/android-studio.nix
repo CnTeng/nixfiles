@@ -3,7 +3,8 @@
 {
   home-manager.users.${user} = {
     home.packages = with pkgs; [
-      android-studio
+      android-studio 
+      kotlin
     ];
   };
 }
