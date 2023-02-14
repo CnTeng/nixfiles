@@ -1,13 +1,12 @@
 return {
   "nvim-telescope/telescope.nvim",
-  event = "VeryLazy",
+  cmd = "Telescope",
   dependencies = {
     { "nvim-lua/plenary.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "debugloop/telescope-undo.nvim" },
   },
-  cmd = "Telescope",
   keys = {
     -- Buffer
     { "<leader>bs", function() require("telescope.builtin").buffers() end, desc = "Swicth buffer" },
