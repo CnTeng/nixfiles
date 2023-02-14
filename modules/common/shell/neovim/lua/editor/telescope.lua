@@ -16,7 +16,7 @@ return {
     -- Search
     { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer" },
     { "<leader>sc", function() require("telescope.builtin").commands() end, desc = "Commands" },
-    { "<leader>sC", function() require("telescope.builtin").command_history() end, desc = "Command History" },
+    { "<leader>sC", function() require("telescope.builtin").command_history() end, desc = "Command history" },
     { "<leader>sh", function() require("telescope.builtin").help_tags() end, desc = "Help pages" },
     { "<leader>sH", function() require("telescope.builtin").highlights() end, desc = "Highlight groups" },
     { "<leader>sk", function() require("telescope.builtin").keymaps() end, desc = "Key maps" },
