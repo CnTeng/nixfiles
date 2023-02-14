@@ -1,7 +1,7 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = "BufReadPost",
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     ensure_installed = {
       "vim",
@@ -32,7 +32,7 @@ return {
     autopairs = { enable = true },
     incremental_selection = { enable = true },
     indent = {
-      enable = true,
+      enable = false,
       disable = {},
     },
     context_commentstring = {
