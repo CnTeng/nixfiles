@@ -71,7 +71,7 @@ return {
     dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
     dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
 
-    -- TODO:finsh config cpp dap
+    -- TODO: finsh config cpp dap
     -- require "coding.dap.servers.cpp"
     require "coding.dap.servers.python"
   end,
