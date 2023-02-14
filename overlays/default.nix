@@ -16,8 +16,6 @@
           patches = (oldAttrs.patches or [ ]) ++ [ waybarPatchFile ];
         });
 
-      discord = prev.discord.override { nss = pkgs.nss_latest; };
-
       spotify = prev.spotify.overrideAttrs (oldAttrs: {
         installPhase = builtins.replaceStrings
           [
