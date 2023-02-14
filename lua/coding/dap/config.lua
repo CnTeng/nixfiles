@@ -1,6 +1,5 @@
 return {
   "rcarriga/nvim-dap-ui",
-  event = "VeryLazy",
   dependencies = "mfussenegger/nvim-dap",
   keys = {
     { "<f5>", function() require("dap").continue() end, desc = "Debugger: Start" },
@@ -58,6 +57,7 @@ return {
     },
   },
   config = function(_, opts)
+    ---@diagnostic disable-next-line: different-requires
     require("core.utils.dap").setup_dap_signs(opts.signs)
 
     local dap, dapui = require "dap", require "dapui"
