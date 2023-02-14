@@ -1,6 +1,6 @@
 { ... }:
 
-# TODO:finsh tmux config
+# TODO: finsh tmux config
 {
   programs.tmux = {
     enable = true;

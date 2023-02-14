@@ -20,7 +20,7 @@ in
   ]);
 
   age.identityPaths = [
-    # TODO:add yubikey-yufei
+    # TODO: add yubikey-yufei
     # "../../../secrets/identities/yubikey-yufei.txt"
 
     "${homeDirectory}/.ssh/id_ed25519"

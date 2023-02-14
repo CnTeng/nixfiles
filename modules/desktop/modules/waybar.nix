@@ -10,7 +10,7 @@ let
 in
 {
   home-manager.users.${user} = {
-    # TODO:add mpris and set max-length
+    # TODO: add mpris and set max-length
     home.packages = [ pkgs.libappindicator ]; # Maybe necessary for tray
 
     programs.waybar = {
