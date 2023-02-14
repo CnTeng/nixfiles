@@ -29,7 +29,7 @@ return {
         severity_sort = true,
       },
       servers = {
-        "sumneko_lua", -- Lua
+        "lua_ls", -- Lua
         "bashls", -- Shell
         "clangd", -- C++ & C
         "nil_ls", -- Nix
