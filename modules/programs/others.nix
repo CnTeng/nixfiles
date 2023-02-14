@@ -27,6 +27,7 @@
 
       # Office
       libreoffice
+      drawio
 
       # Community
       tdesktop
