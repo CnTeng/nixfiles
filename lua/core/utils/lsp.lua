@@ -31,6 +31,9 @@ end
 
 local function setup_lsp_on_attach()
   local function on_attach(client, bufnr)
+    local ft = vim.bo[bufnr].filetype
+    local has_null_ls_formatting = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
+
     local server_capabilities = client.server_capabilities
 
     if server_capabilities.definitionProvider then
@@ -57,7 +60,7 @@ local function setup_lsp_on_attach()
       keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action (LSP)" })
     end
 
-    if server_capabilities.documentFormattingProvider then
+    if server_capabilities.documentFormattingProvider and not has_null_ls_formatting then
       keymap({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format code (LSP)" })
     end
 
@@ -101,7 +104,10 @@ end
 
 function M.setup_null_ls_on_attach()
   local function on_attach(_, bufnr)
-    keymap({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format code (null-ls)" })
+    keymap({ "n", "v" }, "<leader>lf", function()
+      vim.lsp.buf.format { bufnr = bufnr, filter = function(client) return client.name == "null-ls" end }
+    end, { buffer = bufnr, desc = "Format code (null-ls)" })
+
     keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action (null-ls)" })
   end
 
