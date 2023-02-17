@@ -5,8 +5,8 @@ let
   caddySrc = srcOnly (fetchFromGitHub {
     owner = "caddyserver";
     repo = "caddy";
-    rev = "v2.6.3";
-    hash = "sha256-YH+lo6gKqmhu1/3HZdWXnxTXaUwC8To+OCmGpji6i3k=";
+    rev = "v2.6.4";
+    hash = "sha256-3a3+nFHmGONvL/TyQRqgJtrSDIn0zdGy9YwhZP17mU0=";
   }); # Clone from https://github.com/caddyserver/caddy
 
   forwardProxySrc = srcOnly (fetchFromGitHub {
@@ -47,7 +47,7 @@ let
       echo 'import _ "github.com/caddyserver/forwardproxy"' >> main.go
       echo 'import _ "github.com/caddy-dns/cloudflare"' >> main.go
       echo "func main(){ caddycmd.Main() }" >> main.go
-      go mod edit -require=github.com/caddyserver/caddy/v2@v2.6.2
+      go mod edit -require=github.com/caddyserver/caddy/v2@v2.6.4
       go mod edit -replace github.com/caddyserver/caddy/v2=../caddy
       go mod edit -require=github.com/caddyserver/forwardproxy@v0.0.0
       go mod edit -replace github.com/caddyserver/forwardproxy=../forwardproxy
@@ -61,7 +61,7 @@ buildGoModule {
 
   src = combinedSrc;
 
-  vendorHash = "sha256-jL51OfzMWJwgJVizevKj4CO84zvwxOzHRoT8E1jF6K8=";
+  vendorHash = "sha256-ahPvAsF6f/xpDW0C8X696+IjxCyaXgWKQfsACbdBS+Q=";
 
   overrideModAttrs = _: {
     postPatch = "cd caddywithplugins";
