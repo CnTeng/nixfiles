@@ -1,5 +1,28 @@
 { pkgs, user, ... }:
 
+let
+  nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
+    p: with p; [
+      vim
+      lua
+      json
+      bash
+      c
+      cpp
+      go
+      nix
+      python
+      markdown
+      markdown_inline
+      org
+    ]
+  );
+
+  TreesitterParsers = pkgs.symlinkJoin {
+    name = "treesitter-parsers";
+    paths = nvim-treesitter.dependencies;
+  };
+in
 {
   # Require for Telescope man_pages
   documentation.man.generateCaches = true;
@@ -42,13 +65,21 @@
       ];
     };
 
-    xdg.configFile = {
-      "nvim/lua" = {
-        source = ../neovim/lua;
-        recursive = true;
+    xdg = {
+      configFile = {
+        "nvim/lua" = {
+          source = ../neovim/lua;
+          recursive = true;
+        };
+        "nvim/init.lua" = {
+          source = ../neovim/init.lua;
+        };
       };
-      "nvim/init.lua" = {
-        source = ../neovim/init.lua;
+      dataFile = {
+        "nvim/lazy/nvim-treesitter" = {
+          source = "${TreesitterParsers}";
+          recursive = true;
+        };
       };
     };
   };
