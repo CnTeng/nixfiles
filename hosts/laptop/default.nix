@@ -1,4 +1,4 @@
-{ user, ... }:
+{ ... }:
 
 {
   networking.hostName = "rxdell";
@@ -30,7 +30,7 @@
     ../../modules/programs/kdeconnect.nix
     ../../modules/programs/steam.nix
     ../../modules/programs/obs-studio.nix
+    ../../modules/programs/foliate.nix
     ../../modules/programs/others.nix
-
   ];
 }

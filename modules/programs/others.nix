@@ -8,7 +8,6 @@
       bitwarden-cli
 
       # Reader
-      foliate
       calibre
       okular
 
