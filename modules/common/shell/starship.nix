@@ -15,6 +15,7 @@
         "$git_branch"
         "$git_status"
       ];
+      command_timeout = 1000;
       add_newline = false;
 
       username = {
