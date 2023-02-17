@@ -146,6 +146,8 @@ in
 
         "custom/nixos" = {
           format = "";
+          interval = "once";
+          tooltip = false;
         };
 
         "custom/separator" = {
@@ -156,7 +158,6 @@ in
 
         "wlr/workspaces" = {
           on-click = "activate";
-          all-outputs = true;
           sort-by-number = true;
         };
 
