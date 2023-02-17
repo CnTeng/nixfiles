@@ -22,4 +22,25 @@ return {
     },
     config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+  },
+  {
+    "HiPhish/nvim-ts-rainbow2",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
 }
