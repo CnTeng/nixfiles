@@ -21,22 +21,16 @@ return {
     integrations = {
       fidget = true,
       gitsigns = true,
-      leap = true,
+      indent_blankline = {
+        enabled = true,
+        colored_indent_levels = true,
+      },
+      markdown = true,
       neotree = true,
       cmp = true,
       dap = {
         enabled = true,
         enable_ui = true,
-      },
-      notify = true,
-      treesitter_context = true,
-      treesitter = true,
-      telescope = true,
-      illuminate = true,
-      which_key = true,
-      indent_blankline = {
-        enabled = true,
-        colored_indent_levels = true,
       },
       native_lsp = {
         enabled = true,
@@ -53,6 +47,13 @@ return {
           information = { "underline" },
         },
       },
+      notify = true,
+      treesitter_context = true,
+      treesitter = true,
+      telescope = true,
+      illuminate = true,
+      ts_rainbow2 = true,
+      which_key = true,
     },
   },
   config = function(_, opts)
