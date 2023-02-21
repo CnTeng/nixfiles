@@ -68,11 +68,11 @@ in
     xdg = {
       configFile = {
         "nvim/lua" = {
-          source = ../neovim/lua;
+          source = ./lua;
           recursive = true;
         };
         "nvim/init.lua" = {
-          source = ../neovim/init.lua;
+          source = ./init.lua;
         };
       };
       dataFile = {
