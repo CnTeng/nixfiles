@@ -4,18 +4,18 @@
   modifications = final: prev:
     let
       pkgs = final.pkgs;
+
+      hyprctl = "${pkgs.hyprland}/bin/hyprctl";
+      waybarPatchFile = import ./waybar.nix { inherit pkgs hyprctl; };
     in
     {
-      waybar =
-        let
-          hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-          waybarPatchFile = import ./waybar.nix { inherit pkgs hyprctl; };
-        in
-        prev.waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-          patches = (oldAttrs.patches or [ ]) ++ [ waybarPatchFile ];
-        });
+      # Add wlr/workspace click support for hyprland
+      waybar = prev.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        patches = (oldAttrs.patches or [ ]) ++ [ waybarPatchFile ];
+      });
 
+      # Use spotifywm as spotify exec
       spotify = prev.spotify.overrideAttrs (oldAttrs: {
         installPhase = builtins.replaceStrings
           [
@@ -33,7 +33,6 @@
           oldAttrs.installPhase;
       });
 
-      android-studio = prev.android-studio.override { tiling_wm = true; };
       # Fix qq tray
       qq = prev.qq.overrideAttrs (oldAttrs: {
         runtimeDependencies = oldAttrs.runtimeDependencies ++ [ pkgs.libappindicator ];
