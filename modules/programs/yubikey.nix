@@ -13,7 +13,6 @@
     yubikey-manager
     yubikey-manager-qt
     yubioath-flutter
-    yubikey-touch-detector
   ];
 
   services.pcscd.enable = true;
