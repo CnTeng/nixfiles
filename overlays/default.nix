@@ -34,5 +34,9 @@
       });
 
       android-studio = prev.android-studio.override { tiling_wm = true; };
+      # Fix qq tray
+      qq = prev.qq.overrideAttrs (oldAttrs: {
+        runtimeDependencies = oldAttrs.runtimeDependencies ++ [ pkgs.libappindicator ];
+      });
     };
 }
