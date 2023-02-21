@@ -13,6 +13,8 @@ let
   pamixer = "${pkgs.pamixer}/bin/pamixer";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   grim = "${pkgs.grim}/bin/grim";
+  yubikeytd = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector";
+
 in
 {
   imports = [ inputs.hyprland.homeManagerModules.default ];
@@ -93,6 +95,8 @@ in
       exec-once=${swaybg} -m fit -i ${wallpaper}
       exec-once=fcitx5
       exec-once=hyprctl setcursor Catppuccin-Macchiato-Dark-Cursors 32
+      exec-once=${yubikeytd} --libnotify
+
       # Hidpi for xwayland, but can't work
       # exec-once=xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
 
