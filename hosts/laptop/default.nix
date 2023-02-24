@@ -15,7 +15,6 @@
     # Programs
     ../../modules/programs/kitty.nix
     ../../modules/programs/alacritty.nix
-    ../../modules/programs/wezterm
     ../../modules/programs/onedrive.nix
     ../../modules/programs/firefox.nix
     ../../modules/programs/chrome.nix
