@@ -35,6 +35,8 @@
     recommendedEnvironment = false;
   };
 
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
   # Customize the recommended environment
   environment.sessionVariables = {
     # GTK
@@ -64,4 +66,5 @@
 
     imports = [ ./home.nix ];
   };
+
 }
