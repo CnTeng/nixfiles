@@ -55,8 +55,7 @@ let
       go mod edit -replace github.com/caddy-dns/cloudflare=../cloudflare
     '';
   };
-in
-buildGoModule {
+in buildGoModule {
   name = "caddy-with-plugins";
 
   src = combinedSrc;
@@ -84,7 +83,8 @@ buildGoModule {
 
   meta = with lib; {
     homepage = "https://github.com/caddyserver/caddy";
-    description = "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
+    description =
+      "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ CnTeng ];

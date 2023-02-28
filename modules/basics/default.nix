@@ -1,14 +1,11 @@
-{ ... }:
-
-{
+_: {
   imports = [
-    ./boot.nix
-    ./devices.nix
-    ./nvidia.nix
-    ./wireless.nix
-    ./fonts.nix
-    ./fcitx.nix
+    ./colors.nix
+    ./console.nix
+    ./locale.nix
+    ./nix.nix
+    ./security.nix
     ./ssh.nix
-    ./proxy
+    ./user.nix
   ];
 }

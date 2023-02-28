@@ -1,8 +1,13 @@
 { modulesPath, ... }:
+
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+
+    ../../modules/hardware
   ];
+
+  custom.hardware.kernel.modules.bbr = true;
 
   boot = {
     loader.grub.device = "/dev/vda";
@@ -17,13 +22,6 @@
     };
 
     cleanTmpDir = true;
-
-    # Enable BBR module
-    kernelModules = [ "tcp_bbr" ];
-    kernel.sysctl = {
-      "net.ipv4.tcp_congestion_control" = "bbr";
-      "net.core.default_qdisc" = "cake";
-    };
   };
 
   fileSystems."/" = {

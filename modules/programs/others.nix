@@ -1,43 +1,52 @@
-{ pkgs, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
-{
-  home-manager.users.${user} = {
-    home.packages = with pkgs; [
-      # Password manager
-      bitwarden
-      bitwarden-cli
+with lib;
 
-      # Reader
-      calibre
-      okular
+let cfg = config.custom.programs.others;
+in {
+  options.custom.programs.others = {
+    enable = mkEnableOption "others applications";
+  };
 
-      # Dict
-      ydict
+  config = mkIf cfg.enable {
+    home-manager.users.${user} = {
+      home.packages = with pkgs; [
+        # Password manager
+        bitwarden
+        bitwarden-cli
 
-      # Music
-      spotify
-      spotifywm
-      youtube-music
+        # Reader
+        calibre
+        okular
 
-      # Video & Picture
-      vlc
-      gimp
-      krita
+        # Dict
+        ydict
 
-      # Office
-      libreoffice
-      drawio
+        # Music
+        spotify
+        spotifywm
+        youtube-music
 
-      # Community
-      tdesktop
-      discord
-      qq
+        # Video & Picture
+        vlc
+        gimp
+        krita
 
-      # Games
-      tetrio-desktop
+        # Office
+        libreoffice
+        drawio
 
-      # Manager
-      font-manager
-    ];
+        # Community
+        tdesktop
+        discord
+        qq
+
+        # Games
+        tetrio-desktop
+
+        # Manager
+        font-manager
+      ];
+    };
   };
 }

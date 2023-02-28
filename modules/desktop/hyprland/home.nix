@@ -1,7 +1,7 @@
 { config, pkgs, inputs, user, ... }:
 
 let
-  colorScheme = import ../modules/colorscheme.nix;
+  inherit (config.custom) colorScheme;
 
   wallpaper = ../../../assets/wallpapers/snowy_mountain.jpg;
   swaybg = "${pkgs.swaybg}/bin/swaybg";
@@ -14,10 +14,11 @@ let
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   grim = "${pkgs.grim}/bin/grim";
   yubikeytd = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector";
+in {
+  imports =
+    [ inputs.hyprland.homeManagerModules.default ../../basics/colors.nix ];
 
-in
-{
-  imports = [ inputs.hyprland.homeManagerModules.default ];
+  xsession.preferStatusNotifierItems = true;
 
   # Find options from https://github.com/hyprwm/Hyprland/blob/main/nix/hm-module.nixa
   wayland.windowManager.hyprland = {
@@ -42,7 +43,7 @@ in
         cursor_inactive_timeout=30
         layout=dwindle
       }
-      
+
       decoration {
         rounding=5
         multisample_edges=true
@@ -80,7 +81,7 @@ in
           natural_scroll=true
         }
       }
-      
+
       gestures {
         workspace_swipe=true
         workspace_swipe_distance=100
