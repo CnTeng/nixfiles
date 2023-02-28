@@ -2,9 +2,9 @@
 
 with lib;
 
-let cfg = config.shell.proxy;
+let cfg = config.custom.shell.proxy;
 in {
-  options.shell.proxy.v2ray = {
+  options.custom.shell.proxy.v2ray = {
     enable = mkEnableOption "v2ray proxy" // { default = cfg.enable; };
   };
 

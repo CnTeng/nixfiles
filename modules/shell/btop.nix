@@ -2,13 +2,13 @@
 
 with lib;
 
-let cfg = config.shell.module;
+let cfg = config.custom.shell.btop;
 in {
-  options.shell.module = {
-    btop = mkEnableOption "btop" // { default = cfg.enable; };
+  options.custom.shell.btop = {
+    enable = mkEnableOption "btop" // { default = true; };
   };
 
-  config = mkIf cfg.btop {
+  config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.btop = {
         enable = true;

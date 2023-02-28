@@ -3,14 +3,14 @@
 with lib;
 
 let
-  cfg = config.shell.module;
+  cfg = config.custom.shell.zsh;
   inherit (config.custom) colorScheme;
 in {
-  options.shell.module = {
-    zsh = mkEnableOption "zsh" // { default = cfg.enable; };
+  options.custom.shell.zsh = {
+    enable = mkEnableOption "zsh" // { default = true; };
   };
 
-  config = mkIf cfg.zsh {
+  config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
       histSize = 10000;

@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.shell.environment;
+  cfg = config.custom.shell.environment;
   lang = cfg.languages;
 in {
-  options.shell.environment = {
+  options.custom.shell.environment = {
     enable = mkEnableOption "All languages support" // { default = true; };
     languages =
       mapAttrs (_: v: mkEnableOption (mkDoc v) // { default = cfg.enable; }) {

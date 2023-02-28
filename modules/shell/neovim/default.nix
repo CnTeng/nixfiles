@@ -1,7 +1,7 @@
 { config, lib, pkgs, user, ... }:
 with lib;
 let
-  cfg = config.shell.module;
+  cfg = config.custom.shell.neovim;
 
   # nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
   #   with p; [
@@ -24,11 +24,11 @@ let
   #   paths = nvim-treesitter.dependencies;
   # };
 in {
-  options.shell.module = {
-    neovim = mkEnableOption "Neovim" // { default = cfg.enable; };
+  options.custom.shell.neovim = {
+    enable = mkEnableOption "Neovim" // { default = true; };
   };
 
-  config = mkIf cfg.neovim {
+  config = mkIf cfg.enable {
     # Require for Telescope man_pages
     documentation.man.generateCaches = true;
 

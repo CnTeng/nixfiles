@@ -3,17 +3,14 @@
 with lib;
 
 let
-  cfg = config.shell.proxy;
-
-  naive = pkgs.naiveproxy;
-  configFile = config.age.secrets.naiveConfig.path;
+  cfg = config.custom.shell.proxy;
+  inherit (config.age.secrets.naiveConfig) path;
 in {
-  options.shell.proxy.naive = {
+  options.custom.shell.proxy.naive = {
     enable = mkEnableOption "naive proxy" // { default = cfg.enable; };
   };
 
   config = mkIf cfg.naive.enable {
-
     environment.systemPackages = [ pkgs.naiveproxy ];
 
     systemd.services.naiveproxy = {
@@ -21,7 +18,7 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${naive}/bin/naive --config ${configFile}";
+        ExecStart = "${pkgs.naiveproxy}/bin/naive --config ${path}";
       };
     };
 
