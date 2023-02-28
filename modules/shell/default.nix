@@ -1,6 +1,4 @@
-{ config, lib, ... }:
-
-with lib; {
+_: {
   imports = [
     ./zsh.nix
     ./fish.nix
@@ -16,8 +14,4 @@ with lib; {
     ./others.nix
     ./env.nix
   ];
-
-  options.shell.module = {
-    enable = mkEnableOption "shell modules" // { default = true; };
-  };
 }

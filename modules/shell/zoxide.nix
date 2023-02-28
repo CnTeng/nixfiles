@@ -2,13 +2,13 @@
 
 with lib;
 
-let cfg = config.shell.module;
+let cfg = config.custom.shell.zoxide;
 in {
-  options.shell.module = {
-    zoxide = mkEnableOption "zoxide" // { default = cfg.enable; };
+  options.custom.shell.zoxide = {
+    enable = mkEnableOption "zoxide" // { default = true; };
   };
 
-  config = mkIf cfg.zoxide {
+  config = mkIf cfg.enable {
     home-manager.users.${user} = { programs.zoxide = { enable = true; }; };
   };
 }

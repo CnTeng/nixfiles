@@ -2,13 +2,13 @@
 
 with lib;
 
-let cfg = config.shell.module;
+let cfg = config.custom.shell.others;
 in {
-  options.shell.module = {
-    others = mkEnableOption "others" // { default = cfg.enable; };
+  options.custom.shell.others = {
+    enable = mkEnableOption "others" // { default = true; };
   };
 
-  config = mkIf cfg.others {
+  config = mkIf cfg.enable {
     home-manager.users.${user} = {
       home.packages = with pkgs; [ unzip gzip unrar wget neofetch ];
     };

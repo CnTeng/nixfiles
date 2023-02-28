@@ -3,15 +3,15 @@
 with lib;
 
 let
-  cfg = config.shell.module;
+  cfg = config.custom.shell.git;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
   inherit (config.custom) colorScheme;
 in {
-  options.shell.module = {
-    git = mkEnableOption "git" // { default = cfg.enable; };
+  options.custom.shell.git = {
+    enable = mkEnableOption "git" // { default = true; };
   };
 
-  config = mkIf cfg.git {
+  config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.git = {
         enable = true;

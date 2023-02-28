@@ -2,13 +2,13 @@
 
 with lib;
 
-let cfg = config.shell.module;
+let cfg = config.custom.shell.starship;
 in {
-  options.shell.module = {
-    starship = mkEnableOption "starship" // { default = cfg.enable; };
+  options.custom.shell.starship = {
+    enable = mkEnableOption "starship" // { default = true; };
   };
 
-  config = mkIf cfg.starship {
+  config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
       settings = {
