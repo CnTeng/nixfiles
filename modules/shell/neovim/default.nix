@@ -1,86 +1,87 @@
-{ pkgs, user, ... }:
-
+{ config, lib, pkgs, user, ... }:
+with lib;
 let
-  nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
-    p: with p; [
-      vim
-      lua
-      json
-      bash
-      c
-      cpp
-      go
-      nix
-      python
-      markdown
-      markdown_inline
-      org
-    ]
-  );
+  cfg = config.custom.shell.neovim;
 
-  TreesitterParsers = pkgs.symlinkJoin {
-    name = "treesitter-parsers";
-    paths = nvim-treesitter.dependencies;
+  # nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
+  #   with p; [
+  #     vim
+  #     lua
+  #     json
+  #     bash
+  #     c
+  #     cpp
+  #     go
+  #     nix
+  #     python
+  #     markdown
+  #     markdown_inline
+  #     org
+  #   ]);
+
+  # TreesitterParsers = pkgs.symlinkJoin {
+  #   name = "treesitter-parsers";
+  #   paths = nvim-treesitter.dependencies;
+  # };
+in {
+  options.custom.shell.neovim = {
+    enable = mkEnableOption "Neovim" // { default = true; };
   };
-in
-{
-  # Require for Telescope man_pages
-  documentation.man.generateCaches = true;
 
-  home-manager.users.${user} = {
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      withNodeJs = true;
-      extraPackages = with pkgs; [
-        # Require for nvim-treesitter 
-        tree-sitter
+  config = mkIf cfg.enable {
+    # Require for Telescope man_pages
+    documentation.man.generateCaches = true;
 
-        # Require for telescope.nvim
-        ripgrep
-        fd
+    home-manager.users.${user} = {
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+        withNodeJs = true;
+        extraPackages = with pkgs; [
+          # Require for nvim-treesitter
+          tree-sitter
 
-        /* Lua */
-        sumneko-lua-language-server # LSP
-        stylua # Formatter
+          # Require for telescope.nvim
+          ripgrep
+          fd
 
-        /* shell */
-        nodePackages.bash-language-server # LSP
-        shfmt # Formatter
+          # Lua
+          sumneko-lua-language-server # LSP
+          stylua # Formatter
 
-        /* C & C++ */
-        clang-tools # LSP & Formatter
+          # shell
+          nodePackages.bash-language-server # LSP
+          shfmt # Formatter
 
-        /* Nix */
-        nil # LSP
-        nixpkgs-fmt # Formatter
+          # C & C++
+          clang-tools # LSP & Formatter
 
-        /* Python */
-        pyright # LSP
-        black # Formatter
+          # Nix
+          nil # LSP
+          nixfmt # Formatter
+          statix
 
-        /* Markdown */
-        marksman # LSP
-        nodePackages.prettier # Formatter
-      ];
-    };
+          # Python
+          pyright # LSP
+          black # Formatter
 
-    xdg = {
-      configFile = {
+          # Markdown
+          marksman # LSP
+          nodePackages.prettier # Formatter
+        ];
+      };
+
+      xdg.configFile = {
         "nvim/lua" = {
           source = ./lua;
           recursive = true;
         };
-        "nvim/init.lua" = {
-          source = ./init.lua;
-        };
+        "nvim/init.lua" = { source = ./init.lua; };
       };
-      dataFile = {
-        "nvim/lazy/nvim-treesitter" = {
-          source = "${TreesitterParsers}";
-          recursive = true;
-        };
-      };
+      # xdg.dataFile."nvim/lazy/nvim-treesitter" = {
+      #   source = "${TreesitterParsers}";
+      #   recursive = true;
+      # };
     };
   };
 }

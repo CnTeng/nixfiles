@@ -39,6 +39,9 @@ function M.load(spec)
       missing = true,
       colorscheme = { "catppuccin", "habamax" },
     },
+    performance = {
+      rtp = { reset = false },
+    },
   }
   require("lazy").setup(spec, opts)
 end

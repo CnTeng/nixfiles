@@ -5,7 +5,6 @@ return {
     "nvim-tree/nvim-web-devicons",
     "famiu/bufdelete.nvim",
   },
-  init = function() vim.opt.mousemoveevent = true end, -- Require for hover
   keys = {
     { "[b", "<cmd>bprevious<cr>", desc = "Previous buffer" },
     { "]b", "<cmd>bnext<cr>", desc = "Next buffer" },
@@ -30,11 +29,6 @@ return {
           },
         },
         enforce_regular_tabs = true,
-        hover = {
-          enabled = true,
-          delay = 200,
-          reveal = { "close" },
-        },
       },
       highlights = require("catppuccin.groups.integrations.bufferline").get {
         styles = { "bold" },

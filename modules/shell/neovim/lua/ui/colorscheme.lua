@@ -25,6 +25,7 @@ return {
         enabled = true,
         colored_indent_levels = true,
       },
+      leap = true,
       markdown = true,
       neotree = true,
       cmp = true,

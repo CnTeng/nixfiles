@@ -21,6 +21,9 @@ return {
       changedelete = { text = "▎" },
       untracked = { text = "▎" },
     },
+    watch_gitdir = {
+      enable = false,
+    },
     current_line_blame = true,
     preview_config = {
       border = "none",
