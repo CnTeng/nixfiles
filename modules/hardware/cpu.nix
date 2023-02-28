@@ -24,6 +24,8 @@ in {
           mkDefault config.hardware.enableRedistributableFirmware;
       };
     })
-    { powerManagement.cpuFreqGovernor = "${cfg.cpuFreqGovernor}"; }
+    (mkIf (cfg.cpuFreqGovernor != null) {
+      powerManagement.cpuFreqGovernor = "${cfg.cpuFreqGovernor}";
+    })
   ];
 }
