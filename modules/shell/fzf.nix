@@ -3,13 +3,13 @@
 
 with lib;
 
-let cfg = config.shell.module;
+let cfg = config.custom.shell.fzf;
 in {
-  options.shell.module = {
-    fzf = mkEnableOption "fzf" // { default = cfg.enable; };
+  options.custom.shell.fzf = {
+    enable = mkEnableOption "fzf" // { default = true; };
   };
 
-  config = mkIf cfg.fzf {
+  config = mkIf cfg.enable {
     home-manager.users.${user} = { programs.fzf = { enable = true; }; };
   };
 }

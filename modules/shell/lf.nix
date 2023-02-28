@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.shell.module;
+  cfg = config.custom.shell.lf;
 
   # Require for image previewer
   file = "${pkgs.file}/bin/file";
@@ -28,11 +28,11 @@ let
     kitty +icat --clear --silent --transfer-mode file
   '';
 in {
-  options.shell.module = {
-    lf = mkEnableOption "lf" // { default = cfg.enable; };
+  options.custom.shell.lf = {
+    enable = mkEnableOption "lf" // { default = true; };
   };
 
-  config = mkIf cfg.lf {
+  config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.lf = {
         enable = true;

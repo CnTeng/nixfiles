@@ -1,12 +1,13 @@
 { config, lib, user, ... }:
 
 with lib;
+
 let
-  cfg = config.shell.module;
+  cfg = config.custom.shell.fish;
   inherit (config.custom) colorScheme;
 in {
-  options.shell.module = {
-    fish = mkEnableOption "fish" // { default = cfg.enable; };
+  options.custom.shell.fish = {
+    enable = mkEnableOption "fish" // { default = true; };
   };
 
   config = mkIf cfg.enable {

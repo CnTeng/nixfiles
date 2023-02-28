@@ -3,13 +3,13 @@
 
 with lib;
 
-let cfg = config.shell.module;
+let cfg = config.custom.shell.tmux;
 in {
-  options.shell.module = {
-    tmux = mkEnableOption "tmux" // { default = cfg.enable; };
+  options.custom.shell.tmux = {
+    enable = mkEnableOption "tmux" // { default = true; };
   };
 
-  config = mkIf cfg.tmux {
+  config = mkIf cfg.enable {
     programs.tmux = {
       enable = true;
       keyMode = "vi";
