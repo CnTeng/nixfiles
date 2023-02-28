@@ -1,21 +1,26 @@
-{ ... }:
-
-{
+_: {
   networking.hostName = "rxtx";
 
   imports = [
     ./hardware.nix
 
-    ../../modules/common
-
-    ../../modules/programs/onedrive.nix
-
-    ../../modules/services/ssh.nix
-    ../../modules/services/firewall.nix
-    ../../modules/services/caddy.nix
-    ../../modules/services/naive.nix
-    ../../modules/services/vaultwarden.nix
-    ../../modules/services/calibre.nix
-    ../../modules/services/miniflux.nix
+    ../../modules/basics
+    ../../modules/services
+    ../../modules/shell
   ];
+
+  custom = {
+    basics.ssh.enable = false;
+    services = {
+      caddy.enable = true;
+      calibre-web.enable = true;
+      firewall.enable = true;
+      miniflux.enable = true;
+      naive.enable = true;
+      onedrive.enable = true;
+      openssh.enable = true;
+      vaultwarden.enable = true;
+    };
+    shell.proxy.enable = false;
+  };
 }

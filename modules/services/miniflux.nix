@@ -1,33 +1,39 @@
-{ config, user, ... }:
+{ config, lib, user, ... }:
 
-{
-  networking.firewall.allowedTCPPorts = [ 1200 6222 ];
+with lib;
 
-  virtualisation.oci-containers = {
-    backend = "docker";
-    containers.rsshub = {
-      image = "diygod/rsshub";
-      ports = [ "1200:1200" ];
-      environment = {
-        HOTLINK_TEMPLATE = "https://i3.wp.com/\${host}\${pathname}";
+let cfg = config.custom.services.miniflux;
+in {
+  options.custom.services.miniflux.enable = mkEnableOption "miniflux";
+
+  config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [ 1200 6222 ];
+
+    virtualisation.oci-containers = {
+      backend = "docker";
+      containers.rsshub = {
+        image = "diygod/rsshub";
+        ports = [ "1200:1200" ];
+        environment = {
+          HOTLINK_TEMPLATE = "https://i3.wp.com/\${host}\${pathname}";
+        };
       };
     };
-  };
 
-  services.miniflux = {
-    enable = true;
-    config = {
-      LISTEN_ADDR = "localhost:6222";
-      BASE_URL = "https://rss.snakepi.xyz";
+    services.miniflux = {
+      enable = true;
+      config = {
+        LISTEN_ADDR = "localhost:6222";
+        BASE_URL = "https://rss.snakepi.xyz";
+      };
+      adminCredentialsFile = config.age.secrets.minifluxAdmin.path;
     };
-    adminCredentialsFile = config.age.secrets.minifluxAdmin.path;
-  };
 
-  age.secrets.minifluxAdmin = {
-    file = ../../secrets/server/minifluxAdmin.age;
-    owner = "${user}";
-    group = "users";
-    mode = "644";
+    age.secrets.minifluxAdmin = {
+      file = ../../secrets/server/minifluxAdmin.age;
+      owner = "${user}";
+      group = "users";
+      mode = "644";
+    };
   };
 }
-

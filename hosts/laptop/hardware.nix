@@ -1,33 +1,30 @@
-{ pkgs, modulesPath, ... }:
+{ pkgs, config, ... }: {
+  imports = [ ../../modules/hardware ];
 
-{
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  custom.hardware = {
+    gpu.nvidia.enable = true;
+    boot.enable = true;
+    cpu = {
+      intel.enable = true;
+      cpuFreqGovernor = "powersave";
+    };
+    devices.enable = true;
+    ssd.enable = true;
+    kernel.modules.zswap = true;
+    kvm = {
+      enable = true;
+      passthrough.intel = true;
+    };
+    power.tlp.enable = true;
+    wireless.enable = true;
+  };
 
   boot = {
     # Use the latest kernel
-    kernelPackages = pkgs.linuxPackages_6_1;
+    kernelPackages = pkgs.linuxPackages_latest;
 
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "ahci"
-      "nvme"
-      "usbhid"
-      "usb_storage"
-      "sd_mod"
-    ];
-
-    # Enabled zswap
-    kernelModules = [ "zstd" "zsfold" ];
-    kernelParams = [
-      "zswap.enabled=1"
-      "zswap.max_pool_percent=25"
-    ];
-    postBootCommands = ''
-      echo zstd > /sys/module/zswap/parameters/compressor
-      echo z3fold > /sys/module/zswap/parameters/zpool
-    '';
+    initrd.availableKernelModules =
+      [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   };
 
   fileSystems = {
@@ -41,12 +38,7 @@
     };
   };
 
-  swapDevices = [{
-    device = "/dev/disk/by-label/swap";
-  }];
-
-  powerManagement.cpuFreqGovernor = "powersave";
-  hardware.cpu.intel.updateMicrocode = true;
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   # Support for firmware update
   services.fwupd.enable = true;
