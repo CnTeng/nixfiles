@@ -1,19 +1,24 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-{
-  services.udev.packages = with pkgs; [
-    yubikey-personalization
-    yubikey-manager
-    yubikey-manager-qt
-    yubioath-flutter
-  ];
+with lib;
 
-  environment.systemPackages = with pkgs; [
-    yubikey-personalization
-    yubikey-manager
-    yubikey-manager-qt
-    yubioath-flutter
-  ];
+let cfg = config.custom.programs.yubikey;
+in {
+  options.custom.programs.yubikey = { enable = mkEnableOption "yubikey"; };
 
-  services.pcscd.enable = true;
+  config = mkIf cfg.enable {
+    services.udev.packages = with pkgs; [
+      yubikey-personalization
+      yubikey-manager
+      yubioath-flutter
+    ];
+
+    environment.systemPackages = with pkgs; [
+      yubikey-personalization
+      yubikey-manager
+      yubioath-flutter
+    ];
+
+    services.pcscd.enable = true;
+  };
 }

@@ -6,13 +6,12 @@ stdenv.mkDerivation rec {
   version = "110.0.5481.100-1";
 
   src = fetchurl {
-    url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
+    url =
+      "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
     sha256 = "sha256-EYJUPXweHDbZiaIW77FoRNRKyMlEUfVIn2FT59WH0R8=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
   installPhase = ''
     install -m755 -D naive $out/bin/naive

@@ -28,10 +28,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = with overlays; [
-          additions
-          modifications
-        ];
+        overlays = with overlays; [ additions modifications ];
       };
 
       hmOptions = [{
@@ -41,11 +38,8 @@
           extraSpecialArgs = { inherit outputs inputs user; };
         };
       }];
-      commonModules = [
-        home-manager.nixosModules.home-manager
-      ] ++ hmOptions;
-    in
-    {
+      commonModules = [ home-manager.nixosModules.home-manager ] ++ hmOptions;
+    in {
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           inherit system pkgs;

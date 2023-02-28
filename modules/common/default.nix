@@ -1,9 +1,0 @@
-{ ... }:
-
-{
-  imports = [
-    ./system
-    ./shell
-    ./environment
-  ];
-}

@@ -1,7 +1,12 @@
-{ user, ... }:
+{ config, lib, user, ... }:
 
-{
-  home-manager.users.${user} = {
-    programs.feh.enable = true;
+with lib;
+
+let cfg = config.custom.programs.feh;
+in {
+  options.custom.programs.feh = { enable = mkEnableOption "feh"; };
+
+  config = mkIf cfg.enable {
+    home-manager.users.${user} = { programs.feh.enable = true; };
   };
 }
