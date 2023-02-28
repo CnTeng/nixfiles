@@ -39,7 +39,6 @@ return {
     },
     filesystem = {
       follow_current_file = true,
-      use_libuv_file_watcher = true,
       window = {
         mappings = { ["h"] = "toggle_hidden" },
       },
