@@ -6,7 +6,7 @@ let
   cfg = config.custom.services.calibre-web;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
 in {
-  options.custom.services.calibre-web.enable = mkEnableOption "calibre-web";
+  options.custom.services.calibre-web.enable = mkEnableOption "Calibre-Web";
 
   config = mkIf cfg.enable {
     services.calibre-web = {

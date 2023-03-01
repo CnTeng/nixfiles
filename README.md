@@ -47,15 +47,13 @@ git clone https://github.com/CnTeng/nixfiles.git
 For laptop
 
 ```shell
-# Using --impure due to nix-ld
-sudo nixos-rebuild switch --flake .#laptop --impure
+sudo nixos-rebuild switch --flake .#laptop
 ```
 
 For server
 
 ```shell
-# Using --impure due to nix-ld
-sudo nixos-rebuild switch --flake .#server --impure
+sudo nixos-rebuild switch --flake .#server
 ```
 
 ## ⭐ Credits

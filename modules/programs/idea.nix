@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.programs.idea;
 in {
-  options.custom.programs.idea = { enable = mkEnableOption "jetbrains idea"; };
+  options.custom.programs.idea = { enable = mkEnableOption "Jetbrains idea"; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

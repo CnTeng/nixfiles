@@ -5,7 +5,7 @@ with lib;
 let cfg = config.custom.programs.others;
 in {
   options.custom.programs.others = {
-    enable = mkEnableOption "others applications";
+    enable = mkEnableOption "others programs";
   };
 
   config = mkIf cfg.enable {

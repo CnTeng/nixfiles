@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.services.miniflux;
 in {
-  options.custom.services.miniflux.enable = mkEnableOption "miniflux";
+  options.custom.services.miniflux.enable = mkEnableOption "MiniFlux";
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 1200 6222 ];

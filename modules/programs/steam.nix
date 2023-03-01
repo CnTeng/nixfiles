@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.programs.steam;
 in {
-  options.custom.programs.steam = { enable = mkEnableOption "steam"; };
+  options.custom.programs.steam = { enable = mkEnableOption "Steam"; };
 
   config = mkIf cfg.enable {
     programs.steam.enable = true;

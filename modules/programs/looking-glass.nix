@@ -5,7 +5,7 @@ with lib;
 let cfg = config.custom.programs.looking-glass;
 in {
   options.custom.programs.looking-glass = {
-    enable = mkEnableOption "looking-glass";
+    enable = mkEnableOption "Looking Glass";
   };
 
   config = mkIf cfg.enable {

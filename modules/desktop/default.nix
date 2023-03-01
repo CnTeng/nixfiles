@@ -1,1 +1,1 @@
-_: { imports = [ ./hyprland ./components ]; }
+_: { imports = [ ./components ./hyprland ]; }

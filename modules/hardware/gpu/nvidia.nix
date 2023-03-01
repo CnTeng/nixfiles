@@ -14,7 +14,7 @@ let
   '';
 in {
   options.custom.hardware.gpu.nvidia = {
-    enable = mkEnableOption "Nvidia gpu support";
+    enable = mkEnableOption "Nvidia GPU support";
   };
 
   config = mkIf cfg.enable {

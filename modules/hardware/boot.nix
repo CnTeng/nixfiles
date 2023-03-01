@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.hardware.boot;
 in {
-  options.custom.hardware.boot = { enable = mkEnableOption "Systemd-boot"; };
+  options.custom.hardware.boot = { enable = mkEnableOption "systemd-boot"; };
 
   config = mkIf cfg.enable {
     boot = {

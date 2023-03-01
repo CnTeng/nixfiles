@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.programs.obs;
 in {
-  options.custom.programs.obs = { enable = mkEnableOption "obs-studio"; };
+  options.custom.programs.obs = { enable = mkEnableOption "OBS Studio"; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
