@@ -20,7 +20,6 @@ return {
     },
     integrations = {
       fidget = true,
-      gitsigns = true,
       indent_blankline = {
         enabled = true,
         colored_indent_levels = true,
@@ -54,6 +53,7 @@ return {
       telescope = true,
       illuminate = true,
       ts_rainbow2 = true,
+      gitgutter = true,
       which_key = true,
     },
   },

@@ -14,7 +14,6 @@ return {
         null_ls.builtins.diagnostics.statix,
         null_ls.builtins.formatting.black, -- Python
         null_ls.builtins.formatting.prettier, -- Markdown
-        null_ls.builtins.diagnostics.todo_comments,
       },
       on_attach = require("core.utils.lsp").setup_null_ls_on_attach(),
     }
