@@ -4,20 +4,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "json",
-        "bash",
-        "c",
-        "cpp",
-        "go",
-        "nix",
-        "python",
-        "markdown",
-        "markdown_inline",
-        "org",
-      },
+      auto_install = false,
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = { "markdown", "org" },
