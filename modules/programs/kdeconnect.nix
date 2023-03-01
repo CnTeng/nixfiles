@@ -5,7 +5,7 @@ with lib;
 let cfg = config.custom.programs.kdeconnect;
 in {
   options.custom.programs.kdeconnect = {
-    enable = mkEnableOption "kdeconnect";
+    enable = mkEnableOption "KDE connect";
   };
 
   config = mkIf cfg.enable {

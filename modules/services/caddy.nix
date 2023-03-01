@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.services.caddy;
 in {
-  options.custom.services.caddy.enable = mkEnableOption "caddy";
+  options.custom.services.caddy.enable = mkEnableOption "Caddy";
 
   config = mkIf cfg.enable {
     services.caddy = {

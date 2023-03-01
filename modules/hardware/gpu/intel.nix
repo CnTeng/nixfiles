@@ -5,7 +5,7 @@ with lib;
 let cfg = config.custom.hardware.gpu.intel;
 in {
   options.custom.hardware.gpu.intel = {
-    enable = mkEnableOption "Intel gpu support" // {
+    enable = mkEnableOption "Intel GPU support" // {
       default = config.custom.hardware.cpu.intel.enable;
     };
   };

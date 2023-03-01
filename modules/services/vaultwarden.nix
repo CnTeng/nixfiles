@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.services.vaultwarden;
 in {
-  options.custom.services.vaultwarden.enable = mkEnableOption "vaultwarden";
+  options.custom.services.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 587 3222 8222 ];
