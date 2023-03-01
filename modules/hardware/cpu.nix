@@ -5,7 +5,7 @@ with lib;
 let cfg = config.custom.hardware.cpu;
 in {
   options.custom.hardware.cpu = {
-    intel.enable = mkEnableOption "Intel cpu support";
+    intel.enable = mkEnableOption "Intel CPU support";
     cpuFreqGovernor = mkOption {
       type = types.nullOr types.str;
       default = null;

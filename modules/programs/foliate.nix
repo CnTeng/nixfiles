@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.programs.foliate;
 in {
-  options.custom.programs.foliate = { enable = mkEnableOption "foliate"; };
+  options.custom.programs.foliate = { enable = mkEnableOption "Foliate"; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

@@ -5,9 +5,9 @@ with lib;
 let cfg = config.custom.programs.android;
 in {
   options.custom.programs.android = {
-    enable = mkEnableOption "android development support";
+    enable = mkEnableOption "Android development support";
     adb.enable = mkEnableOption "adb" // { default = cfg.enable; };
-    studio.enable = mkEnableOption "android-studio" // {
+    studio.enable = mkEnableOption "Android Studio" // {
       default = cfg.enable;
     };
   };

@@ -6,7 +6,7 @@ let
   cfg = config.custom.programs.alacritty;
   inherit (config.custom) colorScheme;
 in {
-  options.custom.programs.alacritty = { enable = mkEnableOption "alacritty"; };
+  options.custom.programs.alacritty = { enable = mkEnableOption "Alacritty"; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

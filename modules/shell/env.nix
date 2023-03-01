@@ -21,7 +21,7 @@ in {
 
   config = mkIf cfg.enable {
     programs = mkIf lang.nix {
-      # nix-ld.enable = true;
+      nix-ld.enable = true;
 
       # Use nix-index instead of cnf
       command-not-found.enable = false;

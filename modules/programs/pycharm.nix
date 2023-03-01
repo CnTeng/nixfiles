@@ -5,7 +5,7 @@ with lib;
 let cfg = config.custom.programs.pycharm;
 in {
   options.custom.programs.pycharm = {
-    enable = mkEnableOption "jetbrains pycharm";
+    enable = mkEnableOption "Jetbrains PyCharm";
   };
 
   config = mkIf cfg.enable {

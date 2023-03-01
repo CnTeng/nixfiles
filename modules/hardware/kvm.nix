@@ -13,7 +13,7 @@ in {
     enable = mkEnableOption "kvm";
     passthrough = mapAttrs (_: v: mkEnableOption (mkDoc v)) {
       intel = "IGVT-g passthrough";
-      nvidia = "nvidia passthrough";
+      nvidia = "Nvidia GPU passthrough";
     };
   };
 

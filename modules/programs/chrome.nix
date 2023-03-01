@@ -4,7 +4,7 @@ with lib;
 
 let cfg = config.custom.programs.chrome;
 in {
-  options.custom.programs.chrome = { enable = mkEnableOption "chrome"; };
+  options.custom.programs.chrome = { enable = mkEnableOption "Chrome"; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
