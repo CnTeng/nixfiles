@@ -1,17 +1,17 @@
 _: {
   imports = [
-    ./zsh.nix
-    ./fish.nix
-    ./starship.nix
     ./neovim
-    ./tmux.nix
-    ./git.nix
-    ./fzf.nix
-    ./lf.nix
-    ./zoxide.nix
-    ./btop.nix
     ./proxy
-    ./others.nix
+    ./btop.nix
     ./env.nix
+    ./fish.nix
+    ./fzf.nix
+    ./git.nix
+    ./lf.nix
+    ./others.nix
+    ./starship.nix
+    ./tmux.nix
+    ./zoxide.nix
+    ./zsh.nix
   ];
 }
