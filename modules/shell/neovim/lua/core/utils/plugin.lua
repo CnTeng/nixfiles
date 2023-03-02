@@ -39,6 +39,14 @@ function M.load(spec)
       missing = true,
       colorscheme = { "catppuccin", "habamax" },
     },
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          "netrw",
+          "netrwPlugin",
+        },
+      },
+    },
   }
   require("lazy").setup(spec, opts)
 end
