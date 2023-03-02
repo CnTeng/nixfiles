@@ -47,7 +47,6 @@ return {
           information = { "underline" },
         },
       },
-      notify = true,
       treesitter_context = true,
       treesitter = true,
       telescope = true,
