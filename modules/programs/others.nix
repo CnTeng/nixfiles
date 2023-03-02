@@ -38,6 +38,7 @@ in {
 
         # Community
         tdesktop
+        element-desktop
         discord
         qq
 
