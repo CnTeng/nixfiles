@@ -1,4 +1,4 @@
-{ config, lib, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 with lib;
 
@@ -7,7 +7,6 @@ in {
   options.custom.services.naive.enable = mkEnableOption "naive";
 
   config = mkIf cfg.enable (mkMerge [
-    { networking.firewall.allowedTCPPorts = [ 5222 ]; }
     (mkIf (!config.custom.services.caddy.enable) {
       services.caddy = {
         enable = true;
