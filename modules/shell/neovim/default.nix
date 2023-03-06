@@ -1,31 +1,14 @@
 { config, lib, pkgs, user, ... }:
+
 with lib;
-let
-  cfg = config.custom.shell.neovim;
 
-  nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
-    with p; [
-      vim
-      lua
-      json
-      bash
-      c
-      cpp
-      go
-      nix
-      python
-      markdown
-      markdown_inline
-      org
-    ]);
-
-  TreesitterParsers = pkgs.symlinkJoin {
-    name = "treesitter-parsers";
-    paths = nvim-treesitter.dependencies;
-  };
+let cfg = config.custom.shell.neovim;
 in {
   options.custom.shell.neovim = {
     enable = mkEnableOption "Neovim" // { default = true; };
+    withNixTreesitter = mkEnableOption "using of nix treesitter parsers" // {
+      default = cfg.enable;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -38,6 +21,9 @@ in {
         defaultEditor = true;
         withNodeJs = true;
         extraPackages = with pkgs; [
+          # Require for nvim-treesitter
+          tree-sitter
+
           # Require for telescope.nvim
           ripgrep
           fd
@@ -75,8 +61,30 @@ in {
         };
         "nvim/init.lua" = { source = ./init.lua; };
       };
-      xdg.dataFile."nvim/lazy/nvim-treesitter" = {
-        source = "${TreesitterParsers}";
+
+      xdg.dataFile."nvim/lazy/nvim-treesitter" = let
+        treesitter = pkgs.vimPlugins.nvim-treesitter;
+        nvim-treesitter = treesitter.withPlugins (p:
+          with p; [
+            vim
+            lua
+            json
+            bash
+            c
+            cpp
+            go
+            nix
+            python
+            markdown
+            markdown_inline
+            org
+          ]);
+        treesitterParsers = pkgs.symlinkJoin {
+          name = "treesitter-parsers";
+          paths = nvim-treesitter.dependencies;
+        };
+      in mkIf cfg.withNixTreesitter {
+        source = "${treesitterParsers}";
         recursive = true;
       };
     };

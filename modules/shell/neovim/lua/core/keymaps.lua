@@ -23,7 +23,7 @@ keymap("n", "gl", "<C-w>L", { desc = "Move window right" })
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<esc>", { desc = "Exit insert mode" })
 
---[[ Visual ]]
+--[[ Visual && Select ]]
 -- Stay in indent mode
 keymap("v", "<", "<gv", { desc = "unindent line" })
 keymap("v", ">", ">gv", { desc = "indent line" })
@@ -32,7 +32,7 @@ keymap("v", ">", ">gv", { desc = "indent line" })
 keymap("v", "<A-j>", ":m .+1<cr>==", { desc = "Move text down" })
 keymap("v", "<A-k>", ":m .-2<cr>==", { desc = "Move text up" })
 
---[[ Visual Block ]]
+--[[ Visual ]]
 -- Move text up and down
 keymap("x", "J", ":move '>+1<cr>gv-gv", { desc = "Move text down" })
 keymap("x", "K", ":move '<-2<cr>gv-gv", { desc = "Move text up" })
