@@ -21,6 +21,9 @@ _: {
       openssh.enable = true;
       vaultwarden.enable = true;
     };
-    shell.proxy.enable = false;
+    shell = {
+      proxy.enable = false;
+      neovim.withNixTreesitter = false;
+    };
   };
 }

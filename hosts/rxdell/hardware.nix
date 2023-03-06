@@ -6,7 +6,7 @@
     boot.enable = true;
     cpu = {
       intel.enable = true;
-      cpuFreqGovernor = "powersave";
+      cpuFreqGovernor = "ondemand";
     };
     devices.enable = true;
     ssd.enable = true;
