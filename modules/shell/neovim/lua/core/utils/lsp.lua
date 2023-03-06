@@ -92,7 +92,7 @@ function M.setup_lspconfig(servers)
   }
 
   for _, server in ipairs(servers) do
-    local has_extra_handlers, extra_handlers = pcall(require, "coding.lsp.servers." .. server)
+    local has_extra_handlers, extra_handlers = pcall(require, "coding.lspconfig." .. server)
 
     if has_extra_handlers then
       require("lspconfig")[server].setup(vim.tbl_deep_extend("force", default_handlers, extra_handlers))
