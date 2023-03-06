@@ -4,12 +4,15 @@ let
 
   rxdell =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILjCERLilIWtMakao9loYQXAb+6I3kPHuOVVdsTANs8U rxdell";
+  rxaws =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfR8ocU9mPnUG2YYhqAm8WAfkYnGkxQ3lusE/TzpvE9 rxaws";
   rxtx =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPH1/9YLdEA+/NQzNzSkVlN6RWxpsgpH+Z0N53n5PZut rxtx";
 in {
-  "laptop/naiveConfig.age".publicKeys = [ yufei rxdell ];
+  "proxy/naiveConfig.age".publicKeys = [ yufei rxdell ];
 
-  "server/caddyFile.age".publicKeys = [ yufei rxtx ];
-  "server/vaultwardenEnv.age".publicKeys = [ yufei rxtx ];
-  "server/minifluxAdmin.age".publicKeys = [ yufei rxtx ];
+  "services/naiveFile.age".publicKeys = [ yufei rxaws rxtx ];
+  "services/caddyFile.age".publicKeys = [ yufei rxaws rxtx ];
+  "services/vaultwardenEnv.age".publicKeys = [ yufei rxaws rxtx ];
+  "services/minifluxAdmin.age".publicKeys = [ yufei rxaws rxtx ];
 }

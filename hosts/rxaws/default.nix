@@ -1,5 +1,5 @@
-_: {
-  networking.hostName = "rxtx";
+{ user, ... }: {
+  networking.hostName = "rxaws";
 
   imports = [
     ./hardware.nix
