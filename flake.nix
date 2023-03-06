@@ -16,6 +16,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     hyprpicker.url = "github:hyprwm/hyprpicker";
+
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
@@ -43,13 +45,19 @@
       nixosConfigurations = {
         rxdell = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
-          specialArgs = { inherit outputs inputs user; };
+          specialArgs = { inherit outputs inputs system user; };
           modules = [ ./hosts/laptop ] ++ commonModules;
+        };
+
+        rxaws = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = { inherit outputs inputs system user; };
+          modules = [ ./hosts/server ] ++ commonModules;
         };
 
         rxtx = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
-          specialArgs = { inherit outputs inputs user; };
+          specialArgs = { inherit outputs inputs system user; };
           modules = [ ./hosts/server ] ++ commonModules;
         };
       };

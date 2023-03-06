@@ -23,8 +23,6 @@ in {
         ydict
 
         # Music
-        spotify
-        spotifywm
         youtube-music
 
         # Video & Picture

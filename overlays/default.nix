@@ -14,17 +14,6 @@
         patches = (oldAttrs.patches or [ ]) ++ [ waybarPatchFile ];
       });
 
-      # Use spotifywm as spotify exec
-      spotify = prev.spotify.overrideAttrs (oldAttrs: {
-        installPhase = builtins.replaceStrings [''
-          sed -i "s:^Icon=.*:Icon=spotify-client:" "$out/share/spotify/spotify.desktop"
-        ''] [''
-          sed -i "s:^Icon=.*:Icon=spotify-client:" "$out/share/spotify/spotify.desktop"
-          sed -i "s:^Exec=.*:Exec=spotifywm %U:" "$out/share/spotify/spotify.desktop"
-          sed -i "s:^TryExec=.*:Exec=spotifywm:" "$out/share/spotify/spotify.desktop"
-        ''] oldAttrs.installPhase;
-      });
-
       # Fix qq tray
       qq = prev.qq.overrideAttrs (oldAttrs: {
         runtimeDependencies = oldAttrs.runtimeDependencies
