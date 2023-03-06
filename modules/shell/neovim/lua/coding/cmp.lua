@@ -113,6 +113,7 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp",
     event = "VeryLazy",
     dependencies = {
       "rafamadriz/friendly-snippets",
@@ -122,5 +123,13 @@ return {
       history = true,
       delete_check_events = "TextChanged",
     },
+  },
+  {
+    "abecodes/tabout.nvim",
+    dependencies = {
+      "nvim-treesitter",
+      "nvim-cmp",
+    },
+    config = true,
   },
 }
