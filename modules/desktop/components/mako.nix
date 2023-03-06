@@ -5,17 +5,14 @@ with lib;
 let
   cfg = config.custom.desktop.components.mako;
   inherit (config.custom) colorScheme;
-in
-{
-  options.custom.desktop.components.mako = {
-    enable = mkEnableOption "mako";
-  };
+in {
+  options.custom.desktop.components.mako = { enable = mkEnableOption "mako"; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       home.packages = [ pkgs.jq ];
 
-      programs.mako = {
+      services.mako = {
         enable = true;
         # Copy from https://github.com/catppuccin/mako
         backgroundColor = "#${colorScheme.base}e6";
