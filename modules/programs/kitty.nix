@@ -12,6 +12,11 @@ in {
       GLFW_IM_MODULE = "ibus"; # Enable fcitx for kitty
     };
 
+    programs = {
+      zsh.shellAliases = { kssh = "kitty +kitten ssh"; };
+      fish.shellAliases = { kssh = "kitty +kitten ssh"; };
+    };
+
     home-manager.users.${user} = {
       programs.kitty = {
         enable = true;
@@ -32,7 +37,6 @@ in {
       };
 
       # Solve ssh errors in kitty
-      programs.zsh.shellAliases = { ssh = "kitty +kitten ssh"; };
     };
   };
 }
