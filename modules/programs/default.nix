@@ -11,10 +11,11 @@ _: {
     ./kitty.nix
     ./looking-glass.nix
     ./obs-studio.nix
+    ./others.nix
     ./pycharm.nix
+    ./spotify.nix
     ./steam.nix
     ./vscode.nix
     ./yubikey.nix
-    ./others.nix
   ];
 }
