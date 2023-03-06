@@ -2,7 +2,7 @@
 
 {
   imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
+    "${modulesPath}/profiles/qemu-guest.nix"
 
     ../../modules/hardware
   ];
@@ -13,11 +13,7 @@
     loader.grub.device = "/dev/vda";
 
     initrd = {
-      availableKernelModules = [
-        "ata_piix"
-        "uhci_hcd"
-        "xen_blkfront"
-      ];
+      availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
       kernelModules = [ "nvme" ];
     };
 
