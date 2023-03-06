@@ -13,8 +13,10 @@ in {
       enable = true;
       config = {
         log = { loglevel = "info"; };
+
         dns = {
           disableFallbackIfMatch = true;
+          hosts = { "snakepi.xyz" = "43.134.194.35"; };
           servers = [
             {
               address = "tls://dns.google";
