@@ -16,12 +16,19 @@ in {
     home-manager.users.${user} = {
       programs.ssh = {
         enable = true;
-        matchBlocks.rxtx = {
-          hostname = "43.134.194.35";
-          port = 33;
+        matchBlocks.rxaws = {
+          hostname = "rxaws.snakepi.xyz";
+          port = 22;
           user = "yufei";
           forwardAgent = true;
-          # proxyCommand = "nc -v -x 127.0.0.1:10808 %h %p";
+          identityFile =
+            [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxaws@NixOS" ];
+        };
+        matchBlocks.rxtx = {
+          hostname = "43.134.194.35";
+          port = 22;
+          user = "yufei";
+          forwardAgent = true;
           identityFile =
             [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxtx@NixOS" ];
         };

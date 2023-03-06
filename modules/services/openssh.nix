@@ -9,7 +9,7 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      ports = [ 33 ];
+      ports = [ 22 ];
       settings = {
         PasswordAuthentication = true;
         PermitRootLogin = "yes";

@@ -23,7 +23,7 @@ in {
     };
 
     age.secrets.naiveConfig = {
-      file = ../../../secrets/laptop/naiveConfig.age;
+      file = ../../../secrets/proxy/naiveConfig.age;
       owner = "${user}";
       group = "users";
       mode = "644";
