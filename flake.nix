@@ -46,19 +46,19 @@
         rxdell = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/laptop ] ++ commonModules;
+          modules = [ ./hosts/rxdell ] ++ commonModules;
         };
 
         rxaws = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/server ] ++ commonModules;
+          modules = [ ./hosts/rxaws ] ++ commonModules;
         };
 
         rxtx = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/server ] ++ commonModules;
+          modules = [ ./hosts/rxtx ] ++ commonModules;
         };
       };
     };
