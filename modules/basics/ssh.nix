@@ -21,7 +21,7 @@ in {
           port = 33;
           user = "yufei";
           forwardAgent = true;
-          proxyCommand = "nc -v -x 127.0.0.1:10808 %h %p";
+          # proxyCommand = "nc -v -x 127.0.0.1:10808 %h %p";
           identityFile =
             [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxtx@NixOS" ];
         };
