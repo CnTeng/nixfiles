@@ -41,13 +41,13 @@
       commonModules = [ home-manager.nixosModules.home-manager ] ++ hmOptions;
     in {
       nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
+        rxdell = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit outputs inputs user; };
           modules = [ ./hosts/laptop ] ++ commonModules;
         };
 
-        server = nixpkgs.lib.nixosSystem {
+        rxtx = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit outputs inputs user; };
           modules = [ ./hosts/server ] ++ commonModules;
