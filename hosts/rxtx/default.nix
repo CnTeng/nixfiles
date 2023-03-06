@@ -1,4 +1,4 @@
-_: {
+{ user, ... }: {
   networking.hostName = "rxtx";
 
   imports = [
