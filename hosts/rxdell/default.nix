@@ -31,5 +31,6 @@ _: {
       yubikey.enable = true;
     };
     services.onedrive.enable = true;
+    shell.neovim.withNixTreesitter = false;
   };
 }
