@@ -12,7 +12,7 @@ in {
       ports = [ 22 ];
       settings = {
         PasswordAuthentication = true;
-        PermitRootLogin = "yes";
+        PermitRootLogin = mkDefault "yes";
         GSSAPIAuthentication = false;
       };
     };
