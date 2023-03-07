@@ -17,7 +17,7 @@ in {
       programs.ssh = {
         enable = true;
         matchBlocks.rxaws = {
-          hostname = "rxaws.snakepi.xyz";
+          hostname = "43.134.194.35";
           port = 22;
           user = "yufei";
           forwardAgent = true;
