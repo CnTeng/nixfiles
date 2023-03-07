@@ -55,6 +55,12 @@
           modules = [ ./hosts/rxaws ] ++ commonModules;
         };
 
+        rxhz = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = { inherit outputs inputs system user; };
+          modules = [ ./hosts/rxhz ] ++ commonModules;
+        };
+
         rxtx = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = { inherit outputs inputs system user; };
