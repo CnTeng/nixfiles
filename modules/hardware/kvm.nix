@@ -28,13 +28,11 @@ in {
     users.users.${user}.extraGroups = [ "libvirtd" "kvm" ];
 
     boot = mkIf (passthrough.intel or passthrough.nvidia) {
-      kernelModules = [
+      initrd.kernelModules = [
         "kvm-intel"
-        "vfio"
         "vfio_pci"
+        "vfio"
         "vfio_iommu_type1"
-        "vfio_mdev"
-        "vfio_virqfd"
       ]; # Enable kvm in kernel and add vfio kernel modules
 
       kernelParams = mkIf passthrough.intel [

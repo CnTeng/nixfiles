@@ -6,10 +6,10 @@ let cfg = config.custom.hardware.cpu;
 in {
   options.custom.hardware.cpu = {
     intel.enable = mkEnableOption "Intel CPU support";
-    cpuFreqGovernor = mkOption {
+    freqGovernor = mkOption {
       type = types.nullOr types.str;
       default = null;
-      example = "ondemand";
+      example = "powersave";
       description = lib.mdDoc ''
         One of "ondemand", "powersave", "performance"
       '';
@@ -24,8 +24,8 @@ in {
           mkDefault config.hardware.enableRedistributableFirmware;
       };
     })
-    (mkIf (cfg.cpuFreqGovernor != null) {
-      powerManagement.cpuFreqGovernor = "${cfg.cpuFreqGovernor}";
+    (mkIf (cfg.freqGovernor != null) {
+      powerManagement.cpuFreqGovernor = "${cfg.freqGovernor}";
     })
   ];
 }
