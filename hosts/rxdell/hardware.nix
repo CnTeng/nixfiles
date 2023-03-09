@@ -2,11 +2,11 @@
   imports = [ ../../modules/hardware ];
 
   custom.hardware = {
-    # gpu.nvidia.enable = true;
+    gpu.nvidia.enable = true;
     boot.enable = true;
     cpu = {
       intel.enable = true;
-      cpuFreqGovernor = "ondemand";
+      freqGovernor = "powersave";
     };
     devices.enable = true;
     ssd.enable = true;
@@ -15,7 +15,7 @@
       enable = true;
       passthrough = {
         intel = true;
-        nvidia = true;
+        nvidia = false;
       };
     };
     power.tlp.enable = true;
@@ -24,7 +24,7 @@
 
   boot = {
     # Use the latest kernel
-    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     initrd.availableKernelModules =
       [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];

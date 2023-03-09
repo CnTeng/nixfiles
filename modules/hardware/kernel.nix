@@ -16,7 +16,7 @@ in {
   config = mkMerge [
     (mkIf modules.zswap {
       boot = {
-        kernelModules = [ "zstd" "zsfold" ];
+        kernelModules = [ "zstd" "z3fold" ];
         kernelParams = [ "zswap.enabled=1" "zswap.max_pool_percent=25" ];
         postBootCommands = ''
           echo zstd > /sys/module/zswap/parameters/compressor
