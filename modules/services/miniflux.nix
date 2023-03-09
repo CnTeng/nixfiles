@@ -20,13 +20,52 @@ in {
       };
     };
 
-    services.miniflux = {
-      enable = true;
-      config = {
-        LISTEN_ADDR = "localhost:6222";
-        BASE_URL = "https://rss.snakepi.xyz";
+    services = {
+      miniflux = {
+        enable = true;
+        config = {
+          LISTEN_ADDR = "localhost:6222";
+          BASE_URL = "https://rss.snakepi.xyz";
+        };
+        adminCredentialsFile = config.age.secrets.minifluxAdmin.path;
       };
-      adminCredentialsFile = config.age.secrets.minifluxAdmin.path;
+
+      caddy.virtualHosts = {
+        "rss.snakepi.xyz" = {
+          logFormat = ''
+            output file ${config.services.caddy.logDir}/rss.log
+          '';
+          extraConfig = ''
+            import ${config.age.secrets.caddy.path}
+
+            bind
+
+            encode gzip
+
+            header / {
+              X-XSS-Protection "1; mode=block"
+              X-Frame-Options "SAMEORIGIN"
+            }
+
+            reverse_proxy 127.0.0.1:6222
+          '';
+        };
+
+        "rsshub.snakepi.xyz" = {
+          logFormat = ''
+            output file ${config.services.caddy.logDir}/rsshub.log
+          '';
+          extraConfig = ''
+            import ${config.age.secrets.caddy.path}
+
+            bind
+
+            encode gzip
+
+            reverse_proxy 127.0.0.1:1200
+          '';
+        };
+      };
     };
 
     age.secrets.minifluxAdmin = {
