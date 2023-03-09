@@ -11,10 +11,18 @@ let
   rxtx =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPH1/9YLdEA+/NQzNzSkVlN6RWxpsgpH+Z0N53n5PZut rxtx";
 in {
-  "proxy/naiveConfig.age".publicKeys = [ yufei rxdell ];
+  "services/caddy.age".publicKeys = [ yufei rxhz rxtx ];
 
-  "services/naiveFile.age".publicKeys = [ yufei rxaws rxhz rxtx ];
+  "services/calibre.age".publicKeys = [ yufei rxhz rxtx ];
+  "services/miniflux.age".publicKeys = [ yufei rxhz rxtx ];
+  "services/minifluxAdmin.age".publicKeys = [ yufei rxhz rxtx ];
+  "services/naiveRxaws.age".publicKeys = [ yufei rxaws ];
+  "services/naiveRxhz.age".publicKeys = [ yufei rxhz rxtx ];
+  "services/naive.age".publicKeys = [ yufei rxhz rxtx ];
+  "services/vaultwarden.age".publicKeys = [ yufei rxhz rxtx ];
+  "services/vaultwardenEnv.age".publicKeys = [ yufei rxhz rxtx ];
+
+  "shell/naiveConfig.age".publicKeys = [ yufei rxdell ];
+
   "services/caddyFile.age".publicKeys = [ yufei rxaws rxhz rxtx ];
-  "services/vaultwardenEnv.age".publicKeys = [ yufei rxaws rxhz rxtx ];
-  "services/minifluxAdmin.age".publicKeys = [ yufei rxaws rxhz rxtx ];
 }

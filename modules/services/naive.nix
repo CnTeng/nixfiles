@@ -21,6 +21,25 @@ in {
         CapabilityBoundingSet = "cap_net_bind_service";
       };
 
+      services.caddy.extraConfig = ''
+        :443, ${config.networking.hostName}.snakepi.xyz {
+        	log {
+        		output file ${config.services.caddy.logDir}/naive.log
+        	}
+
+        	tls istengyf@outlook.com
+
+          import ${config.age.secrets.caddy.path}
+        }
+      '';
+
+      age.secrets.caddy = {
+        file = ../../secrets/services/naive.age;
+        owner = "${user}";
+        group = "users";
+        mode = "644";
+      };
+
       age.secrets.caddyFile = {
         file = ../../secrets/services/naiveFile.age;
         owner = "${user}";
