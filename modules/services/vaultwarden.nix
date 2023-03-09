@@ -29,7 +29,7 @@ in {
           WEBSOCKET_ADDRESS = "127.0.0.1";
           WEBSOCKET_PORT = 3222;
         };
-        environmentFile = config.age.secrets.vaultwardenEnv.path;
+        environmentFile = config.age.secrets.vaultwarden.path;
       };
 
       caddy.virtualHosts."pwd.snakepi.xyz" = {
@@ -60,8 +60,8 @@ in {
       };
     };
 
-    age.secrets.vaultwardenEnv = {
-      file = ../../secrets/services/vaultwardenEnv.age;
+    age.secrets.vaultwarden = {
+      file = ../../secrets/services/vaultwarden.age;
       path = "/var/lib/vaultwarden.env";
       owner = "vaultwarden";
       group = "vaultwarden";

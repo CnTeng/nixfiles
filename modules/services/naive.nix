@@ -29,19 +29,12 @@ in {
 
         	tls istengyf@outlook.com
 
-          import ${config.age.secrets.caddy.path}
+          import ${config.age.secrets.naive.path}
         }
       '';
 
-      age.secrets.caddy = {
+      age.secrets.naive = {
         file = ../../secrets/services/naive.age;
-        owner = "${user}";
-        group = "users";
-        mode = "644";
-      };
-
-      age.secrets.caddyFile = {
-        file = ../../secrets/services/naiveFile.age;
         owner = "${user}";
         group = "users";
         mode = "644";
