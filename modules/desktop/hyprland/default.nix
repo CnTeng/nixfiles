@@ -41,7 +41,7 @@ in {
 
     programs.hyprland = {
       enable = true;
-      nvidiaPatches = true;
+      nvidiaPatches = config.custom.hardware.gpu.nvidia.enable;
       recommendedEnvironment = false;
     };
 
@@ -72,7 +72,15 @@ in {
           slurp
           xdg-utils # For vscode and idea opening urls
         ] ++ [ inputs.hyprpicker.packages.${system}.hyprpicker ];
-      imports = [ ./home.nix ];
+
+      imports = [
+        (import ./home.nix {
+          inherit pkgs inputs user;
+          inherit (config.home-manager.users.${user}.home) homeDirectory;
+          inherit (config.programs.hyprland) nvidiaPatches;
+          inherit (config.custom) colorScheme;
+        })
+      ];
     };
   };
 }

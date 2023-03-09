@@ -1,8 +1,6 @@
-{ config, pkgs, inputs, user, ... }:
+{ pkgs, inputs, user, homeDirectory, nvidiaPatches, colorScheme, ... }:
 
 let
-  inherit (config.custom) colorScheme;
-
   wallpaper = ../../../assets/wallpapers/snowy_mountain.jpg;
   swaybg = "${pkgs.swaybg}/bin/swaybg";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
@@ -15,8 +13,7 @@ let
   grim = "${pkgs.grim}/bin/grim";
   yubikeytd = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector";
 in {
-  imports =
-    [ inputs.hyprland.homeManagerModules.default ../../basics/colors.nix ];
+  imports = [ inputs.hyprland.homeManagerModules.default ];
 
   xsession.preferStatusNotifierItems = true;
 
@@ -24,7 +21,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true; # Enable hyprland-session.target
-    nvidiaPatches = true;
+    inherit nvidiaPatches;
     recommendedEnvironment = false;
     extraConfig = ''
       monitor=eDP-1,1920x1080@60,0x0,1
@@ -111,7 +108,7 @@ in {
       bind=SUPER,e,exec,${pcmanfm}
 
       # Screenshots
-      bind=,print,exec,${grim} -g "$(slurp)" "${config.home.homeDirectory}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
+      bind=,print,exec,${grim} -g "$(slurp)" "${homeDirectory}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
       bind=SUPER_SHIFT,p,exec,${grim} -g "$(slurp)" - | wl-copy --type image/png
 
       # Colorpicker
