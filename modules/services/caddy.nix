@@ -12,6 +12,7 @@ in {
       package = pkgs.caddy-with-plugins;
       adapter = "caddyfile";
       globalConfig = "order forward_proxy before reverse_proxy";
+      acmeCA = null;
     };
 
     systemd.services.caddy.serviceConfig = {
