@@ -17,6 +17,10 @@ in {
         enable = true;
         userName = "CnTeng";
         userEmail = "istengyf@outlook.com";
+        delta = {
+          enable = true;
+          options = { };
+        };
       };
 
       programs.lazygit = {
