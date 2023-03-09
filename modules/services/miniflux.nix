@@ -27,7 +27,7 @@ in {
           LISTEN_ADDR = "localhost:6222";
           BASE_URL = "https://rss.snakepi.xyz";
         };
-        adminCredentialsFile = config.age.secrets.minifluxAdmin.path;
+        adminCredentialsFile = config.age.secrets.miniflux.path;
       };
 
       caddy.virtualHosts = {
@@ -68,8 +68,8 @@ in {
       };
     };
 
-    age.secrets.minifluxAdmin = {
-      file = ../../secrets/services/minifluxAdmin.age;
+    age.secrets.miniflux = {
+      file = ../../secrets/services/miniflux.age;
       owner = "${user}";
       group = "users";
       mode = "644";

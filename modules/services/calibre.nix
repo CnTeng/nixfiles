@@ -41,12 +41,5 @@ in {
         '';
       };
     };
-
-    age.secrets.calibre = {
-      file = ../../secrets/services/calibre.age;
-      owner = "${user}";
-      group = "users";
-      mode = "644";
-    };
   };
 }
