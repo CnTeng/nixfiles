@@ -60,7 +60,7 @@ in buildGoModule {
 
   src = combinedSrc;
 
-  vendorHash = "sha256-ahPvAsF6f/xpDW0C8X696+IjxCyaXgWKQfsACbdBS+Q=";
+  vendorHash = "sha256-0zV3q33lXJqAbukNECz1t6OZM8xji1SGXStG5MjV5pE=";
 
   overrideModAttrs = _: {
     postPatch = "cd caddywithplugins";
