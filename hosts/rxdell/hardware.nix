@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
   imports = [ ../../modules/hardware ];
 
   custom.hardware = {
@@ -11,13 +11,6 @@
     devices.enable = true;
     ssd.enable = true;
     kernel.modules.zswap = true;
-    kvm = {
-      enable = true;
-      passthrough = {
-        intel = true;
-        nvidia = false;
-      };
-    };
     power.tlp.enable = true;
     wireless.enable = true;
   };
