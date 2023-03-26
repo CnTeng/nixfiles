@@ -13,7 +13,6 @@ in {
       enable = true;
       config = {
         log = { loglevel = "info"; };
-
         dns = {
           disableFallbackIfMatch = true;
           servers = [
