@@ -8,8 +8,8 @@ let
 in {
   options.custom.shell.environment = {
     enable = mkEnableOption "All languages support" // { default = true; };
-    languages =
-      mapAttrs (_: v: mkEnableOption (mkDoc v) // { default = cfg.enable; }) {
+    languages = mapAttrs
+      (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
         cpp = "C++ support";
         rust = "Rust support";
         go = "Go support";
@@ -38,7 +38,7 @@ in {
         optionals lang.cpp [ gcc gdb gnumake cmake ]
         ++ optionals lang.rust [ rustc cargo ] ++ optionals lang.js [ nodejs ]
         ++ optionals lang.python
-        [ (pkgs.python3.withPackages (ps: with ps; [ pip ipython debugpy ])) ];
+        [ (pkgs.python3.withPackages (ps: with ps; [ pip ipython ])) ];
     };
   };
 }
