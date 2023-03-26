@@ -11,7 +11,7 @@ let
 in {
   options.custom.hardware.kvm = {
     enable = mkEnableOption "kvm";
-    passthrough = mapAttrs (_: v: mkEnableOption (mkDoc v)) {
+    passthrough = mapAttrs (_: doc: mkEnableOption (mkDoc doc)) {
       intel = "IGVT-g passthrough";
       nvidia = "Nvidia GPU passthrough";
     };

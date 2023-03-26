@@ -1,10 +1,10 @@
 { lib, ... }:
 
 with lib; {
-  options.custom.colorScheme = mapAttrs (name: value:
+  options.custom.colorScheme = mapAttrs (name: color:
     mkOption {
       type = types.str;
-      default = value;
+      default = color;
       description = mkDoc ''
         Set the ${name} of color scheme
       '';
