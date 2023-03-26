@@ -12,11 +12,6 @@ in {
       GLFW_IM_MODULE = "ibus"; # Enable fcitx for kitty
     };
 
-    programs = {
-      zsh.shellAliases = { kssh = "kitty +kitten ssh"; };
-      fish.shellAliases = { kssh = "kitty +kitten ssh"; };
-    };
-
     home-manager.users.${user} = {
       programs.kitty = {
         enable = true;
@@ -26,6 +21,7 @@ in {
         };
         theme = "Catppuccin-Macchiato";
         settings = {
+          term = "xterm-256color";
           tab_fade = "1 1 1";
           tab_title_template =
             "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
@@ -35,8 +31,6 @@ in {
           modify_font underline_thickness 150%
         '';
       };
-
-      # Solve ssh errors in kitty
     };
   };
 }
