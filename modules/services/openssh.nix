@@ -2,7 +2,12 @@
 
 with lib;
 
-let cfg = config.custom.services.openssh;
+let
+  cfg = config.custom.services.openssh;
+  authorizedKeys = [
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPmKxwF3v9GvcPJ67fNf42o5/NZvWqWkMu/QrRuQo95OAAAAD3NzaDpyeGF3c0BOaXhPUw== ssh:rxaws@NixOS"
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIFWwOxGhmGVpk2XUBu+PWPXeczcqA/PHt8P+EJrBull4AAAADnNzaDpyeGh6QE5peE9T ssh:rxhz@NixOS"
+  ];
 in {
   options.custom.services.openssh.enable = mkEnableOption "openssh";
 
@@ -18,17 +23,8 @@ in {
     };
 
     users.users = {
-      ${user}.openssh.authorizedKeys.keys = [
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHhQjkubTtLVt8xkER41Zn4yYTTxEoBtFqbxBtbw6KxlAAAAD3NzaDpyeGF3c0BOaXhPUw== ssh:rxaws@NixOS"
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILz6VT0DM51kUB5BQOr2IcUKKNtd40I3FMNEgHpRAvBCAAAADnNzaDpyeGh6QE5peE9T ssh:rxhz@NixOS"
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJsesttoCaugSKmHFIORINbEhvvqa7IhKO4viq3WLYktAAAADnNzaDpyeHR4QE5peE9T ssh:rxtx@NixOS"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKgYNuR3TCv/wZw9GqPx/TK3q4K9lotfdRTCsgNh/OS5 root@rxhz"
-      ];
-      root.openssh.authorizedKeys.keys = [
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHhQjkubTtLVt8xkER41Zn4yYTTxEoBtFqbxBtbw6KxlAAAAD3NzaDpyeGF3c0BOaXhPUw== ssh:rxaws@NixOS"
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILz6VT0DM51kUB5BQOr2IcUKKNtd40I3FMNEgHpRAvBCAAAADnNzaDpyeGh6QE5peE9T ssh:rxhz@NixOS"
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJsesttoCaugSKmHFIORINbEhvvqa7IhKO4viq3WLYktAAAADnNzaDpyeHR4QE5peE9T ssh:rxtx@NixOS"
-      ];
+      ${user}.openssh.authorizedKeys.keys = authorizedKeys;
+      root.openssh.authorizedKeys.keys = authorizedKeys;
     };
 
     programs.ssh.startAgent = true;

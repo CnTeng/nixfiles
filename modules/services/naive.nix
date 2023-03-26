@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, user, ... }:
 
 with lib;
 
@@ -7,6 +7,11 @@ in {
   options.custom.services.naive.enable = mkEnableOption "naive";
 
   config = mkIf cfg.enable {
+    assertions = [{
+      assertion = config.custom.services.caddy.enable;
+      message = "caddy must be enabled to work with naive";
+    }];
+
     services.caddy.extraConfig = ''
       :443, ${config.networking.hostName}.snakepi.xyz {
       	log {

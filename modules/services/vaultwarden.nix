@@ -1,8 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, user, ... }:
 
 with lib;
 
-let cfg = config.custom.services.vaultwarden;
+let
+  cfg = config.custom.services.vaultwarden;
+  inherit (config.home-manager.users.${user}.home) homeDirectory;
 in {
   options.custom.services.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
