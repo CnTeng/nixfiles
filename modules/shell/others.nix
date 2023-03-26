@@ -10,7 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      home.packages = with pkgs; [ unzipNLS gzip unrar wget neofetch ];
+      home.packages = with pkgs; [ unzipNLS gzip unrar wget neofetch colmena ];
     };
   };
 }

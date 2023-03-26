@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -18,53 +19,54 @@
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+
+    colmena.url = "github:zhaofengli/colmena";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let
-      inherit (self) outputs;
-
+      overlays = import ./overlays;
       system = "x86_64-linux";
       user = "yufei";
-      overlays = import ./overlays;
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = with overlays; [ additions modifications ];
-      };
-
-      hmOptions = [{
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = { inherit outputs inputs user; };
-        };
-      }];
-      commonModules = [ home-manager.nixosModules.home-manager ] ++ hmOptions;
     in {
-      nixosConfigurations = {
-        rxdell = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/rxdell ] ++ commonModules;
+      colmena = {
+        meta = {
+          nixpkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            overlays = with overlays;
+              [ additions modifications ] ++ [ inputs.colmena.overlay ];
+          };
+          specialArgs = { inherit inputs system user; };
+        };
+        rxdell = { name, ... }: {
+          deployment = {
+            allowLocalDeployment = true;
+            targetHost = null;
+            tags = [ "${name}" ];
+          };
+          networking.hostName = "${name}";
+          imports = [ ./hosts/${name} ];
         };
 
-        rxaws = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/rxaws ] ++ commonModules;
+        rxaws = { name, ... }: {
+          deployment = {
+            targetHost = "rxaws";
+            tags = [ "${name}" "servers" ];
+            buildOnTarget = true;
+          };
+          networking.hostName = "${name}";
+          imports = [ ./hosts/${name} ];
         };
 
-        rxhz = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/rxhz ] ++ commonModules;
-        };
-
-        rxtx = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = { inherit outputs inputs system user; };
-          modules = [ ./hosts/rxtx ] ++ commonModules;
+        rxhz = { name, ... }: {
+          deployment = {
+            targetHost = "rxhz";
+            tags = [ "${name}" "servers" ];
+            buildOnTarget = true;
+          };
+          networking.hostName = "${name}";
+          imports = [ ./hosts/${name} ];
         };
       };
     };
