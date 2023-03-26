@@ -1,6 +1,4 @@
-{ user, ... }: {
-  networking.hostName = "rxhz";
-
+_: {
   imports = [
     ./hardware.nix
     ./networking.nix
