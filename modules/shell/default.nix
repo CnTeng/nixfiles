@@ -2,6 +2,7 @@ _: {
   imports = [
     ./neovim
     ./proxy
+    ./bat.nix
     ./btop.nix
     ./env.nix
     ./fish.nix
