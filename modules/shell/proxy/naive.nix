@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.custom.shell.proxy;
-  inherit (config.age.secrets.naiveConfig) path;
+  inherit (config.age.secrets.naive) path;
 in {
   options.custom.shell.proxy.naive = {
     enable = mkEnableOption "naive proxy" // { default = cfg.enable; };
@@ -22,8 +22,8 @@ in {
       };
     };
 
-    age.secrets.naiveConfig = {
-      file = ../../../secrets/proxy/naiveConfig.age;
+    age.secrets.naive = {
+      file = ../../../secrets/shell/naive.age;
       owner = "${user}";
       group = "users";
       mode = "644";
