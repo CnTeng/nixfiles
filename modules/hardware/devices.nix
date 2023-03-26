@@ -8,8 +8,8 @@ let
 in {
   options.custom.hardware.devices = {
     enable = mkEnableOption "all devices support";
-    components =
-      mapAttrs (_: v: mkEnableOption (mkDoc v) // { default = cfg.enable; }) {
+    components = mapAttrs
+      (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
         audio = "audio support";
         light = "light support";
       };

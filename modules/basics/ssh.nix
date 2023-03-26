@@ -16,29 +16,16 @@ in {
     home-manager.users.${user} = {
       programs.ssh = {
         enable = true;
-        matchBlocks.rxaws = {
-          hostname = "13.113.148.152";
+        matchBlocks = mapAttrs (name: ip: {
+          hostname = "${ip}";
           port = 22;
           user = "yufei";
           forwardAgent = true;
           identityFile =
-            [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxaws@NixOS" ];
-        };
-        matchBlocks.rxhz = {
-          hostname = "78.47.24.36";
-          port = 22;
-          user = "yufei";
-          forwardAgent = true;
-          identityFile =
-            [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxhz@NixOS" ];
-        };
-        matchBlocks.rxtx = {
-          hostname = "43.134.194.35";
-          port = 22;
-          user = "yufei";
-          forwardAgent = true;
-          identityFile =
-            [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_rxtx@NixOS" ];
+            [ "${homeDirectory}/.ssh/id_ed25519_sk_rk_${name}@NixOS" ];
+        }) {
+          rxaws = "13.113.148.152";
+          rxhz = "78.47.24.36";
         };
       };
     };
