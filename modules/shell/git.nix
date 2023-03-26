@@ -19,7 +19,13 @@ in {
         userEmail = "istengyf@outlook.com";
         delta = {
           enable = true;
-          options = { };
+          options = {
+            dark = true;
+            line-numbers = true;
+            line-numbers-minus-style = ''"#${colorScheme.red}"'';
+            line-numbers-plus-style = ''"#${colorScheme.green}"'';
+            syntax-theme = "Catppuccin-macchiato";
+          };
         };
       };
 
