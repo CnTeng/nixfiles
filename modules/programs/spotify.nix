@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, user, ... }:
+{ inputs, system, user, ... }:
 
 let spicePkgs = inputs.spicetify-nix.packages.${system}.default;
 in {
@@ -7,7 +7,7 @@ in {
 
     programs.spicetify = {
       enable = true;
-      spotifyPackage = pkgs.spotifywm;
+      windowManagerPatch = true;
       theme = spicePkgs.themes.catppuccin-macchiato;
       colorScheme = "blue";
 
