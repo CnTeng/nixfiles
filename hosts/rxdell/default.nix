@@ -1,6 +1,4 @@
 _: {
-  networking.hostName = "rxdell";
-
   imports = [
     ./hardware.nix
 
@@ -14,6 +12,7 @@ _: {
   custom = {
     desktop.hyprland.enable = true;
     programs = {
+      wezterm.enable = true;
       alacritty.enable = true;
       android.enable = true;
       chrome.enable = true;
