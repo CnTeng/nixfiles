@@ -9,8 +9,8 @@ in {
   options.custom.desktop.components.theme = {
     enable = mkEnableOption "custom gtk and qt theme";
 
-    modules =
-      mapAttrs (_: v: mkEnableOption (mkDoc v) // { default = cfg.enable; }) {
+    modules = mapAttrs
+      (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
         gtk = "custom gtk theme";
         qt = "custom qt theme";
       };
@@ -24,7 +24,10 @@ in {
 
     home-manager.users.${user} = {
       # Set the qt theme by using kvantum
-      home.packages = mkIf modules.qt [ pkgs.libsForQt5.qtstyleplugin-kvantum ];
+      home.packages = mkIf modules.qt (with pkgs; [
+        libsForQt5.qtstyleplugin-kvantum
+        (catppuccin-kvantum.override { variant = "Macchiato"; })
+      ]);
 
       # Set the theme of cursor for the whole system
       home.pointerCursor = mkIf modules.gtk {

@@ -8,8 +8,8 @@ let
 in {
   options.custom.hardware.wireless = {
     enable = mkEnableOption "wireless support";
-    components =
-      mapAttrs (_: v: mkEnableOption (mkDoc v) // { default = cfg.enable; }) {
+    components = mapAttrs
+      (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
         network = "network support";
         bluetooth = "Bluetooth support";
       };

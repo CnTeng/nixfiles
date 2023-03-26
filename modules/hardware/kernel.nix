@@ -7,7 +7,7 @@ let
   inherit (cfg) modules;
 in {
   options.custom.hardware.kernel = {
-    modules = mapAttrs (_: v: mkEnableOption (mkDoc v)) {
+    modules = mapAttrs (_: doc: mkEnableOption (mkDoc doc)) {
       zswap = "zswap";
       bbr = "BBR module";
     };
