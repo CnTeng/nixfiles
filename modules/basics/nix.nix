@@ -1,4 +1,4 @@
-{ config, lib, user, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -22,24 +22,12 @@ in {
       settings = { experimental-features = [ "nix-command" "flakes" ]; };
     };
 
-    nixpkgs.config.allowUnfree = true;
-
     system = {
       autoUpgrade = {
         enable = false;
         channel = "https://nixos.org/channels/nixos-unstable";
       };
       stateVersion = "23.05";
-    };
-
-    home-manager.users.${user} = {
-      home = {
-        username = "${user}";
-        homeDirectory = "/home/${user}";
-        stateVersion = "23.05";
-      };
-
-      programs = { home-manager.enable = true; };
     };
   };
 }
