@@ -68,10 +68,10 @@ in buildGoModule {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/caddyserver/caddy";
     description =
       "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
+    homepage = "https://github.com/caddyserver/caddy";
     license = licenses.asl20;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

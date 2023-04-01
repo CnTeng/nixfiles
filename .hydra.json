@@ -1,0 +1,14 @@
+{
+  "packages": {
+    "enabled": 1,
+    "hidden": false,
+    "type": 1,
+    "description": "Build overlayed or unfree packages for NixOS",
+    "flake": "github:CnTeng/nixfiles",
+    "checkinterval": 60,
+    "schedulingshares": 1,
+    "enableemail": false,
+    "emailoverride": "",
+    "keepnr": 2
+  }
+}

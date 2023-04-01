@@ -11,8 +11,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/streetsamurai00mi/ttf-ms-win10";
     description = "Microsoft Windows 10 TrueType fonts for Linux";
+    homepage = "https://github.com/streetsamurai00mi/ttf-ms-win10";
     license = licenses.unfree;
     platforms = platforms.all;
   };

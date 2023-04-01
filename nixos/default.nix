@@ -9,10 +9,9 @@ in {
         self.overlays.default
         inputs.hyprpicker.overlays.default
         inputs.emacs-overlay.overlay
+        inputs.colmena.overlay
       ];
     };
-
-    hydraJobs."naiveproxy" = pkgs.naiveproxy;
 
     colmenaHive = inputs.colmena.lib.makeHive {
       meta = {
