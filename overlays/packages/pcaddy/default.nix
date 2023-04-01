@@ -1,27 +1,12 @@
 # Copy https://github.com/NixOS/nixpkgs/pull/191883#issuecomment-1250652290
 # & https://github.com/NixOS/nixpkgs/issues/14671
-{ lib, stdenv, go, srcOnly, fetchFromGitHub, buildGoModule, ... }:
+{ lib, stdenv, go, srcOnly, buildGoModule, sources, ... }:
 let
-  caddySrc = srcOnly (fetchFromGitHub {
-    owner = "caddyserver";
-    repo = "caddy";
-    rev = "v2.6.4";
-    hash = "sha256-3a3+nFHmGONvL/TyQRqgJtrSDIn0zdGy9YwhZP17mU0=";
-  }); # Clone from https://github.com/caddyserver/caddy
+  caddySrc = srcOnly sources.caddy.src;
 
-  forwardProxySrc = srcOnly (fetchFromGitHub {
-    owner = "klzgrad";
-    repo = "forwardproxy";
-    rev = "caddy2-naive-20221007";
-    hash = "sha256-MLbvv2G7ydTSmTw+tn89n1jJ51rz1BEmp5U1cM54qRo=";
-  });
+  forwardProxySrc = srcOnly sources.forwardproxy.src;
 
-  cloudflareSrc = srcOnly (fetchFromGitHub {
-    owner = "caddy-dns";
-    repo = "cloudflare";
-    rev = "815abbf88b27182428c342b2916a37b7134d266b";
-    hash = "sha256-tz12CLrXLCf8Tjb9yj9rnysS3seLg3GAVFpybu3rIo8=";
-  });
+  cloudflareSrc = srcOnly sources.cloudflare.src;
 
   combinedSrc = stdenv.mkDerivation {
     name = "caddy-src";
@@ -32,13 +17,13 @@ let
       export GOCACHE="$TMPDIR/go-cache"
       export GOPATH="$TMPDIR/go"
 
-      mkdir -p "$out/caddywithplugins"
+      mkdir -p "$out/pcaddy"
 
       cp -r ${caddySrc} "$out/caddy"
       cp -r ${forwardProxySrc} "$out/forwardproxy"
       cp -r ${cloudflareSrc} "$out/cloudflare"
 
-      cd "$out/caddywithplugins"
+      cd "$out/pcaddy"
 
       go mod init caddy
       echo "package main" >> main.go
@@ -47,7 +32,7 @@ let
       echo 'import _ "github.com/caddyserver/forwardproxy"' >> main.go
       echo 'import _ "github.com/caddy-dns/cloudflare"' >> main.go
       echo "func main(){ caddycmd.Main() }" >> main.go
-      go mod edit -require=github.com/caddyserver/caddy/v2@v2.6.4
+      go mod edit -require=github.com/caddyserver/caddy/v2@${sources.caddy.version}
       go mod edit -replace github.com/caddyserver/caddy/v2=../caddy
       go mod edit -require=github.com/caddyserver/forwardproxy@v0.0.0
       go mod edit -replace github.com/caddyserver/forwardproxy=../forwardproxy
@@ -56,14 +41,15 @@ let
     '';
   };
 in buildGoModule {
-  name = "caddy-with-plugins";
+  pname = "pcaddy";
+  inherit (sources.caddy) version;
 
   src = combinedSrc;
 
-  vendorHash = "sha256-0zV3q33lXJqAbukNECz1t6OZM8xji1SGXStG5MjV5pE=";
+  vendorHash = "sha256-zxT8G06uCa5czBuZzeiiktontoim1zpZZzOtO70sJgw=";
 
   overrideModAttrs = _: {
-    postPatch = "cd caddywithplugins";
+    postPatch = "cd pcaddy";
 
     postConfigure = ''
       go mod tidy
@@ -75,7 +61,7 @@ in buildGoModule {
     '';
   };
 
-  postPatch = "cd caddywithplugins";
+  postPatch = "cd pcaddy";
 
   postConfigure = ''
     cp vendor/.magic/go.* .

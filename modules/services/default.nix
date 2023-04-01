@@ -1,12 +1,4 @@
-_: {
-  imports = [
-    ./caddy.nix
-    ./calibre.nix
-    ./firewall.nix
-    ./miniflux.nix
-    ./naive.nix
-    ./onedrive.nix
-    ./openssh.nix
-    ./vaultwarden.nix
-  ];
-}
+let
+  fileNames = with builtins;
+    map (n: ./${n}) (filter (n: n != "default.nix") (attrNames (readDir ./.)));
+in { imports = fileNames; }

@@ -1,11 +1,9 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.shell.proxy;
+let cfg = config.shell'.proxy;
 in {
-  options.custom.shell.proxy.v2ray = {
-    enable = mkEnableOption "v2ray proxy" // { default = cfg.enable; };
+  options.shell'.proxy.v2ray.enable = mkEnableOption "v2ray proxy" // {
+    default = cfg.enable;
   };
 
   config = mkIf cfg.v2ray.enable {
@@ -95,6 +93,5 @@ in {
         };
       };
     };
-
   };
 }

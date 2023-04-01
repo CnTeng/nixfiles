@@ -1,12 +1,10 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.theme;
+  cfg = config.desktop'.components.theme;
   inherit (cfg) modules;
 in {
-  options.custom.desktop.components.theme = {
+  options.desktop'.components.theme = {
     enable = mkEnableOption "custom gtk and qt theme";
 
     modules = mapAttrs

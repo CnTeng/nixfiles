@@ -1,10 +1,8 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.basics.locale;
+let cfg = config.basics'.locale;
 in {
-  options.custom.basics.locale = {
+  options.basics'.locale = {
     enable = mkEnableOption "locale config" // { default = true; };
   };
 

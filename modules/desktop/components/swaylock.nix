@@ -1,14 +1,10 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.swaylock;
-  inherit (config.custom) colorScheme;
+  cfg = config.desktop'.components.swaylock;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.desktop.components.swaylock = {
-    enable = mkEnableOption "swaylock";
-  };
+  options.desktop'.components.swaylock.enable = mkEnableOption "swaylock";
 
   config = mkIf cfg.enable {
     # Ensure swaylock can verify the password

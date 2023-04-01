@@ -1,12 +1,10 @@
 { config, lib, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.programs.alacritty;
-  inherit (config.custom) colorScheme;
+  cfg = config.programs'.alacritty;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.programs.alacritty = { enable = mkEnableOption "Alacritty"; };
+  options.programs'.alacritty.enable = mkEnableOption "Alacritty";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

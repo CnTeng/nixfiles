@@ -1,21 +1,18 @@
-{ pkgs, inputs, user, homeDirectory, nvidiaPatches, colorScheme, ... }:
-
+{ pkgs, lib, inputs, homeDirectory, nvidiaPatches, colorScheme, ... }:
 let
   wallpaper = ../../../assets/wallpapers/snowy_mountain.jpg;
-  swaybg = "${pkgs.swaybg}/bin/swaybg";
-  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
-  terminal = "${pkgs.kitty}/bin/kitty";
+  swaybg = lib.getExe pkgs.swaybg;
+  swaylock = lib.getExe pkgs.swaylock-effects;
+  terminal = lib.getExe pkgs.kitty;
   rofi = "rofi -show drun";
-  pcmanfm = "${pkgs.pcmanfm}/bin/pcmanfm";
-  light = "${pkgs.light}/bin/light";
-  pamixer = "${pkgs.pamixer}/bin/pamixer";
-  playerctl = "${pkgs.playerctl}/bin/playerctl";
-  grim = "${pkgs.grim}/bin/grim";
-  yubikeytd = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector";
+  pcmanfm = lib.getExe pkgs.pcmanfm;
+  light = lib.getExe pkgs.light;
+  pamixer = lib.getExe pkgs.pamixer;
+  playerctl = lib.getExe pkgs.playerctl;
+  grim = lib.getExe pkgs.grim;
+  yubikeytd = lib.getExe pkgs.yubikey-touch-detector;
 in {
   imports = [ inputs.hyprland.homeManagerModules.default ];
-
-  xsession.preferStatusNotifierItems = true;
 
   # Find options from https://github.com/hyprwm/Hyprland/blob/main/nix/hm-module.nixa
   wayland.windowManager.hyprland = {
@@ -128,9 +125,9 @@ in {
       bind = , XF86AudioMute, exec, ${pamixer} -t
 
       # Window manager control
-      bind = SUPER, q, killactive, 
+      bind = SUPER, q, killactive,
       bind = SUPER_SHIFT, s, exec, ${swaylock} # Lock the screen
-      bind = SUPER_SHIFT, escape, exit, 
+      bind = SUPER_SHIFT, escape, exit,
       bind = SUPER_SHIFT, escape, exec, systemctl --user stop graphical-session.target
       bind = SUPER_SHIFT, escape, exec, systemctl --user stop hyprland-session.target
 
@@ -207,7 +204,7 @@ in {
       binde = , left, resizeactive, -20 0
       binde = , right, resizeactive, 20 0
 
-      bind = , escape, submap, reset 
+      bind = , escape, submap, reset
       submap = reset # Back to global submap
 
       # Switch to workspace

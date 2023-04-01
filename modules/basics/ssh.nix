@@ -1,12 +1,10 @@
 { config, lib, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.basics.ssh;
+  cfg = config.basics'.ssh;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
 in {
-  options.custom.basics.ssh = {
+  options.basics'.ssh = {
     enable = mkEnableOption "ssh config" // { default = true; };
   };
 

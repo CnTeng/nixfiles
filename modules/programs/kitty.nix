@@ -1,10 +1,8 @@
 { config, lib, user, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.kitty;
+let cfg = config.programs'.kitty;
 in {
-  options.custom.programs.kitty = { enable = mkEnableOption "kitty"; };
+  options.programs'.kitty.enable = mkEnableOption "kitty";
 
   config = mkIf cfg.enable {
     environment.variables = {

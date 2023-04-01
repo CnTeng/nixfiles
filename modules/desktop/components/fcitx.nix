@@ -1,14 +1,10 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.fcitx;
-  inherit (config.custom) colorScheme;
+  cfg = config.desktop'.components.fcitx;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.desktop.components.fcitx = {
-    enable = mkEnableOption "fcitx";
-  };
+  options.desktop'.components.fcitx.enable = mkEnableOption "fcitx";
 
   config = mkIf cfg.enable {
     i18n.inputMethod = {

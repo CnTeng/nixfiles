@@ -1,9 +1,7 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.shell.lf;
+  cfg = config.shell'.lf;
 
   # Require for image previewer
   file = "${pkgs.file}/bin/file";
@@ -28,9 +26,7 @@ let
     kitty +icat --clear --silent --transfer-mode file
   '';
 in {
-  options.custom.shell.lf = {
-    enable = mkEnableOption "lf" // { default = true; };
-  };
+  options.shell'.lf.enable = mkEnableOption "lf" // { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

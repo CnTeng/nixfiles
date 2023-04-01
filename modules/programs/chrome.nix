@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.chrome;
+let cfg = config.programs'.chrome;
 in {
-  options.custom.programs.chrome = { enable = mkEnableOption "Chrome"; };
+  options.programs'.chrome.enable = mkEnableOption "Chrome";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

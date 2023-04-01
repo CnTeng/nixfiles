@@ -1,16 +1,14 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.rofi;
+  cfg = config.desktop'.components.rofi;
   mkLiteral = value: {
     _type = "literal";
     inherit value;
   };
-  inherit (config.custom) colorScheme;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.desktop.components.rofi = { enable = mkEnableOption "rofi"; };
+  options.desktop'.components.rofi.enable = mkEnableOption "rofi";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

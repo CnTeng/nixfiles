@@ -1,12 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.desktop.components.pcmanfm;
+let cfg = config.desktop'.components.pcmanfm;
 in {
-  options.custom.desktop.components.pcmanfm = {
-    enable = mkEnableOption "pcmanfm";
-  };
+  options.desktop'.components.pcmanfm.enable = mkEnableOption "pcmanfm";
 
   config = mkIf cfg.enable {
     services = {

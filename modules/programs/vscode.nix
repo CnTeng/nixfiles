@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.vscode;
+let cfg = config.programs'.vscode;
 in {
-  options.custom.programs.vscode = { enable = mkEnableOption "Visual Studio Code"; };
+  options.programs'.vscode.enable = mkEnableOption "Visual Studio Code";
 
   config = mkIf cfg.enable {
     # environment.sessionVariables = {
@@ -12,12 +10,6 @@ in {
     # };
 
     home-manager.users.${user} = {
-      # For logining the Microsoft in vscode
-      services.gnome-keyring = {
-        enable = true;
-        components = [ "secrets" ];
-      };
-
       programs.vscode = {
         enable = true;
         package = pkgs.vscode-fhs;

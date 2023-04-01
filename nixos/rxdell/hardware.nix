@@ -1,7 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ../../modules/hardware ];
-
-  custom.hardware = {
+  hardware' = {
     gpu.nvidia.enable = true;
     boot.enable = true;
     cpu = {
@@ -22,6 +20,8 @@
     initrd.availableKernelModules =
       [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   };
+
+  systemd.watchdog.runtimeTime = "60s";
 
   fileSystems = {
     "/" = {

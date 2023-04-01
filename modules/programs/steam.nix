@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.steam;
+let cfg = config.programs'.steam;
 in {
-  options.custom.programs.steam = { enable = mkEnableOption "Steam"; };
+  options.programs'.steam.enable = mkEnableOption "Steam";
 
   config = mkIf cfg.enable {
     programs.steam.enable = true;

@@ -1,12 +1,10 @@
-{ config, lib, pkgs, user, ... }:
-
+{ config, lib, user, ... }:
 with lib;
-
 let
-  cfg = config.custom.hardware.wireless;
+  cfg = config.hardware'.wireless;
   inherit (cfg) components;
 in {
-  options.custom.hardware.wireless = {
+  options.hardware'.wireless = {
     enable = mkEnableOption "wireless support";
     components = mapAttrs
       (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
@@ -19,12 +17,13 @@ in {
     (mkIf components.network {
       users.users.${user}.extraGroups = [ "networkmanager" ];
       networking.networkmanager.enable = true;
+      boot.extraModprobeConfig = ''
+        options iwlwifi 11n_disable=8
+      '';
     })
     (mkIf components.bluetooth {
-      hardware.bluetooth = {
-        enable = true;
-        package = pkgs.bluezFull;
-      };
+      hardware.bluetooth.enable = true;
+
       services.blueman.enable = true;
     })
   ];

@@ -1,14 +1,10 @@
 { config, lib, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.shell.zsh;
-  inherit (config.custom) colorScheme;
+  cfg = config.shell'.zsh;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.shell.zsh = {
-    enable = mkEnableOption "zsh" // { default = true; };
-  };
+  options.shell'.zsh.enable = mkEnableOption "zsh" // { default = true; };
 
   config = mkIf cfg.enable {
     programs.zsh = {

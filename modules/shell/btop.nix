@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.shell.btop;
+let cfg = config.shell'.btop;
 in {
-  options.custom.shell.btop = {
+  options.shell'.btop = {
     enable = mkEnableOption "btop" // { default = true; };
   };
 

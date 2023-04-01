@@ -1,25 +1,25 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.basics.nix;
+let cfg = config.basics'.nix;
 in {
-  options.custom.basics.nix = {
+  options.basics'.nix = {
     enable = mkEnableOption "nix config" // { default = true; };
   };
 
   config = mkIf cfg.enable {
     nix = {
-      settings = {
-        auto-optimise-store = true;
-        system-features = [ "big-parallel" ];
-      };
       gc = {
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 7d";
       };
-      settings = { experimental-features = [ "nix-command" "flakes" ]; };
+      settings = {
+        auto-optimise-store = true;
+        system-features = [ "big-parallel" ];
+        keep-outputs = true;
+        keep-derivations = true;
+        experimental-features = [ "nix-command" "flakes" ];
+      };
     };
 
     system = {

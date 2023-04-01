@@ -1,10 +1,8 @@
 { config, lib, user, ... }:
-
 with lib;
-
-let cfg = config.custom.services.miniflux;
+let cfg = config.services'.miniflux;
 in {
-  options.custom.services.miniflux.enable = mkEnableOption "MiniFlux";
+  options.services'.miniflux.enable = mkEnableOption "MiniFlux";
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 1200 6222 ];

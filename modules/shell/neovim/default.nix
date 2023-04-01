@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.shell.neovim;
+let cfg = config.shell'.neovim;
 in {
-  options.custom.shell.neovim = {
+  options.shell'.neovim = {
     enable = mkEnableOption "Neovim" // { default = true; };
     withNixTreesitter = mkEnableOption "using of nix treesitter parsers" // {
       default = cfg.enable;
@@ -12,9 +10,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Require for Telescope man_pages
-    documentation.man.generateCaches = true;
-
     home-manager.users.${user} = {
       programs.neovim = {
         enable = true;

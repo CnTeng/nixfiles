@@ -1,13 +1,9 @@
 { config, lib, pkgs, ... }:
-
 with lib;
-
-let cfg = config.custom.hardware.gpu.intel;
+let cfg = config.hardware'.gpu.intel;
 in {
-  options.custom.hardware.gpu.intel = {
-    enable = mkEnableOption "Intel GPU support" // {
-      default = config.custom.hardware.cpu.intel.enable;
-    };
+  options.hardware'.gpu.intel.enable = mkEnableOption "Intel GPU support" // {
+    default = config.hardware'.cpu.intel.enable;
   };
 
   config = mkIf cfg.enable {
@@ -24,7 +20,7 @@ in {
     };
 
     environment = {
-      systemPackages = with pkgs; [ intel-gpu-tools libva-utils ];
+      systemPackages = with pkgs; [ intel-gpu-tools libva-utils pciutils ];
       variables = { VDPAU_DRIVER = "va_gl"; };
     };
   };

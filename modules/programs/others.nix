@@ -1,12 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.others;
+let cfg = config.programs'.others;
 in {
-  options.custom.programs.others = {
-    enable = mkEnableOption "others programs";
-  };
+  options.programs'.others.enable = mkEnableOption "others programs";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -31,6 +27,7 @@ in {
         krita
 
         # Office
+        wpsoffice-cn
         libreoffice
         drawio
 
