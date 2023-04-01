@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.shell.bat;
+let cfg = config.shell'.bat;
 in {
-  options.custom.shell.bat = {
+  options.shell'.bat = {
     enable = mkEnableOption "bat" // { default = true; };
   };
 

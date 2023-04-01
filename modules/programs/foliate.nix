@@ -1,10 +1,8 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.foliate;
+let cfg = config.programs'.foliate;
 in {
-  options.custom.programs.foliate = { enable = mkEnableOption "Foliate"; };
+  options.programs'.foliate.enable = mkEnableOption "Foliate";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

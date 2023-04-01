@@ -1,10 +1,8 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.hardware.boot;
+let cfg = config.hardware'.boot;
 in {
-  options.custom.hardware.boot = { enable = mkEnableOption "systemd-boot"; };
+  options.hardware'.boot.enable = mkEnableOption "systemd-boot";
 
   config = mkIf cfg.enable {
     boot = {

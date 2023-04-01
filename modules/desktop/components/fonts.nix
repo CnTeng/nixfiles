@@ -1,30 +1,24 @@
-{ config, lib, pkgs, inputs, ... }:
-
+{ config, lib, pkgs, ... }:
 with lib;
-
-let cfg = config.custom.desktop.components.fonts;
+let cfg = config.desktop'.components.fonts;
 in {
-  imports = [ inputs.nur.nixosModules.nur ];
-
-  options.custom.desktop.components.fonts = {
-    enable = mkEnableOption "custom fonts";
-  };
+  options.desktop'.components.fonts.enable = mkEnableOption "custom fonts";
 
   config = mkIf cfg.enable {
     fonts = {
       fontDir.enable = true;
 
-      fonts = with pkgs;
-        [
-          roboto
-          roboto-slab
-          noto-fonts
-          noto-fonts-cjk-sans
-          noto-fonts-cjk-serif
-          noto-fonts-emoji
-          sarasa-gothic
-          (nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" "Noto" ]; })
-        ] ++ (with config; [ nur.repos.rewine.ttf-ms-win10 ]);
+      fonts = with pkgs; [
+        roboto
+        roboto-slab
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        noto-fonts-emoji
+        sarasa-gothic
+        (nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" "Noto" ]; })
+        ttf-ms-win10
+      ];
 
       fontconfig.defaultFonts = {
         serif = [ "Roboto Slab" "Noto Serif CJK SC" "NotoSerif Nerd Font" ];

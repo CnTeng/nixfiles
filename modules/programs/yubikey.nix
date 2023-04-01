@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.yubikey;
+let cfg = config.programs'.yubikey;
 in {
-  options.custom.programs.yubikey = { enable = mkEnableOption "YubiKey"; };
+  options.programs'.yubikey.enable = mkEnableOption "YubiKey";
 
   config = mkIf cfg.enable {
     services.udev.packages = with pkgs; [

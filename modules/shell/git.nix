@@ -1,15 +1,11 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.shell.git;
+  cfg = config.shell'.git;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
-  inherit (config.custom) colorScheme;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.shell.git = {
-    enable = mkEnableOption "git" // { default = true; };
-  };
+  options.shell'.git.enable = mkEnableOption "git" // { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

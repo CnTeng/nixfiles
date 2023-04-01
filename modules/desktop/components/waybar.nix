@@ -1,28 +1,22 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.waybar;
-  inherit (config.custom) colorScheme;
+  cfg = config.desktop'.components.waybar;
+  inherit (config.basics') colorScheme;
 
   btop = "${pkgs.kitty}/bin/kitty -e btop";
   mute = "${pkgs.pamixer}/bin/pamixer -t";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
   networkmanager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 in {
-  options.custom.desktop.components.waybar = {
-    enable = mkEnableOption "waybar";
-  };
+  options.desktop'.components.waybar.enable = mkEnableOption "waybar";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.waybar = {
         enable = true;
-        systemd = {
-          enable = true;
-          target = "hyprland-session.target";
-        };
+        systemd.enable = true;
+
         style = ''
           * {
             font-family: RobotoMono Nerd Font, Sarasa Gothic SC;

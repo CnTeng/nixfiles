@@ -1,10 +1,8 @@
-{ config, lib, pkgs, user, ... }:
-
+{ config, lib, user, ... }:
 with lib;
-
-let cfg = config.custom.basics.user;
+let cfg = config.basics'.user;
 in {
-  options.custom.basics.user = {
+  options.basics'.user = {
     enable = mkEnableOption "user config" // { default = true; };
   };
 
@@ -12,7 +10,6 @@ in {
     users.users.${user} = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      shell = pkgs.fish;
       password = "passwd";
     };
   };

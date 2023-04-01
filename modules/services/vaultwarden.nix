@@ -1,12 +1,8 @@
-{ config, lib, user, ... }:
-
+{ config, lib, ... }:
 with lib;
-
-let
-  cfg = config.custom.services.vaultwarden;
-  inherit (config.home-manager.users.${user}.home) homeDirectory;
+let cfg = config.services'.vaultwarden;
 in {
-  options.custom.services.vaultwarden.enable = mkEnableOption "Vaultwarden";
+  options.services'.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 587 3222 8222 ];

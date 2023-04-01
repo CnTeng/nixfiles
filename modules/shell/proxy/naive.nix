@@ -1,13 +1,11 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.shell.proxy;
+  cfg = config.shell'.proxy;
   inherit (config.age.secrets.naive) path;
 in {
-  options.custom.shell.proxy.naive = {
-    enable = mkEnableOption "naive proxy" // { default = cfg.enable; };
+  options.shell'.proxy.naive.enable = mkEnableOption "naive proxy" // {
+    default = cfg.enable;
   };
 
   config = mkIf cfg.naive.enable {

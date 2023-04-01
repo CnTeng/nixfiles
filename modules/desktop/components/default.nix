@@ -1,15 +1,5 @@
-_: {
-  imports = [
-    ./applet.nix
-    ./fcitx.nix
-    ./fonts.nix
-    ./greetd.nix
-    ./mako.nix
-    ./pcmanfm.nix
-    ./rofi.nix
-    ./swayidle.nix
-    ./swaylock.nix
-    ./theme.nix
-    ./waybar.nix
-  ];
-}
+let
+  fileNames = with builtins;
+    map (n: ./${n}) (filter (n: n != "default.nix" && n != "scripts")
+      (attrNames (readDir ./.)));
+in { imports = fileNames; }

@@ -1,13 +1,7 @@
-{ modulesPath, ... }:
+{ modulesPath, ... }: {
+  imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
-{
-  imports = [
-    "${modulesPath}/profiles/qemu-guest.nix"
-
-    ../../modules/hardware
-  ];
-
-  custom.hardware.kernel.modules.bbr = true;
+  hardware'.kernel.modules.bbr = true;
 
   boot = {
     loader.grub.device = "/dev/sda";

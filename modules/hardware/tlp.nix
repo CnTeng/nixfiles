@@ -1,10 +1,8 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.hardware.power;
+let cfg = config.hardware'.power;
 in {
-  options.custom.hardware.power = {
+  options.hardware'.power = {
     tlp.enable = mkEnableOption "tlp support";
     acpi_call.enable = mkEnableOption "acpi_call support" // {
       default = cfg.tlp.enable;

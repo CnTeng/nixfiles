@@ -1,23 +1,18 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.swayidle;
+  cfg = config.desktop'.components.swayidle;
 
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
 in {
-  options.custom.desktop.components.swayidle = {
-    enable = mkEnableOption "swayidle";
-  };
+  options.desktop'.components.swayidle.enable = mkEnableOption "swayidle";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       services.swayidle = {
         enable = true;
-        systemdTarget = "hyprland-session.target";
         events = [
           {
             event = "before-sleep";
@@ -39,6 +34,7 @@ in {
             resumeCommand = "${hyprctl} dispatch dpms on";
           }
         ];
+        systemdTarget = "hyprland-session.target";
       };
     };
   };

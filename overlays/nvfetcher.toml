@@ -1,0 +1,19 @@
+[caddy]
+src.github = "caddyserver/caddy"
+fetch.github = "caddyserver/caddy"
+
+[cloudflare]
+src.git = "https://github.com/caddy-dns/cloudflare"
+fetch.github = "caddy-dns/cloudflare"
+
+[forwardproxy]
+src.git = "https://github.com/klzgrad/forwardproxy"
+fetch.github = "klzgrad/forwardproxy"
+
+[naiveproxy]
+src.github = "klzgrad/naiveproxy"
+fetch.url = "https://github.com/klzgrad/naiveproxy/releases/download/$ver/naiveproxy-$ver-linux-x64.tar.xz"
+
+[ttf-ms-win10]
+src.git = "https://github.com/streetsamurai00mi/ttf-ms-win10"
+fetch.github = "streetsamurai00mi/ttf-ms-win10"

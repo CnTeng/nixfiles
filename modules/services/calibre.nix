@@ -1,12 +1,10 @@
 { config, lib, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.services.calibre-web;
+  cfg = config.services'.calibre-web;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
 in {
-  options.custom.services.calibre-web.enable = mkEnableOption "Calibre-Web";
+  options.services'.calibre-web.enable = mkEnableOption "Calibre-Web";
 
   config = mkIf cfg.enable {
     services = {

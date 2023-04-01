@@ -1,15 +1,7 @@
 # Copy from https://github.com/nix-community/nur-combined/blob/master/repos/oluceps/pkgs/naiveproxy/default.nix
-{ lib, stdenv, fetchurl, autoPatchelfHook, ... }:
-
-stdenv.mkDerivation rec {
-  pname = "naiveproxy";
-  version = "110.0.5481.100-1";
-
-  src = fetchurl {
-    url =
-      "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
-    sha256 = "sha256-EYJUPXweHDbZiaIW77FoRNRKyMlEUfVIn2FT59WH0R8=";
-  };
+{ lib, stdenv, autoPatchelfHook, sources, ... }:
+stdenv.mkDerivation {
+  inherit (sources.naiveproxy) pname version src;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
