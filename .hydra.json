@@ -6,7 +6,7 @@
     "description": "Build overlayed or unfree packages for NixOS",
     "flake": "github:CnTeng/nixfiles/main",
     "checkinterval": 60,
-    "schedulingshares": 1,
+    "schedulingshares": 10,
     "enableemail": false,
     "emailoverride": "",
     "keepnr": 2
