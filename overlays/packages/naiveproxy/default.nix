@@ -14,6 +14,5 @@ stdenv.mkDerivation {
     description = "Make a fortune quietly";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ CnTeng ];
   };
 }
