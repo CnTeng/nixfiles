@@ -15,6 +15,7 @@ in {
       listenHost = "localhost";
       port = 9222;
       notificationSender = "hydra@outlook.com";
+      useSubstitutes = true;
     };
 
     services.caddy.virtualHosts."hydra.snakepi.xyz" = {
