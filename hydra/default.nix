@@ -12,7 +12,7 @@
         }) list);
     in {
       hydraJobs = mkHydraJob overlayPkgs
-        // mkHydraJob [ "vscode-fhs" "hyprland" "colmena" ];
+        // mkHydraJob [ "vscode-fhs" "hyprland" "colmena" "emacsPgtk" ];
     };
 
 }

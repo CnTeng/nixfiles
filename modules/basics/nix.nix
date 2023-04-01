@@ -14,6 +14,8 @@ in {
         options = "--delete-older-than 7d";
       };
       settings = {
+        allowed-users = [ "@wheel" ];
+        trusted-users = [ "root" "@wheel" ];
         auto-optimise-store = true;
         system-features = [ "big-parallel" ];
         keep-outputs = true;
