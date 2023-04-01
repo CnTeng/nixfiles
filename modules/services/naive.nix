@@ -1,14 +1,12 @@
 { config, lib, user, ... }:
-
 with lib;
-
-let cfg = config.custom.services.naive;
+let cfg = config.services'.naive;
 in {
-  options.custom.services.naive.enable = mkEnableOption "naive";
+  options.services'.naive.enable = mkEnableOption "naive";
 
   config = mkIf cfg.enable {
     assertions = [{
-      assertion = config.custom.services.caddy.enable;
+      assertion = config.services'.caddy.enable;
       message = "caddy must be enabled to work with naive";
     }];
 

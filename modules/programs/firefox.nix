@@ -1,10 +1,8 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.programs.firefox;
+let cfg = config.programs'.firefox;
 in {
-  options.custom.programs.firefox = { enable = mkEnableOption "Firefox"; };
+  options.programs'.firefox.enable = mkEnableOption "Firefox";
 
   config = mkIf cfg.enable {
     # Enable wayland support for firefox

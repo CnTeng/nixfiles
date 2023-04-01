@@ -1,12 +1,10 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.desktop.components.mako;
-  inherit (config.custom) colorScheme;
+  cfg = config.desktop'.components.mako;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.desktop.components.mako = { enable = mkEnableOption "mako"; };
+  options.desktop'.components.mako.enable = mkEnableOption "mako";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

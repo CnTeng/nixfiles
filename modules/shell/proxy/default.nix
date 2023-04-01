@@ -1,12 +1,10 @@
 { config, lib, user, ... }:
-
 with lib;
-
-let cfg = config.custom.shell.proxy;
+let cfg = config.shell'.proxy;
 in {
   imports = [ ./naive.nix ./v2ray.nix ];
 
-  options.custom.shell.proxy = {
+  options.shell'.proxy = {
     enable = mkEnableOption "System proxy" // { default = true; };
     cargo = mkEnableOption "Cargo proxy" // { default = cfg.enable; };
     git = mkEnableOption "Git proxy" // { default = cfg.enable; };

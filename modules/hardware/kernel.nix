@@ -1,12 +1,10 @@
 { config, lib, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.hardware.kernel;
+  cfg = config.hardware'.kernel;
   inherit (cfg) modules;
 in {
-  options.custom.hardware.kernel = {
+  options.hardware'.kernel = {
     modules = mapAttrs (_: doc: mkEnableOption (mkDoc doc)) {
       zswap = "zswap";
       bbr = "BBR module";

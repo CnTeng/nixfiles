@@ -1,0 +1,97 @@
+{
+    "caddy": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "caddy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "caddyserver",
+            "repo": "caddy",
+            "rev": "v2.6.4",
+            "sha256": "sha256-3a3+nFHmGONvL/TyQRqgJtrSDIn0zdGy9YwhZP17mU0=",
+            "type": "github"
+        },
+        "version": "v2.6.4"
+    },
+    "cloudflare": {
+        "cargoLocks": null,
+        "date": "2023-02-24",
+        "extract": null,
+        "name": "cloudflare",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "caddy-dns",
+            "repo": "cloudflare",
+            "rev": "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec",
+            "sha256": "sha256-bqnk4XkhUI7YhCv24ha8mds5EaYphnYj8wy/mFOieqI=",
+            "type": "github"
+        },
+        "version": "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec"
+    },
+    "forwardproxy": {
+        "cargoLocks": null,
+        "date": "2023-02-19",
+        "extract": null,
+        "name": "forwardproxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "klzgrad",
+            "repo": "forwardproxy",
+            "rev": "ef4a5997791af459e80d166ea4a58f83db4309c2",
+            "sha256": "sha256-uiwCDjU35N+scgQg5ULgNnmML/XE6NgkhzmGfo1Ef9c=",
+            "type": "github"
+        },
+        "version": "ef4a5997791af459e80d166ea4a58f83db4309c2"
+    },
+    "naiveproxy": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "naiveproxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-UejMNOX8Z0WKjNI8CRiMLzxvL+cJ3mLYenLd36jDWFs=",
+            "type": "url",
+            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v111.0.5563.64-1/naiveproxy-v111.0.5563.64-1-linux-x64.tar.xz"
+        },
+        "version": "v111.0.5563.64-1"
+    },
+    "ttf-ms-win10": {
+        "cargoLocks": null,
+        "date": "2021-02-10",
+        "extract": null,
+        "name": "ttf-ms-win10",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "streetsamurai00mi",
+            "repo": "ttf-ms-win10",
+            "rev": "417eb232e8d037964971ae2690560a7b12e5f0d4",
+            "sha256": "sha256-UwkHlrSRaXhfoMlimyXFETV9yq1SbvUXykrhigf+wP8=",
+            "type": "github"
+        },
+        "version": "417eb232e8d037964971ae2690560a7b12e5f0d4"
+    }
+}

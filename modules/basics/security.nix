@@ -1,13 +1,12 @@
 { config, lib, pkgs, inputs, user, ... }:
 with lib;
-
 let
-  cfg = config.custom.basics.security;
+  cfg = config.basics'.security;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
 in {
   imports = [ inputs.agenix.nixosModules.default ];
 
-  options.custom.basics.security = {
+  options.basics'.security = {
     enable = mkEnableOption "security config" // { default = true; };
   };
 

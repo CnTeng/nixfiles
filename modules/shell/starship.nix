@@ -1,11 +1,9 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.shell.starship;
+let cfg = config.shell'.starship;
 in {
-  options.custom.shell.starship = {
-    enable = mkEnableOption "starship" // { default = true; };
+  options.shell'.starship.enable = mkEnableOption "starship" // {
+    default = true;
   };
 
   config = mkIf cfg.enable {

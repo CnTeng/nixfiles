@@ -9,6 +9,7 @@ let
   rxhz =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvDCURMwDZ6Kpldv4HCZbS8bBzPD03rt6dCHX7UmK2C rxhz";
 in {
+  "services/attic.age".publicKeys = [ yufei rxhz ];
   "services/caddy.age".publicKeys = [ yufei rxaws rxhz ];
   "services/miniflux.age".publicKeys = [ yufei rxhz ];
   "services/naive.age".publicKeys = [ yufei rxaws rxhz ];

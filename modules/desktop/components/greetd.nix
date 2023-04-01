@@ -1,12 +1,8 @@
 { config, lib, pkgs, ... }:
-
 with lib;
-
-let cfg = config.custom.desktop.components.greetd;
+let cfg = config.desktop'.components.greetd;
 in {
-  options.custom.desktop.components.greetd = {
-    enable = mkEnableOption "greetd";
-  };
+  options.desktop'.components.greetd.enable = mkEnableOption "greetd";
 
   config = mkIf cfg.enable {
     services.greetd = {

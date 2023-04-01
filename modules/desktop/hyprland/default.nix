@@ -1,8 +1,6 @@
 { config, lib, pkgs, inputs, user, ... }:
-
 with lib;
-
-let cfg = config.custom.desktop.hyprland;
+let cfg = config.desktop'.hyprland;
 in {
   imports = [
     inputs.hyprland.nixosModules.default
@@ -10,7 +8,7 @@ in {
     ../components
   ];
 
-  options.custom.desktop.hyprland = {
+  options.desktop'.hyprland = {
     enable = mkEnableOption "hyprland";
     components.enable = mkEnableOption "desktop components" // {
       default = cfg.enable;
@@ -18,7 +16,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    custom.desktop.components = mkIf cfg.components.enable {
+    desktop'.components = mkIf cfg.components.enable {
       rofi.enable = true;
       applet.enable = true;
       fcitx.enable = true;
@@ -33,19 +31,31 @@ in {
     };
 
     nix.settings = {
-      substituters = [ "https://hyprland.cachix.org" ];
+      substituters = [
+        "https://hyprland.cachix.org"
+        "https://colmena.cachix.org"
+        "https://nix-community.cachix.org"
+      ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
 
     programs.hyprland = {
       enable = true;
-      nvidiaPatches = config.custom.hardware.gpu.nvidia.enable;
+      nvidiaPatches = config.hardware'.gpu.nvidia.enable;
       recommendedEnvironment = false;
     };
 
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+    services.gnome = {
+      # Fix warning 'The name org.a11y.Bus was not provided by any .service files'
+      at-spi2-core.enable = true;
+      gnome-keyring.enable = true;
+    };
 
     # Customize the recommended environment
     environment.sessionVariables = {
@@ -66,19 +76,19 @@ in {
     };
 
     home-manager.users.${user} = {
-      home.packages = with pkgs;
-        [
-          wl-clipboard
-          slurp
-          xdg-utils # For vscode and idea opening urls
-        ] ++ [ inputs.hyprpicker.packages.${system}.hyprpicker ];
+      home.packages = with pkgs; [
+        wl-clipboard
+        slurp
+        xdg-utils # For vscode and idea opening urls
+        hyprpicker
+      ];
 
       imports = [
         (import ./home.nix {
-          inherit pkgs inputs user;
+          inherit pkgs inputs user lib;
           inherit (config.home-manager.users.${user}.home) homeDirectory;
           inherit (config.programs.hyprland) nvidiaPatches;
-          inherit (config.custom) colorScheme;
+          inherit (config.basics') colorScheme;
         })
       ];
     };

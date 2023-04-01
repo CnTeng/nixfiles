@@ -1,10 +1,8 @@
 { config, lib, ... }:
-
 with lib;
-
-let cfg = config.custom.hardware.cpu;
+let cfg = config.hardware'.cpu;
 in {
-  options.custom.hardware.cpu = {
+  options.hardware'.cpu = {
     intel.enable = mkEnableOption "Intel CPU support";
     freqGovernor = mkOption {
       type = types.nullOr types.str;

@@ -1,23 +1,21 @@
 {
-  additions = final: _prev: import ../pkgs { pkgs = final; };
-
-  modifications = final: prev:
+  flake.overlays.default = final: prev:
     let
       inherit (final) pkgs;
+      sources = import ./_sources/generated.nix {
+        inherit (final) fetchurl fetchgit fetchFromGitHub dockerTools;
+      };
 
-      hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-      waybarPatchFile = import ./waybar.nix { inherit pkgs hyprctl; };
-    in {
-      # Add wlr/workspace click support for hyprland
-      waybar = prev.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        patches = (oldAttrs.patches or [ ]) ++ [ waybarPatchFile ];
-      });
+      mkPackage = name:
+        pkgs.callPackage ./packages/${name} { inherit sources; };
+      mkOverride = name:
+        prev.${name}.overrideAttrs (import ./overrides/${name} pkgs);
 
-      # Fix qq tray
-      qq = prev.qq.overrideAttrs (oldAttrs: {
-        runtimeDependencies = oldAttrs.runtimeDependencies
-          ++ [ pkgs.libappindicator ];
-      });
-    };
+      mkOverlay = f: dir:
+        with builtins;
+        listToAttrs (map (name: {
+          inherit name;
+          value = f name;
+        }) (attrNames (readDir ./${dir})));
+    in (mkOverlay mkPackage "packages") // (mkOverlay mkOverride "overrides");
 }

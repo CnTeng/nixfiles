@@ -1,12 +1,4 @@
-_: {
-  imports = [
-    ./colors.nix
-    ./console.nix
-    ./home.nix
-    ./locale.nix
-    ./nix.nix
-    ./security.nix
-    ./ssh.nix
-    ./user.nix
-  ];
-}
+let
+  fileNames = with builtins;
+    map (n: ./${n}) (filter (n: n != "default.nix") (attrNames (readDir ./.)));
+in { imports = fileNames; }

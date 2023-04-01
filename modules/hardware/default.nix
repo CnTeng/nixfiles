@@ -1,13 +1,4 @@
-_: {
-  imports = [
-    ./gpu
-    ./boot.nix
-    ./cpu.nix
-    ./devices.nix
-    ./kernel.nix
-    ./kvm.nix
-    ./ssd.nix
-    ./tlp.nix
-    ./wireless.nix
-  ];
-}
+let
+  fileNames = with builtins;
+    map (n: ./${n}) (filter (n: n != "default.nix") (attrNames (readDir ./.)));
+in { imports = fileNames; }

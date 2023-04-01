@@ -1,12 +1,10 @@
 { config, lib, pkgs, user, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.shell.environment;
+  cfg = config.shell'.environment;
   lang = cfg.languages;
 in {
-  options.custom.shell.environment = {
+  options.shell'.environment = {
     enable = mkEnableOption "All languages support" // { default = true; };
     languages = mapAttrs
       (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
@@ -20,6 +18,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.pathsToLink = [ "/share/fish" ];
+
     programs = mkIf lang.nix {
       nix-ld.enable = true;
 
@@ -29,6 +29,10 @@ in {
     };
 
     home-manager.users.${user} = {
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = mkIf lang.nix true;
+      };
       programs.go = mkIf lang.go {
         enable = true;
         goPath = "go";

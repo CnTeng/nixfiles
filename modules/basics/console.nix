@@ -1,12 +1,10 @@
 { config, lib, ... }:
-
 with lib;
-
 let
-  cfg = config.custom.basics.console;
-  inherit (config.custom) colorScheme;
+  cfg = config.basics'.console;
+  inherit (config.basics') colorScheme;
 in {
-  options.custom.basics.console = {
+  options.basics'.console = {
     enable = mkEnableOption "console config" // { default = true; };
   };
 
