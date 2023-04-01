@@ -1,5 +1,5 @@
 {
-  "packages": {
+  "main": {
     "enabled": 1,
     "hidden": false,
     "type": 1,
