@@ -12,8 +12,9 @@ in {
     home-manager.users.${user} = {
       imports = [ inputs.nix-doom-emacs.hmModule ];
       programs.doom-emacs = {
-        enable = false;
+        enable = true;
         doomPrivateDir = ./doom.d;
+        emacsPackage = pkgs.emacsPgtk;
       };
     };
   };
