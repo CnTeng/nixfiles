@@ -10,9 +10,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/klzgrad/naiveproxy";
     description = "Make a fortune quietly";
+    homepage = "https://github.com/klzgrad/naiveproxy";
     license = licenses.bsd3;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }
