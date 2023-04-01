@@ -4,7 +4,7 @@
   basics'.ssh.enable = false;
 
   services' = {
-    # attic.enable = true;
+    cache.enable = true;
     caddy.enable = true;
     calibre-web.enable = true;
     firewall.enable = true;
