@@ -17,8 +17,7 @@ in {
       sudo.wheelNeedsPassword = false;
     };
 
-    environment.systemPackages = [ inputs.agenix.packages.x86_64-linux.default ]
-      ++ (with pkgs; [ rage age-plugin-yubikey ]);
+    environment.systemPackages = with pkgs; [ rage age-plugin-yubikey ];
 
     age.identityPaths = [
       # TODO: add yubikey-yufei
