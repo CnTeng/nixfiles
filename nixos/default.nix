@@ -33,7 +33,7 @@ in {
         targetHost = null;
       };
 
-      rxaws.deployment.buildOnTarget = true;
+      rxaws.deployment = { };
 
       rxhz.deployment.buildOnTarget = true;
     };
