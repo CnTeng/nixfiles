@@ -7,7 +7,7 @@
       overlays = [ inputs.colmena.overlay ];
     };
 
-    devshells.default.packages = with pkgs; [ colmena nvfetcher ];
+    devshells.default.packages = with pkgs; [ colmena nvfetcher agenix ];
 
     treefmt = {
       projectRootFile = "flake.nix";
