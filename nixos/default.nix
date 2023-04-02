@@ -8,8 +8,8 @@ in {
       overlays = [
         self.overlays.default
         inputs.hyprpicker.overlays.default
-        inputs.emacs-overlay.overlay
         inputs.colmena.overlay
+        inputs.agenix.overlays.default
       ];
     };
 
