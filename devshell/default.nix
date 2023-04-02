@@ -4,7 +4,7 @@
   perSystem = { pkgs, system, ... }: {
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
-      overlays = [ inputs.colmena.overlay ];
+      overlays = map (n: inputs.${n}.overlays.default) [ "colmena" "agenix" ];
     };
 
     devshells.default.packages = with pkgs; [ colmena nvfetcher agenix ];

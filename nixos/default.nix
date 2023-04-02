@@ -5,13 +5,16 @@ in {
     _module.args.pkgs = import inputs.nixpkgs {
       system = "x86_64-linux";
       config.allowUnfree = true;
-      overlays = [
-        self.overlays.default
-        inputs.hyprpicker.overlays.default
-        inputs.colmena.overlay
-        inputs.agenix.overlays.default
-      ];
+      overlays = [ self.overlays.default ]
+        ++ map (n: inputs.${n}.overlays.default) [
+          "colmena"
+          "agenix"
+          "hyprpicker"
+          # "emacs-overlay"
+        ] ++ [ inputs.neovim-nightly.overlay ];
     };
+
+    nixosConfigurations = self.colmenaHive.nodes;
 
     colmenaHive = inputs.colmena.lib.makeHive {
       meta = {
