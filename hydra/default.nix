@@ -4,7 +4,7 @@
       overlayPkgs = with builtins;
         attrNames
         ((readDir ../overlays/overrides) // (readDir ../overlays/packages))
-        ++ [ "agenix" "colmena" "hyprland" ];
+        ++ [ "agenix" "colmena" ];
       unfreePkgs = [ "vscode-fhs" ];
       mkHydraJob = list:
         with builtins;
