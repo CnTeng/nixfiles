@@ -30,6 +30,7 @@ in {
       waybar.enable = true;
     };
 
+
     programs.hyprland = {
       enable = true;
       nvidiaPatches = config.hardware'.gpu.nvidia.enable;

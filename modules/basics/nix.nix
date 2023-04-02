@@ -8,27 +8,24 @@ in {
 
   config = mkIf cfg.enable {
     nix = {
+      settings = {
+        auto-optimise-store = true;
+        experimental-features = [ "nix-command" "flakes" ];
+        keep-derivations = true;
+        keep-outputs = true;
+        substituters = [ "https://cache.snakepi.xyz" ];
+        trusted-public-keys = [
+          "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
+        ];
+        trusted-users = [ "root" "@wheel" ];
+      };
       gc = {
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 7d";
       };
-      settings = {
-        trusted-users = [ "root" "@wheel" ];
-        auto-optimise-store = true;
-        system-features = [ "big-parallel" ];
-        keep-outputs = true;
-        keep-derivations = true;
-        experimental-features = [ "nix-command" "flakes" ];
-      };
     };
 
-    system = {
-      autoUpgrade = {
-        enable = false;
-        channel = "https://nixos.org/channels/nixos-unstable";
-      };
-      stateVersion = "23.05";
-    };
+    system.stateVersion = "23.05";
   };
 }

@@ -2,9 +2,12 @@
   description = "NixOS Configuration";
 
   nixConfig = {
-    extra-substituters = [ "https://cache.snakepi.xyz" ];
-    extra-trusted-public-keys =
-      [ "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss=" ];
+    extra-substituters =
+      [ "https://cache.snakepi.xyz" "https://hyprland.cachix.org" ];
+    extra-trusted-public-keys = [
+      "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
 
   inputs = {
@@ -53,10 +56,7 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    hyprland.url = "github:hyprwm/Hyprland";
 
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
@@ -68,6 +68,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    # emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = inputs@{ flake-parts, ... }:

@@ -6,15 +6,8 @@ in {
 
   config = mkIf cfg.enable {
     boot.loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
-      systemd-boot = {
-        enable = true;
-        consoleMode = "keep";
-      };
-      timeout = 1;
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
     };
   };
 }
