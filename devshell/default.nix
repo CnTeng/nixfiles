@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  imports = [ inputs.devshell.flakeModule inputs.treefmt-nix.flakeModule ];
+  imports = with inputs; [ devshell.flakeModule treefmt-nix.flakeModule ];
 
   perSystem = { pkgs, system, ... }: {
     _module.args.pkgs = import inputs.nixpkgs {
