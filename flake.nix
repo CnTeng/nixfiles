@@ -13,6 +13,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    impermanence.url = "github:nix-community/impermanence";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
