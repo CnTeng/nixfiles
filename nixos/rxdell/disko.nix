@@ -34,9 +34,8 @@
                 type = "btrfs";
                 extraArgs = [ "-L nixos" "-f" ];
                 subvolumes = {
-                  "/".mountOptions = [ "noatime" "compress=zstd" ];
                   "/nix".mountOptions = [ "noatime" "compress=zstd" ];
-                  "/home".mountOptions = [ "noatime" "compress=zstd" ];
+                  "/persist".mountOptions = [ "noatime" "compress=zstd" ];
                 };
               };
             };
@@ -55,5 +54,13 @@
         ];
       };
     };
+
+    nodev."/" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      mountOptions = [ "defaults" "size=2G" "mode=755" ];
+    };
   };
+
+  fileSystems."/persist".neededForBoot = true;
 }
