@@ -37,6 +37,7 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
     };
 
     agenix = {
@@ -56,7 +57,10 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
@@ -68,12 +72,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-
-    # emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = inputs@{ flake-parts, ... }:

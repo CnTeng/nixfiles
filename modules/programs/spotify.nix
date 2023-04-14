@@ -12,7 +12,6 @@ in {
 
       programs.spicetify = {
         enable = true;
-        windowManagerPatch = true;
         theme = spicePkgs.themes.catppuccin-macchiato;
         colorScheme = "blue";
 
@@ -21,16 +20,7 @@ in {
           keyboardShortcut
           volumePercentage
         ];
-        enabledCustomApps = with spicePkgs.apps; [ lyrics-plus new-releases ];
-      };
-
-      xdg.desktopEntries = {
-        spotify = {
-          name = "Spotify";
-          exec = "spotifywm";
-          icon = "spotify";
-          type = "Application";
-        };
+        enabledCustomApps = with spicePkgs.apps; [ new-releases ];
       };
     };
   };

@@ -11,7 +11,7 @@ in {
           "agenix"
           "hyprpicker"
           # "emacs-overlay"
-        ] ++ [ inputs.neovim-nightly.overlay ];
+        ];
     };
 
     nixosConfigurations = self.colmenaHive.nodes;

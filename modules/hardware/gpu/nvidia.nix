@@ -1,7 +1,5 @@
 { config, lib, ... }:
-
 with lib;
-
 let cfg = config.hardware'.gpu.nvidia;
 in {
   options.hardware'.gpu.nvidia.enable = mkEnableOption "Nvidia GPU support";

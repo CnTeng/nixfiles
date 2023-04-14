@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config.hardware'.boot;
 in {
@@ -8,6 +8,11 @@ in {
     boot.loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
+    };
+    boot.plymouth = {
+      enable = true;
+      themePackages = [ pkgs.catppuccin-plymouth ];
+      theme = "catppuccin-macchiato";
     };
   };
 }

@@ -5,10 +5,7 @@ in {
   options.programs'.kitty.enable = mkEnableOption "kitty";
 
   config = mkIf cfg.enable {
-    environment.variables = {
-      TERMINAL = "kitty";
-      GLFW_IM_MODULE = "ibus"; # Enable fcitx for kitty
-    };
+    environment.variables.TERMINAL = "kitty";
 
     home-manager.users.${user} = {
       programs.kitty = {

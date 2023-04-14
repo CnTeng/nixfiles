@@ -10,6 +10,8 @@ in {
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.git = {
+        lfs.enable = true;
+
         enable = true;
         userName = "CnTeng";
         userEmail = "istengyf@outlook.com";

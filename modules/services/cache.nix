@@ -1,7 +1,5 @@
 { config, lib, pkgs, user, inputs, ... }:
-
 with lib;
-
 let cfg = config.services'.cache;
 in {
   imports = [ inputs.harmonia.nixosModules.harmonia ];

@@ -1,17 +1,15 @@
-{ config, lib, user, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config.programs'.kdeconnect;
 in {
   options.programs'.kdeconnect.enable = mkEnableOption "KDE connect";
 
   config = mkIf cfg.enable {
-    programs.kdeconnect.enable = true;
-
-    home-manager.users.${user} = {
-      services.kdeconnect = {
-        enable = true;
-        indicator = true;
-      };
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.valent;
     };
+    services.dbus.packages = [ pkgs.valent ];
+
   };
 }

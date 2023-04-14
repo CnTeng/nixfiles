@@ -2,9 +2,22 @@
 src.github = "caddyserver/caddy"
 fetch.github = "caddyserver/caddy"
 
+[catppuccin-fcitx5]
+src.git = "https://github.com/catppuccin/fcitx5"
+fetch.github = "catppuccin/fcitx5"
+
+[catppuccin-plymouth]
+src.git = "https://github.com/catppuccin/plymouth"
+fetch.github = "catppuccin/plymouth"
+
 [cloudflare]
 src.git = "https://github.com/caddy-dns/cloudflare"
 fetch.github = "caddy-dns/cloudflare"
+
+[fcitx5-pinyin-zhwiki]
+src.archpkg = "fcitx5-pinyin-zhwiki"
+src.prefix = "0.2.4."
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict"
 
 [forwardproxy]
 src.git = "https://github.com/klzgrad/forwardproxy"
@@ -17,3 +30,8 @@ fetch.url = "https://github.com/klzgrad/naiveproxy/releases/download/$ver/naivep
 [ttf-ms-win10]
 src.git = "https://github.com/streetsamurai00mi/ttf-ms-win10"
 fetch.github = "streetsamurai00mi/ttf-ms-win10"
+
+[wemeet]
+src.manual = "3.14.0.402"
+fetch.url = "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb"
+

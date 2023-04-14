@@ -16,10 +16,8 @@ in {
   config = mkMerge [
     (mkIf components.network {
       users.users.${user}.extraGroups = [ "networkmanager" ];
+
       networking.networkmanager.enable = true;
-      boot.extraModprobeConfig = ''
-        options iwlwifi 11n_disable=8
-      '';
     })
     (mkIf components.bluetooth {
       hardware.bluetooth.enable = true;
