@@ -1,4 +1,4 @@
-_: {
+{
   imports = [ ./hardware.nix ];
 
   desktop'.hyprland.enable = true;
@@ -7,7 +7,7 @@ _: {
     alacritty.enable = true;
     android.enable = true;
     chrome.enable = true;
-    feh.enable = true;
+    evince.enable = true;
     firefox.enable = true;
     foliate.enable = true;
     kdeconnect.enable = true;

@@ -5,15 +5,16 @@ let
   swaylock = lib.getExe pkgs.swaylock-effects;
   terminal = lib.getExe pkgs.kitty;
   rofi = "rofi -show drun";
-  pcmanfm = lib.getExe pkgs.pcmanfm;
+  pcmanfm = lib.getExe pkgs.xfce.thunar;
   light = lib.getExe pkgs.light;
   pamixer = lib.getExe pkgs.pamixer;
   playerctl = lib.getExe pkgs.playerctl;
   grim = lib.getExe pkgs.grim;
-  yubikeytd = lib.getExe pkgs.yubikey-touch-detector;
 in {
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
+  xdg.enable = true;
+  xdg.userDirs.enable = true;
   # Find options from https://github.com/hyprwm/Hyprland/blob/main/nix/hm-module.nixa
   wayland.windowManager.hyprland = {
     enable = true;
@@ -88,9 +89,7 @@ in {
 
       # Startup
       exec-once = ${swaybg} -m fit -i ${wallpaper}
-      exec-once = fcitx5
       exec-once = hyprctl setcursor Catppuccin-Macchiato-Dark-Cursors 32
-      exec-once = ${yubikeytd} --libnotify
 
       # Hidpi for xwayland, but can't work
       # exec-once = xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
@@ -240,7 +239,6 @@ in {
       windowrulev2 = float, class:^(nm-connection-editor)$
       windowrulev2 = float, class:^(.blueman-manager-wrapped)$
       windowrulev2 = float, class:^(org.fcitx.)$
-      windowrulev2 = float, class:^(feh)$
     '';
   };
 }

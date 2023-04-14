@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.basics'.console;
@@ -10,7 +10,6 @@ in {
 
   config = mkIf cfg.enable {
     console = {
-      font = "Lat2-Terminus16";
       useXkbConfig = true;
       # Copy from https://github.com/catppuccin/base16
       colors = [
@@ -32,6 +31,8 @@ in {
         "${colorScheme.flamingo}"
       ];
       earlySetup = true;
+      font = "ter-v20b";
+      packages = [ pkgs.terminus_font ];
     };
   };
 }
