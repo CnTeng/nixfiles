@@ -15,43 +15,57 @@ in {
   };
 
   config = mkIf cfg.enable {
-    qt = mkIf modules.qt {
-      enable = true;
-      platformTheme = "qt5ct";
-    };
-
     home-manager.users.${user} = {
-      # Set the qt theme by using kvantum
-      home.packages = mkIf modules.qt (with pkgs; [
-        libsForQt5.qtstyleplugin-kvantum
-        (catppuccin-kvantum.override { variant = "Macchiato"; })
-      ]);
+      qt = mkIf modules.qt {
+        enable = true;
+        platformTheme = "gtk";
+        style.name = "gtk2";
+      };
 
       # Set the theme of cursor for the whole system
       home.pointerCursor = mkIf modules.gtk {
-        name = "Catppuccin-Macchiato-Dark-Cursors";
         package = pkgs.catppuccin-cursors.macchiatoDark;
+        name = "Catppuccin-Macchiato-Dark-Cursors";
         size = 32;
         gtk.enable = true;
-        x11.enable = true;
       };
 
       # Set the gtk theme
       gtk = mkIf modules.gtk {
         enable = true;
+        font.name = "Roboto";
+        iconTheme = {
+          package = pkgs.papirus-icon-theme;
+          name = "Papirus-Dark";
+        };
         theme = {
-          name = "Catppuccin-Macchiato-Standard-Blue-Dark";
           package = pkgs.catppuccin-gtk.override {
             variant = "macchiato";
             tweaks = [ "rimless" ];
           };
+          name = "Catppuccin-Macchiato-Standard-Blue-Dark";
         };
-        iconTheme = {
-          name = "Papirus-Dark";
-          package = pkgs.papirus-icon-theme;
-        };
-        font = { name = "Roboto"; };
+        gtk2.configLocation =
+          "${config.home-manager.users.${user}.xdg.configHome}/gtk-2.0/gtkrc";
       };
+
+      xdg.configFile = {
+        "gtk-4.0/assets" = {
+          source = "${
+              config.home-manager.users.${user}.gtk.theme.package
+            }/share/themes/Catppuccin-Macchiato-Standard-Blue-Dark/gtk-4.0/assets";
+          recursive = true;
+        };
+
+        "gtk-4.0/gtk.css".source = "${
+            config.home-manager.users.${user}.gtk.theme.package
+          }/share/themes/Catppuccin-Macchiato-Standard-Blue-Dark/gtk-4.0/gtk.css";
+
+        "gtk-4.0/gtk-dark.css".source = "${
+            config.home-manager.users.${user}.gtk.theme.package
+          }/share/themes/Catppuccin-Macchiato-Standard-Blue-Dark/gtk-4.0/gtk-dark.css";
+      };
+
     };
   };
 }

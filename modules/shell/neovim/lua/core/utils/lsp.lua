@@ -76,6 +76,10 @@ local function setup_lsp_on_attach()
       keymap("n", "<leader>ls", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     end
 
+    if server_capabilities.semanticTokensProvider and vim.lsp.semantic_tokens then
+      keymap("n", "<leader>lh", vim.lsp.semantic_tokens.start, { buffer = bufnr, desc = "Semantic highlight" })
+    end
+
     keymap("n", "<leader>ll", vim.diagnostic.open_float, { buffer = bufnr, desc = "Line diagnostics" })
     keymap("n", "<leader>lq", vim.diagnostic.setloclist, { buffer = bufnr, desc = "List diagnostic" })
     keymap("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostic" })

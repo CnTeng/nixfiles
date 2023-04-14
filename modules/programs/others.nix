@@ -13,7 +13,6 @@ in {
 
         # Reader
         calibre
-        okular
 
         # Dict
         ydict
@@ -24,11 +23,10 @@ in {
         # Video & Picture
         vlc
         gimp
-        krita
 
         # Office
         wpsoffice-cn
-        libreoffice
+        # libreoffice
         drawio
 
         # Community
@@ -37,11 +35,10 @@ in {
         discord
         qq
 
-        # Games
-        tetrio-desktop
-
         # Manager
         font-manager
+
+        wemeet
       ];
     };
   };

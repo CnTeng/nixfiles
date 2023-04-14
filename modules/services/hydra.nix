@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
-
 with lib;
-
 let cfg = config.services'.hydra;
 in {
   options.services'.hydra.enable = mkEnableOption "Hydra";

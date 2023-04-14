@@ -10,7 +10,7 @@ in {
     services.v2ray = {
       enable = true;
       config = {
-        log = { loglevel = "info"; };
+        log = { loglevel = "Error"; };
         dns = {
           disableFallbackIfMatch = true;
           servers = [
@@ -80,6 +80,7 @@ in {
                 "domain:snakepi.xyz"
                 "domain:tuna.tsinghua.edu.cn"
                 "domain:novipnoad.com"
+                "domain:seetacloud.com"
               ];
               outboundTag = "direct";
             }
