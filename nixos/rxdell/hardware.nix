@@ -23,18 +23,18 @@
 
   systemd.watchdog.runtimeTime = "60s";
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-    };
-    "/boot" = {
-      device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
-  };
+  # fileSystems = {
+  #   "/" = {
+  #     device = "/dev/disk/by-label/nixos";
+  #     fsType = "btrfs";
+  #   };
+  #   "/boot" = {
+  #     device = "/dev/disk/by-label/boot";
+  #     fsType = "vfat";
+  #   };
+  # };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  # swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   # Support for firmware update
   services.fwupd.enable = true;
