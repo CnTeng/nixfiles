@@ -16,11 +16,10 @@ return {
         "python",
         "markdown",
         "markdown_inline",
-        "org",
       },
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { "markdown", "org" },
+        additional_vim_regex_highlighting = { "markdown" },
       },
       incremental_selection = { enable = true },
       indent = { enable = false },

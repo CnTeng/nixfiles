@@ -1,4 +1,8 @@
-{ sources, stdenv, lib }:
+{
+  sources,
+  stdenv,
+  lib,
+}:
 stdenv.mkDerivation {
   inherit (sources.fcitx5-pinyin-zhwiki) pname version src;
 

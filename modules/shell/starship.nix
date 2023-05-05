@@ -1,10 +1,16 @@
-{ config, lib, ... }:
-with lib;
-let cfg = config.shell'.starship;
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.starship;
 in {
-  options.shell'.starship.enable = mkEnableOption "starship" // {
-    default = true;
-  };
+  options.shell'.starship.enable =
+    mkEnableOption "starship"
+    // {
+      default = true;
+    };
 
   config = mkIf cfg.enable {
     programs.starship = {
@@ -59,9 +65,9 @@ in {
           format = "(\\((bold)[$symbol$branch]($style)\\)(bold) )";
         };
 
-        git_status = { format = "([$all_status$ahead_behind]($style) )"; };
+        git_status = {format = "([$all_status$ahead_behind]($style) )";};
 
-        nix_shell = { format = "❄️"; };
+        nix_shell = {format = "❄️";};
       };
     };
   };

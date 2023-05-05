@@ -1,6 +1,11 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.desktop'.components.swayidle;
 
   playerctl = "${pkgs.playerctl}/bin/playerctl";

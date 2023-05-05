@@ -1,12 +1,18 @@
-{ config, lib, ... }:
-with lib;
-let cfg = config.hardware'.power;
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.hardware'.power;
 in {
   options.hardware'.power = {
     tlp.enable = mkEnableOption "tlp support";
-    acpi_call.enable = mkEnableOption "acpi_call support" // {
-      default = cfg.tlp.enable;
-    };
+    acpi_call.enable =
+      mkEnableOption "acpi_call support"
+      // {
+        default = cfg.tlp.enable;
+      };
   };
 
   config = mkMerge [
@@ -18,8 +24,8 @@ in {
     })
     (mkIf cfg.acpi_call.enable {
       boot = {
-        kernelModules = [ "acpi_call" ];
-        extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
+        kernelModules = ["acpi_call"];
+        extraModulePackages = [config.boot.kernelPackages.acpi_call];
       };
     })
   ];

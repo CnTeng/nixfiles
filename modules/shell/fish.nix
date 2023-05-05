@@ -1,10 +1,15 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.shell'.fish;
   inherit (config.basics') colorScheme;
 in {
-  options.shell'.fish.enable = mkEnableOption "fish" // { default = true; };
+  options.shell'.fish.enable = mkEnableOption "fish" // {default = true;};
 
   config = mkIf cfg.enable {
     programs.fish = {
@@ -17,12 +22,12 @@ in {
 
     users.users.${user}.shell = pkgs.fish;
 
-    environment.pathsToLink = [ "/share/fish" ];
+    environment.pathsToLink = ["/share/fish"];
 
     home-manager.users.${user} = {
       programs.fish = {
         enable = true;
-        plugins = [ ];
+        plugins = [];
         interactiveShellInit = ''
           fish_config theme choose "Catppuccin Macchiato"
         '';

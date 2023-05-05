@@ -31,6 +31,10 @@ fetch.url = "https://github.com/klzgrad/naiveproxy/releases/download/$ver/naivep
 src.git = "https://github.com/streetsamurai00mi/ttf-ms-win10"
 fetch.github = "streetsamurai00mi/ttf-ms-win10"
 
+[ttf-wps-fonts]
+src.git = "https://github.com/BannedPatriot/ttf-wps-fonts"
+fetch.github = "BannedPatriot/ttf-wps-fonts"
+
 [wemeet]
 src.manual = "3.14.0.402"
 fetch.url = "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb"

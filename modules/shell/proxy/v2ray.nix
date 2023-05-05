@@ -1,16 +1,22 @@
-{ config, lib, ... }:
-with lib;
-let cfg = config.shell'.proxy;
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.proxy;
 in {
-  options.shell'.proxy.v2ray.enable = mkEnableOption "v2ray proxy" // {
-    default = cfg.enable;
-  };
+  options.shell'.proxy.v2ray.enable =
+    mkEnableOption "v2ray proxy"
+    // {
+      default = cfg.enable;
+    };
 
   config = mkIf cfg.v2ray.enable {
     services.v2ray = {
       enable = true;
       config = {
-        log = { loglevel = "Error"; };
+        log = {loglevel = "Error";};
         dns = {
           disableFallbackIfMatch = true;
           servers = [
@@ -21,7 +27,7 @@ in {
             {
               address = "localhost";
               concurrency = true;
-              domains = [ "geosite:cn" "full:dns.google" ];
+              domains = ["geosite:cn" "full:dns.google"];
               skipFallback = true;
             }
           ];
@@ -36,7 +42,7 @@ in {
               udp = true;
             };
             sniffing = {
-              destOverride = [ "http" "tls" ];
+              destOverride = ["http" "tls"];
               enabled = true;
             };
             tag = "socks";
@@ -45,9 +51,9 @@ in {
             listen = "127.0.0.1";
             port = 10809;
             protocol = "http";
-            settings = { };
+            settings = {};
             sniffing = {
-              destOverride = [ "http" "tls" ];
+              destOverride = ["http" "tls"];
               enabled = true;
             };
             tag = "http";
@@ -57,16 +63,18 @@ in {
           {
             protocol = "http";
             settings = {
-              servers = [{
-                address = "127.0.0.1";
-                port = 1080;
-              }];
+              servers = [
+                {
+                  address = "127.0.0.1";
+                  port = 1080;
+                }
+              ];
             };
             tag = "proxy";
           }
           {
             protocol = "freedom";
-            settings = { };
+            settings = {};
             tag = "direct";
           }
         ];
@@ -87,7 +95,7 @@ in {
             {
               domainMatcher = "mph";
               type = "field";
-              ip = [ "geoip:cn" "geoip:private" ];
+              ip = ["geoip:cn" "geoip:private"];
               outboundTag = "direct";
             }
           ];
