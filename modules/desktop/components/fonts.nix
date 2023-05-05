@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let cfg = config.desktop'.components.fonts;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.desktop'.components.fonts;
 in {
   options.desktop'.components.fonts.enable = mkEnableOption "custom fonts";
 
@@ -16,15 +21,16 @@ in {
         noto-fonts-cjk-serif
         noto-fonts-emoji
         sarasa-gothic
-        (nerdfonts.override { fonts = [ "FiraCode" "RobotoMono" "Noto" ]; })
+        (nerdfonts.override {fonts = ["FiraCode" "RobotoMono" "Noto"];})
         ttf-ms-win10
+        ttf-wps-fonts
       ];
 
       fontconfig.defaultFonts = {
-        serif = [ "Roboto Slab" "Noto Serif CJK SC" "NotoSerif Nerd Font" ];
-        sansSerif = [ "Roboto" "Sarasa Gothic SC" "NotoSans Nerd Font" ];
-        monospace = [ "RobotoMono Nerd Font" "Noto Sans Mono CJK SC" ];
-        emoji = [ "Noto Color Emoji" ];
+        serif = ["Roboto Slab" "Noto Serif CJK SC" "NotoSerif Nerd Font"];
+        sansSerif = ["Roboto" "Sarasa Gothic SC" "NotoSans Nerd Font"];
+        monospace = ["RobotoMono Nerd Font" "Noto Sans Mono CJK SC"];
+        emoji = ["Noto Color Emoji"];
       };
     };
 

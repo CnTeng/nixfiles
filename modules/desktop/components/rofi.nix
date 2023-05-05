@@ -1,6 +1,11 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.desktop'.components.rofi;
   mkLiteral = value: {
     _type = "literal";
@@ -15,7 +20,7 @@ in {
       programs.rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
-        plugins = with pkgs; [ rofi-emoji ];
+        plugins = with pkgs; [rofi-emoji];
         font = "RobotoMono Nerd Font 15";
         location = "top";
         terminal = "${pkgs.kitty}/bin/kitty";
@@ -71,7 +76,7 @@ in {
             border-radius = mkLiteral "10px 10px 0 0";
             background-color = mkLiteral "#${colorScheme.blue}";
             text-color = mkLiteral "#${colorScheme.base}";
-            children = map mkLiteral [ "prompt" "entry" ];
+            children = map mkLiteral ["prompt" "entry"];
           };
           # prompt -> inputbar
           "prompt" = {

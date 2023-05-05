@@ -1,6 +1,11 @@
-{ config, lib, user, ... }:
-with lib;
-let cfg = config.programs'.kitty;
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.programs'.kitty;
 in {
   options.programs'.kitty.enable = mkEnableOption "kitty";
 
@@ -18,8 +23,7 @@ in {
         settings = {
           term = "xterm-256color";
           tab_fade = "1 1 1";
-          tab_title_template =
-            "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
+          tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
         };
         extraConfig = ''
           modify_font underline_position +3

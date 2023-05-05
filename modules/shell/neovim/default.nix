@@ -1,12 +1,20 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let cfg = config.shell'.neovim;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.neovim;
 in {
   options.shell'.neovim = {
-    enable = mkEnableOption "Neovim" // { default = true; };
-    withNixTreesitter = mkEnableOption "using of nix treesitter parsers" // {
-      default = cfg.enable;
-    };
+    enable = mkEnableOption "Neovim" // {default = true;};
+    withNixTreesitter =
+      mkEnableOption "using of nix treesitter parsers"
+      // {
+        default = cfg.enable;
+      };
   };
 
   config = mkIf cfg.enable {
@@ -36,7 +44,7 @@ in {
 
           # Nix
           nil # LSP
-          nixfmt # Formatter
+          alejandra # Formatter
           statix
 
           # Python
@@ -54,7 +62,7 @@ in {
           source = ./lua;
           recursive = true;
         };
-        "nvim/init.lua" = { source = ./init.lua; };
+        "nvim/init.lua" = {source = ./init.lua;};
       };
 
       xdg.dataFile."nvim/lazy/nvim-treesitter" = let
@@ -78,10 +86,11 @@ in {
           name = "treesitter-parsers";
           paths = nvim-treesitter.dependencies;
         };
-      in mkIf cfg.withNixTreesitter {
-        source = "${treesitterParsers}";
-        recursive = true;
-      };
+      in
+        mkIf cfg.withNixTreesitter {
+          source = "${treesitterParsers}";
+          recursive = true;
+        };
     };
   };
 }

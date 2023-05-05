@@ -1,9 +1,15 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let cfg = config.shell'.btop;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.btop;
 in {
   options.shell'.btop = {
-    enable = mkEnableOption "btop" // { default = true; };
+    enable = mkEnableOption "btop" // {default = true;};
   };
 
   config = mkIf cfg.enable {

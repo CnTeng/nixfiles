@@ -9,7 +9,7 @@ return {
           filetypes = { "lua", "luau", "org" },
         }, -- Lua
         null_ls.builtins.formatting.shfmt, -- Shell
-        null_ls.builtins.formatting.nixfmt, -- Nix
+        null_ls.builtins.formatting.alejandra, -- Nix
         null_ls.builtins.code_actions.statix,
         null_ls.builtins.diagnostics.statix,
         null_ls.builtins.formatting.black, -- Python

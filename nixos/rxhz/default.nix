@@ -1,5 +1,5 @@
 {
-  imports = [ ./hardware.nix ./networking.nix ];
+  imports = [./hardware.nix ./networking.nix];
 
   basics'.ssh.enable = false;
 

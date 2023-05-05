@@ -1,6 +1,12 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let cfg = config.desktop'.components.fcitx;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.desktop'.components.fcitx;
 in {
   options.desktop'.components.fcitx.enable = mkEnableOption "fcitx";
 
@@ -17,7 +23,7 @@ in {
       systemd.user.services.fcitx5-daemon = {
         Unit = {
           Description = "Fcitx5 input method editor";
-          PartOf = [ "graphical-session.target" ];
+          PartOf = ["graphical-session.target"];
         };
         Service = {
           ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5";
@@ -31,7 +37,7 @@ in {
             }/bin"
           ];
         };
-        Install.WantedBy = [ "graphical-session.target" ];
+        Install.WantedBy = ["graphical-session.target"];
       };
     };
   };

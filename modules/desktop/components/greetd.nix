@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let cfg = config.desktop'.components.greetd;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.desktop'.components.greetd;
 in {
   options.desktop'.components.greetd.enable = mkEnableOption "greetd";
 
@@ -9,8 +14,7 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command =
-            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
           user = "greeter";
         };
       };

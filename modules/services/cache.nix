@@ -1,12 +1,19 @@
-{ config, lib, pkgs, user, inputs, ... }:
-with lib;
-let cfg = config.services'.cache;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.services'.cache;
 in {
-  imports = [ inputs.harmonia.nixosModules.harmonia ];
+  imports = [inputs.harmonia.nixosModules.harmonia];
   options.services'.cache.enable = mkEnableOption "harmonia";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 5222 ];
+    networking.firewall.allowedTCPPorts = [5222];
 
     services.harmonia = {
       enable = true;

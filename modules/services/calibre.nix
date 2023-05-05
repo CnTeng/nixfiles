@@ -1,6 +1,10 @@
-{ config, lib, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.services'.calibre-web;
   inherit (config.home-manager.users.${user}.home) homeDirectory;
 in {

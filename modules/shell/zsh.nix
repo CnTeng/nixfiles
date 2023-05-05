@@ -1,10 +1,14 @@
-{ config, lib, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.shell'.zsh;
   inherit (config.basics') colorScheme;
 in {
-  options.shell'.zsh.enable = mkEnableOption "zsh" // { default = true; };
+  options.shell'.zsh.enable = mkEnableOption "zsh" // {default = true;};
 
   config = mkIf cfg.enable {
     programs.zsh = {
@@ -12,12 +16,12 @@ in {
       histSize = 10000;
       autosuggestions = {
         enable = true;
-        strategy = [ "history" "completion" ];
+        strategy = ["history" "completion"];
       };
       # Copy from https://github.com/catppuccin/zsh-syntax-highlighting
       syntaxHighlighting = {
         enable = true;
-        highlighters = [ "main" "cursor" ];
+        highlighters = ["main" "cursor"];
         styles = {
           # Copy from https://github.com/catppuccin/zsh-syntax-highlighting
           "comment" = "fg=#${colorScheme.surface2}";

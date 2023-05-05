@@ -1,10 +1,15 @@
-{ config, lib, user, ... }:
-with lib;
-let cfg = config.shell'.zoxide;
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.zoxide;
 in {
-  options.shell'.zoxide.enable = mkEnableOption "zoxide" // { default = true; };
+  options.shell'.zoxide.enable = mkEnableOption "zoxide" // {default = true;};
 
   config = mkIf cfg.enable {
-    home-manager.users.${user} = { programs.zoxide = { enable = true; }; };
+    home-manager.users.${user} = {programs.zoxide = {enable = true;};};
   };
 }

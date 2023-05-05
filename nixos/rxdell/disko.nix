@@ -1,5 +1,5 @@
-{ inputs, ... }: {
-  imports = [ inputs.disko.nixosModules.disko ];
+{inputs, ...}: {
+  imports = [inputs.disko.nixosModules.disko];
 
   disko.devices = {
     disk.nvme = {
@@ -10,9 +10,8 @@
         format = "gpt";
         partitions = [
           {
-            type = "partition";
             name = "ESP";
-            start = "0";
+            start = "0%";
             end = "512MiB";
             bootable = true;
             content = {
@@ -22,28 +21,27 @@
             };
           }
           {
-            type = "partition";
             name = "luks";
             start = "512MiB";
-            end = "-16G";
+            end = "-16GiB";
             part-type = "primary";
             content = {
               type = "luks";
               name = "nixos";
+              extraOpenArgs = ["--allow-discards"];
               content = {
                 type = "btrfs";
-                extraArgs = [ "-L nixos" "-f" ];
+                extraArgs = ["-L nixos" "-f"];
                 subvolumes = {
-                  "/nix".mountOptions = [ "noatime" "compress=zstd" ];
-                  "/persist".mountOptions = [ "noatime" "compress=zstd" ];
+                  "/nix".mountOptions = ["noatime" "compress=zstd"];
+                  "/persist".mountOptions = ["noatime" "compress=zstd"];
                 };
               };
             };
           }
           {
-            type = "partition";
             name = "swap";
-            start = "-16G";
+            start = "-16GiB";
             end = "100%";
             part-type = "primary";
             content = {
@@ -58,7 +56,7 @@
     nodev."/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      mountOptions = [ "defaults" "size=2G" "mode=755" ];
+      mountOptions = ["defaults" "size=2G" "mode=755"];
     };
   };
 

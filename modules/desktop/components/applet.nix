@@ -1,6 +1,11 @@
-{ config, lib, user, ... }:
-with lib;
-let cfg = config.desktop'.components.applet;
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.desktop'.components.applet;
 in {
   options.desktop'.components.applet.enable = mkEnableOption "applet";
 

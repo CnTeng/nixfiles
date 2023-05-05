@@ -1,7 +1,14 @@
 # Copy https://github.com/NixOS/nixpkgs/pull/191883#issuecomment-1250652290
 # & https://github.com/NixOS/nixpkgs/issues/14671
-{ lib, stdenv, go, srcOnly, buildGoModule, sources, ... }:
-let
+{
+  lib,
+  stdenv,
+  go,
+  srcOnly,
+  buildGoModule,
+  sources,
+  ...
+}: let
   caddySrc = srcOnly sources.caddy.src;
 
   forwardProxySrc = srcOnly sources.forwardproxy.src;
@@ -11,7 +18,7 @@ let
   combinedSrc = stdenv.mkDerivation {
     name = "caddy-src";
 
-    nativeBuildInputs = [ go ];
+    nativeBuildInputs = [go];
 
     buildCommand = ''
       export GOCACHE="$TMPDIR/go-cache"
@@ -40,38 +47,38 @@ let
       go mod edit -replace github.com/caddy-dns/cloudflare=../cloudflare
     '';
   };
-in buildGoModule {
-  pname = "pcaddy";
-  inherit (sources.caddy) version;
+in
+  buildGoModule {
+    pname = "pcaddy";
+    inherit (sources.caddy) version;
 
-  src = combinedSrc;
+    src = combinedSrc;
 
-  vendorHash = "sha256-zxT8G06uCa5czBuZzeiiktontoim1zpZZzOtO70sJgw=";
+    vendorHash = "sha256-zxT8G06uCa5czBuZzeiiktontoim1zpZZzOtO70sJgw=";
 
-  overrideModAttrs = _: {
+    overrideModAttrs = _: {
+      postPatch = "cd pcaddy";
+
+      postConfigure = ''
+        go mod tidy
+      '';
+
+      postInstall = ''
+        mkdir -p "$out/.magic"
+        cp go.mod go.sum "$out/.magic"
+      '';
+    };
+
     postPatch = "cd pcaddy";
 
     postConfigure = ''
-      go mod tidy
+      cp vendor/.magic/go.* .
     '';
 
-    postInstall = ''
-      mkdir -p "$out/.magic"
-      cp go.mod go.sum "$out/.magic"
-    '';
-  };
-
-  postPatch = "cd pcaddy";
-
-  postConfigure = ''
-    cp vendor/.magic/go.* .
-  '';
-
-  meta = with lib; {
-    description =
-      "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
-    homepage = "https://github.com/caddyserver/caddy";
-    license = licenses.asl20;
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
+      homepage = "https://github.com/caddyserver/caddy";
+      license = licenses.asl20;
+      platforms = platforms.linux;
+    };
+  }
