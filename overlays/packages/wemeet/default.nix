@@ -1,10 +1,16 @@
-{ sources, lib, autoPatchelfHook, dpkg, qt5, }:
+{
+  sources,
+  lib,
+  autoPatchelfHook,
+  dpkg,
+  qt5,
+}:
 qt5.mkDerivation {
   inherit (sources.wemeet) pname version src;
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [autoPatchelfHook dpkg];
 
-  buildInputs = with qt5; [ qtwebengine qtx11extras ];
+  buildInputs = with qt5; [qtwebengine qtx11extras];
 
   unpackPhase = ''
     dpkg -x $src .
@@ -49,7 +55,7 @@ qt5.mkDerivation {
     homepage = "https://meeting.tencent.com";
     description = "Tencent Video Conferencing, tencent meeting";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ yinfeng ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [yinfeng];
   };
 }

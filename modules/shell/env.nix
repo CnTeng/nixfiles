@@ -1,13 +1,19 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.shell'.environment;
   lang = cfg.languages;
 in {
   options.shell'.environment = {
-    enable = mkEnableOption "All languages support" // { default = true; };
-    languages = mapAttrs
-      (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
+    enable = mkEnableOption "All languages support" // {default = true;};
+    languages =
+      mapAttrs
+      (_: doc: mkEnableOption (mkDoc doc) // {default = cfg.enable;}) {
         cpp = "C++ support";
         rust = "Rust support";
         go = "Go support";
@@ -18,7 +24,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.pathsToLink = [ "/share/fish" ];
+    environment.pathsToLink = ["/share/fish"];
 
     programs = mkIf lang.nix {
       nix-ld.enable = true;
@@ -39,10 +45,11 @@ in {
       };
 
       home.packages = with pkgs;
-        optionals lang.cpp [ gcc gdb gnumake cmake ]
-        ++ optionals lang.rust [ rustc cargo ] ++ optionals lang.js [ nodejs ]
+        optionals lang.cpp [gcc gdb gnumake cmake]
+        ++ optionals lang.rust [rustc cargo]
+        ++ optionals lang.js [nodejs]
         ++ optionals lang.python
-        [ (pkgs.python3.withPackages (ps: with ps; [ pip ipython ])) ];
+        [(pkgs.python3.withPackages (ps: with ps; [pip ipython]))];
     };
   };
 }

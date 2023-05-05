@@ -1,24 +1,34 @@
-{ config, lib, pkgs, inputs, user, ... }:
-with lib;
-let cfg = config.desktop'.hyprland;
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.desktop'.hyprland;
 in {
-  imports = [ ../components ];
+  imports = [../components];
 
   options.desktop'.hyprland = {
     enable = mkEnableOption "hyprland";
-    components.enable = mkEnableOption "desktop components" // {
-      default = cfg.enable;
-    };
+    components.enable =
+      mkEnableOption "desktop components"
+      // {
+        default = cfg.enable;
+      };
   };
 
   config = mkIf cfg.enable {
     desktop'.components = mkIf cfg.components.enable {
-      rofi.enable = true;
       applet.enable = true;
+      clipboard.enable = true;
       fcitx.enable = true;
       fonts.enable = true;
       greetd.enable = true;
       mako.enable = true;
+      rofi.enable = true;
       swayidle.enable = true;
       swaylock.enable = true;
       theme.enable = true;
@@ -32,7 +42,7 @@ in {
       nvidiaPatches = config.hardware'.gpu.nvidia.enable;
     };
 
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     services = {
       gnome = {
@@ -71,7 +81,6 @@ in {
 
     home-manager.users.${user} = {
       home.packages = with pkgs; [
-        wl-clipboard
         slurp
         xdg-utils # For vscode and idea opening urls
         hyprpicker

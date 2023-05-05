@@ -1,13 +1,20 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let cfg = config.hardware'.gpu.intel;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.hardware'.gpu.intel;
 in {
-  options.hardware'.gpu.intel.enable = mkEnableOption "Intel GPU support" // {
-    default = config.hardware'.cpu.intel.enable;
-  };
+  options.hardware'.gpu.intel.enable =
+    mkEnableOption "Intel GPU support"
+    // {
+      default = config.hardware'.cpu.intel.enable;
+    };
 
   config = mkIf cfg.enable {
-    boot.initrd.kernelModules = [ "i915" ];
+    boot.initrd.kernelModules = ["i915"];
 
     hardware.opengl = {
       enable = true;
@@ -20,8 +27,8 @@ in {
     };
 
     environment = {
-      systemPackages = with pkgs; [ intel-gpu-tools libva-utils pciutils ];
-      variables = { VDPAU_DRIVER = "va_gl"; };
+      systemPackages = with pkgs; [intel-gpu-tools libva-utils pciutils];
+      variables = {VDPAU_DRIVER = "va_gl";};
     };
   };
 }

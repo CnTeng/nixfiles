@@ -1,6 +1,11 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.desktop'.components.waybar;
   inherit (config.basics') colorScheme;
 
@@ -15,6 +20,7 @@ in {
     home-manager.users.${user} = {
       programs.waybar = {
         enable = true;
+        package = pkgs.waybar-hyprland;
         systemd.enable = true;
 
         style = ''
@@ -108,135 +114,138 @@ in {
             color: #${colorScheme.green};
           }
         '';
-        settings = [{
-          layer = "top";
-          output = [ "eDP-1" "DP-3" ];
-          position = "top";
-          height = 40;
-          margin = "5px 5px 0";
-          modules-left = [
-            "custom/nixos"
-            "wlr/workspaces"
-            "custom/separator"
-            "hyprland/window"
-          ];
-          modules-right = [
-            "tray"
-            "hyprland/submap"
-            "custom/separator"
-            "idle_inhibitor"
-            "custom/separator"
-            "cpu"
-            "custom/separator"
-            "memory"
-            "custom/separator"
-            "pulseaudio"
-            "custom/separator"
-            "network"
-            "custom/separator"
-            "battery"
-            "custom/separator"
-            "clock"
-          ];
+        settings = [
+          {
+            layer = "top";
+            output = ["eDP-1" "DP-3"];
+            position = "top";
+            height = 40;
+            margin = "5px 5px 0";
+            modules-left = [
+              "custom/nixos"
+              "wlr/workspaces"
+              "custom/separator"
+              "hyprland/window"
+            ];
+            modules-right = [
+              "tray"
+              "hyprland/submap"
+              "custom/separator"
+              "idle_inhibitor"
+              "custom/separator"
+              "cpu"
+              "custom/separator"
+              "memory"
+              "custom/separator"
+              "pulseaudio"
+              "custom/separator"
+              "network"
+              "custom/separator"
+              "battery"
+              "custom/separator"
+              "clock"
+            ];
 
-          "custom/nixos" = {
-            format = "";
-            interval = "once";
-            tooltip = false;
-          };
-
-          "custom/separator" = {
-            format = "|";
-            interval = "once";
-            tooltip = false;
-          };
-
-          "wlr/workspaces" = {
-            on-click = "activate";
-            sort-by-number = true;
-          };
-
-          tray = {
-            icon-size = 22;
-            spacing = 15;
-          };
-
-          "hyprland/submap" = {
-            format = "<span color='#${colorScheme.blue}'>SMAP</span> {}";
-          };
-
-          idle_inhibitor = {
-            format = "<span color='#${colorScheme.blue}'>IDLE</span> {icon}";
-            format-icons = {
-              activated = "OFF";
-              deactivated = "ON";
+            "custom/nixos" = {
+              format = "";
+              interval = "once";
+              tooltip = false;
             };
-          };
 
-          cpu = {
-            format = "<span color='#${colorScheme.blue}'>CPU</span> {usage}%";
-            on-click = "${btop}";
-          };
-
-          memory = {
-            format =
-              "<span color='#${colorScheme.blue}'>RAM</span> {percentage}%";
-            on-click = "${btop}";
-          };
-
-          pulseaudio = {
-            format = "<span color='#${colorScheme.blue}'>VOL</span> {volume}%";
-            format-muted = "<span color='#${colorScheme.blue}'>MUT</span>";
-            format-bluetooth =
-              "<span color='#${colorScheme.blue}'>BT</span> {volume}%";
-            tooltip-format = "{desc} {volume}%";
-            on-click = "${mute}";
-            on-click-right = "${pavucontrol}";
-          };
-
-          network = {
-            format-wifi =
-              "<span color='#${colorScheme.blue}'>WLAN</span> {essid}";
-            format-ethernet =
-              "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
-            format-linked =
-              "<span color='#${colorScheme.blue}'>{ifname}</span> No IP";
-            format-disconnected = "Not connected";
-            format-alt =
-              "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
-            max-length = 10;
-            tooltip-format = ''
-              {ifname} {ipaddr}/{cidr}
-              Up: {bandwidthUpBits}
-              Down: {bandwidthDownBits}'';
-            tooltip-format-wifi = ''
-              {essid} {signalStrength}%
-              Up: {bandwidthUpBits}
-              Down: {bandwidthDownBits}'';
-            on-click-right = "${networkmanager}";
-          };
-
-          battery = {
-            states = {
-              warning = 30;
-              critical = 15;
+            "custom/separator" = {
+              format = "|";
+              interval = "once";
+              tooltip = false;
             };
-            format =
-              "<span color='#${colorScheme.blue}'>BAT</span> {capacity}%";
-            format-charging =
-              "<span color='#${colorScheme.blue}'>CHG</span> {capacity}%";
-            max-length = 25;
-          };
 
-          clock = {
-            format = "{:<span color='#${colorScheme.blue}'>%b %d</span> %H:%M}";
-            tooltip-format = ''
-              <big>{:%Y %B}</big>
-              <tt><small>{calendar}</small></tt>'';
-            format-alt =
-              "{:<span color='#${colorScheme.blue}'>%A %B</span> %d %Y}";
-          };
-        }];
+            "wlr/workspaces" = {
+              on-click = "activate";
+              sort-by-number = true;
+            };
+
+            tray = {
+              icon-size = 22;
+              spacing = 15;
+            };
+
+            "hyprland/submap" = {
+              format = "<span color='#${colorScheme.blue}'>SMAP</span> {}";
+            };
+
+            idle_inhibitor = {
+              format = "<span color='#${colorScheme.blue}'>IDLE</span> {icon}";
+              format-icons = {
+                activated = "OFF";
+                deactivated = "ON";
+              };
+            };
+
+            cpu = {
+              format = "<span color='#${colorScheme.blue}'>CPU</span> {usage}%";
+              on-click = "${btop}";
+            };
+
+            memory = {
+              format = "<span color='#${colorScheme.blue}'>RAM</span> {percentage}%";
+              on-click = "${btop}";
+            };
+
+            pulseaudio = {
+              format = "<span color='#${colorScheme.blue}'>VOL</span> {volume}%";
+              format-muted = "<span color='#${colorScheme.blue}'>MUT</span>";
+              format-bluetooth = "<span color='#${colorScheme.blue}'>BT</span> {volume}%";
+              tooltip-format = "{desc} {volume}%";
+              on-click = "${mute}";
+              on-click-right = "${pavucontrol}";
+            };
+
+            network = {
+              format-wifi = "<span color='#${colorScheme.blue}'>WLAN</span> {essid}";
+              format-ethernet = "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
+              format-linked = "<span color='#${colorScheme.blue}'>{ifname}</span> No IP";
+              format-disconnected = "Not connected";
+              format-alt = "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
+              max-length = 10;
+              tooltip-format = ''
+                {ifname} {ipaddr}/{cidr}
+                Up: {bandwidthUpBits}
+                Down: {bandwidthDownBits}'';
+              tooltip-format-wifi = ''
+                {essid} {signalStrength}%
+                Up: {bandwidthUpBits}
+                Down: {bandwidthDownBits}'';
+              on-click-right = "${networkmanager}";
+            };
+
+            battery = {
+              states = {
+                warning = 30;
+                critical = 15;
+              };
+              format = "<span color='#${colorScheme.blue}'>BAT</span> {capacity}%";
+              format-charging = "<span color='#${colorScheme.blue}'>CHG</span> {capacity}%";
+              max-length = 25;
+            };
+
+            clock = {
+              format = "{:<span color='#${colorScheme.blue}'>%b %d</span> %H:%M}";
+              tooltip-format = ''
+                <big>{:%Y %B}</big>
+                <tt><small>{calendar}</small></tt>'';
+              format-alt = "{:<span color='#${colorScheme.blue}'>%A %B</span> %d %Y}";
+            };
+          }
+        ];
+      };
+
+      systemd.user.services.waybar = {
+        Service = {
+          Environment = [
+            "PATH=${
+              config.home-manager.users.${user}.home.profileDirectory
+            }/bin"
+          ];
+        };
       };
     };
   };

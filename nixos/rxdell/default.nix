@@ -1,5 +1,5 @@
 {
-  imports = [ ./hardware.nix ./disko.nix ];
+  imports = [./hardware.nix ./disko.nix];
 
   desktop'.hyprland.enable = true;
 

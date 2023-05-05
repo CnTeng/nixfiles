@@ -1,9 +1,13 @@
 # TODO: finsh tmux config
-{ config, lib, ... }:
-with lib;
-let cfg = config.shell'.tmux;
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.tmux;
 in {
-  options.shell'.tmux.enable = mkEnableOption "tmux" // { default = true; };
+  options.shell'.tmux.enable = mkEnableOption "tmux" // {default = true;};
 
   config = mkIf cfg.enable {
     programs.tmux = {

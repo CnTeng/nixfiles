@@ -1,6 +1,11 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.desktop'.components.mako;
   inherit (config.basics') colorScheme;
 in {
@@ -8,7 +13,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      home.packages = [ pkgs.jq ];
+      home.packages = [pkgs.jq];
 
       services.mako = {
         enable = true;

@@ -1,5 +1,12 @@
-{ pkgs, lib, inputs, homeDirectory, nvidiaPatches, colorScheme, ... }:
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  homeDirectory,
+  nvidiaPatches,
+  colorScheme,
+  ...
+}: let
   wallpaper = ../../../assets/wallpapers/snowy_mountain.jpg;
   swaybg = lib.getExe pkgs.swaybg;
   swaylock = lib.getExe pkgs.swaylock-effects;
@@ -11,7 +18,7 @@ let
   playerctl = lib.getExe pkgs.playerctl;
   grim = lib.getExe pkgs.grim;
 in {
-  imports = [ inputs.hyprland.homeManagerModules.default ];
+  imports = [inputs.hyprland.homeManagerModules.default];
 
   xdg.enable = true;
   xdg.userDirs.enable = true;

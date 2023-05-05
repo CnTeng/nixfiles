@@ -88,6 +88,18 @@
     });
     date = "2021-02-10";
   };
+  ttf-wps-fonts = {
+    pname = "ttf-wps-fonts";
+    version = "b3e935355afcfb5240bac5a99707ffecc35772a2";
+    src = fetchFromGitHub ({
+      owner = "BannedPatriot";
+      repo = "ttf-wps-fonts";
+      rev = "b3e935355afcfb5240bac5a99707ffecc35772a2";
+      fetchSubmodules = false;
+      sha256 = "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=";
+    });
+    date = "2017-08-15";
+  };
   wemeet = {
     pname = "wemeet";
     version = "3.14.0.402";

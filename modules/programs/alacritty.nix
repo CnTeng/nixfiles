@@ -1,6 +1,10 @@
-{ config, lib, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.programs'.alacritty;
   inherit (config.basics') colorScheme;
 in {
