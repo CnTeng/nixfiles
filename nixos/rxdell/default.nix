@@ -21,6 +21,4 @@
   };
 
   services'.onedrive.enable = true;
-
-  shell'.neovim.withNixTreesitter = false;
 }

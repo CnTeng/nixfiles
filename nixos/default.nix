@@ -11,8 +11,11 @@ in {
       config.allowUnfree = true;
       overlays =
         [self.overlays.default]
-        ++ map (n: inputs.${n}.overlays.default)
-        ["colmena" "agenix" "hyprland" "hyprpicker"];
+        ++ map (n: inputs.${n}.overlays.default) [
+          "colmena"
+          "agenix"
+          "hyprland"
+        ];
     };
 
     nixosConfigurations = self.colmenaHive.nodes;

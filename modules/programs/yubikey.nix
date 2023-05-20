@@ -13,13 +13,13 @@ in {
     services.udev.packages = with pkgs; [
       yubikey-personalization
       yubikey-manager
-      yubioath-flutter
+      # yubioath-flutter
     ];
 
     environment.systemPackages = with pkgs; [
       yubikey-personalization
       yubikey-manager
-      yubioath-flutter
+      # yubioath-flutter
     ];
 
     services.pcscd.enable = true;

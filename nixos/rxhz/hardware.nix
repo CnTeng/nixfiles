@@ -1,7 +1,10 @@
 {modulesPath, ...}: {
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
-  hardware'.kernel.modules.bbr = true;
+  hardware' = {
+    impermanence.enable = true;
+    kernel.modules.bbr = true;
+  };
 
   boot = {
     loader.grub.device = "/dev/sda";
@@ -12,11 +15,4 @@
     };
     cleanTmpDir = true;
   };
-
-  fileSystems."/" = {
-    device = "/dev/sda1";
-    fsType = "ext4";
-  };
-
-  zramSwap.enable = true;
 }

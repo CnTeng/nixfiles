@@ -27,7 +27,7 @@ in {
             identityFile = ["${homeDirectory}/.ssh/id_ed25519_sk_rk_${name}@NixOS"];
           }) {
             rxaws = "13.113.148.152";
-            rxhz = "78.47.24.36";
+            rxhz = "162.55.166.175";
           };
       };
     };
