@@ -26,11 +26,7 @@ in {
           mode = "u=rwx,g=rx,o=rx";
         }
       ];
-      files = [
-        "/etc/machine-id"
-        "/etc/ssh/id_ed25519"
-        "/etc/ssh/id_ed25519.pub"
-      ];
+      files = ["/etc/machine-id" "/etc/ssh/id_ed25519" "/etc/ssh/id_ed25519.pub"];
       users.${user} = {
         directories = [
           "Code"
@@ -48,5 +44,6 @@ in {
         ];
       };
     };
+    environment.variables.NIX_REMOTE = "daemon";
   };
 }

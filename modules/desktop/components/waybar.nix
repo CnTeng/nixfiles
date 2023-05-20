@@ -13,14 +13,17 @@ with lib; let
   mute = "${pkgs.pamixer}/bin/pamixer -t";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
   networkmanager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+  light = lib.getExe pkgs.light;
+  inherit (import ./lib.nix lib) hexToRgb;
 in {
   options.desktop'.components.waybar.enable = mkEnableOption "waybar";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
+      services.playerctld.enable = true;
       programs.waybar = {
         enable = true;
-        package = pkgs.waybar-hyprland;
+        package = pkgs.waybar;
         systemd.enable = true;
 
         style = ''
@@ -33,75 +36,94 @@ in {
           window#waybar {
             color: #${colorScheme.text};
             opacity: 0.9;
-            background-color: #${colorScheme.base};
+            background-color: rgba(${hexToRgb colorScheme.base}, 0.9);
             padding: 0;
-            border-radius: 10px;
-          }
-
-          #custom-nixos {
-            color: #${colorScheme.text};
-            background-color: #${colorScheme.base};
-            border-radius: 10px;
-            padding-left: 15px;
-            padding-right: 20px;
-          }
-
-          #custom-separator {
-            color: #${colorScheme.text};
-            margin: 0 6px;
           }
 
           #workspaces {
             color: #${colorScheme.text};
-            background-color: #${colorScheme.base};
-            border-radius: 0;
+            background-color: rgba(${hexToRgb colorScheme.surface1}, 0.9);
+            margin: 5px 5px 5px 0;
+            padding: 0 5px;
+            border-radius: 0 15px 15px 0;
           }
           #workspaces button {
             color: #${colorScheme.text};
-            padding: 0 15px;
-            border-radius: 0;
-          }
-          #workspaces button.hidden {
-            color: #${colorScheme.text};
-            background-color: #${colorScheme.base};
+            padding: 0 0 0 3px;
+            margin: 0 5px;
           }
           #workspaces button.focused,
           #workspaces button.active {
-            color: #${colorScheme.text};
-            background-color: #${colorScheme.surface0};
-            border-bottom: 4px solid #${colorScheme.blue};
-            padding: 8px 15px 4px;
+            color: #${colorScheme.blue};
           }
           #workspaces button.urgent {
-            color: #${colorScheme.text};
-            background-color: #${colorScheme.red};
-            border-bottom: 4px solid #${colorScheme.blue};
-            padding: 8px 15px 4px;
-          }
-
-          #window {
-            color: #${colorScheme.text};
+            color: #${colorScheme.red};
           }
 
           #submap {
-            color: #${colorScheme.text};
-            margin-left: 6px;
+            color: #${colorScheme.base};
+            background-color: rgba(${hexToRgb colorScheme.red}, 0.9);
+            margin: 5px;
+            padding: 0 10px;
+            border-radius: 15px;
           }
 
-          #tray,
-          #mpris,
+          #window,
+          #tray {
+            color: #${colorScheme.text};
+            margin: 5px;
+            padding: 0 5px;
+          }
+
+
+          #mpris {
+            color: #${colorScheme.text};
+            background-color: rgba(${hexToRgb colorScheme.surface1}, 0.9);
+            margin: 5px;
+            padding: 0 10px;
+            border-radius: 15px;
+          }
+
           #idle_inhibitor,
+          #backlight {
+            color: #${colorScheme.text};
+            background-color: rgba(${hexToRgb colorScheme.surface1}, 0.9);
+            margin: 5px;
+            padding: 0 10px;
+          }
+
+          #idle_inhibitor {
+            border-radius: 15px 0 0 15px;
+            margin-right: 0;
+            padding-right: 0;
+          }
+
+          #backlight {
+            border-radius: 0 15px 15px 0;
+            margin-left: 0;
+            padding-left: 0;
+          }
+
           #cpu,
           #memory,
           #pulseaudio,
           #network,
-          #battery {
+          #backlight,
+          #battery,
+          #clock {
             color: #${colorScheme.text};
+            background-color: rgba(${hexToRgb colorScheme.surface1}, 0.9);
+            margin: 5px 0;
+          }
+
+          #cpu {
+            padding-left: 10px;
+            margin-left: 5px;
+            border-radius: 15px 0 0 15px;
           }
 
           #clock {
-            color: #${colorScheme.text};
-            margin-right: 15px;
+            padding-right: 10px;
           }
 
           #battery.warning {
@@ -120,91 +142,130 @@ in {
             output = ["eDP-1" "DP-3"];
             position = "top";
             height = 40;
-            margin = "5px 5px 0";
             modules-left = [
-              "custom/nixos"
               "wlr/workspaces"
-              "custom/separator"
+              "hyprland/submap"
               "hyprland/window"
             ];
+
             modules-right = [
               "tray"
-              "hyprland/submap"
-              "custom/separator"
+              "mpris"
               "idle_inhibitor"
-              "custom/separator"
+              "backlight"
               "cpu"
-              "custom/separator"
               "memory"
-              "custom/separator"
               "pulseaudio"
-              "custom/separator"
               "network"
-              "custom/separator"
               "battery"
-              "custom/separator"
               "clock"
             ];
 
-            "custom/nixos" = {
-              format = "";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/separator" = {
-              format = "|";
-              interval = "once";
-              tooltip = false;
-            };
-
             "wlr/workspaces" = {
-              on-click = "activate";
+              format = "{icon}";
+              format-icons = {
+                "1" = " ";
+                "2" = " ";
+                "3" = " ";
+                "4" = " ";
+                "5" = " ";
+                "6" = " ";
+                default = " ";
+                urgent = " ";
+              };
               sort-by-number = true;
+              persistent_workspaces = {
+                "1" = ["eDP-1"];
+                "2" = ["DP-3"];
+                "3" = ["eDP-1"];
+                "4" = ["eDP-1"];
+                "5" = ["eDP-1"];
+                "6" = ["eDP-1"];
+              };
+              on-click = "activate";
             };
+            "hyprland/submap" = {format = " {}";};
 
             tray = {
               icon-size = 22;
               spacing = 15;
             };
 
-            "hyprland/submap" = {
-              format = "<span color='#${colorScheme.blue}'>SMAP</span> {}";
-            };
-
-            idle_inhibitor = {
-              format = "<span color='#${colorScheme.blue}'>IDLE</span> {icon}";
-              format-icons = {
-                activated = "OFF";
-                deactivated = "ON";
+            mpris = {
+              format = "{player_icon} {status_icon} {title} {artist}";
+              tooltip-format = ''
+                {title}
+                {artist}  {album}
+                [{position}|{length}]'';
+              artist-len = 10;
+              album-len = 10;
+              title-len = 10;
+              player-icons = {
+                firefox = " ";
+                spotify = " ";
+                chromium = " ";
+              };
+              status-icons = {
+                playing = " ";
+                paused = " ";
+                stopped = " ";
               };
             };
 
+            idle_inhibitor = {
+              format = "{icon}";
+              format-icons = {
+                activated = "  ";
+                deactivated = "  ";
+              };
+            };
+
+            backlight = {
+              format = "{icon}{percent}%";
+              format-icons = " ";
+              on-scroll-up = "${light} -A 5";
+              on-scroll-down = "${light} -U 5";
+            };
+
             cpu = {
-              format = "<span color='#${colorScheme.blue}'>CPU</span> {usage}%";
+              format = " {usage}% ";
               on-click = "${btop}";
             };
 
             memory = {
-              format = "<span color='#${colorScheme.blue}'>RAM</span> {percentage}%";
+              format = " {percentage}% ";
               on-click = "${btop}";
             };
 
             pulseaudio = {
-              format = "<span color='#${colorScheme.blue}'>VOL</span> {volume}%";
-              format-muted = "<span color='#${colorScheme.blue}'>MUT</span>";
-              format-bluetooth = "<span color='#${colorScheme.blue}'>BT</span> {volume}%";
-              tooltip-format = "{desc} {volume}%";
+              format = "{icon}{volume}% ";
+              format-bluetooth = "󰂰 {volume}% ";
+              format-muted = " ";
+              format-source = " {volume}%";
+              format-source-muted = " ";
+              format-icons = {
+                default = [" " " " " "];
+                headphone = "󰋋 ";
+                hdmi = " ";
+                headset = "󰋎 ";
+                hands-free = "󰋎 ";
+                portable = " ";
+                phone = " ";
+                car = " ";
+              };
               on-click = "${mute}";
               on-click-right = "${pavucontrol}";
+              tooltip-format = "{icon}{desc} {volume}% ";
             };
 
             network = {
-              format-wifi = "<span color='#${colorScheme.blue}'>WLAN</span> {essid}";
-              format-ethernet = "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
-              format-linked = "<span color='#${colorScheme.blue}'>{ifname}</span> No IP";
-              format-disconnected = "Not connected";
-              format-alt = "<span color='#${colorScheme.blue}'>{ifname}</span> {ipaddr}/{cidr}";
+              format-wifi = "{icon}{essid} ";
+              format-ethernet = " {ipaddr} ";
+              format-linked = " No IP ";
+              format-disconnected = "  ";
+              format-icons = {
+                wifi = ["󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 "];
+              };
               max-length = 10;
               tooltip-format = ''
                 {ifname} {ipaddr}/{cidr}
@@ -222,17 +283,17 @@ in {
                 warning = 30;
                 critical = 15;
               };
-              format = "<span color='#${colorScheme.blue}'>BAT</span> {capacity}%";
-              format-charging = "<span color='#${colorScheme.blue}'>CHG</span> {capacity}%";
-              max-length = 25;
+              format = "{icon}{capacity}% ";
+              format-charging = " {capacity}% ";
+              format-icons = [" " " " " " " " " "];
             };
 
             clock = {
-              format = "{:<span color='#${colorScheme.blue}'>%b %d</span> %H:%M}";
+              format = "{: %b %d  %H:%M}";
               tooltip-format = ''
                 <big>{:%Y %B}</big>
                 <tt><small>{calendar}</small></tt>'';
-              format-alt = "{:<span color='#${colorScheme.blue}'>%A %B</span> %d %Y}";
+              format-alt = "{:%A %B %d %Y}";
             };
           }
         ];

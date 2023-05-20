@@ -17,10 +17,10 @@ in {
         experimental-features = ["nix-command" "flakes"];
         keep-derivations = true;
         keep-outputs = true;
-        substituters = ["https://cache.snakepi.xyz"];
-        trusted-public-keys = [
-          "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
-        ];
+        # substituters = ["https://cache.snakepi.xyz"];
+        # trusted-public-keys = [
+        #   "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
+        # ];
         trusted-users = ["root" "@wheel"];
       };
       gc = {

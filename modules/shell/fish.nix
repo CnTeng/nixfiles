@@ -27,7 +27,12 @@ in {
     home-manager.users.${user} = {
       programs.fish = {
         enable = true;
-        plugins = [];
+        plugins = [
+          {
+            name = "fzf-fish";
+            inherit (pkgs.fishPlugins.fzf-fish) src;
+          }
+        ];
         interactiveShellInit = ''
           fish_config theme choose "Catppuccin Macchiato"
         '';

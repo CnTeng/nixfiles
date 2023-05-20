@@ -1,14 +1,13 @@
 {
   flake.overlays.default = final: prev: let
     inherit (final) pkgs;
-    sources = import ./_sources/generated.nix {
-      inherit (final) fetchurl fetchgit fetchFromGitHub dockerTools;
-    };
+    sources = final.callPackage ./_sources/generated.nix {};
 
     mkPackage = name:
       pkgs.callPackage ./packages/${name} {inherit sources;};
     mkOverride = name:
-      prev.${name}.overrideAttrs (import ./overrides/${name} pkgs);
+      prev.${name}.overrideAttrs
+      (import ./overrides/${name} {inherit sources;});
 
     mkOverlay = f: dir:
       with builtins;

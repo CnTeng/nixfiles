@@ -12,7 +12,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      home.packages = with pkgs; [unzipNLS gzip unrar wget];
+      home.packages = with pkgs; [unzipNLS gzip unrar wget fd];
     };
   };
 }

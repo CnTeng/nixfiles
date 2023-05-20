@@ -11,8 +11,5 @@
     openssh.enable = true;
   };
 
-  shell' = {
-    proxy.enable = false;
-    neovim.withNixTreesitter = false;
-  };
+  shell'.proxy.enable = false;
 }

@@ -1,15 +1,11 @@
 {
   config,
   lib,
-  pkgs,
-  user,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.services'.cache;
 in {
-  imports = [inputs.harmonia.nixosModules.harmonia];
   options.services'.cache.enable = mkEnableOption "harmonia";
 
   config = mkIf cfg.enable {
@@ -17,12 +13,12 @@ in {
 
     services.harmonia = {
       enable = true;
+      signKeyPath = config.age.secrets.cache.path;
       settings = {
         bind = "[::]:5222";
         workers = 5;
         max_connection_rate = 256;
         priority = 30;
-        sign_key_path = config.age.secrets.cache.path;
       };
     };
 
