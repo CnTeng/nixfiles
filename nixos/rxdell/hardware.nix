@@ -13,6 +13,7 @@
     impermanence.enable = true;
     ssd.enable = true;
     kernel.modules.zswap = true;
+    logitech.enable = true;
     power.tlp.enable = true;
     wireless.enable = true;
   };

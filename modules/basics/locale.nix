@@ -10,7 +10,5 @@ in {
     enable = mkEnableOption "locale config" // {default = true;};
   };
 
-  config = mkIf cfg.enable {
-    time.timeZone = "Asia/Shanghai";
-  };
+  config = mkIf cfg.enable {time.timeZone = "Asia/Shanghai";};
 }

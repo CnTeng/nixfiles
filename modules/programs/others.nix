@@ -47,6 +47,7 @@ in {
         wemeet
 
         microsoft-edge
+        kuro
       ];
     };
   };

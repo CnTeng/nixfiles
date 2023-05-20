@@ -11,8 +11,8 @@
         partitions = [
           {
             name = "ESP";
-            start = "0%";
-            end = "512MiB";
+            start = "0";
+            end = "512MB";
             bootable = true;
             content = {
               type = "filesystem";
@@ -22,9 +22,8 @@
           }
           {
             name = "luks";
-            start = "512MiB";
-            end = "-16GiB";
-            part-type = "primary";
+            start = "512MB";
+            end = "-16GB";
             content = {
               type = "luks";
               name = "nixos";
@@ -41,9 +40,8 @@
           }
           {
             name = "swap";
-            start = "-16GiB";
+            start = "-16GB";
             end = "100%";
-            part-type = "primary";
             content = {
               type = "swap";
               randomEncryption = true;
@@ -56,7 +54,7 @@
     nodev."/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      mountOptions = ["defaults" "size=2G" "mode=755"];
+      mountOptions = ["defaults" "mode=755"];
     };
   };
 

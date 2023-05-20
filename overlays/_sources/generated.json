@@ -88,11 +88,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-w0GvAJMnC71AlUs2T3HJkXz6Kj1+fg+VBghV8LmjI0g=",
+            "sha256": "sha256-p4JdQMIBfg9QuRu6vT+eCLqXGyTvAUz2V5wJOSAbv7c=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230329.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230507.dict"
         },
-        "version": "20230329"
+        "version": "20230507"
     },
     "forwardproxy": {
         "cargoLocks": null,
@@ -123,11 +123,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qRSH5hNvxx3Uc5ZpfRFPLGUUhSLz/F83NaRk9Y090Mg=",
+            "sha256": "sha256-5W+YH4RTTf39sIXO5t9XH1XJ+uRLrcK3wUCHatRKIWc=",
             "type": "url",
-            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v112.0.5615.49-1/naiveproxy-v112.0.5615.49-1-linux-x64.tar.xz"
+            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v113.0.5672.62-2/naiveproxy-v113.0.5672.62-2-linux-x64.tar.xz"
         },
-        "version": "v112.0.5615.49-1"
+        "version": "v113.0.5672.62-2"
     },
     "ttf-ms-win10": {
         "cargoLocks": null,
@@ -168,6 +168,26 @@
             "type": "github"
         },
         "version": "b3e935355afcfb5240bac5a99707ffecc35772a2"
+    },
+    "waybar": {
+        "cargoLocks": null,
+        "date": "2023-05-13",
+        "extract": null,
+        "name": "waybar",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Alexays",
+            "repo": "Waybar",
+            "rev": "7b704071ff70d4888517c5018afe6b8783687888",
+            "sha256": "sha256-SDi4KVnDwAeFo9HrnaYv1kkUS7sYROxttHSN4vsg2vA=",
+            "type": "github"
+        },
+        "version": "7b704071ff70d4888517c5018afe6b8783687888"
     },
     "wemeet": {
         "cargoLocks": null,

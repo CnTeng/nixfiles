@@ -1,12 +1,12 @@
 {
-  imports = [./hardware.nix ./networking.nix];
+  imports = [./hardware.nix ./networking.nix ./disko.nix];
 
   basics'.ssh.enable = false;
 
   services' = {
-    cache.enable = true;
+    cache.enable = false;
     caddy.enable = true;
-    calibre-web.enable = true;
+    calibre-web.enable = false;
     firewall.enable = true;
     hydra.enable = true;
     miniflux.enable = true;
@@ -16,8 +16,5 @@
     vaultwarden.enable = true;
   };
 
-  shell' = {
-    proxy.enable = false;
-    neovim.withNixTreesitter = false;
-  };
+  shell'.proxy.enable = false;
 }
