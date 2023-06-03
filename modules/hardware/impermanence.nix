@@ -40,10 +40,8 @@ in {
           ".ssh"
           ".thunderbird"
           ".config"
-          "nixfiles"
         ];
       };
     };
-    environment.variables.NIX_REMOTE = "daemon";
   };
 }

@@ -16,7 +16,7 @@ in {
       programs.kitty = {
         enable = true;
         font = {
-          name = "FiraCode Nerd Font";
+          name = "FiraCode Font Mono";
           size = 15;
         };
         theme = "Catppuccin-Macchiato";
@@ -26,6 +26,7 @@ in {
           tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
         };
         extraConfig = ''
+          symbol_map U+4E00–U+9FFF Sarasa Gothic SC
           modify_font underline_position +3
           modify_font underline_thickness 150%
         '';

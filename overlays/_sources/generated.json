@@ -79,6 +79,21 @@
         },
         "version": "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec"
     },
+    "eudic": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "eudic",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-5xZKTkES4DXB9CjRZ7dxpHb3AhPoI15TQIE5Rjz6OUY=",
+            "type": "url",
+            "url": "https://www.eudic.net/download/eudic.deb?v=2023-05-30"
+        },
+        "version": "2023-05-30"
+    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "date": null,
@@ -171,7 +186,7 @@
     },
     "waybar": {
         "cargoLocks": null,
-        "date": "2023-05-13",
+        "date": "2023-05-29",
         "extract": null,
         "name": "waybar",
         "passthru": null,
@@ -183,11 +198,11 @@
             "name": null,
             "owner": "Alexays",
             "repo": "Waybar",
-            "rev": "7b704071ff70d4888517c5018afe6b8783687888",
-            "sha256": "sha256-SDi4KVnDwAeFo9HrnaYv1kkUS7sYROxttHSN4vsg2vA=",
+            "rev": "47193a3d2f81a8ce7177449f92e927db74d873b0",
+            "sha256": "sha256-bnaYNa1jb7kZ1mtMzeOQqz4tmBG1w5YXlQWoop1Q0Yc=",
             "type": "github"
         },
-        "version": "7b704071ff70d4888517c5018afe6b8783687888"
+        "version": "47193a3d2f81a8ce7177449f92e927db74d873b0"
     },
     "wemeet": {
         "cargoLocks": null,

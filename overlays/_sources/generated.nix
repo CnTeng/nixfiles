@@ -48,6 +48,14 @@
     };
     date = "2023-02-24";
   };
+  eudic = {
+    pname = "eudic";
+    version = "2023-05-30";
+    src = fetchurl {
+      url = "https://www.eudic.net/download/eudic.deb?v=2023-05-30";
+      sha256 = "sha256-5xZKTkES4DXB9CjRZ7dxpHb3AhPoI15TQIE5Rjz6OUY=";
+    };
+  };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
     version = "20230507";
@@ -102,15 +110,15 @@
   };
   waybar = {
     pname = "waybar";
-    version = "7b704071ff70d4888517c5018afe6b8783687888";
+    version = "47193a3d2f81a8ce7177449f92e927db74d873b0";
     src = fetchFromGitHub {
       owner = "Alexays";
       repo = "Waybar";
-      rev = "7b704071ff70d4888517c5018afe6b8783687888";
+      rev = "47193a3d2f81a8ce7177449f92e927db74d873b0";
       fetchSubmodules = false;
-      sha256 = "sha256-SDi4KVnDwAeFo9HrnaYv1kkUS7sYROxttHSN4vsg2vA=";
+      sha256 = "sha256-bnaYNa1jb7kZ1mtMzeOQqz4tmBG1w5YXlQWoop1Q0Yc=";
     };
-    date = "2023-05-13";
+    date = "2023-05-29";
   };
   wemeet = {
     pname = "wemeet";

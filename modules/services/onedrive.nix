@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  user,
   ...
 }:
 with lib; let
@@ -8,5 +9,13 @@ with lib; let
 in {
   options.services'.onedrive.enable = mkEnableOption "OneDrive";
 
-  config = mkIf cfg.enable {services.onedrive.enable = true;};
+  config = mkIf cfg.enable {
+    services.onedrive.enable = true;
+
+    environment.persistence."/persist" = {
+      users.${user} = {
+        directories = ["OneDrive"];
+      };
+    };
+  };
 }

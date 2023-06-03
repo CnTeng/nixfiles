@@ -12,4 +12,5 @@ in {
   "services/vaultwarden.age".publicKeys = [yufei rxhz];
 
   "shell/naive.age".publicKeys = [yufei rxdell];
+  "shell/neovim.age".publicKeys = [yufei rxaws rxdell rxhz];
 }

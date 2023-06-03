@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.shell'.git;
-  inherit (config.home-manager.users.${user}.home) homeDirectory;
+  inherit (config.users.users.${user}) home;
   inherit (config.basics') colorScheme;
 in {
   options.shell'.git.enable = mkEnableOption "git" // {default = true;};
@@ -65,7 +65,7 @@ in {
           user = "git";
           port = 443;
           extraOptions.AddKeysToAgent = "yes";
-          identityFile = ["${homeDirectory}/.ssh/id_ed25519_sk_rk_auth@Github"];
+          identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@Github"];
         };
       };
 
