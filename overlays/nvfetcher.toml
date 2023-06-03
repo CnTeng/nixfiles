@@ -23,6 +23,10 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/klzgrad/forwardproxy"
 fetch.github = "klzgrad/forwardproxy"
 
+[eudic]
+src.manual = "2023-05-30"
+fetch.url = "https://static.frdic.com/pkg/eudic.deb?v=$ver"
+
 [naiveproxy]
 src.github = "klzgrad/naiveproxy"
 fetch.url = "https://github.com/klzgrad/naiveproxy/releases/download/$ver/naiveproxy-$ver-linux-x64.tar.xz"
@@ -42,4 +46,3 @@ fetch.github = "Alexays/Waybar"
 [wemeet]
 src.manual = "3.14.0.402"
 fetch.url = "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb"
-

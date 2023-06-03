@@ -9,55 +9,22 @@
 with lib; let
   cfg = config.desktop'.hyprland;
 
+  inherit (config.users.users.${user}) home;
   inherit (config.basics') colorScheme;
-
-  inherit (config.home-manager.users.${user}.home) homeDirectory;
+  inherit (import ./lib.nix config lib) mkKeymap mkSubmap mkOpacity mkFloat mkBlurls mkSectionStr getExe';
 in {
   imports = [../components];
-
   options.desktop'.hyprland = {
     enable = mkEnableOption "hyprland";
-    components.enable =
-      mkEnableOption "desktop components"
-      // {
-        default = cfg.enable;
-      };
   };
 
   config = mkIf cfg.enable {
-    desktop'.components = mkIf cfg.components.enable {
-      applet.enable = true;
-      clipboard.enable = true;
-      fcitx.enable = true;
-      fonts.enable = true;
-      greetd.enable = true;
-      mako.enable = true;
-      rofi.enable = true;
-      services.enable = true;
-      swayidle.enable = true;
-      swaylock.enable = true;
-      theme.enable = true;
-      thunar.enable = true;
-      variables.enable = true;
-      waybar.enable = true;
-      wofi.enable = true;
-      yubikeytd.enable = true;
-    };
-
     programs = {
       dconf.enable = true;
       xwayland.enable = true;
     };
 
     security.polkit.enable = true;
-
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-      ];
-    };
 
     home-manager.users.${user} = let
       wallpaper = pkgs.fetchurl {
@@ -67,8 +34,9 @@ in {
       swaybg = lib.getExe pkgs.swaybg;
       swaylock = lib.getExe pkgs.swaylock-effects;
       terminal = lib.getExe pkgs.kitty;
-      rofi = "rofi -show drun";
-      pcmanfm = lib.getExe pkgs.xfce.thunar;
+      launcher = lib.getExe config.desktop'.components.launcher.package;
+      notify = getExe' "notification" "dunstctl";
+      fileManager = "nemo";
       light = lib.getExe pkgs.light;
       pamixer = lib.getExe pkgs.pamixer;
       playerctl = lib.getExe pkgs.playerctl;
@@ -77,29 +45,17 @@ in {
     in {
       home.packages = with pkgs; [
         slurp
-        xdg-utils # For vscode and idea opening urls
+        grimblast
+        hyprprop
+        scratchpad
       ];
 
       imports = [inputs.hyprland.homeManagerModules.default];
 
-      xdg.enable = true;
-      xdg.userDirs.enable = true;
-      # Find options from https://github.com/hyprwm/Hyprland/blob/main/nix/hm-module.nixa
       wayland.windowManager.hyprland = {
         enable = true;
         systemdIntegration = true; # Enable hyprland-session.target
-        recommendedEnvironment = false;
         extraConfig = let
-          inherit
-            (import ./lib.nix lib)
-            mkKeymap
-            mkSubmap
-            mkOpacity
-            mkFloat
-            mkBlurls
-            mkSectionStr
-            ;
-
           general = {
             border_size = 4;
             gaps_in = 3;
@@ -163,9 +119,8 @@ in {
 
           blurlsNamespaces = [
             "waybar"
-            "rofi"
-            "wofi"
             "notifications"
+            "wofi"
           ];
         in ''
           monitor = eDP-1, preferred, 0x0, 1
@@ -196,13 +151,15 @@ in {
 
           # Programs binding
           bind = SUPER, return, exec, ${terminal}
-          bind = SUPER, space, exec, ${rofi}
-          bind = SUPER, E, exec, ${pcmanfm}
+          bind = SUPER, space, exec, ${launcher}
+          bind = SUPER, E, exec, ${fileManager}
+          bind = SUPER, N, exec, ${notify} history-pop
+
           bind = SUPER, P, pseudo, # dwindle
           bind = SUPER, V, togglesplit, # dwindle
 
           # Screenshots
-          bind = , print, exec, ${grim} -g "$(slurp)" "${homeDirectory}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
+          bind = , print, exec, ${grim} -g "$(slurp)" "${home}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
           bind = SUPER_SHIFT, p, exec, ${grim} -g "$(slurp)" - | wl-copy --type image/png
 
           # Colorpicker

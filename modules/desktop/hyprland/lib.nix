@@ -1,4 +1,4 @@
-lib:
+config: lib:
 with lib; rec {
   _mkShortcut = mods: map (key: "${mods}, ${key}");
   _mkCommand = dispatcher: map (param: "${dispatcher}, ${param}");
@@ -19,6 +19,8 @@ with lib; rec {
     bind = , escape, submap, reset
     submap = reset
   '';
+
+  getExe' = comp: cmd: "${lib.getBin config.desktop'.components.${comp}.package}/bin/${cmd}";
 
   _mkRules = f: objects: concatStringsSep "\n" (map f objects);
   _mkWindowsRules = rule: _mkRules (window: "windowrulev2 = ${rule}, ${window}");

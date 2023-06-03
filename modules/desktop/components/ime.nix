@@ -6,11 +6,19 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop'.components.fcitx;
+  cfg = config.desktop'.components.inputMethod;
+  inherit (config.home-manager.users.${user}.home) profileDirectory;
 in {
-  options.desktop'.components.fcitx.enable = mkEnableOption "fcitx";
+  options.desktop'.components.inputMethod.enable =
+    mkEnableOption "input method component" // {default = true;};
 
   config = mkIf cfg.enable {
+    services.xserver = {
+      layout = "us";
+      xkbOptions = "caps:swapescape";
+      libinput.enable = true;
+    };
+
     i18n.inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
@@ -19,6 +27,7 @@ in {
         # catppuccin-fcitx5
       ];
     };
+
     home-manager.users.${user} = {
       systemd.user.services.fcitx5-daemon = {
         Unit = {
@@ -32,9 +41,7 @@ in {
             # "GTK2_RC_FILES=${
             #   config.home-manager.users.${user}.gtk.gtk2.configLocation
             # }"
-            "PATH=${
-              config.home-manager.users.${user}.home.profileDirectory
-            }/bin"
+            "PATH=${profileDirectory}/bin"
           ];
         };
         Install.WantedBy = ["graphical-session.target"];

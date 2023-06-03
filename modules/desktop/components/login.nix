@@ -5,9 +5,10 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop'.components.greetd;
+  cfg = config.desktop'.components.loginManager;
 in {
-  options.desktop'.components.greetd.enable = mkEnableOption "greetd";
+  options.desktop'.components.loginManager.enable =
+    mkEnableOption "login manager component" // {default = true;};
 
   config = mkIf cfg.enable {
     services.greetd = {

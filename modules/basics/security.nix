@@ -3,10 +3,12 @@
   lib,
   pkgs,
   inputs,
+  user,
   ...
 }:
 with lib; let
   cfg = config.basics'.security;
+  inherit (config.users.users.${user}) home;
 in {
   imports = [inputs.agenix.nixosModules.default];
 
@@ -23,6 +25,9 @@ in {
 
     environment.systemPackages = with pkgs; [rage age-plugin-yubikey];
 
-    age.identityPaths = ["/persist/etc/ssh/id_ed25519"];
+    age.identityPaths = [
+      "${home}/.ssh/id_ed25519"
+      "/persist/etc/ssh/id_ed25519"
+    ];
   };
 }

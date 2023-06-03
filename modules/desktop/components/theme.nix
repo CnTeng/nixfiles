@@ -10,7 +10,7 @@ with lib; let
   inherit (cfg) modules;
 in {
   options.desktop'.components.theme = {
-    enable = mkEnableOption "custom gtk and qt theme";
+    enable = mkEnableOption "custom gtk and qt theme" // {default = true;};
 
     modules =
       mapAttrs
@@ -54,21 +54,11 @@ in {
         gtk2.configLocation = "${config.home-manager.users.${user}.xdg.configHome}/gtk-2.0/gtkrc";
       };
 
-      xdg.configFile = {
-        "gtk-4.0/assets" = {
-          source = "${
-            config.home-manager.users.${user}.gtk.theme.package
-          }/share/themes/Catppuccin-Macchiato-Standard-Blue-Dark/gtk-4.0/assets";
-          recursive = true;
-        };
-
-        "gtk-4.0/gtk.css".source = "${
-          config.home-manager.users.${user}.gtk.theme.package
-        }/share/themes/Catppuccin-Macchiato-Standard-Blue-Dark/gtk-4.0/gtk.css";
-
-        "gtk-4.0/gtk-dark.css".source = "${
-          config.home-manager.users.${user}.gtk.theme.package
-        }/share/themes/Catppuccin-Macchiato-Standard-Blue-Dark/gtk-4.0/gtk-dark.css";
+      xdg.configFile."gtk-4.0" = let
+        inherit (config.home-manager.users.${user}.gtk.theme) package name;
+      in {
+        source = "${package}/share/themes/${name}/gtk-4.0";
+        recursive = true;
       };
     };
   };

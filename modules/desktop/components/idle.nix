@@ -6,18 +6,30 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop'.components.swayidle;
+  cfg = config.desktop'.components.idle;
 
-  playerctl = "${pkgs.playerctl}/bin/playerctl";
+  locker = getExe config.desktop'.components.locker.package;
+  playerctl = getExe pkgs.playerctl;
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
 in {
-  options.desktop'.components.swayidle.enable = mkEnableOption "swayidle";
+  options.desktop'.components.idle.enable =
+    mkEnableOption "idle daemon component" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       services.swayidle = {
         enable = true;
+        timeouts = [
+          {
+            timeout = 300;
+            command = "${locker}";
+          }
+          {
+            timeout = 360;
+            command = "${hyprctl} dispatch dpms off";
+            resumeCommand = "${hyprctl} dispatch dpms on";
+          }
+        ];
         events = [
           {
             event = "before-sleep";
@@ -25,18 +37,7 @@ in {
           }
           {
             event = "before-sleep";
-            command = "${swaylock}";
-          }
-        ];
-        timeouts = [
-          {
-            timeout = 300;
-            command = "${swaylock}";
-          }
-          {
-            timeout = 360;
-            command = "${hyprctl} dispatch dpms off";
-            resumeCommand = "${hyprctl} dispatch dpms on";
+            command = "${locker}";
           }
         ];
         systemdTarget = "hyprland-session.target";
