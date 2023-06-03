@@ -7,40 +7,27 @@
 }:
 with lib; let
   cfg = config.shell'.lf;
-
-  # Require for image previewer
-  file = "${pkgs.file}/bin/file";
-  pistol = "${pkgs.pistol}/bin/pistol";
-
-  lfKittyPreview = pkgs.writeShellScript "lf_kitty_preview" ''
-    file=$1
-    w=$2
-    h=$3
-    x=$4
-    y=$5
-
-    if [[ "$( ${file} -Lb --mime-type "$file")" =~ ^image ]]; then
-        kitty +icat --silent --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file"
-        exit 1
-    fi
-
-    ${pistol} "$file"
-  '';
-
-  lfKittyClean = pkgs.writeShellScript "lf_kitty_clean" ''
-    kitty +icat --clear --silent --transfer-mode file
-  '';
 in {
   options.shell'.lf.enable = mkEnableOption "lf" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
+      home.packages = [pkgs.ctpv];
       programs.lf = {
         enable = true;
+        settings = {
+          icons = true;
+        };
         extraConfig = ''
-          set previewer ${lfKittyPreview}
-          set cleaner ${lfKittyClean}
+          set previewer ctpv
+          set cleaner ctpvclear
+          &ctpv -s $id
+          &ctpvquit $id
         '';
+      };
+      xdg.configFile = {
+        "lf/colors".source = "${pkgs.lf.src}/etc/colors.example";
+        "lf/icons".source = "${pkgs.lf.src}/etc/icons.example";
       };
     };
   };

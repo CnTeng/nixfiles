@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop'.components.waybar;
+  cfg = config.desktop'.components.statusBar;
   inherit (config.basics') colorScheme;
 
   btop = "${pkgs.kitty}/bin/kitty -e btop";
@@ -15,8 +15,10 @@ with lib; let
   networkmanager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
   light = lib.getExe pkgs.light;
   inherit (import ./lib.nix lib) hexToRgb;
+  inherit (config.home-manager.users.${user}.home) profileDirectory;
 in {
-  options.desktop'.components.waybar.enable = mkEnableOption "waybar";
+  options.desktop'.components.statusBar.enable =
+    mkEnableOption "statusBar" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -28,7 +30,7 @@ in {
 
         style = ''
           * {
-            font-family: RobotoMono Nerd Font, Sarasa Gothic SC;
+            font-family: RobotoMono Nerd Font, Sarasa UI SC;
             font-weight: bold;
             font-size: 17px;
           }
@@ -300,13 +302,9 @@ in {
       };
 
       systemd.user.services.waybar = {
-        Service = {
-          Environment = [
-            "PATH=${
-              config.home-manager.users.${user}.home.profileDirectory
-            }/bin"
-          ];
-        };
+        Service.Environment = [
+          "PATH=${profileDirectory}/bin"
+        ];
       };
     };
   };

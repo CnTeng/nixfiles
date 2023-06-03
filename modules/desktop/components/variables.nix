@@ -6,7 +6,8 @@
 with lib; let
   cfg = config.desktop'.components.variables;
 in {
-  options.desktop'.components.variables.enable = mkEnableOption "Variables";
+  options.desktop'.components.variables.enable =
+    mkEnableOption "Variables" // {default = true;};
 
   config = mkIf cfg.enable {
     environment.sessionVariables = {
@@ -18,7 +19,7 @@ in {
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
-      NIXOS_OZONE_WL = "0"; # Vscode need to run under xwayland to use fcitx5
+      NIXOS_OZONE_WL = mkForce "0"; # Vscode need to run under xwayland to use fcitx5
       XDG_SESSION_DESKTOP = "Hyprland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";

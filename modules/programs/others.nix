@@ -14,7 +14,7 @@ in {
     home-manager.users.${user} = {
       home.packages = with pkgs; [
         # Password manager
-        bitwarden
+        # bitwarden
         bitwarden-cli
 
         # Reader
@@ -39,15 +39,16 @@ in {
         tdesktop
         element-desktop
         discord
+        wemeet
         qq
 
         # Manager
         font-manager
 
-        wemeet
+        ffmpeg
 
-        microsoft-edge
-        kuro
+        adobe-reader
+        masterpdfeditor
       ];
     };
   };

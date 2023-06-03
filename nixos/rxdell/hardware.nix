@@ -14,15 +14,17 @@
     ssd.enable = true;
     kernel.modules.zswap = true;
     logitech.enable = true;
+    monitor.enable = true;
     power.tlp.enable = true;
     wireless.enable = true;
   };
 
   boot = {
-    # Use the latest kernel
     kernelPackages = pkgs.linuxPackages_latest;
 
     initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+
+    tmp.useTmpfs = true;
   };
 
   systemd.watchdog.runtimeTime = "60s";

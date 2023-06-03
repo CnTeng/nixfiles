@@ -7,12 +7,11 @@
 with lib; let
   cfg = config.desktop'.components.fonts;
 in {
-  options.desktop'.components.fonts.enable = mkEnableOption "custom fonts";
+  options.desktop'.components.fonts.enable =
+    mkEnableOption "fonts component" // {default = true;};
 
   config = mkIf cfg.enable {
     fonts = {
-      fontDir.enable = true;
-
       fonts = with pkgs; [
         roboto
         roboto-slab
@@ -27,17 +26,13 @@ in {
       ];
 
       fontconfig.defaultFonts = {
-        serif = ["Roboto Slab" "Noto Serif CJK SC" "NotoSerif Nerd Font"];
-        sansSerif = ["Roboto" "Sarasa Gothic SC" "NotoSans Nerd Font"];
         monospace = ["RobotoMono Nerd Font" "Noto Sans Mono CJK SC"];
+        sansSerif = ["Roboto" "Sarasa Gothic SC" "NotoSans Nerd Font"];
+        serif = ["Roboto Slab" "Noto Serif CJK SC" "NotoSerif Nerd Font"];
         emoji = ["Noto Color Emoji"];
       };
-    };
 
-    services.xserver = {
-      layout = "us";
-      xkbOptions = "caps:swapescape";
-      libinput.enable = true;
+      fontDir.enable = true;
     };
   };
 }

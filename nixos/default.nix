@@ -15,6 +15,7 @@ in {
           "colmena"
           "agenix"
           "hyprland"
+          "hyprwm-contrib"
         ];
     };
 

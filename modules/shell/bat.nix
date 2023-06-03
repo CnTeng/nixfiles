@@ -17,6 +17,7 @@ in {
       programs.bat = {
         enable = true;
         config = {theme = "Catppuccin-macchiato";};
+        extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch];
         themes = mapAttrs' (name: _:
           nameValuePair ("Catppuccin-" + name) (builtins.readFile
             (pkgs.fetchFromGitHub {

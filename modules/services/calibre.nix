@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.services'.calibre-web;
-  inherit (config.home-manager.users.${user}.home) homeDirectory;
+  inherit (config.users.users.${user}) home;
 in {
   options.services'.calibre-web.enable = mkEnableOption "Calibre-Web";
 
@@ -24,7 +24,7 @@ in {
         options = {
           enableBookUploading = true;
           enableBookConversion = true;
-          calibreLibrary = "${homeDirectory}/OneDrive/Calibre";
+          calibreLibrary = "${home}/OneDrive/Calibre";
         };
       };
 

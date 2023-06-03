@@ -26,6 +26,7 @@ in {
           keyboardShortcut
           volumePercentage
         ];
+
         enabledCustomApps = with spicePkgs.apps; [new-releases];
       };
     };

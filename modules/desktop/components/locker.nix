@@ -6,10 +6,15 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop'.components.swaylock;
+  cfg = config.desktop'.components.locker;
   inherit (config.basics') colorScheme;
 in {
-  options.desktop'.components.swaylock.enable = mkEnableOption "swaylock";
+  options.desktop'.components.locker = {
+    enable = mkEnableOption "locker component" // {default = true;};
+    package = mkPackageOption pkgs "locker" {
+      default = ["swaylock-effects"];
+    };
+  };
 
   config = mkIf cfg.enable {
     # Ensure swaylock can verify the password
@@ -18,7 +23,7 @@ in {
     home-manager.users.${user} = {
       programs.swaylock = {
         enable = true;
-        package = pkgs.swaylock-effects;
+        package = cfg.package;
         settings = {
           daemonize = true; # Detach from the controlling terminal after locking
           screenshots = true;
