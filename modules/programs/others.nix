@@ -14,7 +14,7 @@ in {
     home-manager.users.${user} = {
       home.packages = with pkgs; [
         # Password manager
-        # bitwarden
+        bitwarden
         bitwarden-cli
 
         # Reader
@@ -47,7 +47,6 @@ in {
 
         ffmpeg
 
-        adobe-reader
         masterpdfeditor
       ];
     };

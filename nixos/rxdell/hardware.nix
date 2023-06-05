@@ -10,7 +10,7 @@
       freqGovernor = "powersave";
     };
     devices.enable = true;
-    impermanence.enable = true;
+    stateless.enable = true;
     ssd.enable = true;
     kernel.modules.zswap = true;
     logitech.enable = true;

@@ -10,7 +10,8 @@ with lib; let
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
 
-  options.basics'.home-manager.enable = mkEnableOption "home-manager" // {default = true;};
+  options.basics'.home-manager.enable =
+    mkEnableOption "home-manager" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager = {
@@ -18,7 +19,7 @@ in {
       useUserPackages = true;
       extraSpecialArgs = {inherit inputs user;};
 
-      users.${user}.home.stateVersion = "23.11";
+      users.${user}.home.stateVersion = config.system.stateVersion;
     };
   };
 }

@@ -11,7 +11,6 @@
     hydra.enable = true;
     miniflux.enable = true;
     naive.enable = true;
-    onedrive.enable = true;
     openssh.enable = true;
     vaultwarden.enable = true;
   };

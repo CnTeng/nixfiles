@@ -24,18 +24,6 @@
     };
     date = "2022-10-05";
   };
-  catppuccin-plymouth = {
-    pname = "catppuccin-plymouth";
-    version = "d4105cf336599653783c34c4a2d6ca8c93f9281c";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "plymouth";
-      rev = "d4105cf336599653783c34c4a2d6ca8c93f9281c";
-      fetchSubmodules = false;
-      sha256 = "sha256-quBSH8hx3gD7y1JNWAKQdTk3CmO4t1kVo4cOGbeWlNE=";
-    };
-    date = "2022-12-10";
-  };
   cloudflare = {
     pname = "cloudflare";
     version = "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec";
@@ -48,20 +36,12 @@
     };
     date = "2023-02-24";
   };
-  eudic = {
-    pname = "eudic";
-    version = "2023-05-30";
-    src = fetchurl {
-      url = "https://www.eudic.net/download/eudic.deb?v=2023-05-30";
-      sha256 = "sha256-5xZKTkES4DXB9CjRZ7dxpHb3AhPoI15TQIE5Rjz6OUY=";
-    };
-  };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20230507";
+    version = "20230605";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230507.dict";
-      sha256 = "sha256-p4JdQMIBfg9QuRu6vT+eCLqXGyTvAUz2V5wJOSAbv7c=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230605.dict";
+      sha256 = "sha256-G44bgOWpnQEbP78idcOobEUm2m+7cYM+UCqyJu+D+9E=";
     };
   };
   forwardproxy = {
@@ -78,10 +58,10 @@
   };
   naiveproxy = {
     pname = "naiveproxy";
-    version = "v113.0.5672.62-2";
+    version = "v114.0.5735.91-3";
     src = fetchurl {
-      url = "https://github.com/klzgrad/naiveproxy/releases/download/v113.0.5672.62-2/naiveproxy-v113.0.5672.62-2-linux-x64.tar.xz";
-      sha256 = "sha256-5W+YH4RTTf39sIXO5t9XH1XJ+uRLrcK3wUCHatRKIWc=";
+      url = "https://github.com/klzgrad/naiveproxy/releases/download/v114.0.5735.91-3/naiveproxy-v114.0.5735.91-3-linux-x64.tar.xz";
+      sha256 = "sha256-EJ5MkfmLBmVgaT5UluLvulEjMdTSAXoz3wg/ieF1Bsk=";
     };
   };
   ttf-ms-win10 = {
@@ -107,18 +87,6 @@
       sha256 = "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=";
     };
     date = "2017-08-15";
-  };
-  waybar = {
-    pname = "waybar";
-    version = "47193a3d2f81a8ce7177449f92e927db74d873b0";
-    src = fetchFromGitHub {
-      owner = "Alexays";
-      repo = "Waybar";
-      rev = "47193a3d2f81a8ce7177449f92e927db74d873b0";
-      fetchSubmodules = false;
-      sha256 = "sha256-bnaYNa1jb7kZ1mtMzeOQqz4tmBG1w5YXlQWoop1Q0Yc=";
-    };
-    date = "2023-05-29";
   };
   wemeet = {
     pname = "wemeet";

@@ -33,7 +33,7 @@ in {
 
     environment.persistence."/persist" =
       mkIf
-      config.hardware'.impermanence.enable {
+      config.hardware'.stateless.enable {
         files = [
           "/etc/ssh/ssh_host_ed25519_key"
           "/etc/ssh/ssh_host_ed25519_key.pub"

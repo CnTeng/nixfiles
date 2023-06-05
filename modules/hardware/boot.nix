@@ -12,26 +12,32 @@ in {
 
   options.hardware'.boot = {
     enable = mkEnableOption "systemd-boot";
-    secureboot = mkEnableOption "Secure Boot";
+    secureboot = mkEnableOption "secure boot";
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = [pkgs.sbctl];
+  config = mkMerge [
+    (mkIf cfg.enable {
+      boot = {
+        loader = {
+          systemd-boot.enable = mkIf (!cfg.secureboot) true;
+          efi.canTouchEfiVariables = true;
+        };
 
-    boot.lanzaboote = mkIf cfg.secureboot {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
-    };
+        plymouth = {
+          enable = true;
+          themePackages = [pkgs.catppuccin-plymouth];
+          theme = "catppuccin-macchiato";
+        };
+      };
+    })
 
-    boot.loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = mkIf (!cfg.secureboot) true;
-    };
+    (mkIf cfg.secureboot {
+      environment.systemPackages = [pkgs.sbctl];
 
-    boot.plymouth = {
-      enable = true;
-      themePackages = [pkgs.catppuccin-plymouth];
-      theme = "catppuccin-macchiato";
-    };
-  };
+      boot.lanzaboote = {
+        enable = true;
+        pkiBundle = "/etc/secureboot";
+      };
+    })
+  ];
 }

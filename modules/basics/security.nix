@@ -12,15 +12,14 @@ with lib; let
 in {
   imports = [inputs.agenix.nixosModules.default];
 
-  options.basics'.security = {
-    enable = mkEnableOption "security config" // {default = true;};
-  };
+  options.basics'.security.enable =
+    mkEnableOption "security config" // {default = true;};
 
   config = mkIf cfg.enable {
     security = {
-      tpm2.enable = true;
-      rtkit.enable = true;
       sudo.wheelNeedsPassword = false;
+      rtkit.enable = true;
+      tpm2.enable = true;
     };
 
     environment.systemPackages = with pkgs; [rage age-plugin-yubikey];
