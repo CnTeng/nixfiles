@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.hardware'.impermanence;
+  cfg = config.hardware'.stateless;
 in {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
-  options.hardware'.impermanence.enable = mkEnableOption "Impermanence";
+  options.hardware'.stateless.enable = mkEnableOption "persistent state";
 
   config = mkIf cfg.enable {
     environment.persistence."/persist" = {
@@ -29,16 +29,11 @@ in {
       files = ["/etc/machine-id" "/etc/ssh/id_ed25519" "/etc/ssh/id_ed25519.pub"];
       users.${user} = {
         directories = [
-          "Code"
-          "Documents"
-          "Downloads"
-          "Pictures"
           "Projects"
           ".cache"
           ".local"
           ".mozilla"
           ".ssh"
-          ".thunderbird"
           ".config"
         ];
       };

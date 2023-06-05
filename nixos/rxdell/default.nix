@@ -1,6 +1,8 @@
 {
   imports = [./hardware.nix ./disko.nix];
 
+  basics'.system.stateVersion = "23.11";
+
   desktop'.hyprland.enable = true;
 
   programs' = {

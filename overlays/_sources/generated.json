@@ -39,26 +39,6 @@
         },
         "version": "ce244cfdf43a648d984719fdfd1d60aab09f5c97"
     },
-    "catppuccin-plymouth": {
-        "cargoLocks": null,
-        "date": "2022-12-10",
-        "extract": null,
-        "name": "catppuccin-plymouth",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "plymouth",
-            "rev": "d4105cf336599653783c34c4a2d6ca8c93f9281c",
-            "sha256": "sha256-quBSH8hx3gD7y1JNWAKQdTk3CmO4t1kVo4cOGbeWlNE=",
-            "type": "github"
-        },
-        "version": "d4105cf336599653783c34c4a2d6ca8c93f9281c"
-    },
     "cloudflare": {
         "cargoLocks": null,
         "date": "2023-02-24",
@@ -79,21 +59,6 @@
         },
         "version": "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec"
     },
-    "eudic": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "eudic",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-5xZKTkES4DXB9CjRZ7dxpHb3AhPoI15TQIE5Rjz6OUY=",
-            "type": "url",
-            "url": "https://www.eudic.net/download/eudic.deb?v=2023-05-30"
-        },
-        "version": "2023-05-30"
-    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "date": null,
@@ -103,11 +68,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-p4JdQMIBfg9QuRu6vT+eCLqXGyTvAUz2V5wJOSAbv7c=",
+            "sha256": "sha256-G44bgOWpnQEbP78idcOobEUm2m+7cYM+UCqyJu+D+9E=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230507.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230605.dict"
         },
-        "version": "20230507"
+        "version": "20230605"
     },
     "forwardproxy": {
         "cargoLocks": null,
@@ -138,11 +103,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-5W+YH4RTTf39sIXO5t9XH1XJ+uRLrcK3wUCHatRKIWc=",
+            "sha256": "sha256-EJ5MkfmLBmVgaT5UluLvulEjMdTSAXoz3wg/ieF1Bsk=",
             "type": "url",
-            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v113.0.5672.62-2/naiveproxy-v113.0.5672.62-2-linux-x64.tar.xz"
+            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v114.0.5735.91-3/naiveproxy-v114.0.5735.91-3-linux-x64.tar.xz"
         },
-        "version": "v113.0.5672.62-2"
+        "version": "v114.0.5735.91-3"
     },
     "ttf-ms-win10": {
         "cargoLocks": null,
@@ -183,26 +148,6 @@
             "type": "github"
         },
         "version": "b3e935355afcfb5240bac5a99707ffecc35772a2"
-    },
-    "waybar": {
-        "cargoLocks": null,
-        "date": "2023-05-29",
-        "extract": null,
-        "name": "waybar",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Alexays",
-            "repo": "Waybar",
-            "rev": "47193a3d2f81a8ce7177449f92e927db74d873b0",
-            "sha256": "sha256-bnaYNa1jb7kZ1mtMzeOQqz4tmBG1w5YXlQWoop1Q0Yc=",
-            "type": "github"
-        },
-        "version": "47193a3d2f81a8ce7177449f92e927db74d873b0"
     },
     "wemeet": {
         "cargoLocks": null,

@@ -7,7 +7,6 @@
     caddy.enable = true;
     firewall.enable = true;
     naive.enable = true;
-    onedrive.enable = true;
     openssh.enable = true;
   };
 

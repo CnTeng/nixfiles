@@ -5,7 +5,7 @@ with lib; {
       type = types.str;
       default = color;
       description = mkDoc ''
-        Set the ${name} of color scheme
+        Set the ${name} in the colorscheme
       '';
     }) {
     # Catppuccin Macchiato

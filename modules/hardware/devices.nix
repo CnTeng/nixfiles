@@ -19,8 +19,11 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-    {users.users.${user}.extraGroups = ["audio" "video" "camera"];}
+    {users.users.${user}.extraGroups = ["camera"];}
+
     (mkIf components.audio {
+      users.users.${user}.extraGroups = ["audio"];
+
       sound = {
         enable = true;
         mediaKeys.enable = true;
@@ -36,6 +39,11 @@ in {
         jack.enable = true;
       };
     })
-    (mkIf components.light {programs.light.enable = true;})
+
+    (mkIf components.light {
+      users.users.${user}.extraGroups = ["video"];
+
+      programs.light.enable = true;
+    })
   ]);
 }

@@ -9,9 +9,7 @@ with lib; let
 in {
   options.hardware'.gpu.intel.enable =
     mkEnableOption "Intel GPU support"
-    // {
-      default = config.hardware'.cpu.intel.enable;
-    };
+    // {default = config.hardware'.cpu.intel.enable;};
 
   config = mkIf cfg.enable {
     boot.initrd.kernelModules = ["i915"];
@@ -28,7 +26,7 @@ in {
 
     environment = {
       systemPackages = with pkgs; [intel-gpu-tools libva-utils pciutils];
-      variables = {VDPAU_DRIVER = "va_gl";};
+      variables.VDPAU_DRIVER = "va_gl";
     };
   };
 }

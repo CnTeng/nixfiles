@@ -26,6 +26,7 @@ in {
           mkDefault config.hardware.enableRedistributableFirmware;
       };
     })
+
     (mkIf (cfg.freqGovernor != null) {
       powerManagement.cpuFreqGovernor = "${cfg.freqGovernor}";
     })

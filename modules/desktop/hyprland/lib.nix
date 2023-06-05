@@ -29,14 +29,6 @@ with lib; rec {
   mkFloat = _mkWindowsRules "float";
   mkBlurls = _mkRules (namespace: "blurls = ${namespace}");
 
-  # workspace = 1, monitor:eDP-1, default:true
-  # workspace = 2, monitor:DP-3, default:true
-  # workspace = 3, monitor:eDP-1, default:true
-  # workspace = 4, monitor:eDP-1, default:true
-  # workspace = 5, monitor:eDP-1, default:true
-  # workspace = 6, monitor:eDP-1, default:true
-  # mkWorkspaceBinding =
-
   mkSectionStr = section: options: ''
     ${section} {
       ${concatStringsSep "\n  " (

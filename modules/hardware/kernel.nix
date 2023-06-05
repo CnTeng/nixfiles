@@ -25,6 +25,7 @@ in {
         '';
       };
     })
+
     (mkIf modules.bbr {
       boot = {
         kernelModules = ["tcp_bbr"];
