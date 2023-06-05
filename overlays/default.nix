@@ -7,7 +7,7 @@
       pkgs.callPackage ./packages/${name} {inherit sources;};
     mkOverride = name:
       prev.${name}.overrideAttrs
-      (import ./overrides/${name} {inherit sources;});
+      (import ./overrides/${name});
 
     mkOverlay = f: dir:
       with builtins;

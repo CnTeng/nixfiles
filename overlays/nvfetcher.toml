@@ -6,10 +6,6 @@ fetch.github = "caddyserver/caddy"
 src.git = "https://github.com/catppuccin/fcitx5"
 fetch.github = "catppuccin/fcitx5"
 
-[catppuccin-plymouth]
-src.git = "https://github.com/catppuccin/plymouth"
-fetch.github = "catppuccin/plymouth"
-
 [cloudflare]
 src.git = "https://github.com/caddy-dns/cloudflare"
 fetch.github = "caddy-dns/cloudflare"
@@ -23,10 +19,6 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/klzgrad/forwardproxy"
 fetch.github = "klzgrad/forwardproxy"
 
-[eudic]
-src.manual = "2023-05-30"
-fetch.url = "https://static.frdic.com/pkg/eudic.deb?v=$ver"
-
 [naiveproxy]
 src.github = "klzgrad/naiveproxy"
 fetch.url = "https://github.com/klzgrad/naiveproxy/releases/download/$ver/naiveproxy-$ver-linux-x64.tar.xz"
@@ -38,10 +30,6 @@ fetch.github = "streetsamurai00mi/ttf-ms-win10"
 [ttf-wps-fonts]
 src.git = "https://github.com/BannedPatriot/ttf-wps-fonts"
 fetch.github = "BannedPatriot/ttf-wps-fonts"
-
-[waybar]
-src.git = "https://github.com/Alexays/Waybar"
-fetch.github = "Alexays/Waybar"
 
 [wemeet]
 src.manual = "3.14.0.402"

@@ -25,9 +25,10 @@ in {
       networking.networkmanager.enable = true;
 
       environment.persistence."/persist".directories =
-        mkIf config.hardware'.impermanence.enable
+        mkIf config.hardware'.stateless.enable
         ["/etc/NetworkManager/system-connections"];
     })
+
     (mkIf components.bluetooth {
       hardware.bluetooth.enable = true;
 

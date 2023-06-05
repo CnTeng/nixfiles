@@ -18,6 +18,8 @@ in {
   config = mkIf cfg.enable {
     programs.file-roller.enable = true;
 
+    services.dbus.packages = [cfg.package];
+
     home-manager.users.${user} = {
       home.packages = [cfg.package pkgs.cinnamon.xviewer];
     };

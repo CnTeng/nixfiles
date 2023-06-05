@@ -2,7 +2,7 @@
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
   hardware' = {
-    impermanence.enable = true;
+    stateless.enable = true;
     kernel.modules.bbr = true;
   };
 

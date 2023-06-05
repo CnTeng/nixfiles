@@ -70,11 +70,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+
     rx-nvim = {
       url = "github:CnTeng/rx-nvim";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1,7 +1,8 @@
 lib:
 with lib; rec {
-  _match3hex = builtins.match "([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})";
-  _parseDigit = hex: let
+  _matchHex = builtins.match "([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})";
+
+  _parseDigit = let
     dict = {
       "0" = 0;
       "1" = 1;
@@ -21,14 +22,13 @@ with lib; rec {
       "f" = 15;
     };
   in
-    getAttr hex dict;
+    hex: getAttr hex dict;
 
   toDec = hex: let
-    characters = stringToCharacters hex;
-    values = map _parseDigit characters;
+    chars = stringToCharacters hex;
+    values = map _parseDigit chars;
   in
-    toString (foldl (acc: n: acc * 16 + n) 0 values);
+    toString (foldl (x: y: x * 16 + y) 0 values);
 
-  hexToRgb = hex:
-    concatStringsSep ", " (map toDec (_match3hex hex));
+  hexToRgb = hex: concatStringsSep ", " (map toDec (_matchHex hex));
 }

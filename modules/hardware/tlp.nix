@@ -22,6 +22,7 @@ in {
         thermald.enable = true;
       };
     })
+
     (mkIf cfg.acpi_call.enable {
       boot = {
         kernelModules = ["acpi_call"];

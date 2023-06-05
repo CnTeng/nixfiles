@@ -36,7 +36,7 @@ in {
       terminal = lib.getExe pkgs.kitty;
       launcher = lib.getExe config.desktop'.components.launcher.package;
       notify = getExe' "notification" "dunstctl";
-      fileManager = "nemo";
+      fileManager = getExe' "fileManager" "nemo";
       light = lib.getExe pkgs.light;
       pamixer = lib.getExe pkgs.pamixer;
       playerctl = lib.getExe pkgs.playerctl;
@@ -217,6 +217,8 @@ in {
               bind = , Q, exec, systemctl --user stop graphical-session.target
               bind = , Q, exit,
               bind = , Q, exec, loginctl terminate-session $XDG_SESSION_ID
+              bind = , P, exec, systemctl poweroff
+              bind = , R, exec, systemctl reboot
             ''}
 
           # Resize submap

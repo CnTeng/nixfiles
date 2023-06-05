@@ -9,13 +9,15 @@ with lib; let
 in {
   options.services'.onedrive.enable = mkEnableOption "OneDrive";
 
-  config = mkIf cfg.enable {
-    services.onedrive.enable = true;
+  config = mkMerge [
+    (mkIf cfg.enable {
+      services.onedrive.enable = true;
+    })
 
-    environment.persistence."/persist" = {
-      users.${user} = {
-        directories = ["OneDrive"];
+    (mkIf config.hardware'.stateless.enable {
+      environment.persistence."/persist" = {
+        users.${user}.directories = ["OneDrive"];
       };
-    };
-  };
+    })
+  ];
 }
