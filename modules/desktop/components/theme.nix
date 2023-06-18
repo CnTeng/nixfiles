@@ -1,20 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.components.theme;
   inherit (cfg) modules;
 in {
   options.desktop'.components.theme = {
-    enable = mkEnableOption "custom gtk and qt theme" // {default = true;};
+    enable = mkEnableOption "custom gtk and qt theme" // {
+      default = config.desktop'.hyprland.enable;
+    };
 
-    modules =
-      mapAttrs
-      (_: doc: mkEnableOption (mkDoc doc) // {default = cfg.enable;}) {
+    modules = mapAttrs
+      (_: doc: mkEnableOption (mkDoc doc) // { default = cfg.enable; }) {
         gtk = "custom gtk theme";
         qt = "custom qt theme";
       };
@@ -32,7 +28,7 @@ in {
       home.pointerCursor = mkIf modules.gtk {
         package = pkgs.catppuccin-cursors.macchiatoDark;
         name = "Catppuccin-Macchiato-Dark-Cursors";
-        size = 32;
+        # size = 32;
         gtk.enable = true;
       };
 
@@ -47,19 +43,20 @@ in {
         theme = {
           package = pkgs.catppuccin-gtk.override {
             variant = "macchiato";
-            tweaks = ["rimless"];
+            tweaks = [ "rimless" ];
           };
           name = "Catppuccin-Macchiato-Standard-Blue-Dark";
         };
-        gtk2.configLocation = "${config.home-manager.users.${user}.xdg.configHome}/gtk-2.0/gtkrc";
+        gtk2.configLocation =
+          "${config.home-manager.users.${user}.xdg.configHome}/gtk-2.0/gtkrc";
       };
 
-      xdg.configFile."gtk-4.0" = let
-        inherit (config.home-manager.users.${user}.gtk.theme) package name;
-      in {
-        source = "${package}/share/themes/${name}/gtk-4.0";
-        recursive = true;
-      };
+      xdg.configFile."gtk-4.0" =
+        let inherit (config.home-manager.users.${user}.gtk.theme) package name;
+        in {
+          source = "${package}/share/themes/${name}/gtk-4.0";
+          recursive = true;
+        };
     };
   };
 }

@@ -1,14 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.basics'.nix;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.basics'.nix;
 in {
-  options.basics'.nix.enable =
-    mkEnableOption "nix config" // {default = true;};
+  options.basics'.nix.enable = mkEnableOption "nix config" // {
+    default = true;
+  };
 
   config = mkMerge [
     (mkIf cfg.enable {
@@ -30,7 +26,7 @@ in {
           # trusted-public-keys = [
           #   "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
           # ];
-          trusted-users = ["root" "@wheel"];
+          trusted-users = [ "root" "@wheel" ];
           auto-allocate-uids = true;
           use-cgroups = true;
         };

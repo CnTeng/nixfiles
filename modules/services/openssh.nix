@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, user, ... }:
+with lib;
+let
   cfg = config.services'.openssh;
   authorizedKeys = [
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPmKxwF3v9GvcPJ67fNf42o5/NZvWqWkMu/QrRuQo95OAAAAD3NzaDpyeGF3c0BOaXhPUw== ssh:rxaws@NixOS"
@@ -16,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      ports = [22];
+      ports = [ 22 ];
       settings = {
         PasswordAuthentication = true;
         PermitRootLogin = mkDefault "yes";
@@ -32,8 +28,7 @@ in {
     programs.ssh.startAgent = true;
 
     environment.persistence."/persist" =
-      mkIf
-      config.hardware'.stateless.enable {
+      mkIf config.hardware'.stateless.enable {
         files = [
           "/etc/ssh/ssh_host_ed25519_key"
           "/etc/ssh/ssh_host_ed25519_key.pub"

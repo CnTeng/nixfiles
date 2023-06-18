@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.chrome;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.programs'.chrome;
 in {
   options.programs'.chrome.enable = mkEnableOption "Chrome";
 

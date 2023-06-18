@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.components.idle;
 
   locker = getExe config.desktop'.components.locker.package;
@@ -13,7 +8,9 @@ with lib; let
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
 in {
   options.desktop'.components.idle.enable =
-    mkEnableOption "idle daemon component" // {default = true;};
+    mkEnableOption "idle daemon component" // {
+      default = config.desktop'.hyprland.enable;
+    };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

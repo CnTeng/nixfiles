@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.services'.caddy;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.services'.caddy;
 in {
   options.services'.caddy.enable = mkEnableOption "Caddy";
 

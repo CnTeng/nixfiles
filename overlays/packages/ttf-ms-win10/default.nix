@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  sources,
-}:
+{ lib, stdenv, sources, }:
 stdenv.mkDerivation {
   inherit (sources.ttf-ms-win10) pname version src;
 

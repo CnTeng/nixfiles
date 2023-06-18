@@ -1,16 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.services'.hydra;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.services'.hydra;
 in {
   options.services'.hydra.enable = mkEnableOption "Hydra";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [9222];
+    networking.firewall.allowedTCPPorts = [ 9222 ];
 
     services.hydra = {
       enable = true;

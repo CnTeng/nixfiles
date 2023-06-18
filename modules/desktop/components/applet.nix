@@ -1,14 +1,11 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.components.applet;
+{ config, lib, user, ... }:
+with lib;
+let cfg = config.desktop'.components.applet;
 in {
-  options.desktop'.components.applet.enable =
-    mkEnableOption "applet component" // {default = true;};
+  options.desktop'.components.applet.enable = mkEnableOption "applet component"
+    // {
+      default = config.desktop'.hyprland.enable;
+    };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

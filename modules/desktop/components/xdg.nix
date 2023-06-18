@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  user,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.components.xdg;
+{ config, lib, user, pkgs, ... }:
+with lib;
+let cfg = config.desktop'.components.xdg;
 in {
-  options.desktop'.components.xdg.enable =
-    mkEnableOption "xdg component" // {default = true;};
+  options.desktop'.components.xdg.enable = mkEnableOption "xdg component" // {
+    default = config.desktop'.hyprland.enable;
+  };
 
   config = mkMerge [
     (mkIf cfg.enable {
@@ -29,7 +24,7 @@ in {
         };
 
         # For vscode and idea opening urls
-        home.packages = [pkgs.xdg-utils];
+        home.packages = [ pkgs.xdg-utils ];
       };
 
       xdg.mime = {
@@ -39,16 +34,14 @@ in {
           "x-scheme-handler/ftp" = "firefox.desktop";
           "x-scheme-handler/http" = "firefox.desktop";
           "x-scheme-handler/https" = "firefox.desktop";
-          "text/*" = "nvim.desktop";
+          "text/*" = "nvim-kitty.desktop";
           "text/html" = "firefox.desktop";
           "text/xml" = "firefox.desktop";
           "image/*" = "xviewer.desktop";
           "x-scheme-handler/terminal" = "kitty.desktop";
           "application/x-sh" = "kitty-open.desktop";
-          "application/x-shellscript" = [
-            "kitty-open.desktop"
-            "nvim.desktop"
-          ];
+          "application/x-shellscript" =
+            [ "kitty-open.desktop" "nvim-kitty.desktop" ];
         };
       };
     })
