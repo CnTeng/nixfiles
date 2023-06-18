@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.hardware'.cpu;
+{ config, lib, ... }:
+with lib;
+let cfg = config.hardware'.cpu;
 in {
   options.hardware'.cpu = {
     intel.enable = mkEnableOption "Intel CPU support";

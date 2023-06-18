@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.others;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.programs'.others;
 in {
   options.programs'.others.enable = mkEnableOption "others programs";
 
@@ -39,7 +33,6 @@ in {
         tdesktop
         element-desktop
         discord
-        wemeet
         qq
 
         # Manager
@@ -48,6 +41,12 @@ in {
         ffmpeg
 
         masterpdfeditor
+
+        thunderbird
+
+        elementary-planner
+
+        todoist
       ];
     };
   };

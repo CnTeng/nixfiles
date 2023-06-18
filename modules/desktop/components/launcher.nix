@@ -1,19 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.components.launcher;
   inherit (config.basics') colorScheme;
 in {
   options.desktop'.components.launcher = {
-    enable = mkEnableOption "launcher component" // {default = true;};
-    package = mkPackageOption pkgs "launcher" {
-      default = ["fuzzel"];
-    };
+    enable = mkEnableOption "launcher component" // { default = config.desktop'.hyprland.enable; };
+    package = mkPackageOption pkgs "launcher" { default = [ "fuzzel" ]; };
   };
 
   config = mkIf cfg.enable {
@@ -22,7 +15,7 @@ in {
         enable = true;
         settings = {
           main = {
-            font = "RobotoMono Nerd Font:size=15";
+            font = "RobotoMono Nerd Font:size=13";
             dpi-aware = "no";
             icon-theme = "Papirus-Dark";
             lines = 5;

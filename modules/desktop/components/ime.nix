@@ -1,16 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.components.inputMethod;
   inherit (config.home-manager.users.${user}.home) profileDirectory;
 in {
   options.desktop'.components.inputMethod.enable =
-    mkEnableOption "input method component" // {default = true;};
+    mkEnableOption "input method component" // {
+      default = config.desktop'.hyprland.enable;
+    };
 
   config = mkIf cfg.enable {
     services.xserver = {
@@ -32,7 +29,7 @@ in {
       systemd.user.services.fcitx5-daemon = {
         Unit = {
           Description = "Fcitx5 input method editor";
-          PartOf = ["graphical-session.target"];
+          PartOf = [ "graphical-session.target" ];
         };
         Service = {
           ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5";
@@ -44,7 +41,7 @@ in {
             "PATH=${profileDirectory}/bin"
           ];
         };
-        Install.WantedBy = ["graphical-session.target"];
+        Install.WantedBy = [ "graphical-session.target" ];
       };
     };
   };

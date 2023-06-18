@@ -2,9 +2,37 @@
 src.github = "caddyserver/caddy"
 fetch.github = "caddyserver/caddy"
 
+[catppuccin-alacritty]
+src.git = "https://github.com/catppuccin/alacritty"
+fetch.github = "catppuccin/alacritty"
+
+[catppuccin-bat]
+src.git = "https://github.com/catppuccin/bat"
+fetch.github = "catppuccin/bat"
+
+[catppuccin-btop]
+src.git = "https://github.com/catppuccin/btop"
+fetch.github = "catppuccin/btop"
+
 [catppuccin-fcitx5]
 src.git = "https://github.com/catppuccin/fcitx5"
 fetch.github = "catppuccin/fcitx5"
+
+[catppuccin-fish]
+src.git = "https://github.com/catppuccin/fish"
+fetch.github = "catppuccin/fish"
+
+[catppuccin-foliate]
+src.git = "https://github.com/catppuccin/foliate"
+fetch.github = "catppuccin/foliate"
+
+[catppuccin-starship]
+src.git = "https://github.com/catppuccin/starship"
+fetch.github = "catppuccin/starship"
+
+[catppuccin-zsh]
+src.git = "https://github.com/catppuccin/zsh-syntax-highlighting"
+fetch.github = "catppuccin/zsh-syntax-highlighting"
 
 [cloudflare]
 src.git = "https://github.com/caddy-dns/cloudflare"
@@ -30,7 +58,3 @@ fetch.github = "streetsamurai00mi/ttf-ms-win10"
 [ttf-wps-fonts]
 src.git = "https://github.com/BannedPatriot/ttf-wps-fonts"
 fetch.github = "BannedPatriot/ttf-wps-fonts"
-
-[wemeet]
-src.manual = "3.14.0.402"
-fetch.url = "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb"

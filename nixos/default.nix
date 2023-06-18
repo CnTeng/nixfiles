@@ -1,16 +1,11 @@
-{
-  self,
-  inputs,
-  ...
-}: let
-  user = "yufei";
+{ self, inputs, ... }:
+let user = "yufei";
 in {
-  flake = {pkgs, ...}: {
+  flake = { pkgs, ... }: {
     _module.args.pkgs = import inputs.nixpkgs {
       system = "x86_64-linux";
       config.allowUnfree = true;
-      overlays =
-        [self.overlays.default]
+      overlays = [ self.overlays.default ]
         ++ map (n: inputs.${n}.overlays.default) [
           "colmena"
           "agenix"
@@ -21,33 +16,36 @@ in {
 
     nixosConfigurations = self.colmenaHive.nodes;
 
-    colmenaHive = inputs.colmena.lib.makeHive {
-      meta = {
-        nixpkgs = pkgs;
-        specialArgs = {inherit inputs user;};
-      };
-
-      defaults = {
-        lib,
-        name,
-        ...
-      }: {
-        deployment = {
-          targetHost = lib.mkDefault "${name}";
-          tags = ["${name}"];
+    colmenaHive =
+      let sources = pkgs.callPackage ../overlays/_sources/generated.nix { };
+      in inputs.colmena.lib.makeHive {
+        meta = {
+          nixpkgs = pkgs;
+          specialArgs = { inherit inputs sources user; };
         };
-        networking.hostName = "${name}";
-        imports = [self.nixosModules.default ./${name}];
+
+        defaults = { lib, name, ... }: {
+          deployment = {
+            targetHost = lib.mkDefault "${name}";
+            tags = [ "${name}" ];
+          };
+          networking.hostName = "${name}";
+          imports = [ self.nixosModules.default ./${name} ];
+        };
+
+        rxdell.deployment = {
+          allowLocalDeployment = true;
+          targetHost = null;
+        };
+
+        rxaws.deployment = { };
+
+        rxhz.deployment.buildOnTarget = true;
+
+        rxhz1 = {
+          deployment.buildOnTarget = true;
+          nixpkgs.system = "aarch64-linux";
+        };
       };
-
-      rxdell.deployment = {
-        allowLocalDeployment = true;
-        targetHost = null;
-      };
-
-      rxaws.deployment = {};
-
-      rxhz.deployment.buildOnTarget = true;
-    };
   };
 }

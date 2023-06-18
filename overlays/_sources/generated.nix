@@ -12,6 +12,42 @@
       sha256 = "sha256-3a3+nFHmGONvL/TyQRqgJtrSDIn0zdGy9YwhZP17mU0=";
     };
   };
+  catppuccin-alacritty = {
+    pname = "catppuccin-alacritty";
+    version = "3c808cbb4f9c87be43ba5241bc57373c793d2f17";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "alacritty";
+      rev = "3c808cbb4f9c87be43ba5241bc57373c793d2f17";
+      fetchSubmodules = false;
+      sha256 = "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=";
+    };
+    date = "2022-09-27";
+  };
+  catppuccin-bat = {
+    pname = "catppuccin-bat";
+    version = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "bat";
+      rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
+      fetchSubmodules = false;
+      sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
+    };
+    date = "2022-11-10";
+  };
+  catppuccin-btop = {
+    pname = "catppuccin-btop";
+    version = "89ff712eb62747491a76a7902c475007244ff202";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "btop";
+      rev = "89ff712eb62747491a76a7902c475007244ff202";
+      fetchSubmodules = false;
+      sha256 = "sha256-J3UezOQMDdxpflGax0rGBF/XMiKqdqZXuX4KMVGTxFk=";
+    };
+    date = "2023-06-07";
+  };
   catppuccin-fcitx5 = {
     pname = "catppuccin-fcitx5";
     version = "ce244cfdf43a648d984719fdfd1d60aab09f5c97";
@@ -23,6 +59,54 @@
       sha256 = "sha256-uFaCbyrEjv4oiKUzLVFzw+UY54/h7wh2cntqeyYwGps=";
     };
     date = "2022-10-05";
+  };
+  catppuccin-fish = {
+    pname = "catppuccin-fish";
+    version = "91e6d6721362be05a5c62e235ed8517d90c567c9";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "fish";
+      rev = "91e6d6721362be05a5c62e235ed8517d90c567c9";
+      fetchSubmodules = false;
+      sha256 = "sha256-l9V7YMfJWhKDL65dNbxaddhaM6GJ0CFZ6z+4R6MJwBA=";
+    };
+    date = "2023-04-27";
+  };
+  catppuccin-foliate = {
+    pname = "catppuccin-foliate";
+    version = "40ae4528569d864cba8f4e64716c3361f7244209";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "foliate";
+      rev = "40ae4528569d864cba8f4e64716c3361f7244209";
+      fetchSubmodules = false;
+      sha256 = "sha256-tpZj1/gV2TEdcequ+0EFz/3Hv4UN2dcdbJvT8a/i+hs=";
+    };
+    date = "2023-02-01";
+  };
+  catppuccin-starship = {
+    pname = "catppuccin-starship";
+    version = "3e3e54410c3189053f4da7a7043261361a1ed1bc";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "starship";
+      rev = "3e3e54410c3189053f4da7a7043261361a1ed1bc";
+      fetchSubmodules = false;
+      sha256 = "sha256-soEBVlq3ULeiZFAdQYMRFuswIIhI9bclIU8WXjxd7oY=";
+    };
+    date = "2023-02-21";
+  };
+  catppuccin-zsh = {
+    pname = "catppuccin-zsh";
+    version = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "zsh-syntax-highlighting";
+      rev = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+      fetchSubmodules = false;
+      sha256 = "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
+    };
+    date = "2022-10-12";
   };
   cloudflare = {
     pname = "cloudflare";
@@ -87,13 +171,5 @@
       sha256 = "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=";
     };
     date = "2017-08-15";
-  };
-  wemeet = {
-    pname = "wemeet";
-    version = "3.14.0.402";
-    src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb";
-      sha256 = "sha256-lpCXijWI3FQJXB6ofF+eKAweIyanvKxdwQrrLP37HDA=";
-    };
   };
 }

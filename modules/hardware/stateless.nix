@@ -1,14 +1,8 @@
-{
-  config,
-  inputs,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.hardware'.stateless;
+{ config, inputs, lib, user, ... }:
+with lib;
+let cfg = config.hardware'.stateless;
 in {
-  imports = [inputs.impermanence.nixosModules.impermanence];
+  imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.hardware'.stateless.enable = mkEnableOption "persistent state";
 
@@ -16,7 +10,6 @@ in {
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [
-        "/home"
         "/var"
         "/etc/nix"
         {
@@ -26,16 +19,11 @@ in {
           mode = "u=rwx,g=rx,o=rx";
         }
       ];
-      files = ["/etc/machine-id" "/etc/ssh/id_ed25519" "/etc/ssh/id_ed25519.pub"];
+      files =
+        [ "/etc/machine-id" "/etc/ssh/id_ed25519" "/etc/ssh/id_ed25519.pub" ];
       users.${user} = {
-        directories = [
-          "Projects"
-          ".cache"
-          ".local"
-          ".mozilla"
-          ".ssh"
-          ".config"
-        ];
+        directories =
+          [ "Projects" ".cache" ".local" ".mozilla" ".ssh" ".config" ];
       };
     };
   };

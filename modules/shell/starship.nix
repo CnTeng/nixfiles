@@ -1,21 +1,18 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
+{ config, lib, sources, ... }:
+with lib;
+let
   cfg = config.shell'.starship;
+  themeSrc = sources.catppuccin-starship.src;
 in {
-  options.shell'.starship.enable =
-    mkEnableOption "starship"
-    // {
-      default = true;
-    };
+  options.shell'.starship.enable = mkEnableOption "starship" // {
+    default = true;
+  };
 
   config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
-      settings = {
+      settings = let flavour = "macchiato";
+      in {
         format = lib.concatStrings [
           "[\\[](bold blue)"
           "$username"
@@ -27,6 +24,8 @@ in {
           "$git_branch"
           "$git_status"
         ];
+
+        palette = "catppuccin_${flavour}";
         command_timeout = 3000;
         add_newline = false;
 
@@ -40,7 +39,7 @@ in {
 
         hostname = {
           ssh_only = false;
-          ssh_symbol = "🌏";
+          ssh_symbol = "";
           format = "[$ssh_symbol$hostname]($style)";
           style = "bold white";
         };
@@ -65,10 +64,11 @@ in {
           format = "(\\((bold)[$symbol$branch]($style)\\)(bold) )";
         };
 
-        git_status = {format = "([$all_status$ahead_behind]($style) )";};
+        git_status = { format = "([$all_status$ahead_behind]($style) )"; };
 
-        nix_shell = {format = "❄️";};
-      };
+        nix_shell = { format = "❄️"; };
+      } // (with builtins;
+        fromTOML (readFile (themeSrc + /palettes/${flavour}.toml)));
     };
   };
 }

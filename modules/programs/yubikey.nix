@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.yubikey;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.programs'.yubikey;
 in {
   options.programs'.yubikey.enable = mkEnableOption "YubiKey";
 

@@ -1,15 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, ... }:
+with lib;
+let
   cfg = config.basics'.console;
   inherit (config.basics') colorScheme;
 in {
-  options.basics'.console.enable =
-    mkEnableOption "console config" // {default = true;};
+  options.basics'.console.enable = mkEnableOption "console config" // {
+    default = true;
+  };
 
   config = mkIf cfg.enable {
     console = {
@@ -34,8 +31,7 @@ in {
         "${mauve}"
         "${flamingo}"
       ];
-      packages = [pkgs.terminus_font];
-      earlySetup = true;
+      packages = [ pkgs.terminus_font ];
     };
   };
 }

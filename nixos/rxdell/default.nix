@@ -1,5 +1,5 @@
 {
-  imports = [./hardware.nix ./disko.nix];
+  imports = [ ./hardware.nix ./disko.nix ];
 
   basics'.system.stateVersion = "23.11";
 
@@ -23,4 +23,6 @@
   };
 
   services'.onedrive.enable = true;
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

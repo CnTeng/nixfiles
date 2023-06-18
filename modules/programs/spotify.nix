@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  inputs,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, inputs, pkgs, user, ... }:
+with lib;
+let
   cfg = config.programs'.spotify;
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
 in {
@@ -14,7 +8,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      imports = [inputs.spicetify-nix.homeManagerModule];
+      imports = [ inputs.spicetify-nix.homeManagerModule ];
 
       programs.spicetify = {
         enable = true;
@@ -27,7 +21,7 @@ in {
           volumePercentage
         ];
 
-        enabledCustomApps = with spicePkgs.apps; [new-releases];
+        enabledCustomApps = with spicePkgs.apps; [ new-releases ];
       };
     };
   };
