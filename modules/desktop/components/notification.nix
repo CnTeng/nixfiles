@@ -1,54 +1,43 @@
-{
-  config,
-  lib,
-  user,
-  pkgs,
-  ...
-}:
-with lib; let
+{ config, lib, user, pkgs, ... }:
+with lib;
+let
   cfg = config.desktop'.components.notification;
   inherit (config.basics') colorScheme;
   inherit (config.home-manager.users.${user}.gtk) iconTheme;
 in {
   options.desktop'.components.notification = {
-    enable = mkEnableOption "notification daemon component" // {default = true;};
-    package = mkPackageOption pkgs "notification daemon" {
-      default = ["dunst"];
+    enable = mkEnableOption "notification daemon component" // {
+      default = config.desktop'.hyprland.enable;
     };
+    package =
+      mkPackageOption pkgs "notification daemon" { default = [ "dunst" ]; };
   };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      services.dunst = {
+      services.mako = {
         enable = true;
-        inherit iconTheme;
-        settings = with colorScheme; {
-          global = {
-            follow = "mouse";
-            enable_posix_regex = true;
-            width = "(0, 300)";
-            offset = "5x5";
-            progress_bar_corner_radius = 5;
-            icon_corner_radius = 5;
-            frame_width = 4;
-            frame_color = "#${blue}";
-            gap_size = 5;
-            font = "RobotoMono Nerd Font 15";
-            icon_theme = iconTheme.name;
-            corner_radius = 10;
-            mouse_right_click = "context";
-            mouse_left_click = "close_current";
+        # Copy from https://github.com/catppuccin/mako
+        backgroundColor = "#${colorScheme.base}e6";
+        textColor = "#${colorScheme.text}";
+        iconPath = "${iconTheme.package}/share/icons/Papirus-Dark";
+        borderColor = "#${colorScheme.blue}";
+        progressColor = "over #${colorScheme.surface0}";
+        margin = "0";
+        extraConfig = ''
+          outer-margin=5
 
-            background = "#${base}e6";
-            foreground = "#${text}";
-            max_icon_size = 128;
-            timeout = 5;
-          };
+          [urgency=high]
+          border-color=#${colorScheme.peach}
+        '';
 
-          urgency_critical = {
-            frame_color = "#${peach}";
-          };
-        };
+        width = 400;
+        height = 150;
+        borderSize = 4;
+        borderRadius = 10;
+        maxIconSize = 96;
+        defaultTimeout = 10000;
+        font = "RobotoMono Nerd Font 14";
       };
     };
   };

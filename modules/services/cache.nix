@@ -1,15 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.services'.cache;
+{ config, lib, ... }:
+with lib;
+let cfg = config.services'.cache;
 in {
   options.services'.cache.enable = mkEnableOption "harmonia";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [5222];
+    networking.firewall.allowedTCPPorts = [ 5222 ];
 
     services.harmonia = {
       enable = true;

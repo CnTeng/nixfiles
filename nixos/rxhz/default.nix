@@ -1,5 +1,5 @@
 {
-  imports = [./hardware.nix ./networking.nix ./disko.nix];
+  imports = [ ./hardware.nix ./networking.nix ./disko.nix ];
 
   basics'.ssh.enable = false;
 

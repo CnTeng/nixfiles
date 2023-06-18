@@ -3,7 +3,7 @@
     usePredictableInterfaceNames = false;
     dhcpcd.enable = false;
 
-    nameservers = ["8.8.8.8"];
+    nameservers = [ "8.8.8.8" ];
 
     defaultGateway = "172.31.1.1";
     defaultGateway6 = {
@@ -13,18 +13,14 @@
 
     interfaces.eth0 = {
       ipv4 = {
-        addresses = [
-          {
-            address = "162.55.166.175";
-            prefixLength = 32;
-          }
-        ];
-        routes = [
-          {
-            address = "172.31.1.1";
-            prefixLength = 32;
-          }
-        ];
+        addresses = [{
+          address = "162.55.166.175";
+          prefixLength = 32;
+        }];
+        routes = [{
+          address = "172.31.1.1";
+          prefixLength = 32;
+        }];
       };
       ipv6 = {
         addresses = [
@@ -37,12 +33,10 @@
             prefixLength = 64;
           }
         ];
-        routes = [
-          {
-            address = "fe80::1";
-            prefixLength = 128;
-          }
-        ];
+        routes = [{
+          address = "fe80::1";
+          prefixLength = 128;
+        }];
       };
     };
   };

@@ -1,5 +1,5 @@
-{inputs, ...}: {
-  imports = [inputs.disko.nixosModules.disko];
+{ inputs, ... }: {
+  imports = [ inputs.disko.nixosModules.disko ];
 
   disko.devices = {
     disk.sda = {
@@ -13,7 +13,7 @@
             name = "boot";
             start = "0";
             end = "1MB";
-            flags = ["bios_grub"];
+            flags = [ "bios_grub" ];
           }
           {
             name = "nixos";
@@ -21,11 +21,11 @@
             end = "-8GB";
             content = {
               type = "btrfs";
-              extraArgs = ["-L nixos" "-f"];
+              extraArgs = [ "-L nixos" "-f" ];
               subvolumes = {
-                "/boot".mountOptions = ["noatime" "compress=zstd"];
-                "/nix".mountOptions = ["noatime" "compress=zstd"];
-                "/persist".mountOptions = ["noatime" "compress=zstd"];
+                "/boot".mountOptions = [ "noatime" "compress=zstd" ];
+                "/nix".mountOptions = [ "noatime" "compress=zstd" ];
+                "/persist".mountOptions = [ "noatime" "compress=zstd" ];
               };
             };
           }
@@ -45,7 +45,7 @@
     nodev."/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      mountOptions = ["defaults" "mode=755"];
+      mountOptions = [ "defaults" "mode=755" ];
     };
   };
 

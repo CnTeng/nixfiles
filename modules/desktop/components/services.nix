@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.components.services;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.desktop'.components.services;
 in {
-  options.desktop'.components.services.enable =
-    mkEnableOption "Services" // {default = true;};
+  options.desktop'.components.services.enable = mkEnableOption "Services" // {
+    default = config.desktop'.hyprland.enable;
+  };
 
   config = mkIf cfg.enable {
     services = {
@@ -34,12 +29,12 @@ in {
       systemd.user.services.yubikey-touch-detector = {
         Unit = {
           Description = "Detects when your YubiKey is waiting for a touch";
-          PartOf = ["graphical-session.target"];
+          PartOf = [ "graphical-session.target" ];
         };
 
         Service.ExecStart = "${getExe pkgs.yubikey-touch-detector} --libnotify";
 
-        Install.WantedBy = ["graphical-session.target"];
+        Install.WantedBy = [ "graphical-session.target" ];
       };
     };
   };

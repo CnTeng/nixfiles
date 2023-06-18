@@ -1,24 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.components.locker;
   inherit (config.basics') colorScheme;
 in {
   options.desktop'.components.locker = {
-    enable = mkEnableOption "locker component" // {default = true;};
-    package = mkPackageOption pkgs "locker" {
-      default = ["swaylock-effects"];
-    };
+    enable = mkEnableOption "locker component" // { default = config.desktop'.hyprland.enable; };
+    package =
+      mkPackageOption pkgs "locker" { default = [ "swaylock-effects" ]; };
   };
 
   config = mkIf cfg.enable {
     # Ensure swaylock can verify the password
-    security.pam.services.swaylock = {};
+    security.pam.services.swaylock = { };
 
     home-manager.users.${user} = {
       programs.swaylock = {

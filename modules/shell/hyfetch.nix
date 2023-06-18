@@ -1,18 +1,11 @@
 # TODO: finsh fzf config
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.shell'.hyfetch;
+{ config, lib, user, ... }:
+with lib;
+let cfg = config.shell'.hyfetch;
 in {
-  options.shell'.hyfetch.enable =
-    mkEnableOption "hyfetch"
-    // {
-      default = true;
-    };
+  options.shell'.hyfetch.enable = mkEnableOption "hyfetch" // {
+    default = true;
+  };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -21,7 +14,7 @@ in {
         settings = {
           preset = "rainbow";
           mode = "rgb";
-          color_align = {mode = "horizontal";};
+          color_align = { mode = "horizontal"; };
         };
       };
     };
