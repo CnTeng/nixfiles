@@ -3,9 +3,7 @@ final: prev: let
 
   modules = callLibs ./modules.nix;
   trivial = callLibs ./trivial.nix;
-  hyprland = callLibs ./hyprland.nix;
 in {
   inherit (modules) importModule;
   inherit (trivial) removeHashTag toDec toRgb;
-  inherit (hyprland) mkKeymap mkSubmap getExe' mkOpacity mkFloat mkBlurls mkSectionStr;
 }
