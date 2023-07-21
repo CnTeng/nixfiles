@@ -1,20 +1,27 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.shell'.proxy;
   inherit (config.age.secrets.naive) path;
 in {
-  options.shell'.proxy.naive.enable = mkEnableOption "naive proxy" // {
-    default = cfg.enable;
-  };
+  options.shell'.proxy.naive.enable =
+    mkEnableOption "naive proxy"
+    // {
+      default = cfg.enable;
+    };
 
   config = mkIf cfg.naive.enable {
-    environment.systemPackages = [ pkgs.naiveproxy ];
+    environment.systemPackages = [pkgs.naiveproxy];
 
     systemd.services.naiveproxy = {
       description = "naiveproxy Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.naiveproxy}/bin/naive --config ${path}";
       };

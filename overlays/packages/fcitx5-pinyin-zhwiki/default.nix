@@ -1,6 +1,10 @@
-{ sources, stdenv, lib, }:
+{
+  source,
+  stdenv,
+  lib,
+}:
 stdenv.mkDerivation {
-  inherit (sources.fcitx5-pinyin-zhwiki) pname version src;
+  inherit (source) pname version src;
 
   dontUnpack = true;
 

@@ -1,6 +1,11 @@
-{ config, lib, user, ... }:
-with lib;
-let cfg = config.programs'.kitty;
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.programs'.kitty;
 in {
   options.programs'.kitty.enable = mkEnableOption "kitty";
 
@@ -14,12 +19,11 @@ in {
           name = "FiraCode Nerd Font";
           size = 12;
         };
-        theme = "Catppuccin-Macchiato";
+        theme = "Catppuccin-Mocha";
         settings = {
           # term = "xterm-256color";
           tab_fade = "1 1 1";
-          tab_title_template =
-            "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
+          tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
         };
         extraConfig = ''
           symbol_map U+4E00–U+9FFF Sarasa Gothic SC

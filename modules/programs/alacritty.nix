@@ -1,6 +1,11 @@
-{ config, lib, sources, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  sources,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.programs'.alacritty;
   themeSrc = sources.catppuccin-alacritty.src;
 in {
@@ -18,7 +23,7 @@ in {
             bold_italic.family = "FiraCode Nerd Font";
             size = 12;
           };
-          import = [ (themeSrc + /catppuccin-macchiato.yml) ];
+          import = [(themeSrc + /catppuccin-macchiato.yml)];
         };
       };
     };

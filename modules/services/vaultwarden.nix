@@ -1,11 +1,15 @@
-{ config, lib, ... }:
-with lib;
-let cfg = config.services'.vaultwarden;
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services'.vaultwarden;
 in {
   options.services'.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 587 3222 8222 ];
+    networking.firewall.allowedTCPPorts = [587 3222 8222];
 
     services = {
       vaultwarden = {

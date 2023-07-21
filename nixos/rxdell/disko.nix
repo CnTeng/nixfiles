@@ -1,5 +1,5 @@
-{ inputs, ... }: {
-  imports = [ inputs.disko.nixosModules.disko ];
+{inputs, ...}: {
+  imports = [inputs.disko.nixosModules.default];
 
   disko.devices = {
     disk.nvme = {
@@ -27,13 +27,13 @@
             content = {
               type = "luks";
               name = "nixos";
-              extraOpenArgs = [ "--allow-discards" ];
+              extraOpenArgs = ["--allow-discards"];
               content = {
                 type = "btrfs";
-                extraArgs = [ "-L nixos" "-f" ];
+                extraArgs = ["-L nixos" "-f"];
                 subvolumes = {
-                  "/nix".mountOptions = [ "noatime" "compress=zstd" ];
-                  "/persist".mountOptions = [ "noatime" "compress=zstd" ];
+                  "/nix".mountOptions = ["noatime" "compress=zstd"];
+                  "/persist".mountOptions = ["noatime" "compress=zstd"];
                 };
               };
             };
@@ -54,7 +54,7 @@
     nodev."/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      mountOptions = [ "defaults" "mode=755" ];
+      mountOptions = ["defaults" "mode=755"];
     };
   };
 

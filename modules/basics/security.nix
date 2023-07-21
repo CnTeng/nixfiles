@@ -1,14 +1,20 @@
-{ config, lib, pkgs, inputs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
   cfg = config.basics'.security;
-  inherit (config.users.users.${user}) home;
 in {
-  imports = [ inputs.agenix.nixosModules.default ];
+  imports = [inputs.agenix.nixosModules.default];
 
-  options.basics'.security.enable = mkEnableOption "security config" // {
-    default = true;
-  };
+  options.basics'.security.enable =
+    mkEnableOption "security config"
+    // {
+      default = true;
+    };
 
   config = mkIf cfg.enable {
     security = {
@@ -17,9 +23,11 @@ in {
       tpm2.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [ rage age-plugin-yubikey ];
+    environment.systemPackages = with pkgs; [rage age-plugin-yubikey];
 
-    age.identityPaths =
-      [ "${home}/.ssh/id_ed25519" "/persist/etc/ssh/id_ed25519" ];
+    age.identityPaths = [
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/persist/etc/ssh/ssh_host_ed25519_key"
+    ];
   };
 }

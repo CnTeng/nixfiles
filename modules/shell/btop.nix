@@ -1,11 +1,16 @@
-{ config, lib, sources, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  sources,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.shell'.btop;
   themeSrc = sources.catppuccin-btop.src;
   inherit (config.home-manager.users.${user}.xdg) configHome;
 in {
-  options.shell'.btop.enable = mkEnableOption "btop" // { default = true; };
+  options.shell'.btop.enable = mkEnableOption "btop" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
