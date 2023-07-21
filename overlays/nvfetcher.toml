@@ -1,7 +1,3 @@
-[caddy]
-src.github = "caddyserver/caddy"
-fetch.github = "caddyserver/caddy"
-
 [catppuccin-alacritty]
 src.git = "https://github.com/catppuccin/alacritty"
 fetch.github = "catppuccin/alacritty"
@@ -30,22 +26,22 @@ fetch.github = "catppuccin/foliate"
 src.git = "https://github.com/catppuccin/starship"
 fetch.github = "catppuccin/starship"
 
+[catppuccin-palette]
+src.git = "https://github.com/catppuccin/palette"
+fetch.github = "catppuccin/palette"
+
+[catppuccin-qt5ct]
+src.git = "https://github.com/catppuccin/qt5ct"
+fetch.github = "catppuccin/qt5ct"
+
 [catppuccin-zsh]
 src.git = "https://github.com/catppuccin/zsh-syntax-highlighting"
 fetch.github = "catppuccin/zsh-syntax-highlighting"
-
-[cloudflare]
-src.git = "https://github.com/caddy-dns/cloudflare"
-fetch.github = "caddy-dns/cloudflare"
 
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."
 fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict"
-
-[forwardproxy]
-src.git = "https://github.com/klzgrad/forwardproxy"
-fetch.github = "klzgrad/forwardproxy"
 
 [naiveproxy]
 src.github = "klzgrad/naiveproxy"
@@ -58,3 +54,7 @@ fetch.github = "streetsamurai00mi/ttf-ms-win10"
 [ttf-wps-fonts]
 src.git = "https://github.com/BannedPatriot/ttf-wps-fonts"
 fetch.github = "BannedPatriot/ttf-wps-fonts"
+
+[kanagawa-gtk]
+src.git = "https://github.com/Fausto-Korpsvart/Kanagawa-GKT-Theme"
+fetch.github = "Fausto-Korpsvart/Kanagawa-GKT-Theme"

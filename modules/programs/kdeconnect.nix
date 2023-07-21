@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let cfg = config.programs'.kdeconnect;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.programs'.kdeconnect;
 in {
   options.programs'.kdeconnect.enable = mkEnableOption "KDE connect";
 
@@ -9,6 +14,6 @@ in {
       enable = true;
       package = pkgs.valent;
     };
-    services.dbus.packages = [ pkgs.valent ];
+    services.dbus.packages = [pkgs.valent];
   };
 }

@@ -1,258 +1,289 @@
-{ config, lib, pkgs, inputs, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.desktop'.hyprland;
 
   inherit (config.users.users.${user}) home;
-  inherit (config.basics') colorScheme;
+  inherit (config.desktop'.profiles) colorScheme;
 in {
-  imports = [ ../components ./lib.nix ];
+  imports = [../profiles];
+
   options.desktop'.hyprland.enable = mkEnableOption "hyprland";
 
   config = mkIf cfg.enable {
-    programs = {
-      dconf.enable = true;
-      xwayland.enable = true;
+    programs.hyprland.enable = true;
+
+    desktop'.profiles = {
+      fileManager.enable = true;
+      fonts.enable = true;
+      idleDaemon.enable = true;
+      xdg.enable = true;
     };
 
-    security.polkit.enable = true;
+    home-manager.users.${user} = let
+      getExe' = comp: cmd: "${lib.getBin config.desktop'.profiles.${comp}.package}/bin/${cmd}";
 
-    home-manager.users.${user} = with config.lib.hyprland;
-      let
-        wallpaper = pkgs.fetchurl {
-          url = "https://w.wallhaven.cc/full/83/wallhaven-83o7j2.jpg";
-          sha256 = "sha256-nu8GHG9USaJvZmzvUbBG4xw1x73f1pP+/BEElwboz2k=";
-        };
-        swaybg = getExe pkgs.swaybg;
-        swaylock = getExe pkgs.swaylock-effects;
-        terminal = getExe pkgs.kitty;
-        launcher = getExe config.desktop'.components.launcher.package;
-        notify = getExe' "notification" "dunstctl";
-        fileManager = getExe' "fileManager" "nemo";
-        light = getExe pkgs.light;
-        pamixer = getExe pkgs.pamixer;
-        playerctl = getExe pkgs.playerctl;
-        grim = getExe pkgs.grim;
-        hyprpicker = getExe pkgs.hyprpicker;
-      in {
-        home.packages = with pkgs; [ slurp grimblast hyprprop scratchpad ];
+      wallpaper = pkgs.fetchurl {
+        url = "https://w.wallhaven.cc/full/83/wallhaven-83o7j2.jpg";
+        sha256 = "sha256-nu8GHG9USaJvZmzvUbBG4xw1x73f1pP+/BEElwboz2k=";
+      };
+      swaybg = getExe pkgs.swaybg;
+      swaylock = getExe pkgs.swaylock-effects;
+      terminal = getExe pkgs.kitty;
+      launcher = getExe config.desktop'.profiles.launcher.package;
+      notify = getExe' "notification" "dunstctl";
+      fileManager = getExe' "fileManager" "nemo";
+      light = getExe pkgs.light;
+      pamixer = getExe pkgs.pamixer;
+      playerctl = getExe pkgs.playerctl;
+      grim = getExe pkgs.grim;
+      hyprpicker = getExe pkgs.hyprpicker;
+    in {
+      home.packages = with pkgs; [slurp grimblast hyprprop scratchpad];
 
-        imports = [ inputs.hyprland.homeManagerModules.default ];
+      wayland.windowManager.hyprland = {
+        enable = true;
+        systemdIntegration = true;
+        settings = with colorScheme; {
+          general = {
+            border_size = 4;
+            gaps_in = 3;
+            gaps_out = 5;
+            "col.inactive_border" = "rgb(${removeHashTag base})";
+            "col.active_border" = "rgb(${removeHashTag blue})";
+            "col.group_border" = "rgb(${removeHashTag overlay1})";
+            "col.group_border_active" = "rgb(${removeHashTag lavender})";
+            cursor_inactive_timeout = 30;
+            resize_on_border = true;
+          };
 
-        wayland.windowManager.hyprland = {
-          enable = true;
-          systemdIntegration = true; # Enable hyprland-session.target
-          extraConfig = let
-            general = {
-              border_size = 4;
-              gaps_in = 3;
-              gaps_out = 5;
-              col_inactive_border = "rgb(${colorScheme.base})";
-              col_active_border = "rgb(${colorScheme.blue})";
-              col_group_border = "rgb(${colorScheme.overlay1})";
-              col_group_border_active = "rgb(${colorScheme.lavender})";
-              cursor_inactive_timeout = 30;
-              resize_on_border = true;
+          dwindle = {
+            force_split = 2;
+            preserve_split = true;
+          };
+
+          decoration = {
+            rounding = 5;
+            active_opacity = 0.9;
+            inactive_opacity = 0.98;
+            blur_size = 3;
+            blur_passes = 3;
+            shadow_range = 12;
+            shadow_offset = "3 3";
+            "col.shadow" = "rgb(${removeHashTag mantle})";
+            "col.shadow_inactive" = "rgb(${removeHashTag crust})";
+          };
+
+          input = {
+            kb_options = "caps:swapescape";
+            numlock_by_default = true;
+            repeat_delay = 300;
+            scroll_method = "2fg";
+            touchpad = {
+              natural_scroll = true;
             };
+          };
 
-            dwindle = {
-              force_split = 2;
-              preserve_split = true;
-            };
+          gestures.workspace_swipe = true;
 
-            decoration = {
-              rounding = 5;
-              active_opacity = 0.9;
-              inactive_opacity = 0.98;
-              blur_size = 3;
-              blur_passes = 3;
-              shadow_range = 12;
-              shadow_offset = "3 3";
-              col_shadow = "rgb(${colorScheme.mantle})";
-              col_shadow_inactive = "rgb(${colorScheme.crust})";
-            };
+          misc = {
+            disable_hyprland_logo = true;
+            animate_manual_resizes = true;
+          };
 
-            input = {
-              kb_options = "caps:swapescape";
-              numlock_by_default = true;
-              repeat_delay = 300;
-              scroll_method = "2fg";
-              touchpad.outPath = ''
-                {
-                    natural_scroll = true
-                  }'';
-            };
+          xwayland.force_zero_scaling = true;
 
-            gestures = { workspace_swipe = true; };
+          monitor = [
+            "eDP-1, preferred, 0x0, 1.25"
+            ", preferred, auto, 1.25"
+          ];
 
-            misc = {
-              disable_hyprland_logo = true;
-              animate_manual_resizes = true;
-            };
+          animation = [
+            "fade, 1, 3, default"
+            "windows, 1, 3, default, slide"
+            "workspaces, 1, 6, default, slide"
+          ];
 
-            xwayland = { force_zero_scaling = true; };
+          # Startup
+          exec-once = ["${swaybg} -m fit -i ${wallpaper}"];
 
-            debug = { disable_logs = true; };
-
-            floatWindows = [
-              "class:^(nm-connection-editor)$"
-              "class:^(.blueman-manager-wrapped)$"
-              "class:^(org.fcitx.)$"
-            ];
-
-            blurlsNamespaces = [ "waybar" "notifications" "wofi" ];
-          in ''
-            monitor = eDP-1, preferred, 0x0, 1.25
-            monitor = , preferred, auto, 1.25
-
-            ${mkSectionStr "general" general}
-            ${mkSectionStr "dwindle" dwindle}
-            ${mkSectionStr "decoration" decoration}
-            ${mkSectionStr "input" input}
-            ${mkSectionStr "gestures" gestures}
-            ${mkSectionStr "misc" misc}
-            ${mkSectionStr "xwayland" xwayland}
-            ${mkSectionStr "debug" debug}
-
-            animation = fade, 1, 3, default
-            animation = windows, 1, 3, default, slide
-            animation = workspaces, 1, 6, default, slide
-
-            # Startup
-            exec-once = ${swaybg} -m fit -i ${wallpaper}
-
-            # Mouse binding
-            bindm = SUPER, mouse:272, movewindow
-            bindm = SUPER, mouse:273, resizewindow
-
+          # Mouse binding
+          bindm = [
+            "SUPER, mouse:272, movewindow"
+            "SUPER, mouse:273, resizewindow"
+          ];
+          bind = [
             # Programs binding
-            bind = SUPER, return, exec, ${terminal}
-            bind = SUPER, space, exec, ${launcher}
-            bind = SUPER, E, exec, ${fileManager}
-            bind = SUPER, N, exec, ${notify} history-pop
+            "SUPER, return, exec, ${terminal}"
+            "SUPER, space, exec, ${launcher}"
+            "SUPER, E, exec, ${fileManager}"
+            "SUPER, N, exec, ${notify} history-pop"
 
-            bind = SUPER, P, pseudo, # dwindle
-            bind = SUPER, V, togglesplit, # dwindle
+            "SUPER, P, pseudo, # dwindle"
+            "SUPER, V, togglesplit, # dwindle"
 
             # Screenshots
-            bind = , print, exec, ${grim} -g "$(slurp)" "${home}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png"
-            bind = SUPER_SHIFT, p, exec, ${grim} -g "$(slurp)" - | wl-copy --type image/png
+            '', print, exec, ${grim} -g "$(slurp)" "${home}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png''
+            ''SUPER_SHIFT, p, exec, ${grim} -g "$(slurp)" - | wl-copy --type image/png''
 
             # Colorpicker
-            bind = SUPER_SHIFT, c, exec, ${hyprpicker} --autocopy
+            "SUPER_SHIFT, c, exec, ${hyprpicker} --autocopy"
 
             # Keyboard control
-            bind = , XF86MonBrightnessUP, exec, ${light} -A 5
-            bind = , XF86MonBrightnessDown, exec, ${light} -U 5
+            ", XF86MonBrightnessUP, exec, ${light} -A 5"
+            ", XF86MonBrightnessDown, exec, ${light} -U 5"
 
-            bind = , XF86AudioNext, exec, ${playerctl} next
-            bind = , XF86AudioPrev, exec, ${playerctl} previous
-            bind = , XF86AudioPlay, exec, ${playerctl} play-pause
-            bind = , XF86AudioStop, exec, ${playerctl} stop
+            ", XF86AudioNext, exec, ${playerctl} next"
+            ", XF86AudioPrev, exec, ${playerctl} previous"
+            ", XF86AudioPlay, exec, ${playerctl} play-pause"
+            ", XF86AudioStop, exec, ${playerctl} stop"
 
-            bind = , XF86AudioRaiseVolume, exec, ${pamixer} -i 10
-            bind = , XF86AudioLowerVolume, exec, ${pamixer} -d 10
-            bind = , XF86AudioMute, exec, ${pamixer} -t
+            ", XF86AudioRaiseVolume, exec, ${pamixer} -i 10"
+            ", XF86AudioLowerVolume, exec, ${pamixer} -d 10"
+            ", XF86AudioMute, exec, ${pamixer} -t"
 
             # Window manager control
-            bind = SUPER, q, killactive,
+            "SUPER, q, killactive,"
 
             # bind = SUPER, s, togglesplit # preserve_split must be enabled for toggling to work
-            bind = SUPER, F, fullscreen, 1
-            bind = SUPER_SHIFT, F, fullscreen, 0
-            bind = SUPER_SHIFT, space, togglefloating
+            "SUPER, F, fullscreen, 1"
+            "SUPER_SHIFT, F, fullscreen, 0"
+            "SUPER_SHIFT, space, togglefloating"
 
             # Change splitratio
-            bind = SUPER, minus, splitratio, -0.25
-            bind = SUPER, equal, splitratio, 0.25
+            "SUPER, minus, splitratio, -0.25"
+            "SUPER, equal, splitratio, 0.25"
 
             # Grouped windows
-            bind = SUPER, g, togglegroup
-            bind = SUPER, period, changegroupactive, f
-            bind = SUPER, comma, changegroupactive, b
+            "SUPER, g, togglegroup"
+            "SUPER, period, changegroupactive, f"
+            "SUPER, comma, changegroupactive, b"
 
             # Move focus
-            ${mkKeymap "SUPER" [ "k" "j" "h" "l" "up" "down" "left" "right" ]
-            "movefocus" [ "u" "d" "l" "r" "u" "d" "l" "r" ]}
+            "SUPER, k, movefocus, u"
+            "SUPER, j, movefocus, d"
+            "SUPER, h, movefocus, l"
+            "SUPER, l, movefocus, r"
+            "SUPER, up, movefocus, u"
+            "SUPER, down, movefocus, d"
+            "SUPER, left, movefocus, l"
+            "SUPER, right, movefocus, r"
 
             # Move focused window
-            ${mkKeymap "SUPER_SHIFT" [
-              "k"
-              "j"
-              "h"
-              "l"
-              "up"
-              "down"
-              "left"
-              "right"
-            ] "swapwindow" [ "u" "d" "l" "r" "u" "d" "l" "r" ]}
+            "SUPER_SHIFT, k, swapwindow, u"
+            "SUPER_SHIFT, j, swapwindow, d"
+            "SUPER_SHIFT, h, swapwindow, l"
+            "SUPER_SHIFT, l, swapwindow, r"
+            "SUPER_SHIFT, up, swapwindow, u"
+            "SUPER_SHIFT, down, swapwindow, d"
+            "SUPER_SHIFT, left, swapwindow, l"
+            "SUPER_SHIFT, right, swapwindow, r"
 
             # Move focused monitor
-            ${mkKeymap "SUPER_CONTROL" [
-              "k"
-              "j"
-              "h"
-              "l"
-              "up"
-              "down"
-              "left"
-              "right"
-            ] "focusmonitor" [ "u" "d" "l" "r" "u" "d" "l" "r" ]}
-
-            ${mkSubmap "Exit" "SUPER_SHIFT, Escape" ''
-              bind = , L, exec, ${swaylock}
-              bind = , L, submap, reset
-              bind = , Q, exec, systemctl --user stop graphical-session.target
-              bind = , Q, exit,
-              bind = , Q, exec, loginctl terminate-session $XDG_SESSION_ID
-              bind = , S, exec, systemctl poweroff
-              bind = , R, exec, systemctl reboot
-            ''}
-
-            # Resize submap
-            ${mkSubmap "Resize" "SUPER, R"
-            (mkKeymap "" [ "k" "j" "h" "l" "up" "down" "left" "right" ]
-              "resizeactive" [
-                "0 -20"
-                "0 20"
-                "-20 0"
-                "20 0"
-                "0 -20"
-                "0 20"
-                "-20 0"
-                "20 0"
-              ])}
+            "SUPER_CONTROL, k, focusmonitor, u"
+            "SUPER_CONTROL, j, focusmonitor, d"
+            "SUPER_CONTROL, h, focusmonitor, l"
+            "SUPER_CONTROL, l, focusmonitor, r"
+            "SUPER_CONTROL, up, focusmonitor, u"
+            "SUPER_CONTROL, down, focusmonitor, d"
+            "SUPER_CONTROL, left, focusmonitor, l"
+            "SUPER_CONTROL, right, focusmonitor, r"
 
             # Switch to workspace
-            ${mkKeymap "SUPER" [ "1" "2" "W" "D" "T" "S" "7" "8" "9" ]
-            "workspace" [ "1" "2" "3" "4" "5" "6" "7" "8" "9" ]}
-
+            "SUPER, 1, workspace, 1"
+            "SUPER, 2, workspace, 2"
+            "SUPER, W, workspace, 3"
+            "SUPER, D, workspace, 4"
+            "SUPER, T, workspace, 5"
+            "SUPER, S, workspace, 6"
+            "SUPER, 7, workspace, 7"
+            "SUPER, 8, workspace, 8"
+            "SUPER, 9, workspace, 9"
 
             # Move focused container to workspace
-            ${mkKeymap "SUPER_SHIFT" [ "1" "2" "W" "D" "T" "S" "7" "8" "9" ]
-            "movetoworkspace" [ "1" "2" "3" "4" "5" "6" "7" "8" "9" ]}
+            "SUPER_SHIFT, 1, movetoworkspace, 1"
+            "SUPER_SHIFT, 2, movetoworkspace, 2"
+            "SUPER_SHIFT, W, movetoworkspace, 3"
+            "SUPER_SHIFT, D, movetoworkspace, 4"
+            "SUPER_SHIFT, T, movetoworkspace, 5"
+            "SUPER_SHIFT, S, movetoworkspace, 6"
+            "SUPER_SHIFT, 7, movetoworkspace, 7"
+            "SUPER_SHIFT, 8, movetoworkspace, 8"
+            "SUPER_SHIFT, 9, movetoworkspace, 9"
 
-            workspace = 1, monitor:eDP-1, default:true
-            workspace = 2, monitor:DP-3, default:true
-            workspace = 3, monitor:eDP-1, default:true
-            workspace = 4, monitor:eDP-1, default:true
-            workspace = 5, monitor:eDP-1, default:true
-            workspace = 6, monitor:eDP-1, default:true
+            "SUPER, C, movetoworkspace, special"
+          ];
 
-            bind = SUPER, C, movetoworkspace, special
+          workspace = [
+            "1, monitor:eDP-1, default:true"
+            "2, monitor:DP-3, default:true"
+            "3, monitor:eDP-1, default:true"
+            "4, monitor:eDP-1, default:true"
+            "5, monitor:eDP-1, default:true"
+            "6, monitor:eDP-1, default:true"
+          ];
 
-            bindr = SUPER, TAB, workspace, e+1 # Move to next open workspace
-            bindr = SUPER_SHIFT, TAB, workspace, e-1 # Move to prev open workspace
+          bindr = [
+            "SUPER, TAB, workspace, e+1" # Move to next open workspace
+            "SUPER_SHIFT, TAB, workspace, e-1" # Move to prev open workspace
+          ];
 
-            windowrulev2 = workspace 6, title:^(Spotify)$
+          windowrulev2 = [
+            "workspace 6, title:^(Spotify)$"
 
-            ${mkOpacity "1 override 1 override" [ "class:^(firefox)$" ]}
+            "opacity 1 override 1 override, class:^(firefox)$"
 
-            ${mkFloat floatWindows}
+            "float, class:^(nm-connection-editor)$"
+            "float, class:^(.blueman-manager-wrapped)$"
+            "float, class:^(org.fcitx.)$"
+          ];
 
-            ${mkBlurls blurlsNamespaces}
-          '';
+          blurls = [
+            "waybar"
+            "notifications"
+            "launcher"
+          ];
         };
+
+        extraConfig = ''
+          # Exit submap
+          bind = SUPER_SHIFT, Escape, submap, Exit
+          submap = Exit
+
+          bind = , L, exec, ${playerctl} play-pause
+          bind = , L, exec, ${swaylock}
+          bind = , L, submap, reset
+          bind = , Q, exec, systemctl --user stop graphical-session.target
+          bind = , Q, exit,
+          bind = , Q, exec, loginctl terminate-session $XDG_SESSION_ID
+          bind = , S, exec, systemctl poweroff
+          bind = , R, exec, systemctl reboot
+
+          bind = , escape, submap, reset
+          submap = reset
+
+          # Resize submap
+          bind = SUPER, R, submap, Resize
+          submap = Resize
+
+          bind = , k, resizeactive, 0 -20
+          bind = , j, resizeactive, 0 20
+          bind = , h, resizeactive, -20 0
+          bind = , l, resizeactive, 20 0
+          bind = , up, resizeactive, 0 -20
+          bind = , down, resizeactive, 0 20
+          bind = , left, resizeactive, -20 0
+          bind = , right, resizeactive, 20 0
+
+          bind = , escape, submap, reset
+          submap = reset
+        '';
       };
+    };
   };
 }

@@ -1,6 +1,12 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let cfg = config.programs'.obs;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.programs'.obs;
 in {
   options.programs'.obs.enable = mkEnableOption "OBS Studio";
 
@@ -8,7 +14,7 @@ in {
     home-manager.users.${user} = {
       programs.obs-studio = {
         enable = true;
-        plugins = with pkgs; [ obs-studio-plugins.wlrobs ];
+        plugins = with pkgs; [obs-studio-plugins.wlrobs];
       };
     };
   };

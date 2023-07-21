@@ -1,5 +1,5 @@
-{ inputs, ... }: {
-  imports = [ inputs.disko.nixosModules.disko ];
+{inputs, ...}: {
+  imports = [inputs.disko.nixosModules.default];
 
   disko.devices = {
     disk.sda = {
@@ -10,28 +10,32 @@
         format = "gpt";
         partitions = [
           {
-            name = "boot";
-            start = "0";
-            end = "1MB";
-            flags = [ "bios_grub" ];
+            name = "ESP";
+            start = "1MiB";
+            end = "512MiB";
+            bootable = true;
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+            };
           }
           {
             name = "nixos";
-            start = "1MB";
-            end = "-8GB";
+            start = "512MiB";
+            end = "-8GiB";
             content = {
               type = "btrfs";
-              extraArgs = [ "-L nixos" "-f" ];
+              extraArgs = ["-L nixos" "-f"];
               subvolumes = {
-                "/boot".mountOptions = [ "noatime" "compress=zstd" ];
-                "/nix".mountOptions = [ "noatime" "compress=zstd" ];
-                "/persist".mountOptions = [ "noatime" "compress=zstd" ];
+                "/nix".mountOptions = ["noatime" "compress=zstd"];
+                "/persist".mountOptions = ["noatime" "compress=zstd"];
               };
             };
           }
           {
             name = "swap";
-            start = "-8GB";
+            start = "-8GiB";
             end = "100%";
             content = {
               type = "swap";
@@ -45,7 +49,7 @@
     nodev."/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      mountOptions = [ "defaults" "mode=755" ];
+      mountOptions = ["defaults" "mode=755"];
     };
   };
 

@@ -1,15 +1,21 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let cfg = config.shell'.lf;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.shell'.lf;
 in {
-  options.shell'.lf.enable = mkEnableOption "lf" // { default = true; };
+  options.shell'.lf.enable = mkEnableOption "lf" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      home.packages = [ pkgs.ctpv ];
+      home.packages = [pkgs.ctpv];
       programs.lf = {
         enable = true;
-        settings = { icons = true; };
+        settings = {icons = true;};
         extraConfig = ''
           set previewer ctpv
           set cleaner ctpvclear
