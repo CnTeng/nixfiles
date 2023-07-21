@@ -1,6 +1,10 @@
-{ lib, stdenv, sources, }:
+{
+  lib,
+  stdenv,
+  source,
+}:
 stdenv.mkDerivation {
-  inherit (sources.ttf-wps-fonts) pname version src;
+  inherit (source) pname version src;
 
   installPhase = ''
     runHook preInstall

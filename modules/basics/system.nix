@@ -1,6 +1,10 @@
-{ config, lib, ... }:
-with lib;
-let cfg = config.basics'.system;
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.basics'.system;
 in {
   options.basics'.system.stateVersion = mkOption {
     type = types.str;

@@ -1,10 +1,16 @@
-{ config, lib, pkgs, sources, user, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  sources,
+  user,
+  ...
+}:
+with lib; let
   cfg = config.shell'.fish;
   themeSrc = sources.catppuccin-fish.src;
 in {
-  options.shell'.fish.enable = mkEnableOption "fish" // { default = true; };
+  options.shell'.fish.enable = mkEnableOption "fish" // {default = true;};
 
   config = mkIf cfg.enable {
     programs.fish = {
@@ -20,10 +26,12 @@ in {
     home-manager.users.${user} = {
       programs.fish = {
         enable = true;
-        plugins = [{
-          name = "fzf-fish";
-          inherit (pkgs.fishPlugins.fzf-fish) src;
-        }];
+        plugins = [
+          {
+            name = "fzf-fish";
+            inherit (pkgs.fishPlugins.fzf-fish) src;
+          }
+        ];
         interactiveShellInit = ''
           fish_vi_key_bindings
           set fish_cursor_default block blink

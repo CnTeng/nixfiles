@@ -1,24 +1,4 @@
 {
-    "caddy": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "caddy",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "caddyserver",
-            "repo": "caddy",
-            "rev": "v2.6.4",
-            "sha256": "sha256-3a3+nFHmGONvL/TyQRqgJtrSDIn0zdGy9YwhZP17mU0=",
-            "type": "github"
-        },
-        "version": "v2.6.4"
-    },
     "catppuccin-alacritty": {
         "cargoLocks": null,
         "date": "2022-09-27",
@@ -139,6 +119,46 @@
         },
         "version": "40ae4528569d864cba8f4e64716c3361f7244209"
     },
+    "catppuccin-palette": {
+        "cargoLocks": null,
+        "date": "2023-07-10",
+        "extract": null,
+        "name": "catppuccin-palette",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "palette",
+            "rev": "205dd54c6158b7648621cf9fd00e91f03888ce7e",
+            "sha256": "sha256-y14fd8lvnG9hNY6CRU0JgxWouexEw91aIEMkr1NaM/4=",
+            "type": "github"
+        },
+        "version": "205dd54c6158b7648621cf9fd00e91f03888ce7e"
+    },
+    "catppuccin-qt5ct": {
+        "cargoLocks": null,
+        "date": "2023-03-21",
+        "extract": null,
+        "name": "catppuccin-qt5ct",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "qt5ct",
+            "rev": "89ee948e72386b816c7dad72099855fb0d46d41e",
+            "sha256": "sha256-t/uyK0X7qt6qxrScmkTU2TvcVJH97hSQuF0yyvSO/qQ=",
+            "type": "github"
+        },
+        "version": "89ee948e72386b816c7dad72099855fb0d46d41e"
+    },
     "catppuccin-starship": {
         "cargoLocks": null,
         "date": "2023-02-21",
@@ -179,26 +199,6 @@
         },
         "version": "06d519c20798f0ebe275fc3a8101841faaeee8ea"
     },
-    "cloudflare": {
-        "cargoLocks": null,
-        "date": "2023-02-24",
-        "extract": null,
-        "name": "cloudflare",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "caddy-dns",
-            "repo": "cloudflare",
-            "rev": "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec",
-            "sha256": "sha256-bqnk4XkhUI7YhCv24ha8mds5EaYphnYj8wy/mFOieqI=",
-            "type": "github"
-        },
-        "version": "a9d3ae2690a1d232bc9f8fc8b15bd4e0a6960eec"
-    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "date": null,
@@ -214,11 +214,11 @@
         },
         "version": "20230605"
     },
-    "forwardproxy": {
+    "kanagawa-gtk": {
         "cargoLocks": null,
-        "date": "2023-02-19",
+        "date": "2023-07-03",
         "extract": null,
-        "name": "forwardproxy",
+        "name": "kanagawa-gtk",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -226,13 +226,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "klzgrad",
-            "repo": "forwardproxy",
-            "rev": "ef4a5997791af459e80d166ea4a58f83db4309c2",
-            "sha256": "sha256-uiwCDjU35N+scgQg5ULgNnmML/XE6NgkhzmGfo1Ef9c=",
+            "owner": "Fausto-Korpsvart",
+            "repo": "Kanagawa-GKT-Theme",
+            "rev": "35936a1e3bbd329339991b29725fc1f67f192c1e",
+            "sha256": "sha256-BZRmjVas8q6zsYbXFk4bCk5Ec/3liy9PQ8fqFGHAXe0=",
             "type": "github"
         },
-        "version": "ef4a5997791af459e80d166ea4a58f83db4309c2"
+        "version": "35936a1e3bbd329339991b29725fc1f67f192c1e"
     },
     "naiveproxy": {
         "cargoLocks": null,

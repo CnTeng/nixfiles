@@ -1,16 +1,19 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let
-  cfg = config.desktop'.components.idle;
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.desktop'.profiles.idleDaemon;
 
-  locker = getExe config.desktop'.components.locker.package;
+  locker = getExe config.desktop'.profiles.locker.package;
   playerctl = getExe pkgs.playerctl;
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
 in {
-  options.desktop'.components.idle.enable =
-    mkEnableOption "idle daemon component" // {
-      default = config.desktop'.hyprland.enable;
-    };
+  options.desktop'.profiles.idleDaemon.enable =
+    mkEnableOption "idle daemon component";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -19,7 +22,7 @@ in {
         timeouts = [
           {
             timeout = 300;
-            command = "${locker}";
+            command = locker;
           }
           {
             timeout = 360;
@@ -29,12 +32,20 @@ in {
         ];
         events = [
           {
+            event = "lock";
+            command = "${playerctl} play-pause";
+          }
+          {
+            event = "lock";
+            command = locker;
+          }
+          {
             event = "before-sleep";
             command = "${playerctl} play-pause";
           }
           {
             event = "before-sleep";
-            command = "${locker}";
+            command = locker;
           }
         ];
         systemdTarget = "hyprland-session.target";

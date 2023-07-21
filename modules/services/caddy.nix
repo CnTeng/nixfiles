@@ -1,13 +1,17 @@
-{ config, lib, pkgs, user, ... }:
-with lib;
-let cfg = config.services'.caddy;
+{
+  config,
+  lib,
+  user,
+  ...
+}:
+with lib; let
+  cfg = config.services'.caddy;
 in {
   options.services'.caddy.enable = mkEnableOption "Caddy";
 
   config = mkIf cfg.enable {
     services.caddy = {
       enable = true;
-      package = pkgs.pcaddy;
       adapter = "caddyfile";
       globalConfig = "order forward_proxy before reverse_proxy";
       acmeCA = null;

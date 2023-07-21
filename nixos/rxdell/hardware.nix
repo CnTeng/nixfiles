@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   hardware' = {
     gpu.nvidia.enable = true;
     boot = {
@@ -32,7 +32,6 @@
         "tpm_tis"
         "tpm_crb"
       ];
-
       systemd.enable = true;
     };
 
