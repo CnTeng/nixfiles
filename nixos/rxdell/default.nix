@@ -18,7 +18,6 @@
     qutebrowser.enable = true;
     spotify.enable = true;
     steam.enable = true;
-    vmware.enable = true;
     vscode.enable = true;
     yubikey.enable = true;
   };

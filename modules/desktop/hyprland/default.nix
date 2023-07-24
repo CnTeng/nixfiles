@@ -49,6 +49,7 @@ in {
       wayland.windowManager.hyprland = {
         enable = true;
         systemdIntegration = true;
+        enableNvidiaPatches = true;
         settings = with colorScheme; {
           general = {
             border_size = 4;
@@ -71,7 +72,7 @@ in {
             rounding = 5;
             active_opacity = 0.9;
             inactive_opacity = 0.98;
-            blur_size = 3;
+            blur_size = 5;
             blur_passes = 3;
             shadow_range = 12;
             shadow_offset = "3 3";
