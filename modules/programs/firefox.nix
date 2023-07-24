@@ -39,10 +39,13 @@ in {
       preferences = {
         "intl.accept_languages" = "zh-cn,en-us";
         "intl.locale.requested" = "zh-cn";
-        "gfx.webrender.all" = true;
+        # "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
       };
       languagePacks = ["en-US" "zh-CN"];
+      nativeMessagingHosts = {
+        tridactyl = true;
+      };
     };
   };
 }

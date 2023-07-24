@@ -58,7 +58,7 @@ in {
 
         sioyek
 
-        libsForQt5.okular
+        brave
       ];
     };
   };

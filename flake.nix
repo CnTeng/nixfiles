@@ -78,6 +78,8 @@
       inputs.devshell.follows = "devshell";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
+
+    nixos-wsl.url = "github:nix-community/nixos-wsl";
   };
 
   outputs = inputs @ {flake-parts, ...}:
