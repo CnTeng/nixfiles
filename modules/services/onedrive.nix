@@ -13,8 +13,7 @@ in {
     services.onedrive.enable = true;
 
     environment.persistence."/persist" = mkIf config.hardware'.stateless.enable {
-      files = ["/etc/vmware/license-ws-170-e5-202208"];
-      users.${user}.directories = [".vmware"];
+      users.${user}.directories = ["OneDrive"];
     };
   };
 }
