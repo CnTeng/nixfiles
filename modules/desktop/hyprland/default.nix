@@ -19,9 +19,19 @@ in {
     programs.hyprland.enable = true;
 
     desktop'.profiles = {
+      console.enable = true;
       fileManager.enable = true;
       fonts.enable = true;
       idleDaemon.enable = true;
+      inputMethod.enable = true;
+      launcher.enable = true;
+      locker.enable = true;
+      loginManager.enable = true;
+      notification.enable = true;
+      services.enable = true;
+      theme.enable = true;
+      variables.enable = true;
+      waybar.enable = true;
       xdg.enable = true;
     };
 

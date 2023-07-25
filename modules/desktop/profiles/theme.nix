@@ -10,7 +10,7 @@ with lib; let
   inherit (cfg) modules;
 in {
   options.desktop'.profiles.theme = {
-    enable = mkEnableOption "custom gtk and qt theme" // {default = true;};
+    enable = mkEnableOption "custom gtk and qt theme";
 
     modules =
       mapAttrs

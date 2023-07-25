@@ -51,6 +51,11 @@ in {
           targetHost = null;
         };
 
+        rxwsl.deployment = {
+          allowLocalDeployment = true;
+          targetHost = null;
+        };
+
         rxaws.deployment = {};
 
         rxhz = {

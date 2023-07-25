@@ -8,10 +8,7 @@ with lib; let
   cfg = config.desktop'.profiles.loginManager;
 in {
   options.desktop'.profiles.loginManager.enable =
-    mkEnableOption "login manager component"
-    // {
-      default = true;
-    };
+    mkEnableOption "login manager component";
 
   config = mkIf cfg.enable {
     services.greetd = {

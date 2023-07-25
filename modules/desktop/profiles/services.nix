@@ -9,7 +9,7 @@ with lib; let
   cfg = config.desktop'.profiles.services;
 in {
   options.desktop'.profiles.services.enable =
-    mkEnableOption "services component" // {default = true;};
+    mkEnableOption "services component";
 
   config = mkIf cfg.enable {
     services = {

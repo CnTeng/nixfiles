@@ -10,7 +10,7 @@ with lib; let
   inherit (config.desktop'.profiles) colorScheme;
 in {
   options.desktop'.profiles.launcher = {
-    enable = mkEnableOption "launcher component" // {default = true;};
+    enable = mkEnableOption "launcher component";
     package = mkPackageOption pkgs "launcher" {default = ["fuzzel"];};
   };
 
