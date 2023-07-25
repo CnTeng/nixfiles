@@ -31,7 +31,6 @@ in {
         gimp
 
         # Office
-        wpsoffice-cn
         libreoffice
         drawio
 
@@ -46,8 +45,6 @@ in {
 
         ffmpeg
 
-        masterpdfeditor
-
         thunderbird
 
         planify
@@ -57,8 +54,6 @@ in {
         todoist-electron
 
         sioyek
-
-        brave
       ];
     };
   };

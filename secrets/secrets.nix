@@ -11,7 +11,6 @@ in {
   "services/caddy.age".publicKeys = [yufei rxaws rxhz];
   "services/miniflux.age".publicKeys = [yufei rxhz];
   "services/naive.age".publicKeys = [yufei rxaws rxhz];
+  "services/sing-box.age".publicKeys = [yufei rxdell rxwsl];
   "services/vaultwarden.age".publicKeys = [yufei rxhz];
-
-  "shell/naive.age".publicKeys = [yufei rxdell rxwsl];
 }
