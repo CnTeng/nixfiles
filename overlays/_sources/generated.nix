@@ -99,15 +99,15 @@
   };
   catppuccin-starship = {
     pname = "catppuccin-starship";
-    version = "3e3e54410c3189053f4da7a7043261361a1ed1bc";
+    version = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "starship";
-      rev = "3e3e54410c3189053f4da7a7043261361a1ed1bc";
+      rev = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
       fetchSubmodules = false;
-      sha256 = "sha256-soEBVlq3ULeiZFAdQYMRFuswIIhI9bclIU8WXjxd7oY=";
+      sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
     };
-    date = "2023-02-21";
+    date = "2023-07-13";
   };
   catppuccin-zsh = {
     pname = "catppuccin-zsh";
@@ -141,8 +141,8 @@
     };
     date = "2023-07-03";
   };
-  naiveproxy = {
-    pname = "naiveproxy";
+  naive = {
+    pname = "naive";
     version = "v114.0.5735.91-3";
     src = fetchurl {
       url = "https://github.com/klzgrad/naiveproxy/releases/download/v114.0.5735.91-3/naiveproxy-v114.0.5735.91-3-linux-x64.tar.xz";
