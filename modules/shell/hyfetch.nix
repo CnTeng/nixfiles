@@ -1,4 +1,3 @@
-# TODO: finsh fzf config
 {
   config,
   lib,
