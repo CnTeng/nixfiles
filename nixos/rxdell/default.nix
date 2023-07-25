@@ -40,4 +40,5 @@
     lrzsz
     gnome.gnome-terminal
   ];
+  services'.sing-box.enable = true;
 }

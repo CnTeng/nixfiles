@@ -12,9 +12,7 @@ in {
 
   options.basics'.home-manager.enable =
     mkEnableOption "home-manager"
-    // {
-      default = true;
-    };
+    // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager = {
