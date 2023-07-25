@@ -70,7 +70,7 @@ in {
     };
 
     age.secrets.miniflux = {
-      file = ../../secrets/services/miniflux.age;
+      file = config.age.file + /services/miniflux.age;
       owner = "${user}";
       group = "users";
       mode = "644";

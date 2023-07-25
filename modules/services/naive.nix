@@ -30,7 +30,7 @@ in {
     '';
 
     age.secrets.naive = {
-      file = ../../secrets/services/naive.age;
+      file = config.age.file + /services/naive.age;
       owner = "${user}";
       group = "users";
       mode = "644";
