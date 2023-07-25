@@ -23,7 +23,7 @@ in {
     };
 
     age.secrets.caddy = {
-      file = config.age.file + services/caddy.age;
+      file = config.age.file + /services/caddy.age;
       owner = "${user}";
       group = "users";
       mode = "644";
