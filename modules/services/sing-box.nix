@@ -33,7 +33,7 @@ in {
     };
 
     age.secrets.sing-box = {
-      file = ../../secrets/services/sing-box.age;
+      file = config.age.file + /services/sing-box.age;
       owner = "${user}";
       group = "users";
       mode = "644";

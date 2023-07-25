@@ -63,7 +63,7 @@ in {
     };
 
     age.secrets.vaultwarden = {
-      file = ../../secrets/services/vaultwarden.age;
+      file = config.age.file + /services/vaultwarden.age;
       path = "/var/lib/vaultwarden.env";
       owner = "vaultwarden";
       group = "vaultwarden";

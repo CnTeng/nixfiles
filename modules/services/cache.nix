@@ -34,7 +34,7 @@ in {
     };
 
     age.secrets.cache = {
-      file = ../../secrets/services/cache.age;
+      file = config.age.file + /services/cache.age;
       owner = "harmonia";
       group = "harmonia";
       mode = "644";
