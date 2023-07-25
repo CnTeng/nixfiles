@@ -15,10 +15,7 @@ with lib; let
   networkManager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 in {
   options.desktop'.profiles.waybar.enable =
-    mkEnableOption "waybar"
-    // {
-      default = true;
-    };
+    mkEnableOption "waybar";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

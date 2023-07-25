@@ -8,10 +8,7 @@ with lib; let
   cfg = config.desktop'.profiles.variables;
 in {
   options.desktop'.profiles.variables.enable =
-    mkEnableOption "Variables"
-    // {
-      default = true;
-    };
+    mkEnableOption "Variables";
 
   config = mkIf cfg.enable {
     environment.sessionVariables = {

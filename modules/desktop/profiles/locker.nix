@@ -10,7 +10,7 @@ with lib; let
   inherit (config.desktop'.profiles) colorScheme;
 in {
   options.desktop'.profiles.locker = {
-    enable = mkEnableOption "locker component" // {default = true;};
+    enable = mkEnableOption "locker component";
     package =
       mkPackageOption pkgs "locker" {default = ["swaylock-effects"];};
   };
