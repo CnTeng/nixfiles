@@ -9,8 +9,7 @@ with lib; let
   inherit (config.desktop'.profiles) colorScheme;
 in {
   options.desktop'.profiles.console.enable =
-    mkEnableOption "console config"
-    // {default = true;};
+    mkEnableOption "console config";
 
   config = mkIf cfg.enable {
     console = {

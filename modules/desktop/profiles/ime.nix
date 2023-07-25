@@ -10,8 +10,7 @@ with lib; let
   # inherit (config.home-manager.users.${user}.home) profileDirectory;
 in {
   options.desktop'.profiles.inputMethod.enable =
-    mkEnableOption "input method component"
-    // {default = true;};
+    mkEnableOption "input method component";
 
   config = mkIf cfg.enable {
     services.xserver = {

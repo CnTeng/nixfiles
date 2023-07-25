@@ -11,7 +11,7 @@ with lib; let
   inherit (config.home-manager.users.${user}.gtk) iconTheme;
 in {
   options.desktop'.profiles.notification = {
-    enable = mkEnableOption "notification daemon component" // {default = true;};
+    enable = mkEnableOption "notification daemon component";
     package =
       mkPackageOption pkgs "notification daemon" {default = ["dunst"];};
   };
