@@ -9,14 +9,9 @@ with lib; let
   inherit (config.users.users.${user}) home;
 in {
   options.basics'.ssh.enable =
-    mkEnableOption "ssh config"
-    // {
-      default = true;
-    };
+    mkEnableOption "ssh config" // {default = true;};
 
   config = mkIf cfg.enable {
-    programs.ssh.startAgent = true;
-
     home-manager.users.${user} = {
       programs.ssh = {
         enable = true;

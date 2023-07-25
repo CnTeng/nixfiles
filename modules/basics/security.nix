@@ -10,11 +10,17 @@ with lib; let
 in {
   imports = [inputs.agenix.nixosModules.default];
 
-  options.basics'.security.enable =
-    mkEnableOption "security config"
-    // {
-      default = true;
+  options = {
+    basics'.security.enable =
+      mkEnableOption "security config" // {default = true;};
+
+    age.file = mkOption {
+      type = types.path;
+      description = ''
+        Age file the secret is loaded from.
+      '';
     };
+  };
 
   config = mkIf cfg.enable {
     security = {
@@ -25,9 +31,13 @@ in {
 
     environment.systemPackages = with pkgs; [rage age-plugin-yubikey];
 
-    age.identityPaths = [
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/persist/etc/ssh/ssh_host_ed25519_key"
-    ];
+    age = {
+      file = ../../secrets;
+
+      identityPaths = [
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/persist/etc/ssh/ssh_host_ed25519_key"
+      ];
+    };
   };
 }

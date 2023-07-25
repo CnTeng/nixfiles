@@ -8,10 +8,7 @@ with lib; let
   cfg = config.basics'.nix;
 in {
   options.basics'.nix.enable =
-    mkEnableOption "nix config"
-    // {
-      default = true;
-    };
+    mkEnableOption "nix config" // {default = true;};
 
   config = mkMerge [
     (mkIf cfg.enable {
