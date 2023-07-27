@@ -9,7 +9,7 @@ with lib; let
   cfg = config.desktop'.profiles.waybar;
 
   inherit (config.home-manager.users.${user}.home) profileDirectory;
-  inherit (config.desktop'.profiles) colorScheme;
+  inherit (config.desktop'.profiles) palette;
 
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
   networkManager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
@@ -25,7 +25,7 @@ in {
         Service.Environment = "PATH=${profileDirectory}/bin";
       };
 
-      programs.waybar = with colorScheme; {
+      programs.waybar = with palette; {
         enable = true;
         systemd.enable = true;
         settings = [
@@ -193,11 +193,11 @@ in {
                 weeks-pos = "right";
                 on-scroll = 1;
                 format = {
-                  months = "<span color='${peach}'><b>{}</b></span>";
-                  days = "<span color='${text}'><b>{}</b></span>";
-                  weeks = "<span color='${blue}'><b>W{}</b></span>";
-                  weekdays = "<span color='${yellow}'><b>{}</b></span>";
-                  today = "<span color='${red}'><b><u>{}</u></b></span>";
+                  months = "<span color='${peach.hex}'><b>{}</b></span>";
+                  days = "<span color='${text.hex}'><b>{}</b></span>";
+                  weeks = "<span color='${blue.hex}'><b>W{}</b></span>";
+                  weekdays = "<span color='${yellow.hex}'><b>{}</b></span>";
+                  today = "<span color='${red.hex}'><b><u>{}</u></b></span>";
                 };
               };
               actions = {
@@ -217,35 +217,35 @@ in {
           }
 
           window#waybar {
-            color: ${text};
-            background-color: rgba(${toRgb base}, 0.9);
+            color: ${text.hex};
+            background-color: rgba(${base.raw}, 0.9);
             opacity: 0.9;
             padding: 0;
           }
 
           #workspaces {
-            color: ${text};
-            background-color: rgba(${toRgb surface1}, 0.9);
+            color: ${text.hex};
+            background-color: rgba(${surface1.raw}, 0.9);
             padding: 0 4px;
             margin: 4px 3px 4px 0;
             border-radius: 0 11px 11px 0;
           }
           #workspaces button {
-            color: ${text};
+            color: ${text.hex};
             padding: 0 0 0 3px;
             margin: 0 4px;
           }
           #workspaces button.focused,
           #workspaces button.active {
-            color: ${blue};
+            color: ${blue.hex};
           }
           #workspaces button.urgent {
-            color: ${red};
+            color: ${red.hex};
           }
 
           #submap {
-            color: ${base};
-            background-color: rgba(${toRgb red}, 0.9);
+            color: ${base.hex};
+            background-color: rgba(${red.raw}, 0.9);
             padding: 0 8px;
             margin: 4px 3px;
             border-radius: 11px;
@@ -253,7 +253,7 @@ in {
 
           #window,
           #tray {
-            color: ${text};
+            color: ${text.hex};
             padding: 0 4px;
             margin: 4px 3px;
           }
@@ -267,8 +267,8 @@ in {
           #network,
           #battery,
           #clock {
-            color: ${text};
-            background-color: rgba(${toRgb surface1}, 0.9);
+            color: ${text.hex};
+            background-color: rgba(${surface1.raw}, 0.9);
             padding: 0 4px;
             margin: 4px 0;
           }
@@ -293,13 +293,13 @@ in {
           }
 
           #battery.warning {
-            color: ${yellow};
+            color: ${yellow.hex};
           }
           #battery.critical {
-            color: ${red};
+            color: ${red.hex};
           }
           #battery.charging {
-            color: ${green};
+            color: ${green.hex};
           }
         '';
       };
