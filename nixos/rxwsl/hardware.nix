@@ -3,7 +3,6 @@
 
   wsl = {
     enable = true;
-    # nativeSystemd = true;
     defaultUser = "yufei";
   };
 }

@@ -12,6 +12,4 @@
     linuxPackages.usbip
     picocom
   ];
-
-  boot.kernelModules = ["ftdi_sio" "pl2303"];
 }
