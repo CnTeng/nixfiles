@@ -9,6 +9,7 @@ with lib; let
   authorizedKeys = [
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPmKxwF3v9GvcPJ67fNf42o5/NZvWqWkMu/QrRuQo95OAAAAD3NzaDpyeGF3c0BOaXhPUw== ssh:rxaws@NixOS"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIFWwOxGhmGVpk2XUBu+PWPXeczcqA/PHt8P+EJrBull4AAAADnNzaDpyeGh6QE5peE9T ssh:rxhz@NixOS"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKNYDOMB5ucH/xOXSBVlRGsSwi2qJJVK6h+Yce7ZcxY ssh:rxwsl@NixOS"
   ];
 in {
   options.services'.openssh.enable = mkEnableOption "openssh";
