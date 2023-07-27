@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.console;
-  inherit (config.desktop'.profiles) colorScheme;
+  inherit (config.desktop'.profiles) palette;
 in {
   options.desktop'.profiles.console.enable =
     mkEnableOption "console config";
@@ -15,24 +15,24 @@ in {
     console = {
       useXkbConfig = true;
       font = "ter-v20b";
-      colors = with colorScheme;
+      colors = with palette;
         map removeHashTag [
-          "${base}"
-          "${mantle}"
-          "${surface0}"
-          "${surface1}"
-          "${surface2}"
-          "${text}"
-          "${rosewater}"
-          "${lavender}"
-          "${red}"
-          "${peach}"
-          "${yellow}"
-          "${green}"
-          "${teal}"
-          "${blue}"
-          "${mauve}"
-          "${flamingo}"
+          "${base.hex}"
+          "${mantle.hex}"
+          "${surface0.hex}"
+          "${surface1.hex}"
+          "${surface2.hex}"
+          "${text.hex}"
+          "${rosewater.hex}"
+          "${lavender.hex}"
+          "${red.hex}"
+          "${peach.hex}"
+          "${yellow.hex}"
+          "${green.hex}"
+          "${teal.hex}"
+          "${blue.hex}"
+          "${mauve.hex}"
+          "${flamingo.hex}"
         ];
       packages = [pkgs.terminus_font];
     };

@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.launcher;
-  inherit (config.desktop'.profiles) colorScheme;
+  inherit (config.desktop'.profiles) palette;
 in {
   options.desktop'.profiles.launcher = {
     enable = mkEnableOption "launcher component";
@@ -26,14 +26,14 @@ in {
             lines = 5;
             width = 50;
           };
-          colors = with colorScheme; {
-            background = "${removeHashTag base}e6";
-            text = "${removeHashTag text}ff";
-            match = "${removeHashTag blue}ff";
-            selection = "${removeHashTag surface1}ff";
-            selection-text = "${removeHashTag text}ff";
-            selection-match = "${removeHashTag blue}ff";
-            border = "${removeHashTag blue}e6";
+          colors = with palette; {
+            background = "${removeHashTag base.hex}e6";
+            text = "${removeHashTag text.hex}ff";
+            match = "${removeHashTag blue.hex}ff";
+            selection = "${removeHashTag surface1.hex}ff";
+            selection-text = "${removeHashTag text.hex}ff";
+            selection-match = "${removeHashTag blue.hex}ff";
+            border = "${removeHashTag blue.hex}e6";
           };
         };
       };

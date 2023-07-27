@@ -8,7 +8,6 @@
 with lib; let
   cfg = config.shell'.git;
   inherit (config.users.users.${user}) home;
-  # inherit (config.basics') colorScheme;
 in {
   options.shell'.git.enable = mkEnableOption "git" // {default = true;};
 
@@ -25,8 +24,6 @@ in {
           options = {
             dark = true;
             line-numbers = true;
-            # line-numbers-minus-style = ''"#${colorScheme.red}"'';
-            # line-numbers-plus-style = ''"#${colorScheme.green}"'';
             syntax-theme = "Catppuccin-macchiato";
           };
         };
@@ -37,14 +34,6 @@ in {
         settings = {
           gui.theme = {
             lightTheme = false;
-            # activeBorderColor = ["#${colorScheme.green}" "bold"];
-            # inactiveBorderColor = ["#${colorScheme.text}"];
-            # optionsTextColor = ["#${colorScheme.blue}"];
-            # selectedLineBgColor = ["#${colorScheme.surface0}"];
-            # selectedRangeBgColor = ["#${colorScheme.surface0}"];
-            # cherryPickedCommitBgColor = ["#${colorScheme.teal}"];
-            # cherryPickedCommitFgColor = ["#${colorScheme.blue}"];
-            # unstagedChangesColor = ["#${colorScheme.red}"];
           };
           customCommands = [
             {

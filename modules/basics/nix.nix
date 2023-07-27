@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -13,7 +12,6 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       nix = {
-        package = pkgs.nixUnstable;
         settings = {
           auto-optimise-store = true;
           builders-use-substitutes = true;

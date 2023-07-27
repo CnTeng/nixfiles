@@ -44,21 +44,6 @@ in {
       users.users.${user}.extraGroups = ["video"];
 
       programs.light.enable = true;
-
-      location.provider = "geoclue2";
-
-      # services = {
-      #   # use Ambient Light Sensors for auto brightness adjustment
-      #   clight = {
-      #     enable = true;
-      #     settings = {
-      #       verbose = true;
-      #       dpms.timeouts = [900 300];
-      #       dimmer.timeouts = [870 270];
-      #       screen.disabled = true;
-      #     };
-      #   };
-      # };
     })
   ]);
 }

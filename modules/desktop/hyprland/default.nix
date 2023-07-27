@@ -9,7 +9,7 @@ with lib; let
   cfg = config.desktop'.hyprland;
 
   inherit (config.users.users.${user}) home;
-  inherit (config.desktop'.profiles) colorScheme;
+  inherit (config.desktop'.profiles) palette;
 in {
   imports = [../profiles];
 
@@ -36,7 +36,7 @@ in {
     };
 
     home-manager.users.${user} = let
-      getExe' = comp: cmd: "${lib.getBin config.desktop'.profiles.${comp}.package}/bin/${cmd}";
+      getExe' = profile: cmd: "${lib.getBin config.desktop'.profiles.${profile}.package}/bin/${cmd}";
 
       wallpaper = pkgs.fetchurl {
         url = "https://w.wallhaven.cc/full/83/wallhaven-83o7j2.jpg";
@@ -56,19 +56,19 @@ in {
     in {
       home.packages = with pkgs; [slurp grimblast hyprprop scratchpad];
 
-      wayland.windowManager.hyprland = {
+      wayland.windowManager.hyprland = with palette; {
         enable = true;
         systemdIntegration = true;
         enableNvidiaPatches = true;
-        settings = with colorScheme; {
+        settings = {
           general = {
             border_size = 4;
             gaps_in = 3;
             gaps_out = 5;
-            "col.inactive_border" = "rgb(${removeHashTag base})";
-            "col.active_border" = "rgb(${removeHashTag blue})";
-            "col.group_border" = "rgb(${removeHashTag overlay1})";
-            "col.group_border_active" = "rgb(${removeHashTag lavender})";
+            "col.inactive_border" = "rgb(${removeHashTag base.hex})";
+            "col.active_border" = "rgb(${removeHashTag blue.hex})";
+            "col.group_border" = "rgb(${removeHashTag overlay1.hex})";
+            "col.group_border_active" = "rgb(${removeHashTag lavender.hex})";
             cursor_inactive_timeout = 30;
             resize_on_border = true;
           };
@@ -86,8 +86,8 @@ in {
             blur_passes = 3;
             shadow_range = 12;
             shadow_offset = "3 3";
-            "col.shadow" = "rgb(${removeHashTag mantle})";
-            "col.shadow_inactive" = "rgb(${removeHashTag crust})";
+            "col.shadow" = "rgb(${removeHashTag mantle.hex})";
+            "col.shadow_inactive" = "rgb(${removeHashTag crust.hex})";
           };
 
           input = {

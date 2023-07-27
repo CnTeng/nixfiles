@@ -129,18 +129,6 @@
       sha256 = "sha256-G44bgOWpnQEbP78idcOobEUm2m+7cYM+UCqyJu+D+9E=";
     };
   };
-  kanagawa-gtk = {
-    pname = "kanagawa-gtk";
-    version = "35936a1e3bbd329339991b29725fc1f67f192c1e";
-    src = fetchFromGitHub {
-      owner = "Fausto-Korpsvart";
-      repo = "Kanagawa-GKT-Theme";
-      rev = "35936a1e3bbd329339991b29725fc1f67f192c1e";
-      fetchSubmodules = false;
-      sha256 = "sha256-BZRmjVas8q6zsYbXFk4bCk5Ec/3liy9PQ8fqFGHAXe0=";
-    };
-    date = "2023-07-03";
-  };
   naive = {
     pname = "naive";
     version = "v114.0.5735.91-3";
@@ -148,29 +136,5 @@
       url = "https://github.com/klzgrad/naiveproxy/releases/download/v114.0.5735.91-3/naiveproxy-v114.0.5735.91-3-linux-x64.tar.xz";
       sha256 = "sha256-EJ5MkfmLBmVgaT5UluLvulEjMdTSAXoz3wg/ieF1Bsk=";
     };
-  };
-  ttf-ms-win10 = {
-    pname = "ttf-ms-win10";
-    version = "417eb232e8d037964971ae2690560a7b12e5f0d4";
-    src = fetchFromGitHub {
-      owner = "streetsamurai00mi";
-      repo = "ttf-ms-win10";
-      rev = "417eb232e8d037964971ae2690560a7b12e5f0d4";
-      fetchSubmodules = false;
-      sha256 = "sha256-UwkHlrSRaXhfoMlimyXFETV9yq1SbvUXykrhigf+wP8=";
-    };
-    date = "2021-02-10";
-  };
-  ttf-wps-fonts = {
-    pname = "ttf-wps-fonts";
-    version = "b3e935355afcfb5240bac5a99707ffecc35772a2";
-    src = fetchFromGitHub {
-      owner = "BannedPatriot";
-      repo = "ttf-wps-fonts";
-      rev = "b3e935355afcfb5240bac5a99707ffecc35772a2";
-      fetchSubmodules = false;
-      sha256 = "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=";
-    };
-    date = "2017-08-15";
   };
 }

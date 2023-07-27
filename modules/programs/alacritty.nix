@@ -8,6 +8,8 @@
 with lib; let
   cfg = config.programs'.alacritty;
   themeSrc = sources.catppuccin-alacritty.src;
+
+  inherit (config.basics'.colors) flavour;
 in {
   options.programs'.alacritty.enable = mkEnableOption "Alacritty";
 
@@ -23,7 +25,7 @@ in {
             bold_italic.family = "FiraCode Nerd Font";
             size = 12;
           };
-          import = [(themeSrc + /catppuccin-macchiato.yml)];
+          import = [(themeSrc + /catppuccin-${toLower flavour}.yml)];
         };
       };
     };

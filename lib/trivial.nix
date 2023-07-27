@@ -2,6 +2,8 @@
 with lib; rec {
   removeHashTag = hex: removePrefix "#" hex;
 
+  getColorHex = palette: color: removeHashTag palette.${color}.hex;
+
   toDec = hex: let
     parseDigit = char:
       if char < "a"
