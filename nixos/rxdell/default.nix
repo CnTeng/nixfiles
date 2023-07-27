@@ -1,7 +1,10 @@
 {
   imports = [./hardware.nix ./disko.nix];
 
-  basics'.system.stateVersion = "23.11";
+  basics' = {
+    colors.flavour = "Mocha";
+    system.stateVersion = "23.11";
+  };
 
   desktop'.hyprland.enable = true;
 

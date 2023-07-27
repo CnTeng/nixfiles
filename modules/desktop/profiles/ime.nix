@@ -7,7 +7,6 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.inputMethod;
-  # inherit (config.home-manager.users.${user}.home) profileDirectory;
 in {
   options.desktop'.profiles.inputMethod.enable =
     mkEnableOption "input method component";

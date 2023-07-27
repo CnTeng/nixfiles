@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.notification;
-  inherit (config.desktop'.profiles) colorScheme;
+  inherit (config.desktop'.profiles) palette;
   inherit (config.home-manager.users.${user}.gtk) iconTheme;
 in {
   options.desktop'.profiles.notification = {
@@ -18,20 +18,20 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      services.mako = with colorScheme; {
+      services.mako = with palette; {
         enable = true;
         # Copy from https://github.com/catppuccin/mako
-        backgroundColor = "${base}e6";
-        textColor = "${text}";
+        backgroundColor = "${base.hex}e6";
+        textColor = "${text.hex}";
         iconPath = "${iconTheme.package}/share/icons/Papirus-Dark";
-        borderColor = "${blue}";
-        progressColor = "over ${surface0}";
+        borderColor = "${blue.hex}";
+        progressColor = "over ${surface0.hex}";
         margin = "0";
         extraConfig = ''
           outer-margin=5
 
           [urgency=high]
-          border-color=${peach}
+          border-color=${peach.hex}
         '';
 
         width = 400;

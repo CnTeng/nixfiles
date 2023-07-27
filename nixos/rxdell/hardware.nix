@@ -19,7 +19,7 @@
     wireless.enable = true;
   };
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_3;
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
       availableKernelModules = [
         "xhci_pci"

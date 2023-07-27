@@ -59,7 +59,7 @@ in {
             variant = "mocha";
             tweaks = ["rimless"];
           };
-          name = "Catppuccin-Mocha-Standard-Blue-Dark";
+          name = "Catppuccin-Mocha-Standard-Blue-dark";
         };
 
         gtk2.configLocation = "${config.home-manager.users.${user}.xdg.configHome}/gtk-2.0/gtkrc";

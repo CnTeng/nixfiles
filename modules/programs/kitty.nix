@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.programs'.kitty;
+  inherit (config.basics'.colors) flavour;
 in {
   options.programs'.kitty.enable = mkEnableOption "kitty";
 
@@ -19,7 +20,7 @@ in {
           name = "FiraCode Nerd Font";
           size = 12;
         };
-        theme = "Catppuccin-Mocha";
+        theme = "Catppuccin-${flavour}";
         settings = {
           # term = "xterm-256color";
           tab_fade = "1 1 1";

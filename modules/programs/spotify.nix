@@ -9,6 +9,8 @@
 with lib; let
   cfg = config.programs'.spotify;
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+
+  inherit (config.basics'.colors) flavour;
 in {
   options.programs'.spotify.enable = mkEnableOption "Spotify";
 
@@ -18,7 +20,7 @@ in {
 
       programs.spicetify = {
         enable = true;
-        theme = spicePkgs.themes.catppuccin-mocha;
+        theme = spicePkgs.themes."catppuccin-${toLower flavour}";
         colorScheme = "blue";
 
         enabledExtensions = with spicePkgs.extensions; [

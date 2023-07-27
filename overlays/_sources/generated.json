@@ -214,26 +214,6 @@
         },
         "version": "20230605"
     },
-    "kanagawa-gtk": {
-        "cargoLocks": null,
-        "date": "2023-07-03",
-        "extract": null,
-        "name": "kanagawa-gtk",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Fausto-Korpsvart",
-            "repo": "Kanagawa-GKT-Theme",
-            "rev": "35936a1e3bbd329339991b29725fc1f67f192c1e",
-            "sha256": "sha256-BZRmjVas8q6zsYbXFk4bCk5Ec/3liy9PQ8fqFGHAXe0=",
-            "type": "github"
-        },
-        "version": "35936a1e3bbd329339991b29725fc1f67f192c1e"
-    },
     "naive": {
         "cargoLocks": null,
         "date": null,
@@ -248,45 +228,5 @@
             "url": "https://github.com/klzgrad/naiveproxy/releases/download/v114.0.5735.91-3/naiveproxy-v114.0.5735.91-3-linux-x64.tar.xz"
         },
         "version": "v114.0.5735.91-3"
-    },
-    "ttf-ms-win10": {
-        "cargoLocks": null,
-        "date": "2021-02-10",
-        "extract": null,
-        "name": "ttf-ms-win10",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "streetsamurai00mi",
-            "repo": "ttf-ms-win10",
-            "rev": "417eb232e8d037964971ae2690560a7b12e5f0d4",
-            "sha256": "sha256-UwkHlrSRaXhfoMlimyXFETV9yq1SbvUXykrhigf+wP8=",
-            "type": "github"
-        },
-        "version": "417eb232e8d037964971ae2690560a7b12e5f0d4"
-    },
-    "ttf-wps-fonts": {
-        "cargoLocks": null,
-        "date": "2017-08-15",
-        "extract": null,
-        "name": "ttf-wps-fonts",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "BannedPatriot",
-            "repo": "ttf-wps-fonts",
-            "rev": "b3e935355afcfb5240bac5a99707ffecc35772a2",
-            "sha256": "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=",
-            "type": "github"
-        },
-        "version": "b3e935355afcfb5240bac5a99707ffecc35772a2"
     }
 }
