@@ -34,10 +34,9 @@ in {
     age = {
       file = ../../secrets;
 
-      identityPaths = [
-        "/etc/ssh/ssh_host_ed25519_key"
-        "/persist/etc/ssh/ssh_host_ed25519_key"
-      ];
+      identityPaths =
+        ["/etc/ssh/ssh_host_ed25519_key"]
+        ++ optionals config.hardware'.stateless.enable ["/persist/etc/ssh/ssh_host_ed25519_key"];
     };
   };
 }
