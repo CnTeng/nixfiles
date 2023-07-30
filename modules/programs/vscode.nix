@@ -11,10 +11,6 @@ in {
   options.programs'.vscode.enable = mkEnableOption "Visual Studio Code";
 
   config = mkIf cfg.enable {
-    # environment.sessionVariables = {
-    #   NIXOS_OZONE_WL = "1";
-    # };
-
     home-manager.users.${user} = {
       programs.vscode = {
         enable = true;

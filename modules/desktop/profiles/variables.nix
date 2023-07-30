@@ -17,6 +17,7 @@ in {
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
+      NIXOS_OZONE_WL = "1";
       XDG_SESSION_DESKTOP = "Hyprland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
