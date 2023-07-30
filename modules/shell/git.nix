@@ -15,10 +15,9 @@ in {
     home-manager.users.${user} = {
       programs.git = {
         lfs.enable = true;
-
         enable = true;
         userName = "CnTeng";
-        userEmail = "istengyf@outlook.com";
+        userEmail = "me@snakepi.xyz";
         delta = {
           enable = true;
           options = {
