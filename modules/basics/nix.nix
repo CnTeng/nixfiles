@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   ...
 }:
@@ -13,6 +14,7 @@ in {
     (mkIf cfg.enable {
       nix = {
         settings = {
+          nix-path = ["nixpkgs=${inputs.nixpkgs}"];
           auto-optimise-store = true;
           builders-use-substitutes = true;
           experimental-features = [
@@ -31,6 +33,7 @@ in {
           trusted-users = ["root" "@wheel"];
           auto-allocate-uids = true;
           use-cgroups = true;
+          use-xdg-base-directories = true;
         };
         gc = {
           automatic = true;
@@ -38,6 +41,7 @@ in {
           options = "--delete-older-than 7d";
         };
       };
+      nix.channel.enable = false;
     })
     (mkIf config.hardware'.stateless.enable {
       environment.variables.NIX_REMOTE = "daemon";

@@ -42,7 +42,7 @@ in {
     services.sing-box = {
       enable = true;
       settings = {
-        log.level = "debug";
+        log.level = "info";
         dns = {
           servers = [
             {
