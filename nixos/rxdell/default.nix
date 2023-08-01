@@ -27,7 +27,7 @@
   services' = {
     onedrive.enable = true;
     openssh.enable = true;
-    sing-box.enable = true;
+    dae.enable = true;
   };
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

@@ -9,8 +9,8 @@ let
 in {
   "services/cache.age".publicKeys = [yufei rxhz];
   "services/caddy.age".publicKeys = [yufei rxaws rxhz];
+  "services/dae.age".publicKeys = [yufei rxdell];
   "services/miniflux.age".publicKeys = [yufei rxhz];
   "services/naive.age".publicKeys = [yufei rxaws rxhz];
-  "services/sing-box.age".publicKeys = [yufei rxdell rxwsl];
   "services/vaultwarden.age".publicKeys = [yufei rxhz];
 }
