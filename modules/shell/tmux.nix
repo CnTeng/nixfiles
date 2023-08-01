@@ -25,6 +25,8 @@ in {
         terminal = "screen-256color";
         reverseSplit = true;
         extraConfig = ''
+          set -ag terminal-overrides ",xterm-256color:RGB"
+
           unbind n
           unbind p
           unbind 1
