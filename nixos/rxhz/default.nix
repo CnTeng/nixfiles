@@ -14,6 +14,4 @@
     openssh.enable = true;
     vaultwarden.enable = true;
   };
-
-  shell'.proxy.enable = false;
 }

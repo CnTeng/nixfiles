@@ -9,6 +9,4 @@
     naive.enable = true;
     openssh.enable = true;
   };
-
-  shell'.proxy.enable = false;
 }
