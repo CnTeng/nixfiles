@@ -14,29 +14,30 @@ with lib; let
     name = "config.dae";
     text = ''
       global {
-        wan_interface: auto
-
         log_level: info
-        allow_insecure: false
+
+        wan_interface: auto
         auto_config_kernel_parameter: true
       }
 
       node {
-        'http://127.0.0.1:1080'
+        naive: 'http://127.0.0.1:1080'
       }
 
       dns {
         upstream {
-          googledns: 'tcp+udp://dns.google.com:53'
-          alidns: 'udp://dns.alidns.com:53'
+          google: 'tcp+udp://dns.google.com:53'
+          ali: 'udp://dns.alidns.com:53'
         }
         routing {
           request {
-            fallback: alidns
+            qname(geosite:category-ads-all) -> reject
+            qname(geosite:cn) -> ali
+            fallback: google
           }
           response {
-            upstream(googledns) -> accept
-            !qname(geosite:cn) && ip(geoip:private) -> googledns
+            upstream(google) -> accept
+            !qname(geosite:cn) && ip(geoip:private) -> google
             fallback: accept
           }
         }
@@ -44,17 +45,20 @@ with lib; let
 
       group {
         proxy {
-          #filter: name(keyword: HK, keyword: SG)
-          policy: min_moving_avg
+          policy: fixed(0)
         }
       }
 
       routing {
         pname(NetworkManager, naive) -> must_direct
-        dip(224.0.0.0/3, 'ff00::/8') -> direct
 
         dip(geoip:private) -> direct
         dip(geoip:cn) -> direct
+        dip(8.8.8.8, 8.8.4.4) -> direct
+        dip(223.5.5.5, 223.6.6.6) -> direct
+        dip(224.0.0.0/3, 'ff00::/8') -> direct
+
+        domain(geosite:category-ads) -> block
         domain(geosite:cn) -> direct
 
         fallback: proxy

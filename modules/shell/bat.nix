@@ -8,6 +8,7 @@
 }:
 with lib; let
   cfg = config.shell'.bat;
+  inherit (config.basics'.colors) flavour;
 in {
   options.shell'.bat.enable = mkEnableOption "bat" // {default = true;};
 
@@ -15,20 +16,18 @@ in {
     home-manager.users.${user} = {
       programs.bat = {
         enable = true;
-        config = {theme = "Catppuccin-macchiato";};
+        config = {theme = "Catppuccin-${toLower flavour}";};
         extraPackages = with pkgs.bat-extras; [
           batdiff
           batman
           batgrep
           batwatch
         ];
-        themes = mapAttrs' (name: _:
-          nameValuePair ("Catppuccin-" + name) (builtins.readFile
-            (sources.catppuccin-bat.src + /Catppuccin-${name}.tmTheme))) {
-          frappe = "frappe";
-          latte = "latte";
-          macchiato = "macchiato";
-          mocha = "mocha";
+        themes = let
+          name = toLower flavour;
+          inherit (sources.catppuccin-bat) src;
+        in {
+          "Catppuccin-${name}" = builtins.readFile (src + /Catppuccin-${name}.tmTheme);
         };
       };
     };
