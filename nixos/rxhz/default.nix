@@ -1,8 +1,6 @@
 {
   imports = [./hardware.nix ./networking.nix ./disko.nix];
 
-  basics'.ssh.enable = false;
-
   services' = {
     cache.enable = false;
     caddy.enable = true;
