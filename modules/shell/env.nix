@@ -11,17 +11,17 @@ with lib; let
 in {
   options.shell'.environment = {
     enable = mkEnableOption "All languages support" // {default = true;};
-    languages =
-      mapAttrs
-      (_: doc: mkEnableOption (mkDoc doc) // {default = cfg.enable;}) {
-        cpp = "C++ support";
-        go = "Go support";
-        haskell = "Haskell support";
-        js = "Javascript support";
-        nix = "Nix support";
-        python = "Python support";
-        rust = "Rust support";
-      };
+    languages = mapAttrs (_: doc:
+      mkEnableOption (mkDoc doc)
+      // {default = cfg.enable;}) {
+      cpp = "C++ support";
+      go = "Go support";
+      haskell = "Haskell support";
+      js = "Javascript support";
+      nix = "Nix support";
+      python = "Python support";
+      rust = "Rust support";
+    };
   };
 
   config = mkIf cfg.enable {
