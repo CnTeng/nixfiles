@@ -82,12 +82,14 @@ in {
             rounding = 5;
             active_opacity = 0.9;
             inactive_opacity = 0.98;
-            blur_size = 5;
-            blur_passes = 3;
             shadow_range = 12;
             shadow_offset = "3 3";
             "col.shadow" = "rgb(${removeHashTag mantle.hex})";
             "col.shadow_inactive" = "rgb(${removeHashTag crust.hex})";
+            blur = {
+              size = 5;
+              passes = 3;
+            };
           };
 
           input = {
@@ -107,7 +109,7 @@ in {
             animate_manual_resizes = true;
           };
 
-          xwayland.force_zero_scaling = true;
+          xwayland.use_nearest_neighbor = false;
 
           monitor = [
             "eDP-1, preferred, 0x0, 1.25"
