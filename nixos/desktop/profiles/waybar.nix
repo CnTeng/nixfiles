@@ -27,6 +27,7 @@ in {
 
       programs.waybar = with palette; {
         enable = true;
+        package = pkgs.waybar-hyprland;
         systemd.enable = true;
         settings = [
           {

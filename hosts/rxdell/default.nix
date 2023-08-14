@@ -22,6 +22,8 @@
     steam.enable = true;
     vscode.enable = true;
     yubikey.enable = true;
+
+    foot.enable = true;
   };
 
   services' = {
