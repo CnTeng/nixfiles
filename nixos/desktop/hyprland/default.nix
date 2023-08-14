@@ -112,7 +112,7 @@ in {
           xwayland.use_nearest_neighbor = false;
 
           monitor = [
-            "eDP-1, preferred, 0x0, 1.25"
+            "eDP-1, preferred, auto, 1.25"
             ", preferred, auto, 1.25"
           ];
 
