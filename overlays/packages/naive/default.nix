@@ -21,5 +21,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/klzgrad/naiveproxy";
     license = licenses.bsd3;
     platforms = platforms.linux;
+    mainProgram = "naive";
   };
 }

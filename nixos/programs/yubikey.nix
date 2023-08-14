@@ -12,13 +12,13 @@ in {
   config = mkIf cfg.enable {
     services.udev.packages = with pkgs; [
       yubikey-personalization
-      yubikey-manager
+      # yubikey-manager
       # yubioath-flutter
     ];
 
     environment.systemPackages = with pkgs; [
       yubikey-personalization
-      yubikey-manager
+      # yubikey-manager
       # yubioath-flutter
     ];
 

@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -14,7 +13,7 @@ with lib; let
     name = "config.dae";
     text = ''
       global {
-        log_level: info
+        log_level: debug
 
         wan_interface: auto
         auto_config_kernel_parameter: true
@@ -66,8 +65,6 @@ with lib; let
     '';
   };
 in {
-  imports = [inputs.dae.nixosModules.dae];
-
   options.services'.dae.enable = mkEnableOption "dae";
 
   config = mkIf cfg.enable {
@@ -76,17 +73,7 @@ in {
       source = configFile;
     };
 
-    services.dae = {
-      enable = true;
-      package = pkgs.dae;
-      assets = with pkgs; [v2ray-geoip v2ray-domain-list-community];
-      openFirewall = {
-        enable = true;
-        port = 12345;
-      };
-      configFile = "/etc/dae/config.dae";
-      disableTxChecksumIpGeneric = false;
-    };
+    services.dae.enable = true;
 
     systemd.services.naiveproxy = let
       settings = {
