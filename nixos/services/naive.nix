@@ -19,9 +19,6 @@ in {
 
     services.caddy.extraConfig = ''
       :443, ${config.networking.hostName}.snakepi.xyz {
-      	log {
-      		output file ${config.services.caddy.logDir}/naive.log
-      	}
 
       	tls istengyf@outlook.com
 

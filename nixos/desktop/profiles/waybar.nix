@@ -8,7 +8,6 @@
 with lib; let
   cfg = config.desktop'.profiles.waybar;
 
-  inherit (config.home-manager.users.${user}.home) profileDirectory;
   inherit (config.desktop'.profiles) palette;
 
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
@@ -21,13 +20,8 @@ in {
     home-manager.users.${user} = {
       services.playerctld.enable = true;
 
-      systemd.user.services.waybar = {
-        Service.Environment = "PATH=${profileDirectory}/bin";
-      };
-
       programs.waybar = with palette; {
         enable = true;
-        package = pkgs.waybar-hyprland;
         systemd.enable = true;
         settings = [
           {
@@ -35,7 +29,7 @@ in {
             output = ["eDP-1" "DP-3"];
             position = "top";
             height = 30;
-            modules-left = ["wlr/workspaces" "hyprland/submap" "hyprland/window"];
+            modules-left = ["hyprland/workspaces" "hyprland/submap" "hyprland/window"];
 
             modules-right = [
               "tray"
@@ -50,7 +44,7 @@ in {
               "clock"
             ];
 
-            "wlr/workspaces" = {
+            "hyprland/workspaces" = {
               format = "{icon}";
               format-icons = {
                 "1" = " ";
@@ -62,7 +56,7 @@ in {
                 default = " ";
                 urgent = " ";
               };
-              sort-by-number = true;
+              show-special = true;
               persistent_workspaces = {
                 "1" = ["eDP-1"];
                 "2" = ["DP-3"];
@@ -71,10 +65,13 @@ in {
                 "5" = ["eDP-1"];
                 "6" = ["eDP-1"];
               };
-              on-click = "activate";
             };
 
             "hyprland/submap" = {format = " {}";};
+
+            "hyprland/window" = {
+              separate-outputs = true;
+            };
 
             tray = {
               icon-size = 15;
@@ -111,12 +108,12 @@ in {
             };
 
             backlight = let
-              light = lib.getExe pkgs.light;
+              brillo = lib.getExe pkgs.brillo;
             in {
               format = "{icon}{percent}%";
               format-icons = " ";
-              on-scroll-up = "${light} -A 5";
-              on-scroll-down = "${light} -U 5";
+              on-scroll-up = "${brillo} -u 300000 -A 5";
+              on-scroll-down = "${brillo} -u 300000 -U 5";
             };
 
             cpu = {
@@ -239,9 +236,6 @@ in {
           #workspaces button.focused,
           #workspaces button.active {
             color: ${blue.hex};
-          }
-          #workspaces button.urgent {
-            color: ${red.hex};
           }
 
           #submap {

@@ -13,7 +13,7 @@
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
       overlays =
-        map (n: inputs.${n}.overlays.default) ["colmena" "agenix"]
+        map (n: inputs.${n}.overlays.default) ["colmena" "agenix" "nvfetcher"]
         ++ [self.overlays.default];
     };
 

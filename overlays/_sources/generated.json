@@ -1,204 +1,4 @@
 {
-    "catppuccin-alacritty": {
-        "cargoLocks": null,
-        "date": "2022-09-27",
-        "extract": null,
-        "name": "catppuccin-alacritty",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "alacritty",
-            "rev": "3c808cbb4f9c87be43ba5241bc57373c793d2f17",
-            "sha256": "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=",
-            "type": "github"
-        },
-        "version": "3c808cbb4f9c87be43ba5241bc57373c793d2f17"
-    },
-    "catppuccin-bat": {
-        "cargoLocks": null,
-        "date": "2022-11-10",
-        "extract": null,
-        "name": "catppuccin-bat",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "bat",
-            "rev": "ba4d16880d63e656acced2b7d4e034e4a93f74b1",
-            "sha256": "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=",
-            "type": "github"
-        },
-        "version": "ba4d16880d63e656acced2b7d4e034e4a93f74b1"
-    },
-    "catppuccin-btop": {
-        "cargoLocks": null,
-        "date": "2023-06-07",
-        "extract": null,
-        "name": "catppuccin-btop",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "btop",
-            "rev": "89ff712eb62747491a76a7902c475007244ff202",
-            "sha256": "sha256-J3UezOQMDdxpflGax0rGBF/XMiKqdqZXuX4KMVGTxFk=",
-            "type": "github"
-        },
-        "version": "89ff712eb62747491a76a7902c475007244ff202"
-    },
-    "catppuccin-fcitx5": {
-        "cargoLocks": null,
-        "date": "2022-10-05",
-        "extract": null,
-        "name": "catppuccin-fcitx5",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "fcitx5",
-            "rev": "ce244cfdf43a648d984719fdfd1d60aab09f5c97",
-            "sha256": "sha256-uFaCbyrEjv4oiKUzLVFzw+UY54/h7wh2cntqeyYwGps=",
-            "type": "github"
-        },
-        "version": "ce244cfdf43a648d984719fdfd1d60aab09f5c97"
-    },
-    "catppuccin-fish": {
-        "cargoLocks": null,
-        "date": "2023-04-27",
-        "extract": null,
-        "name": "catppuccin-fish",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "fish",
-            "rev": "91e6d6721362be05a5c62e235ed8517d90c567c9",
-            "sha256": "sha256-l9V7YMfJWhKDL65dNbxaddhaM6GJ0CFZ6z+4R6MJwBA=",
-            "type": "github"
-        },
-        "version": "91e6d6721362be05a5c62e235ed8517d90c567c9"
-    },
-    "catppuccin-foliate": {
-        "cargoLocks": null,
-        "date": "2023-02-01",
-        "extract": null,
-        "name": "catppuccin-foliate",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "foliate",
-            "rev": "40ae4528569d864cba8f4e64716c3361f7244209",
-            "sha256": "sha256-tpZj1/gV2TEdcequ+0EFz/3Hv4UN2dcdbJvT8a/i+hs=",
-            "type": "github"
-        },
-        "version": "40ae4528569d864cba8f4e64716c3361f7244209"
-    },
-    "catppuccin-palette": {
-        "cargoLocks": null,
-        "date": "2023-07-10",
-        "extract": null,
-        "name": "catppuccin-palette",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "palette",
-            "rev": "205dd54c6158b7648621cf9fd00e91f03888ce7e",
-            "sha256": "sha256-y14fd8lvnG9hNY6CRU0JgxWouexEw91aIEMkr1NaM/4=",
-            "type": "github"
-        },
-        "version": "205dd54c6158b7648621cf9fd00e91f03888ce7e"
-    },
-    "catppuccin-qt5ct": {
-        "cargoLocks": null,
-        "date": "2023-03-21",
-        "extract": null,
-        "name": "catppuccin-qt5ct",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "qt5ct",
-            "rev": "89ee948e72386b816c7dad72099855fb0d46d41e",
-            "sha256": "sha256-t/uyK0X7qt6qxrScmkTU2TvcVJH97hSQuF0yyvSO/qQ=",
-            "type": "github"
-        },
-        "version": "89ee948e72386b816c7dad72099855fb0d46d41e"
-    },
-    "catppuccin-starship": {
-        "cargoLocks": null,
-        "date": "2023-07-13",
-        "extract": null,
-        "name": "catppuccin-starship",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "starship",
-            "rev": "5629d2356f62a9f2f8efad3ff37476c19969bd4f",
-            "sha256": "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=",
-            "type": "github"
-        },
-        "version": "5629d2356f62a9f2f8efad3ff37476c19969bd4f"
-    },
-    "catppuccin-zsh": {
-        "cargoLocks": null,
-        "date": "2022-10-12",
-        "extract": null,
-        "name": "catppuccin-zsh",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "zsh-syntax-highlighting",
-            "rev": "06d519c20798f0ebe275fc3a8101841faaeee8ea",
-            "sha256": "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=",
-            "type": "github"
-        },
-        "version": "06d519c20798f0ebe275fc3a8101841faaeee8ea"
-    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "date": null,
@@ -208,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-G44bgOWpnQEbP78idcOobEUm2m+7cYM+UCqyJu+D+9E=",
+            "sha256": "sha256-m7bmyvdgUrBR+1uCRmWDc5LAiVbrnqc//Hl4iNbTkGk=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230605.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230728.dict"
         },
-        "version": "20230605"
+        "version": "20230728"
     },
     "naive": {
         "cargoLocks": null,
@@ -223,10 +23,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EJ5MkfmLBmVgaT5UluLvulEjMdTSAXoz3wg/ieF1Bsk=",
+            "sha256": "sha256-QarVB43fxALbY7tmR+B4em+N9Sf2iCvnHwTJyYOSHcE=",
             "type": "url",
-            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v114.0.5735.91-3/naiveproxy-v114.0.5735.91-3-linux-x64.tar.xz"
+            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v116.0.5845.92-2/naiveproxy-v116.0.5845.92-2-linux-x64.tar.xz"
         },
-        "version": "v114.0.5735.91-3"
+        "version": "v116.0.5845.92-2"
     }
 }

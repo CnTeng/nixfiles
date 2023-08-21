@@ -42,8 +42,7 @@ in {
 
     (mkIf components.light {
       users.users.${user}.extraGroups = ["video"];
-
-      programs.light.enable = true;
+      hardware.brillo.enable = true;
     })
   ]);
 }

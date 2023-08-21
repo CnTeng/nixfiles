@@ -18,14 +18,29 @@ in {
       libinput.enable = true;
     };
 
-    home-manager.users.${user} = {
-      i18n.inputMethod = {
-        enabled = "fcitx5";
-        fcitx5.addons = with pkgs; [
+    i18n.inputMethod = {
+      enabled = "fcitx5";
+      fcitx5 = {
+        addons = with pkgs; [
           fcitx5-chinese-addons
           fcitx5-pinyin-zhwiki
-          catppuccin-fcitx5
         ];
+        settings = {
+          addons = {
+            classicui.globalSection.Theme = "catppuccin-mocha";
+          };
+        };
+        # ignoreUserConfig = true;
+      };
+    };
+    home-manager.users.${user} = {
+      systemd.user.services.fcitx5-daemon = {
+        Unit = {
+          Description = "Fcitx5 input method editor";
+          PartOf = ["graphical-session.target"];
+        };
+        Service.ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5";
+        Install.WantedBy = ["graphical-session.target"];
       };
     };
   };

@@ -1,13 +1,13 @@
 {
+  inputs,
   config,
   lib,
-  sources,
   user,
   ...
 }:
 with lib; let
   cfg = config.shell'.starship;
-  themeSrc = sources.catppuccin-starship.src;
+  inherit (inputs.catppuccin) starshipCat;
 in {
   options.shell'.starship.enable =
     mkEnableOption "starship" // {default = true;};
@@ -76,7 +76,7 @@ in {
             nix_shell = {format = "n";};
           }
           // (with builtins;
-              fromTOML (readFile (themeSrc + /palettes/${flavour}.toml)));
+              fromTOML (readFile (starshipCat + /palettes/${flavour}.toml)));
         enableTransience = true;
       };
       programs.fish.functions = {

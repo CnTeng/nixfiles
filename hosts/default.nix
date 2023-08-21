@@ -15,54 +15,48 @@ in {
         ++ map (n: inputs.${n}.overlays.default) [
           "colmena"
           "agenix"
-          # "hyprland"
+          "hyprland"
           "hyprwm-contrib"
-        ]
-        ++ [inputs.hyprland.overlays.hyprland-packages];
+        ];
     };
 
     nixosConfigurations = self.colmenaHive.nodes;
 
-    colmenaHive = let
-      sources = pkgs.callPackage ../overlays/_sources/generated.nix {};
-    in
-      inputs.colmena.lib.makeHive {
-        meta = {
-          nixpkgs = pkgs;
-          specialArgs = {
-            inherit inputs sources user lib;
-          };
-        };
-
-        defaults = {
-          lib,
-          name,
-          ...
-        }: {
-          deployment = {
-            targetHost = lib.mkDefault "${name}";
-            tags = ["${name}"];
-          };
-          networking.hostName = "${name}";
-          imports = [self.nixosModules.default ./${name}];
-        };
-
-        rxdell.deployment = {
-          allowLocalDeployment = true;
-          targetHost = null;
-        };
-
-        rxwsl.deployment = {
-          allowLocalDeployment = true;
-          targetHost = null;
-        };
-
-        rxaws.deployment = {};
-
-        rxhz = {
-          deployment.buildOnTarget = true;
-          nixpkgs.system = "aarch64-linux";
-        };
+    colmenaHive = inputs.colmena.lib.makeHive {
+      meta = {
+        nixpkgs = pkgs;
+        specialArgs = {inherit inputs user lib;};
       };
+
+      defaults = {
+        lib,
+        name,
+        ...
+      }: {
+        deployment = {
+          targetHost = lib.mkDefault "${name}";
+          tags = ["${name}"];
+        };
+        networking.hostName = "${name}";
+        imports = [self.nixosModules.default ./${name}];
+      };
+
+      rxdell.deployment = {
+        allowLocalDeployment = true;
+        targetHost = null;
+      };
+
+      rxwsl.deployment = {
+        allowLocalDeployment = true;
+        targetHost = null;
+      };
+
+      rxaws.deployment = {};
+
+      rxhz = {
+        deployment.buildOnTarget = true;
+        nixpkgs.system = "aarch64-linux";
+      };
+    };
   };
 }
