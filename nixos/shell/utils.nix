@@ -1,14 +1,14 @@
 {
+  inputs,
   config,
   lib,
-  sources,
   user,
   pkgs,
   ...
 }:
 with lib; let
   cfg = config.shell'.utils;
-  themeSrc = sources.catppuccin-btop.src;
+  inherit (inputs.catppuccin) btopCat batCat;
   inherit (config.basics'.colors) flavour;
   inherit (config.home-manager.users.${user}.xdg) configHome;
 in {
@@ -41,9 +41,8 @@ in {
         ];
         themes = let
           name = toLower flavour;
-          inherit (sources.catppuccin-bat) src;
         in {
-          "Catppuccin-${name}" = builtins.readFile (src + /Catppuccin-${name}.tmTheme);
+          "Catppuccin-${name}" = builtins.readFile (batCat + /Catppuccin-${name}.tmTheme);
         };
       };
 
@@ -60,7 +59,7 @@ in {
           net_sync = true;
         };
       };
-      xdg.configFile."btop/themes".source = themeSrc + /themes;
+      xdg.configFile."btop/themes".source = btopCat + /themes;
 
       programs.hyfetch = mkIf cfg.modules.hyfetch {
         enable = true;

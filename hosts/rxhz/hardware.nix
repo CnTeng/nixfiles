@@ -8,8 +8,6 @@
   };
 
   boot = {
-    loader.grub.device = "/dev/sda";
-
     initrd = {
       availableKernelModules = ["ata_piix" "uhci_hcd" "xen_blkfront"];
       kernelModules = ["nvme"];

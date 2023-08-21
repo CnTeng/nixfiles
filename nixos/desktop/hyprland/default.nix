@@ -43,12 +43,12 @@ in {
         sha256 = "sha256-nu8GHG9USaJvZmzvUbBG4xw1x73f1pP+/BEElwboz2k=";
       };
       swaybg = getExe pkgs.swaybg;
-      swaylock = getExe pkgs.swaylock-effects;
+      gtklock = getExe pkgs.gtklock;
       terminal = getExe pkgs.kitty;
       launcher = getExe config.desktop'.profiles.launcher.package;
       notify = getExe' "notification" "dunstctl";
       fileManager = getExe' "fileManager" "nemo";
-      light = getExe pkgs.light;
+      brillo = getExe pkgs.brillo;
       pamixer = getExe pkgs.pamixer;
       playerctl = getExe pkgs.playerctl;
       grim = getExe pkgs.grim;
@@ -59,7 +59,6 @@ in {
       wayland.windowManager.hyprland = with palette; {
         enable = true;
         systemdIntegration = true;
-        enableNvidiaPatches = true;
         settings = {
           general = {
             border_size = 4;
@@ -148,8 +147,8 @@ in {
             "SUPER_SHIFT, c, exec, ${hyprpicker} --autocopy"
 
             # Keyboard control
-            ", XF86MonBrightnessUP, exec, ${light} -A 5"
-            ", XF86MonBrightnessDown, exec, ${light} -U 5"
+            ", XF86MonBrightnessUP, exec, ${brillo} -u 300000 -A 5"
+            ", XF86MonBrightnessDown, exec, ${brillo} -u 300000 -U 5"
 
             ", XF86AudioNext, exec, ${playerctl} next"
             ", XF86AudioPrev, exec, ${playerctl} previous"
@@ -250,6 +249,7 @@ in {
             "workspace 6, title:^(Spotify)$"
 
             "opacity 1 override 1 override, class:^(firefox)$"
+            "noblur, class:^(firefox)$"
 
             "float, class:^(nm-connection-editor)$"
             "float, class:^(.blueman-manager-wrapped)$"
@@ -269,7 +269,7 @@ in {
           submap = Exit
 
           bind = , L, exec, ${playerctl} play-pause
-          bind = , L, exec, ${swaylock}
+          bind = , L, exec, ${gtklock}
           bind = , L, submap, reset
           bind = , Q, exec, systemctl --user stop graphical-session.target
           bind = , Q, exit,

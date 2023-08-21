@@ -1,13 +1,14 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
-  sources,
   user,
   ...
 }:
 with lib; let
   cfg = config.programs'.foliate;
+  inherit (inputs.catppuccin) foliateCat;
 in {
   options.programs'.foliate.enable = mkEnableOption "Foliate";
 
@@ -15,7 +16,7 @@ in {
     home-manager.users.${user} = {
       home.packages = [pkgs.foliate];
 
-      xdg.configFile."com.github.johnfactotum.Foliate/themes.json".source = "${sources.catppuccin-foliate.src}/themes.json";
+      xdg.configFile."com.github.johnfactotum.Foliate/themes.json".source = "${foliateCat}/themes.json";
     };
   };
 }

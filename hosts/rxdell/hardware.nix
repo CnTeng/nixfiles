@@ -38,8 +38,6 @@
     tmp.useTmpfs = true;
   };
 
-  systemd.watchdog.runtimeTime = "60s";
-
   # Support for firmware update
   services.fwupd.enable = true;
 }

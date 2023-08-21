@@ -3,7 +3,7 @@ let
 
   rxdell = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdVbfaaH+mNRUmRD2tU1okUkqjXMaxZKnZE/H8hHEc9 root@rxdell";
   rxaws = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFpv02wmbI70fdtKfthKvpYTtvqxKkX8RQrkp+YqePDp root@rxaws";
-  rxhz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP/xy3Gu4tXN8ecMnTjaw9w3a3cBVLDUt4iYkE/ZvZEY root@rxhz";
+  rxhz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIES63us7aetYxZ/PBmH+SVXGRkm/RvPL0BzapOxXK1aI root@rxhz";
 
   rxwsl = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjhbscZlVg9carFm5OYQhhdMEuhfYNmZoOopK6ymik+ root@rxwsl";
 in {
