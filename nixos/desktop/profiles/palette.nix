@@ -1,13 +1,14 @@
 {
   lib,
-  sources,
   config,
+  inputs,
   ...
 }:
 with lib; let
   inherit (config.basics'.colors) flavour;
+  inherit (inputs.catppuccin) paletteCat;
 
-  catppuccin = importJSON (sources.catppuccin-palette.src + /palette.json);
+  catppuccin = importJSON (paletteCat + /palette.json);
 in {
   options.desktop'.profiles.palette = mkOption {
     type = types.attrs;

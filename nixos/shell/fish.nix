@@ -1,14 +1,14 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
-  sources,
   user,
   ...
 }:
 with lib; let
   cfg = config.shell'.fish;
-  themeSrc = sources.catppuccin-fish.src;
+  inherit (inputs.catppuccin) fishCat;
 in {
   options.shell'.fish.enable = mkEnableOption "fish" // {default = true;};
 
@@ -42,7 +42,7 @@ in {
           fish_config theme choose "Catppuccin Macchiato"
         '';
       };
-      xdg.configFile."fish/themes".source = "${themeSrc}/themes";
+      xdg.configFile."fish/themes".source = "${fishCat}/themes";
     };
   };
 }
