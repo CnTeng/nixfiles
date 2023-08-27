@@ -13,4 +13,6 @@ in {
   "services/miniflux.age".publicKeys = [yufei rxhz];
   "services/naive.age".publicKeys = [yufei rxaws rxhz];
   "services/vaultwarden.age".publicKeys = [yufei rxhz];
+
+  "shell/chatgpt.age".publicKeys = [yufei rxdell rxaws rxhz rxwsl];
 }
