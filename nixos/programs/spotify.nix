@@ -8,7 +8,7 @@
 }:
 with lib; let
   cfg = config.programs'.spotify;
-  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+  spicePkgs = inputs.spicetify.packages.${pkgs.system}.default;
 
   inherit (config.basics'.colors) flavour;
 in {
@@ -16,7 +16,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      imports = [inputs.spicetify-nix.homeManagerModule];
+      imports = [inputs.spicetify.homeManagerModule];
 
       programs.spicetify = {
         enable = true;

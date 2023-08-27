@@ -45,7 +45,7 @@ in {
       swaybg = getExe pkgs.swaybg;
       gtklock = getExe pkgs.gtklock;
       terminal = getExe pkgs.kitty;
-      launcher = getExe config.desktop'.profiles.launcher.package;
+      launcher = "anyrun";
       notify = getExe' "notification" "dunstctl";
       fileManager = getExe' "fileManager" "nemo";
       brillo = getExe pkgs.brillo;
