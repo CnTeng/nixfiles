@@ -14,10 +14,17 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.variables.EDITOR = mkOverride 900 "nvim";
     home-manager.users.${user} = {
       imports = [inputs.rx-nvim.homeModules.default];
 
-      programs.rx-nvim.enable = true;
+      programs.rx-nvim = {
+        enable = true;
+        gptSupport = {
+          enable = true;
+          secretsPath = config.age.secrets.chatgpt.path;
+        };
+      };
 
       xdg.desktopEntries.nvim-kitty = {
         exec = "${getExe pkgs.kitty} -e nvim %F"; # launch with kitty
@@ -28,6 +35,13 @@ in {
         genericName = "Text Editor";
         categories = ["Utility" "TextEditor"];
       };
+    };
+
+    age.secrets.chatgpt = {
+      file = config.age.file + /shell/chatgpt.age;
+      owner = "${user}";
+      group = "users";
+      mode = "777";
     };
   };
 }
