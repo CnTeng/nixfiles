@@ -3,12 +3,15 @@
   lib,
   pkgs,
   user,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.shell'.environment;
   lang = cfg.languages;
 in {
+  imports = [inputs.nix-index-database.nixosModules.nix-index];
+
   options.shell'.environment = {
     enable = mkEnableOption "All languages support" // {default = true;};
     languages = mapAttrs (_: doc:
@@ -32,7 +35,8 @@ in {
 
       # Use nix-index instead of cnf
       command-not-found.enable = false;
-      nix-index.enable = true;
+      nix-index-database.comma.enable = true;
+      # nix-index.enable = true;
     };
 
     home-manager.users.${user} = {
