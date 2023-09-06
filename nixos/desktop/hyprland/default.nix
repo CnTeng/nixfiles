@@ -45,14 +45,13 @@ in {
       swaybg = getExe pkgs.swaybg;
       gtklock = getExe pkgs.gtklock;
       terminal = getExe pkgs.kitty;
-      launcher = "anyrun";
+      launcher = getExe config.desktop'.profiles.launcher.package;
       notify = getExe' "notification" "dunstctl";
       fileManager = getExe' "fileManager" "nemo";
       brillo = getExe pkgs.brillo;
       pamixer = getExe pkgs.pamixer;
       playerctl = getExe pkgs.playerctl;
       grim = getExe pkgs.grim;
-      hyprpicker = getExe pkgs.hyprpicker;
     in {
       home.packages = with pkgs; [slurp grimblast hyprprop scratchpad];
 
@@ -142,9 +141,6 @@ in {
             # Screenshots
             '', print, exec, ${grim} -g "$(slurp)" "${home}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png''
             ''SUPER_SHIFT, p, exec, ${grim} -g "$(slurp)" - | wl-copy --type image/png''
-
-            # Colorpicker
-            "SUPER_SHIFT, c, exec, ${hyprpicker} --autocopy"
 
             # Keyboard control
             ", XF86MonBrightnessUP, exec, ${brillo} -u 300000 -A 5"
@@ -249,7 +245,6 @@ in {
             "workspace 6, title:^(Spotify)$"
 
             "opacity 1 override 1 override, class:^(firefox)$"
-            "noblur, class:^(firefox)$"
 
             "float, class:^(nm-connection-editor)$"
             "float, class:^(.blueman-manager-wrapped)$"
