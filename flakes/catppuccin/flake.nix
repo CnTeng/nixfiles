@@ -1,30 +1,11 @@
 {
-  # inputs = let
-  #   mkThemeSrc = builtins.mapAttrs (n: v: {
-  #     url = "github:catppuccin/" + v;
-  #     flake = false;
-  #   });
-  # in
-  #   mkThemeSrc {
-  #     alacrittyCat = "alacritty";
-  #     batCat = "bat";
-  #     btopCat = "btop";
-  #     fcitx5Cat = "fcitx5";
-  #     fishCat = "fish";
-  #     foliateCat = "foliateCat";
-  #     footCat = "foot";
-  #     paletteCat = "palette";
-  #     qt5ctCat = "qt5ct";
-  #     starshipCat = "starship";
-  #   };
-
   inputs = {
-    batCat = {
+    batTheme = {
       url = "github:catppuccin/bat";
       flake = false;
     };
 
-    btopCat = {
+    btopTheme = {
       url = "github:catppuccin/btop";
       flake = false;
     };
@@ -63,9 +44,8 @@
   outputs = inputs @ {...}: {
     inherit
       (inputs)
-      alacrittyCat
-      batCat
-      btopCat
+      batTheme
+      btopTheme
       fcitx5Cat
       fishCat
       foliateCat

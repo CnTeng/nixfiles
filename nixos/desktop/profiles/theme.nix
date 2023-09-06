@@ -31,8 +31,8 @@ in {
       ];
       qt = mkIf modules.qt {
         enable = true;
-        platformTheme = "qtct";
-        style.name = "kvantum";
+        # platformTheme = "qtct";
+        # style.name = "kvantum";
       };
 
       # Set the theme of cursor for the whole system

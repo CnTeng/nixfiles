@@ -5,10 +5,7 @@
       enable = true;
       secureboot = true;
     };
-    cpu = {
-      intel.enable = true;
-      freqGovernor = "powersave";
-    };
+    cpu.intel.enable = true;
     devices.enable = true;
     stateless.enable = true;
     ssd.enable = true;
