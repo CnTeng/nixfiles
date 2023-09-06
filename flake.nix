@@ -73,7 +73,6 @@
 
     rx-nvim = {
       url = "github:CnTeng/rx-nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.devshell.follows = "devshell";
       inputs.treefmt.follows = "treefmt";
@@ -90,11 +89,6 @@
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-    };
-
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-index-database = {
