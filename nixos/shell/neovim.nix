@@ -14,12 +14,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.variables.EDITOR = mkOverride 900 "nvim";
     home-manager.users.${user} = {
       imports = [inputs.rx-nvim.homeModules.default];
 
       programs.rx-nvim = {
         enable = true;
+        extraPackages = with pkgs; [
+          nil
+          alejandra
+          nodePackages.prettier
+        ];
         gptSupport = {
           enable = true;
           secretsPath = config.age.secrets.chatgpt.path;
@@ -41,7 +45,7 @@ in {
       file = config.age.file + /shell/chatgpt.age;
       owner = "${user}";
       group = "users";
-      mode = "777";
+      mode = "644";
     };
   };
 }
