@@ -8,7 +8,7 @@
 }:
 with lib; let
   cfg = config.programs'.foliate;
-  inherit (inputs.catppuccin) foliateCat;
+  inherit (inputs.themes) foliateCat;
 in {
   options.programs'.foliate.enable = mkEnableOption "Foliate";
 
