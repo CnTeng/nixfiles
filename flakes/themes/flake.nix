@@ -10,7 +10,7 @@
       flake = false;
     };
 
-    fcitx5Cat = {
+    fcitx5Theme = {
       url = "github:catppuccin/fcitx5";
       flake = false;
     };
@@ -30,11 +30,6 @@
       flake = false;
     };
 
-    qt5ctCat = {
-      url = "github:catppuccin/qt5ct";
-      flake = false;
-    };
-
     starshipCat = {
       url = "github:catppuccin/starship";
       flake = false;
@@ -46,11 +41,10 @@
       (inputs)
       batTheme
       btopTheme
-      fcitx5Cat
+      fcitx5Theme
       fishCat
       foliateCat
       palette
-      qt5ctCat
       starshipCat
       ;
   };
