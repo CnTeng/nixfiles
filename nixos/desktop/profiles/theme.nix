@@ -7,48 +7,34 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.theme;
-  inherit (cfg) modules;
-in {
-  options.desktop'.profiles.theme = {
-    enable = mkEnableOption "custom gtk and qt theme";
 
-    modules =
-      mapAttrs
-      (_: doc: mkEnableOption (mkDoc doc) // {default = cfg.enable;}) {
-        gtk = "custom gtk theme";
-        qt = "custom qt theme";
-      };
-  };
+  inherit (config.basics'.colors) flavour;
+in {
+  options.desktop'.profiles.theme.enable =
+    mkEnableOption "custom gtk and qt theme";
 
   config = mkIf cfg.enable {
-    environment.pathsToLink = ["/share/Kvantum"];
+    qt = {
+      enable = true;
+      platformTheme = "gtk2";
+      style = "gtk2";
+    };
 
-    home-manager.users.${user} = let
-      inherit (config.home-manager.users.${user}.gtk.theme) package name;
-    in {
-      home.packages = [
-        (pkgs.catppuccin-kvantum.override {variant = "Mocha";})
-      ];
-      qt = mkIf modules.qt {
-        enable = true;
-        # platformTheme = "qtct";
-        # style.name = "kvantum";
+    home-manager.users.${user} = {
+      systemd.user.sessionVariables = {
+        QT_QPA_PLATFORMTHEME = "gtk2";
+        QT_STYLE_OVERRIDE = "gtk2";
       };
 
-      # Set the theme of cursor for the whole system
-      home.pointerCursor = mkIf modules.gtk {
-        package = pkgs.catppuccin-cursors.mochaDark;
-        name = "Catppuccin-Mocha-Dark-Cursors";
-        # size = 32;
+      home.pointerCursor = {
+        package = pkgs.catppuccin-cursors."${toLower flavour}Dark";
+        name = "Catppuccin-${flavour}-Dark-Cursors";
         gtk.enable = true;
       };
 
-      # Set the gtk theme
-      gtk = mkIf modules.gtk {
+      gtk = {
         enable = true;
-
         font.name = "Roboto";
-
         iconTheme = {
           package = pkgs.papirus-icon-theme;
           name = "Papirus-Dark";
@@ -56,15 +42,11 @@ in {
 
         theme = {
           package = pkgs.catppuccin-gtk.override {
-            variant = "mocha";
+            variant = toLower flavour;
             tweaks = ["rimless"];
           };
-          name = "Catppuccin-Mocha-Standard-Blue-dark";
+          name = "Catppuccin-${flavour}-Standard-Blue-dark";
         };
-
-        gtk2.configLocation = "${config.home-manager.users.${user}.xdg.configHome}/gtk-2.0/gtkrc";
-
-        gtk4.extraCss = readFile "${package}/share/themes/${name}/gtk-4.0/gtk.css";
       };
     };
   };

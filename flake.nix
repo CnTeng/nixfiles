@@ -35,7 +35,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:CnTeng/home-manager/fcitx5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
