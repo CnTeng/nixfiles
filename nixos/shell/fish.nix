@@ -8,7 +8,7 @@
 }:
 with lib; let
   cfg = config.shell'.fish;
-  inherit (inputs.catppuccin) fishCat;
+  inherit (inputs.themes) fishCat;
 in {
   options.shell'.fish.enable = mkEnableOption "fish" // {default = true;};
 
