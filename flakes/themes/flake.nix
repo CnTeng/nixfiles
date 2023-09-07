@@ -25,7 +25,7 @@
       flake = false;
     };
 
-    paletteCat = {
+    palette = {
       url = "github:catppuccin/palette";
       flake = false;
     };
@@ -49,7 +49,7 @@
       fcitx5Cat
       fishCat
       foliateCat
-      paletteCat
+      palette
       qt5ctCat
       starshipCat
       ;

@@ -6,9 +6,9 @@
 }:
 with lib; let
   inherit (config.basics'.colors) flavour;
-  inherit (inputs.catppuccin) paletteCat;
+  inherit (inputs.themes) palette;
 
-  catppuccin = importJSON (paletteCat + /palette.json);
+  paletteJSON = importJSON (palette + /palette.json);
 in {
   options.desktop'.profiles.palette = mkOption {
     type = types.attrs;
@@ -17,7 +17,7 @@ in {
 
   config.desktop'.profiles.palette = {
     inherit
-      (catppuccin.${toLower flavour})
+      (paletteJSON.${toLower flavour})
       rosewater
       flamingo
       pink

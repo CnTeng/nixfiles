@@ -10,7 +10,7 @@ with lib; let
   cfg = config.shell'.utils;
   flavour = toLower config.basics'.colors.flavour;
 
-  inherit (inputs.catppuccin) batTheme btopTheme;
+  inherit (inputs.themes) batTheme btopTheme;
 in {
   imports = [inputs.nix-index-database.nixosModules.nix-index];
 

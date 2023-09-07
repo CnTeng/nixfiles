@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.shell'.starship;
-  inherit (inputs.catppuccin) starshipCat;
+  inherit (inputs.themes) starshipCat;
 in {
   options.shell'.starship.enable =
     mkEnableOption "starship" // {default = true;};
