@@ -22,7 +22,7 @@ in {
         extraPackages = with pkgs; [
           nil
           alejandra
-          nodePackages.prettier
+          prettierd
         ];
         gptSupport = {
           enable = true;
