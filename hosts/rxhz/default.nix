@@ -5,6 +5,7 @@
     cache.enable = false;
     caddy.enable = true;
     calibre-web.enable = false;
+    fail2ban.enable = true;
     firewall.enable = true;
     hydra.enable = false;
     miniflux.enable = true;
