@@ -11,7 +11,7 @@
       };
       settings.formatter = {
         alejandra.excludes = ["overlays/_sources/*"];
-        prettier.excludes = ["overlays/_sources/*"];
+        prettier.excludes = ["overlays/_sources/*" "secrets.yaml"];
       };
     };
   };

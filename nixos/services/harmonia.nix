@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services'.cache;
+  cfg = config.services'.harmonia;
 in {
-  options.services'.cache.enable = mkEnableOption "harmonia";
+  options.services'.harmonia.enable = mkEnableOption "harmonia";
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [5222];
@@ -23,9 +23,7 @@ in {
     };
 
     services.caddy.virtualHosts."cache.snakepi.xyz" = {
-      logFormat = ''
-        output file ${config.services.caddy.logDir}/cache.log
-      '';
+      logFormat = "output stdout";
       extraConfig = ''
         import ${config.age.secrets.caddy.path}
 
@@ -33,11 +31,9 @@ in {
       '';
     };
 
-    age.secrets.cache = {
-      file = config.age.file + /services/cache.age;
+    sops.secrets.harmonia = {
       owner = "harmonia";
-      group = "harmonia";
-      mode = "644";
+      sopsFile = ./secrets.yaml;
     };
   };
 }

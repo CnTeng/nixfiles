@@ -22,11 +22,9 @@ in {
       CapabilityBoundingSet = "cap_net_bind_service";
     };
 
-    age.secrets.caddy = {
-      file = config.age.file + /services/caddy.age;
-      owner = "${user}";
-      group = "users";
-      mode = "644";
+    sops.secrets.cloudflare = {
+      owner = user;
+      sopsFile = ./secrets.yaml;
     };
   };
 }

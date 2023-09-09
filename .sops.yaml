@@ -1,0 +1,21 @@
+keys:
+  age:
+    - &rxaws age1hz2vlv4m86scwxmcpsh9pmq8tqytuzwqfpge9v9cmhtv33n5xafsn9t38z
+    - &rxdell age143mhvlqr6lxvmkd8pehuxufy0a9xt43wpp38fk80t77jpquzm3aqg7k48u
+    - &rxhz age15gsg6284vg689n09359dsm63ufmskd9cdevtz99z0y47kvzaz4uqxrka35
+    - &rxwsl age1yj7etyceutkk4ctmguxmar7s8sutsyc07ee8tc0s6xmq8p6l85fs55gt68
+
+creation_rules:
+  - path_regex: nixos/shell/.*
+    key_groups:
+      - age:
+          - *rxaws
+          - *rxdell
+          - *rxhz
+          - *rxwsl
+  - path_regex: nixos/services/.*
+    key_groups:
+      - age:
+          - *rxaws
+          - *rxdell
+          - *rxhz

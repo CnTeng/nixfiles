@@ -22,15 +22,13 @@ in {
 
       	tls istengyf@outlook.com
 
-        import ${config.age.secrets.naive.path}
+        import ${config.sops.secrets."naive/server".path}
       }
     '';
 
-    age.secrets.naive = {
-      file = config.age.file + /services/naive.age;
-      owner = "${user}";
-      group = "users";
-      mode = "644";
+    sops.secrets."naive/server" = {
+      owner = user;
+      sopsFile = ./secrets.yaml;
     };
   };
 }
