@@ -14,7 +14,7 @@ in {
     services = {
       calibre-web = {
         enable = true;
-        user = "${user}";
+        inherit user;
         group = "users";
         listen = {
           ip = "127.0.0.1";
@@ -29,11 +29,9 @@ in {
       };
 
       caddy.virtualHosts."book.snakepi.xyz" = {
-        logFormat = ''
-          output file ${config.services.caddy.logDir}/book.log
-        '';
+        logFormat = "output stdout";
         extraConfig = ''
-          import ${config.age.secrets.caddy.path}
+          import ${config.sops.secrets.cloudflare.path}
 
           bind
 

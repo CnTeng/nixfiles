@@ -19,7 +19,7 @@
       packages = with pkgs; [
         colmena
         nvfetcher
-        agenix
+        sops
       ];
     };
   };

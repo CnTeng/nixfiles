@@ -71,7 +71,7 @@ in {
     systemd.services.naiveproxy = let
       settings = {
         listen = "http://127.0.0.1:1080";
-        proxy._secret = config.age.secrets.dae.path;
+        proxy._secret = config.sops.secrets."naive/client".path;
       };
       settingsPath = "/etc/naive/config.json";
     in {
@@ -88,11 +88,9 @@ in {
       };
     };
 
-    age.secrets.dae = {
-      file = config.age.file + /services/dae.age;
-      owner = "${user}";
-      group = "users";
-      mode = "644";
+    sops.secrets."naive/client" = {
+      owner = user;
+      sopsFile = ./secrets.yaml;
     };
   };
 }
