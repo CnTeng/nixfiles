@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -22,11 +21,9 @@ in {
     };
 
     services.caddy.virtualHosts."hydra.snakepi.xyz" = {
-      logFormat = ''
-        output file ${config.services.caddy.logDir}/hydra.log
-      '';
+      logFormat = "output stdout";
       extraConfig = ''
-        import ${config.age.secrets.caddy.path}
+        import ${config.sops.secrets.cloudflare.path}
 
         bind
 

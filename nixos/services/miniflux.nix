@@ -29,16 +29,14 @@ in {
         LISTEN_ADDR = "localhost:6222";
         BASE_URL = "https://rss.snakepi.xyz";
       };
-      adminCredentialsFile = config.age.secrets.miniflux.path;
+      adminCredentialsFile = config.sops.secrets.miniflux.path;
     };
 
     services.caddy.virtualHosts = {
       "rss.snakepi.xyz" = {
-        logFormat = ''
-          output file ${config.services.caddy.logDir}/rss.log
-        '';
+        logFormat = "output stdout";
         extraConfig = ''
-          import ${config.age.secrets.caddy.path}
+          import ${config.sops.secrets.cloudflare.path}
 
           bind
 
@@ -54,11 +52,9 @@ in {
       };
 
       "rsshub.snakepi.xyz" = {
-        logFormat = ''
-          output file ${config.services.caddy.logDir}/rsshub.log
-        '';
+        logFormat = "output stdout";
         extraConfig = ''
-          import ${config.age.secrets.caddy.path}
+          import ${config.sops.secrets.cloudflare.path}
 
           bind
 
@@ -69,11 +65,9 @@ in {
       };
     };
 
-    age.secrets.miniflux = {
-      file = config.age.file + /services/miniflux.age;
-      owner = "${user}";
-      group = "users";
-      mode = "644";
+    sops.secrets.miniflux = {
+      owner = user;
+      sopsFile = ./secrets.yaml;
     };
   };
 }

@@ -14,7 +14,6 @@ in {
         [self.overlays.default]
         ++ map (n: inputs.${n}.overlays.default) [
           "colmena"
-          "agenix"
           "hyprland"
           "hyprwm-contrib"
         ];

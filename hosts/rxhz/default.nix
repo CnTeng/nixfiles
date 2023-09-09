@@ -2,11 +2,11 @@
   imports = [./hardware.nix ./networking.nix ./disko.nix];
 
   services' = {
-    cache.enable = false;
     caddy.enable = true;
     calibre-web.enable = false;
     fail2ban.enable = true;
     firewall.enable = true;
+    harmonia.enable = false;
     hydra.enable = false;
     miniflux.enable = true;
     naive.enable = true;

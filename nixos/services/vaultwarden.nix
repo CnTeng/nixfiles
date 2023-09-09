@@ -31,15 +31,13 @@ in {
           WEBSOCKET_ADDRESS = "127.0.0.1";
           WEBSOCKET_PORT = 3222;
         };
-        environmentFile = config.age.secrets.vaultwarden.path;
+        environmentFile = config.sops.secrets.vaultwarden.path;
       };
 
       caddy.virtualHosts."pwd.snakepi.xyz" = {
-        logFormat = ''
-          output file ${config.services.caddy.logDir}/pwd.log
-        '';
+        logFormat = "output stdout";
         extraConfig = ''
-          import ${config.age.secrets.caddy.path}
+          import ${config.sops.secrets.cloudflare.path}
 
           bind
 
@@ -62,12 +60,10 @@ in {
       };
     };
 
-    age.secrets.vaultwarden = {
-      file = config.age.file + /services/vaultwarden.age;
+    sops.secrets.vaultwarden = {
       path = "/var/lib/vaultwarden.env";
       owner = "vaultwarden";
-      group = "vaultwarden";
-      mode = "644";
+      sopsFile = ./secrets.yaml;
     };
   };
 }

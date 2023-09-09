@@ -26,7 +26,10 @@ in {
         ];
         gptSupport = {
           enable = true;
-          secretsPath = config.age.secrets.chatgpt.path;
+          secrets = {
+            hostPath = config.sops.secrets."chatgpt/host".path;
+            keyPath = config.sops.secrets."chatgpt/key".path;
+          };
         };
       };
 
@@ -41,11 +44,16 @@ in {
       };
     };
 
-    age.secrets.chatgpt = {
-      file = config.age.file + /shell/chatgpt.age;
-      owner = "${user}";
-      group = "users";
-      mode = "644";
+    sops.secrets = {
+      "chatgpt/host" = {
+        owner = user;
+        sopsFile = ./secrets.yaml;
+      };
+
+      "chatgpt/key" = {
+        owner = user;
+        sopsFile = ./secrets.yaml;
+      };
     };
   };
 }
