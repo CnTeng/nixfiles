@@ -19,3 +19,9 @@ creation_rules:
           - *rxaws
           - *rxdell
           - *rxhz
+
+  - path_regex: infra/.*
+    key_groups:
+      - age:
+          - *rxdell
+          - *rxwsl
