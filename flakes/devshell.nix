@@ -20,6 +20,8 @@
         colmena
         nvfetcher
         sops
+        (terraform.withPlugins (p: with p; [cloudflare sops]))
+        terraform-ls
       ];
     };
   };
