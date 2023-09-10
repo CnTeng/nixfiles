@@ -20,18 +20,11 @@ in {
         # Reader
         calibre
 
-        # Dict
-        ydict
-
-        # Music
-        youtube-music
-
         # Video & Picture
         vlc
         gimp
 
         # Office
-        libreoffice
         drawio
 
         # Community
@@ -43,15 +36,7 @@ in {
         # Manager
         font-manager
 
-        ffmpeg
-
         thunderbird
-
-        planify
-
-        todoist
-
-        todoist-electron
 
         sioyek
       ];
