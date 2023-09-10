@@ -505,11 +505,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1694258717,
-        "narHash": "sha256-lyCPTYvD6P7JEmUUb2OAd3QUGEUgg8pOF1LJ4V95DgY=",
+        "lastModified": 1694361254,
+        "narHash": "sha256-bc5aW1NtklsUzxTHMxEPUtAH8v5GliQ8lpsMPySpdaY=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "1a6f961de2eff84e4725255f09d33395c4a52fcc",
+        "rev": "d28725c67844c55393b3f78bfccfe065e5a25373",
         "type": "github"
       },
       "original": {
@@ -689,11 +689,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694268073,
-        "narHash": "sha256-/D1ec7oBZYB9eYJw8BdAQ4GHILO2iPkHpQ2GekvcN8k=",
+        "lastModified": 1694339281,
+        "narHash": "sha256-0wdDtsl9jBxW8ld2+1SwD12OzpcmEha0KsgoFGlz+P8=",
         "owner": "nix-community",
         "repo": "nixos-wsl",
-        "rev": "18691b5d9cc425ba0cee192cf4b582be8c570999",
+        "rev": "212e2d6b0d820fc9f1e79f7b5feeea2824db51bb",
         "type": "github"
       },
       "original": {
@@ -798,21 +798,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1694048283,
-        "narHash": "sha256-QexXMDukc4fmXq5SJsDg8WRA6+FiEOt+PB3hx+fbc8o=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "308e5f73e17dc2fe43ba95ec83697999b5dd544d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -945,17 +930,19 @@
           "flake-parts"
         ],
         "neovim-nightly": "neovim-nightly",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "treefmt": [
           "treefmt"
         ]
       },
       "locked": {
-        "lastModified": 1694266364,
-        "narHash": "sha256-S4bSTPZIcFB4Ba0fObksIwbxuvDUz5iomUPKupkPb/0=",
+        "lastModified": 1694361467,
+        "narHash": "sha256-48izieWb0G/96ipDZZ2WOQi+haHCaSEL017ccMBMh+c=",
         "owner": "CnTeng",
         "repo": "rx-nvim",
-        "rev": "08b659e5323972acd5af7ac45856676ec416ecce",
+        "rev": "3c5ccaec665c73f5113927e159a013c606de7d02",
         "type": "github"
       },
       "original": {
