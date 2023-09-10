@@ -8,28 +8,32 @@
 with lib; let
   cfg = config.shell'.git;
   inherit (config.users.users.${user}) home;
+
+  flavour = toLower config.basics'.colors.flavour;
 in {
   options.shell'.git.enable = mkEnableOption "git" // {default = true;};
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.git = {
-        lfs.enable = true;
         enable = true;
         userName = "CnTeng";
         userEmail = "me@snakepi.xyz";
+        signing = {
+          key = "${home}/.ssh/id_ed25519_sk_rk_sign@${user}";
+          signByDefault = true;
+        };
+        extraConfig.gpg.format = "ssh";
+
+        lfs.enable = true;
+
         delta = {
           enable = true;
           options = {
             dark = true;
             line-numbers = true;
-            syntax-theme = "Catppuccin-macchiato";
+            syntax-theme = "Catppuccin-${flavour}";
           };
-        };
-        extraConfig = {
-          commit.gpgsign = "true";
-          gpg.format = "ssh";
-          user.signingkey = "${home}/.ssh/id_ed25519_sk_rk_sign@${user}";
         };
       };
 
