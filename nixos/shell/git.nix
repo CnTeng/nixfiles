@@ -26,6 +26,11 @@ in {
             syntax-theme = "Catppuccin-macchiato";
           };
         };
+        extraConfig = {
+          commit.gpgsign = "true";
+          gpg.format = "ssh";
+          user.signingkey = "${home}/.ssh/id_ed25519_sk_rk_sign@${user}";
+        };
       };
 
       programs.lazygit = {
