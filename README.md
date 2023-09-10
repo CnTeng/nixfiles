@@ -8,11 +8,6 @@
   </a>
 </p>
 
-## 🌟 Preview
-
-![hyprland](./assets/screenshots/hyprland.png)
-![neovim](./assets/screenshots/neovim.png)
-
 ## ✨ Features
 
 - **Multiple** NixOS configurations, including laptop, server
