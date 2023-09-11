@@ -20,5 +20,6 @@ in {
     };
 
     sops.age.sshKeyPaths = mkIf config.hardware'.stateless.enable ["/persist/etc/ssh/ssh_host_ed25519_key"];
+    programs.gnupg.agent.enable = true;
   };
 }
