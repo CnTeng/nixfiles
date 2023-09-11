@@ -20,10 +20,9 @@ in {
         userName = "CnTeng";
         userEmail = "me@snakepi.xyz";
         signing = {
-          key = "${home}/.ssh/id_ed25519_sk_rk_sign@${user}";
+          key = "24161031945F3E02!";
           signByDefault = true;
         };
-        extraConfig.gpg.format = "ssh";
 
         lfs.enable = true;
 
