@@ -91,7 +91,7 @@ in {
           };
 
           input = {
-            kb_options = "caps:swapescape";
+            kb_options = config.services.xserver.xkbOptions;
             numlock_by_default = true;
             repeat_delay = 300;
             scroll_method = "2fg";

@@ -18,7 +18,7 @@ in {
   config = mkIf cfg.enable {
     services.xserver = {
       layout = "us";
-      xkbOptions = "caps:swapescape";
+      xkbOptions = "ctrl:nocaps";
       libinput.enable = true;
     };
 
