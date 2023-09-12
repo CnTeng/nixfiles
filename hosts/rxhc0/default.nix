@@ -1,5 +1,5 @@
 {
-  imports = [./hardware.nix ./networking.nix ./disko.nix];
+  imports = [./disko.nix ./hardware.nix ./network.nix];
 
   services' = {
     caddy.enable = true;

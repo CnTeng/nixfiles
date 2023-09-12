@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 with lib; let
@@ -23,7 +22,7 @@ in {
     };
 
     sops.secrets.cloudflare = {
-      owner = user;
+      owner = "caddy";
       sopsFile = ./secrets.yaml;
     };
   };

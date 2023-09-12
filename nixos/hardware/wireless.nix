@@ -21,8 +21,9 @@ in {
   config = mkMerge [
     (mkIf components.network {
       users.users.${user}.extraGroups = ["networkmanager"];
-
       networking.networkmanager.enable = true;
+      # networking.useNetworkd = true;
+      # systemd.network.enable = true;
 
       environment.persistence."/persist".directories =
         mkIf config.hardware'.stateless.enable
