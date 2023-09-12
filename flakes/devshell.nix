@@ -21,6 +21,19 @@
           name = "terraform";
           category = "deploy";
           command = ''
+            is_fmt=false
+
+            for arg in "$@"; do
+              if [ "$arg" = "fmt" ]; then
+                is_fmt=true
+              fi
+            done
+
+            if $is_fmt; then
+              ${lib.getExe terraform} $@
+              exit 0
+            fi
+
             sops --output-type json \
                  --output terraform.tfstate \
                  --decrypt tfstate.yaml
