@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 with lib; let
@@ -10,24 +9,19 @@ in {
   options.services'.naive.enable = mkEnableOption "naive";
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = config.services'.caddy.enable;
-        message = "caddy must be enabled to work with naive";
-      }
-    ];
+    services'.caddy.enable = true;
 
     services.caddy.extraConfig = ''
       :443, ${config.networking.hostName}.snakepi.xyz {
 
-      	tls istengyf@outlook.com
+      	tls yufei.teng@pm.me
 
         import ${config.sops.secrets."naive/server".path}
       }
     '';
 
     sops.secrets."naive/server" = {
-      owner = user;
+      owner = "caddy";
       sopsFile = ./secrets.yaml;
     };
   };
