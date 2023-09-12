@@ -1,5 +1,5 @@
 {
-  imports = [./hardware.nix ./disko.nix];
+  imports = [./disko.nix ./hardware.nix];
 
   basics' = {
     colors.flavour = "Mocha";
@@ -27,6 +27,4 @@
     openssh.enable = true;
     dae.enable = true;
   };
-
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 }

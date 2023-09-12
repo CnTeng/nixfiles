@@ -7,8 +7,7 @@
 with lib; let
   cfg = config.services'.openssh;
   authorizedKeys = [
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPmKxwF3v9GvcPJ67fNf42o5/NZvWqWkMu/QrRuQo95OAAAAD3NzaDpyeGF3c0BOaXhPUw== ssh:rxaws@NixOS"
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIFWwOxGhmGVpk2XUBu+PWPXeczcqA/PHt8P+EJrBull4AAAADnNzaDpyeGh6QE5peE9T ssh:rxhz@NixOS"
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIM2a/zgM9DYJSYU7WY6wFiOOTO53xGlllNm3TEoXsJDsAAAADnNzaDphdXRoQE5peE9T ssh:auth@NixOS"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsEAFmptmMDb6TJoSjKZdsdmsQIGXzKj/QOi9VwpDLX ssh:rxwsl@NixOS"
   ];
 in {

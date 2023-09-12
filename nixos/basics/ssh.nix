@@ -2,6 +2,7 @@
   config,
   lib,
   user,
+  data,
   ...
 }:
 with lib; let
@@ -21,10 +22,10 @@ in {
             forwardAgent = true;
             user = "yufei";
             hostname = "${ip}";
-            identityFile = ["${home}/.ssh/id_ed25519_sk_rk_${name}@NixOS"];
+            identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@NixOS"];
           }) {
-            rxaws = "13.113.148.152";
-            rxhz = "49.13.50.247";
+            rxls0 = data.rxls.value.rxls0.ipv4;
+            rxhc0 = data.rxhc.value.rxhc0.ipv4;
           };
       };
     };

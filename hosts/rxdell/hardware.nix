@@ -12,7 +12,7 @@
     kernel.modules.zswap = true;
     monitor.enable = true;
     razer.enable = true;
-    power.tlp.enable = true;
+    tlp.enable = true;
     wireless.enable = true;
   };
   boot = {
