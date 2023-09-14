@@ -1,5 +1,6 @@
 {
   config,
+  data,
   lib,
   pkgs,
   utils,
@@ -16,8 +17,6 @@ in {
       enable = true;
       config = ''
         global {
-          log_level: debug
-
           wan_interface: auto
           auto_config_kernel_parameter: true
         }
@@ -59,6 +58,7 @@ in {
           dip(8.8.8.8, 8.8.4.4) -> direct
           dip(223.5.5.5, 223.6.6.6) -> direct
           dip(224.0.0.0/3, 'ff00::/8') -> direct
+          dip(${data.rxls.value.rxls0.ipv4}, ${data.rxhc.value.rxhc0.ipv4}) -> direct
 
           domain(geosite:category-ads) -> block
           domain(geosite:cn) -> direct
