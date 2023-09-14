@@ -22,8 +22,9 @@ in {
     };
 
     sops.secrets.cloudflare = {
-      owner = "caddy";
+      owner = config.services.caddy.user;
       sopsFile = ./secrets.yaml;
+      restartUnits = ["caddy.service"];
     };
   };
 }

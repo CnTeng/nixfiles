@@ -16,7 +16,7 @@ in {
         enable = true;
         config = {
           # Domain settings
-          DOMAIN = "https://pwd.snakepi.xyz";
+          DOMAIN = "https://vault.snakepi.xyz";
           SIGNUPS_ALLOWED = true;
 
           # Rocket specific settings
@@ -34,7 +34,7 @@ in {
         environmentFile = config.sops.secrets.vaultwarden.path;
       };
 
-      caddy.virtualHosts."pwd.snakepi.xyz" = {
+      caddy.virtualHosts."vault.snakepi.xyz" = {
         logFormat = "output stdout";
         extraConfig = ''
           import ${config.sops.secrets.cloudflare.path}

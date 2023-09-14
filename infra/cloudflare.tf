@@ -49,7 +49,7 @@ locals {
     }
     DMARC = {
       name  = "_dmarc"
-      value = "v=DMARC1; p=none; p=quarantine"
+      value = local.secrets.protonmail.DMARC
       type  = "TXT"
     }
   }
