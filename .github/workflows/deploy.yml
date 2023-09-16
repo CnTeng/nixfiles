@@ -24,9 +24,9 @@ jobs:
       - name: Update themes flake
         run: |
           nix flake lock --update-input themes
-      - name: Nix develop
+      - name: Install colmena  
         run: |
-          nix develop
+          nix-env -if https://github.com/zhaofengli/colmena/tarball/main
       - name: Deploy remote hosts
         run: |
           colmena apply --on rxls0,rxhc0
