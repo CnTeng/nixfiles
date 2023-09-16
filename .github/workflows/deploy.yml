@@ -11,6 +11,7 @@ jobs:
         with:
           key: ${{ secrets.OPS_PRIVATE_KEY }}
           name: id_ed25519
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           config: ${{ secrets.SSH_CONFIG }}
       - name: Checkout
         uses: actions/checkout@main
