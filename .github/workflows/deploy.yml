@@ -27,3 +27,6 @@ jobs:
       - name: Nix develop
         run: |
           nix develop
+      - name: Deploy remote hosts
+        run: |
+          colmena apply --on rxls0,rxhc0
