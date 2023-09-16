@@ -7,8 +7,9 @@
 with lib; let
   cfg = config.services'.openssh;
   authorizedKeys = [
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIM2a/zgM9DYJSYU7WY6wFiOOTO53xGlllNm3TEoXsJDsAAAADnNzaDphdXRoQE5peE9T ssh:auth@NixOS"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsEAFmptmMDb6TJoSjKZdsdmsQIGXzKj/QOi9VwpDLX ssh:rxwsl@NixOS"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII+WN7hymgVphNfYrvw35ZvD7lUJPlg9rJul1tuKgaVG ssh:ops@NixOS"
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIM2a/zgM9DYJSYU7WY6wFiOOTO53xGlllNm3TEoXsJDsAAAADnNzaDphdXRoQE5peE9T ssh:auth@NixOS"
   ];
 in {
   options.services'.openssh.enable = mkEnableOption "openssh";
