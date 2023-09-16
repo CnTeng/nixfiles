@@ -29,11 +29,6 @@
       url = "github:catppuccin/palette";
       flake = false;
     };
-
-    starshipCat = {
-      url = "github:catppuccin/starship";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {...}: {
@@ -45,7 +40,6 @@
       fishCat
       foliateCat
       palette
-      starshipCat
       ;
   };
 }

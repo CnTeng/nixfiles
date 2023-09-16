@@ -1,86 +1,71 @@
 {
-  inputs,
   config,
   lib,
-  user,
   ...
 }:
 with lib; let
   cfg = config.shell'.starship;
-  inherit (inputs.themes) starshipCat;
 in {
   options.shell'.starship.enable =
     mkEnableOption "starship" // {default = true;};
 
   config = mkIf cfg.enable {
-    home-manager.users.${user} = {
-      programs.starship = let
-        flavour = "macchiato";
-      in {
-        enable = true;
-        settings =
-          {
-            format = lib.concatStrings [
-              "[\\[](bold blue)"
-              "$username"
-              "[@](bold red)"
-              "[$nix_shell](bold blue)"
-              "$hostname[\\]](bold blue) "
-              "$character"
-              "$directory"
-              "$git_branch"
-              "$git_status"
-            ];
+    programs.starship = {
+      enable = true;
+      settings = {
+        format = concatStrings [
+          "$directory"
+          "$git_branch"
+          "$git_commit"
+          "$git_state"
+          "$git_status"
+          "$nix_shell"
+          "$fill"
+          "$cmd_duration"
+          "$line_break"
+          "([\\[](bold blue)"
+          "$username"
+          "[@](bold red)"
+          "$hostname"
+          "[\\]](bold blue) )"
+          "$character"
+        ];
+        command_timeout = 3000;
+        add_newline = false;
 
-            palette = "catppuccin_${flavour}";
-            command_timeout = 3000;
-            add_newline = false;
+        character = {
+          success_symbol = "[>](bold green)";
+          error_symbol = "[x](bold red)";
+        };
 
-            username = {
-              style_user = "bold white";
-              style_root = "bold red";
-              format = "[$user]($style)";
-              disabled = false;
-              show_always = true;
-            };
+        cmd_duration.format = "[󱐋 $duration]($style) ";
 
-            hostname = {
-              ssh_only = false;
-              ssh_symbol = "";
-              format = "[$ssh_symbol$hostname]($style)";
-              style = "bold white";
-            };
+        directory.truncation_length = 1;
 
-            character = {
-              format = "$symbol ";
-              success_symbol = "[>](bold green)";
-              error_symbol = "[x](bold red)";
-              vicmd_symbol = "[n](bold green)";
-              vimcmd_replace_one_symbol = "[r](bold purple)";
-              vimcmd_replace_symbol = "[r](bold purple)";
-              vimcmd_visual_symbol = "[v](bold yellow)";
-            };
+        fill.symbol = " ";
 
-            directory = {
-              truncation_length = 1;
-              format = "[$path]($style)[$read_only]($read_only_style) ";
-              home_symbol = "~";
-            };
+        git_branch.format = "[$symbol$branch(:$remote_branch)]($style) ";
 
-            git_branch = {
-              format = "(\\((bold)[$symbol$branch]($style)\\)(bold) )";
-            };
+        git_commit.format = "[$hash$tag]($style) ";
 
-            git_status = {format = "([$all_status$ahead_behind]($style) )";};
+        git_state.format = "[$state( $progress_current/$progress_total) ]($style) ";
 
-            nix_shell = {format = "n";};
-          }
-          // (with builtins;
-              fromTOML (readFile (starshipCat + /palettes/${flavour}.toml)));
-        enableTransience = true;
-      };
-      programs.fish.functions = {
-        starship_transient_prompt_func = "starship module character";
+        git_status.deleted = "x";
+
+        hostname = {
+          format = "[$hostname]($style)";
+          style = "bold white";
+        };
+
+        nix_shell = {
+          format = "[$symbol$name]($style)";
+          symbol = " ";
+        };
+
+        username = {
+          style_user = "bold white";
+          format = ''[$user]($style)'';
+        };
       };
     };
   };
