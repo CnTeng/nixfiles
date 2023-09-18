@@ -2,7 +2,6 @@
   config,
   lib,
   user,
-  data,
   ...
 }:
 with lib; let
@@ -16,17 +15,18 @@ in {
     home-manager.users.${user} = {
       programs.ssh = {
         enable = true;
-        matchBlocks =
-          mapAttrs (name: ip: {
+        matchBlocks = let
+          mapBlock = n: {
             port = 22;
             forwardAgent = true;
-            user = "yufei";
-            hostname = "${ip}";
+            inherit user;
+            hostname = "${n}.snakepi.xyz";
             identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@NixOS"];
-          }) {
-            rxls0 = data.rxls.value.rxls0.ipv4;
-            rxhc0 = data.rxhc.value.rxhc0.ipv4;
           };
+        in {
+          rxls0 = mapBlock "rxls0";
+          rxhc0 = mapBlock "rxhc0";
+        };
       };
     };
   };

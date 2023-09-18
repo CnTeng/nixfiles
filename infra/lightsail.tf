@@ -15,12 +15,22 @@ module "lightsail" {
   region   = each.value.region
 }
 
-module "lightsail_cf" {
-  source   = "./modules/cloudflare"
+module "lightsail_cf_v4" {
+  source   = "./modules/dns"
   for_each = module.lightsail
-  zone_id  = local.secrets.cloudflare.zone_id
+  zone_id  = module.zone["sp_xyz"].id
   name     = each.key
   value    = each.value.ipv4
+  proxied  = false
+}
+
+module "lightsail_cf_v6" {
+  source   = "./modules/dns"
+  for_each = module.lightsail
+  zone_id  = module.zone["sp_xyz"].id
+  name     = each.key
+  value    = each.value.ipv6[0]
+  type     = "AAAA"
   proxied  = false
 }
 

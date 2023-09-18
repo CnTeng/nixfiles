@@ -1,4 +1,9 @@
 locals {
+  domains = {
+    sp_xyz = { zone = "snakepi.xyz" }
+    sp_eo  = { zone = "snakepi.eu.org" }
+    ms_eo  = { zone = "mrsnake.eu.org" }
+  }
   cf_rec = {
     "@"    = { value = module.hcloud["rxhc0"].ipv4 }
     book   = { value = module.hcloud["rxhc0"].ipv4 }
@@ -55,18 +60,25 @@ locals {
   }
 }
 
+module "zone" {
+  source     = "./modules/zone"
+  for_each   = local.domains
+  account_id = local.secrets.cloudflare.account_id
+  zone       = each.value.zone
+}
+
 module "cloudflare" {
-  source   = "./modules/cloudflare"
+  source   = "./modules/dns"
   for_each = local.cf_rec
-  zone_id  = local.secrets.cloudflare.zone_id
+  zone_id  = module.zone["sp_xyz"].id
   name     = each.key
   value    = each.value.value
 }
 
 module "protonmail" {
-  source   = "./modules/cloudflare"
+  source   = "./modules/dns"
   for_each = local.pm_rec
-  zone_id  = local.secrets.cloudflare.zone_id
+  zone_id  = module.zone["sp_xyz"].id
   name     = each.value.name
   value    = each.value.value
   type     = each.value.type

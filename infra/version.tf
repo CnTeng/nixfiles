@@ -2,7 +2,7 @@ terraform {
   required_providers {
     sops = { source = "carlpett/sops" }
 
-    aws  = { source = "hashicorp/aws" }
+    aws = { source = "hashicorp/aws" }
 
     hcloud = { source = "hetznercloud/hcloud" }
 
