@@ -84,8 +84,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    themes.url = "path:./flakes/themes";
-
     nvfetcher = {
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";

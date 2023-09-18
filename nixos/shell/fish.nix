@@ -1,14 +1,15 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
+  sources,
   user,
   ...
 }:
 with lib; let
   cfg = config.shell'.fish;
-  inherit (inputs.themes) fishCat;
+  inherit (config.basics'.colors) flavour;
+  fishTheme = sources.fishTheme.src;
 in {
   options.shell'.fish.enable = mkEnableOption "fish" // {default = true;};
 
@@ -33,10 +34,10 @@ in {
           }
         ];
         interactiveShellInit = ''
-          fish_config theme choose "Catppuccin Macchiato"
+          fish_config theme choose "Catppuccin ${flavour}"
         '';
       };
-      xdg.configFile."fish/themes".source = "${fishCat}/themes";
+      xdg.configFile."fish/themes".source = "${fishTheme}/themes";
     };
   };
 }
