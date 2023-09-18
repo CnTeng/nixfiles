@@ -14,9 +14,6 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
-      - name: Update themes flake
-        run: |
-          nix flake lock --update-input themes
       - name: Nix flake check
         run: |
           nix flake check --all-systems

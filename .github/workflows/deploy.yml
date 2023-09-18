@@ -21,9 +21,6 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
-      - name: Update themes flake
-        run: |
-          nix flake lock --update-input themes
       - name: Install colmena  
         run: |
           nix-env -if https://github.com/zhaofengli/colmena/tarball/main
