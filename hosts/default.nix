@@ -4,7 +4,6 @@
   ...
 }: let
   lib = inputs.nixpkgs.lib.extend (import ../lib);
-  data = builtins.fromJSON (builtins.readFile ../infra/data.json);
   user = "yufei";
 in {
   flake = {pkgs, ...}: {
@@ -24,7 +23,7 @@ in {
     colmenaHive = inputs.colmena.lib.makeHive {
       meta = {
         nixpkgs = pkgs;
-        specialArgs = {inherit inputs user lib data;};
+        specialArgs = {inherit inputs user lib;};
       };
 
       defaults = {

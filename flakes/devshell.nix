@@ -18,24 +18,13 @@
           ]);
       in [
         {
-          name = "rebuild";
-          category = "deploy";
-          help = "nixos rebuild switch";
-          command = "sudo nixos-rebuild switch --flake .#$@";
-        }
-        {
           name = "terraform";
           category = "deploy";
           command = ''
-            is_apply=false
             is_fmt=false
             is_version=false
 
             for arg in "$@"; do
-              if [ "$arg" = "apply" ]; then
-                is_apply=true
-              fi
-
               if [ "$arg" = "fmt" ]; then
                 is_fmt=true
               fi
@@ -62,14 +51,12 @@
 
             ${lib.getExe terraform} "$@"
 
-            if [ "$is_apply" = true -a $? -eq 0 ]; then
-              ${lib.getExe terraform} output -json > data.json
+            if [ $? -eq 0 ]; then
+              sops --input-type json \
+                   --output-type yaml \
+                   --output tfstate.yaml \
+                   --encrypt terraform.tfstate
             fi
-
-            sops --input-type json \
-                 --output-type yaml \
-                 --output tfstate.yaml \
-                 --encrypt terraform.tfstate
 
             if [ $? -eq 0 ]; then
               echo -e "\n\033[32msops: encryption successful\033[0m"

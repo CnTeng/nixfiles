@@ -65,3 +65,7 @@ resource "aws_lightsail_instance_public_ports" "default" {
 output "ipv4" {
   value = aws_lightsail_instance.instance.public_ip_address
 }
+
+output "ipv6" {
+  value = aws_lightsail_instance.instance.ipv6_addresses
+}
