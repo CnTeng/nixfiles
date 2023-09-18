@@ -1,3 +1,27 @@
+[batTheme]
+src.git = "https://github.com/catppuccin/bat"
+fetch.github = "catppuccin/bat"
+
+[btopTheme]
+src.git = "https://github.com/catppuccin/btop"
+fetch.github = "catppuccin/btop"
+
+[fcitx5Theme]
+src.git = "https://github.com/catppuccin/fcitx5"
+fetch.github = "catppuccin/fcitx5"
+
+[fishTheme]
+src.git = "https://github.com/catppuccin/fish"
+fetch.github = "catppuccin/fish"
+
+[foliateTheme]
+src.git = "https://github.com/catppuccin/foliate"
+fetch.github = "catppuccin/foliate"
+
+[palette]
+src.git = "https://github.com/catppuccin/palette"
+fetch.github = "catppuccin/palette"
+
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."

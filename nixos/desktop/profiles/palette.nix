@@ -1,12 +1,12 @@
 {
   lib,
   config,
-  inputs,
+  sources,
   ...
 }:
 with lib; let
   inherit (config.basics'.colors) flavour;
-  inherit (inputs.themes) palette;
+  palette = sources.palette.src;
 
   paletteJSON = importJSON (palette + /palette.json);
 in {
