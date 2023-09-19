@@ -1,18 +1,24 @@
 {
-  flake.overlays.default = final: prev: let
-    inherit (final) pkgs;
-    sources = final.callPackage ./_sources/generated.nix {};
+  flake.overlays = {
+    lib = import ./lib;
 
-    mkPackage = name: pkgs.callPackage ./packages/${name} {source = sources.${name};};
+    default = final: prev: let
+      inherit (final) pkgs;
+      sources = final.callPackage ./_sources/generated.nix {};
 
-    mkOverride = name: (import ./overrides/${name} prev);
+      mkPackage = dir: name: pkgs.callPackage ./${dir}/${name} {source = sources.${name};};
 
-    mkOverlay = f: dir:
-      with builtins;
-        listToAttrs (map (name: {
-          inherit name;
-          value = f name;
-        }) (attrNames (readDir ./${dir})));
-  in
-    (mkOverlay mkPackage "packages") // (mkOverlay mkOverride "overrides");
+      mkOverride = dir: name: (import ./${dir}/${name} prev);
+
+      mkOverlay = f: dir:
+        with builtins;
+          listToAttrs (map (name: {
+            inherit name;
+            value = f dir name;
+          }) (attrNames (readDir ./${dir})));
+    in
+      (mkOverlay mkPackage "packages")
+      // (mkOverlay mkPackage "themes")
+      // (mkOverlay mkOverride "overrides");
+  };
 }

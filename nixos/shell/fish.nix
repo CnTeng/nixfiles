@@ -2,14 +2,13 @@
   config,
   lib,
   pkgs,
-  sources,
   user,
   ...
 }:
 with lib; let
   cfg = config.shell'.fish;
   inherit (config.basics'.colors) flavour;
-  fishTheme = sources.fishTheme.src;
+  fishTheme = pkgs.fishTheme.src;
 in {
   options.shell'.fish.enable = mkEnableOption "fish" // {default = true;};
 
