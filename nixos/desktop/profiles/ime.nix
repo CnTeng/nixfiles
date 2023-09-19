@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  themes,
   user,
   ...
 }:
@@ -9,7 +10,7 @@ with lib; let
   cfg = config.desktop'.profiles.inputMethod;
 
   inherit (config.basics'.colors) flavour;
-  fcitx5Theme = pkgs.fcitx5Theme.src;
+  inherit (themes) fcitx5Theme;
 in {
   options.desktop'.profiles.inputMethod.enable =
     mkEnableOption "input method component";
