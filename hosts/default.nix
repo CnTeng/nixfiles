@@ -6,6 +6,11 @@
   flake = {pkgs, ...}: let
     lib = inputs.nixpkgs.lib.extend (self.overlays.lib);
     user = "yufei";
+
+    themes = with lib; let
+      sources = pkgs.callPackage ../overlays/_sources/generated.nix {};
+    in
+      genAttrs (attrNames sources) (n: sources.${n}.src);
   in {
     _module.args.pkgs = import inputs.nixpkgs {
       system = "x86_64-linux";
@@ -23,7 +28,7 @@
     colmenaHive = inputs.colmena.lib.makeHive {
       meta = {
         nixpkgs = pkgs;
-        specialArgs = {inherit inputs lib user;};
+        specialArgs = {inherit inputs lib themes user;};
       };
 
       defaults = {
