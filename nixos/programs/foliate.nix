@@ -2,13 +2,12 @@
   config,
   lib,
   pkgs,
-  sources,
   user,
   ...
 }:
 with lib; let
   cfg = config.programs'.foliate;
-  foliateTheme = sources.foliateTheme.src;
+  foliateTheme = pkgs.foliateTheme.src;
 in {
   options.programs'.foliate.enable = mkEnableOption "Foliate";
 
