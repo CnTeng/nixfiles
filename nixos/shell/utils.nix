@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  themes,
   user,
   ...
 }:
@@ -10,8 +11,7 @@ with lib; let
   cfg = config.shell'.utils;
   flavour = toLower config.basics'.colors.flavour;
 
-  batTheme = pkgs.batTheme.src;
-  btopTheme = pkgs.btopTheme.src;
+  inherit (themes) batTheme btopTheme;
 in {
   imports = [inputs.nix-index-database.nixosModules.nix-index];
 

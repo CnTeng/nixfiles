@@ -17,8 +17,6 @@
             value = f dir name;
           }) (attrNames (readDir ./${dir})));
     in
-      (mkOverlay mkPackage "packages")
-      // (mkOverlay mkPackage "themes")
-      // (mkOverlay mkOverride "overrides");
+      (mkOverlay mkPackage "packages") // (mkOverlay mkOverride "overrides");
   };
 }
