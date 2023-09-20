@@ -35,7 +35,10 @@ in {
           options = "--delete-older-than 7d";
         };
       };
+
       nix.channel.enable = false;
+
+      nix.registry.nixpkgs.flake = inputs.nixpkgs;
     })
     (mkIf config.hardware'.stateless.enable {
       environment.variables.NIX_REMOTE = "daemon";
