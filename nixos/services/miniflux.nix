@@ -60,6 +60,11 @@ in {
 
           encode gzip
 
+          forward_auth 127.0.0.1:9091 {
+            uri /api/verify?rd=https://auth.snakepi.xyz/
+            copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+          }
+
           reverse_proxy 127.0.0.1:1200
         '';
       };

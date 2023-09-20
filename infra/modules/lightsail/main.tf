@@ -67,5 +67,5 @@ output "ipv4" {
 }
 
 output "ipv6" {
-  value = aws_lightsail_instance.instance.ipv6_addresses
+  value = aws_lightsail_instance.instance.ipv6_addresses[0]
 }
