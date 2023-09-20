@@ -29,7 +29,7 @@ module "lightsail_cf_v6" {
   for_each = module.lightsail
   zone_id  = module.zone["sp_xyz"].id
   name     = each.key
-  value    = each.value.ipv6[0]
+  value    = each.value.ipv6
   type     = "AAAA"
   proxied  = false
 }
