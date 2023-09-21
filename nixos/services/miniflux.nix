@@ -26,8 +26,14 @@ in {
     services.miniflux = {
       enable = true;
       config = {
+        CREATE_ADMIN = mkForce "";
         LISTEN_ADDR = "localhost:6222";
         BASE_URL = "https://rss.snakepi.xyz";
+        OAUTH2_PROVIDER = "oidc";
+        OAUTH2_CLIENT_ID = "miniflux";
+        OAUTH2_REDIRECT_URL = "https://rss.snakepi.xyz/oauth2/oidc/callback";
+        OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.snakepi.xyz";
+        OAUTH2_USER_CREATION = "1";
       };
       adminCredentialsFile = config.sops.secrets.miniflux.path;
     };
@@ -59,11 +65,6 @@ in {
           bind
 
           encode gzip
-
-          forward_auth 127.0.0.1:9091 {
-            uri /api/verify?rd=https://auth.snakepi.xyz/
-            copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
-          }
 
           reverse_proxy 127.0.0.1:1200
         '';

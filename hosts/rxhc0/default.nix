@@ -4,7 +4,6 @@
   services' = {
     authelia.enable = true;
     caddy.enable = true;
-    # calibre-web.enable = true;
     fail2ban.enable = true;
     firewall.enable = true;
     harmonia.enable = false;
