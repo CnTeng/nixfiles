@@ -7,7 +7,6 @@ locals {
   cf_rec = {
     "@"    = { value = module.hcloud["rxhc0"].ipv4 }
     auth   = { value = module.hcloud["rxhc0"].ipv4 }
-    book   = { value = module.hcloud["rxhc0"].ipv4 }
     cache  = { value = module.hcloud["rxhc0"].ipv4 }
     hydra  = { value = module.hcloud["rxhc0"].ipv4 }
     rss    = { value = module.hcloud["rxhc0"].ipv4 }
