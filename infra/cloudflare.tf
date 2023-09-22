@@ -11,6 +11,7 @@ locals {
     hydra  = { value = module.hcloud["rxhc0"].ipv4 }
     rss    = { value = module.hcloud["rxhc0"].ipv4 }
     rsshub = { value = module.hcloud["rxhc0"].ipv4 }
+    ntfy   = { value = module.hcloud["rxhc0"].ipv4 }
     vault  = { value = module.hcloud["rxhc0"].ipv4 }
     www    = { value = module.hcloud["rxhc0"].ipv4 }
   }
