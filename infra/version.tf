@@ -7,6 +7,8 @@ terraform {
     hcloud = { source = "hetznercloud/hcloud" }
 
     cloudflare = { source = "cloudflare/cloudflare" }
+
+    hydra = { source = "DeterminateSystems/hydra" }
   }
 }
 

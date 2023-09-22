@@ -1,30 +1,16 @@
 {
   self,
   inputs,
+  withSystem,
   ...
 }: {
-  flake = {pkgs, ...}: let
-    lib = inputs.nixpkgs.lib.extend (self.overlays.lib);
+  flake = withSystem "x86_64-linux" ({pkgs, ...}: let
+    lib = pkgs.lib.extend (self.overlays.lib);
     user = "yufei";
 
-    themes = with lib; let
-      sources = pkgs.callPackage ../overlays/_sources/generated.nix {};
-    in
-      genAttrs (attrNames sources) (n: sources.${n}.src);
+    sources = pkgs.callPackage ../overlays/_sources/generated.nix {};
+    themes = with lib; genAttrs (attrNames sources) (n: sources.${n}.src);
   in {
-    _module.args.pkgs = import inputs.nixpkgs {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-      overlays =
-        [self.overlays.default]
-        ++ map (n: inputs.${n}.overlays.default) [
-          "hyprland"
-          "hyprwm-contrib"
-        ];
-    };
-
-    nixosConfigurations = self.colmenaHive.nodes;
-
     colmenaHive = inputs.colmena.lib.makeHive {
       meta = {
         nixpkgs = pkgs;
@@ -61,5 +47,7 @@
         nixpkgs.system = "aarch64-linux";
       };
     };
-  };
+
+    nixosConfigurations = self.colmenaHive.nodes;
+  });
 }
