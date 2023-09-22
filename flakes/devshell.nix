@@ -15,6 +15,7 @@
             cloudflare
             sops
             hcloud
+            hydra
           ]);
       in [
         {
