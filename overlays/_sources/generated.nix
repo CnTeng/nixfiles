@@ -89,4 +89,12 @@
     };
     date = "2023-07-10";
   };
+  wsl-notify-send = {
+    pname = "wsl-notify-send";
+    version = "v0.1.871612270";
+    src = fetchurl {
+      url = "https://github.com/stuartleeks/wsl-notify-send/releases/download/v0.1.871612270/wsl-notify-send_windows_amd64.zip";
+      sha256 = "sha256-hTFDb9AFhErKmUjWi55OQN9WZFqerekfRwJ83U0KGw4=";
+    };
+  };
 }

@@ -148,5 +148,20 @@
             "type": "github"
         },
         "version": "205dd54c6158b7648621cf9fd00e91f03888ce7e"
+    },
+    "wsl-notify-send": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "wsl-notify-send",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-hTFDb9AFhErKmUjWi55OQN9WZFqerekfRwJ83U0KGw4=",
+            "type": "url",
+            "url": "https://github.com/stuartleeks/wsl-notify-send/releases/download/v0.1.871612270/wsl-notify-send_windows_amd64.zip"
+        },
+        "version": "v0.1.871612270"
     }
 }
