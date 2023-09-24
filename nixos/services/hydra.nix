@@ -20,6 +20,16 @@ in {
       useSubstitutes = true;
     };
 
+    boot.binfmt.emulatedSystems = ["x86_64-linux"];
+
+    nix.buildMachines = [
+      {
+        hostName = "localhost";
+        systems = ["x86_64-linux" "aarch64-linux"];
+        maxJobs = 3;
+      }
+    ];
+
     services.caddy.virtualHosts."hydra.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''

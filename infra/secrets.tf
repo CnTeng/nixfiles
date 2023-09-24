@@ -19,3 +19,11 @@ provider "hcloud" {
 provider "cloudflare" {
   api_token = local.secrets.cloudflare.api_token
 }
+
+provider "hydra" {
+  host     = local.secrets.hydra.host
+  username = "yufei"
+  password = local.secrets.hydra.password
+}
+
+
