@@ -6,7 +6,7 @@
     caddy.enable = true;
     fail2ban.enable = true;
     firewall.enable = true;
-    harmonia.enable = false;
+    harmonia.enable = true;
     hydra.enable = true;
     miniflux.enable = true;
     naive.enable = true;

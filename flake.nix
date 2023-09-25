@@ -1,13 +1,12 @@
 {
   description = "NixOS Configuration";
 
-  # nixConfig = {
-  #   extra-substituters = ["https://cache.snakepi.xyz" "https://hyprland.cachix.org"];
-  #   extra-trusted-public-keys = [
-  #     "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
-  #     "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-  #   ];
-  # };
+  nixConfig = {
+    extra-substituters = ["https://cache.snakepi.xyz"];
+    extra-trusted-public-keys = [
+      "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
