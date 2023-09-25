@@ -9,11 +9,19 @@ in {
   options.services'.harmonia.enable = mkEnableOption "harmonia";
 
   config = mkIf cfg.enable {
+    users = {
+      users.harmonia = {
+        group = "harmonia";
+        isSystemUser = true;
+      };
+      groups.harmonia = {};
+    };
+
     networking.firewall.allowedTCPPorts = [5222];
 
     services.harmonia = {
       enable = true;
-      signKeyPath = config.age.secrets.cache.path;
+      signKeyPath = config.sops.secrets.harmonia.path;
       settings = {
         bind = "[::]:5222";
         workers = 5;
@@ -25,7 +33,7 @@ in {
     services.caddy.virtualHosts."cache.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        import ${config.age.secrets.caddy.path}
+        import ${config.sops.secrets.cloudflare.path}
 
         reverse_proxy 127.0.0.1:5222
       '';
@@ -33,6 +41,7 @@ in {
 
     sops.secrets.harmonia = {
       owner = "harmonia";
+      group = "harmonia";
       sopsFile = ./secrets.yaml;
     };
   };
