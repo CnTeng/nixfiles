@@ -12,6 +12,7 @@
     naive.enable = true;
     ntfy.enable = true;
     openssh.enable = true;
+    rsshub.enable = true;
     vaultwarden.enable = true;
   };
 }
