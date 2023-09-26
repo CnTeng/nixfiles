@@ -14,10 +14,30 @@ in {
     services.hydra = {
       enable = true;
       hydraURL = "https://hydra.snakepi.xyz";
-      listenHost = "localhost";
       port = 9222;
-      notificationSender = "hydra@outlook.com";
+      notificationSender = "hydra@snakepi.eu.org";
+      smtpHost = "smtp.gmail.com";
       useSubstitutes = true;
+    };
+
+    systemd.services.hydra-notify = {
+      serviceConfig.EnvironmentFile = config.sops.templates.hydra-email.path;
+    };
+
+    sops.secrets."hydra/smtp" = {
+      owner = "hydra";
+      sopsFile = ./secrets.yaml;
+      key = "smtp";
+    };
+
+    sops.templates.hydra-email = {
+      content = ''
+        email_sender_transport_sasl_username=jstengyufei
+        email_sender_transport_sasl_password=${config.sops.placeholder."hydra/smtp"}
+        EMAIL_SENDER_TRANSPORT_port=587
+        EMAIL_SENDER_TRANSPORT_ssl=starttls
+      '';
+      owner = "hydra";
     };
 
     boot.binfmt.emulatedSystems = ["x86_64-linux"];
