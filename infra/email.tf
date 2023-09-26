@@ -10,7 +10,7 @@ resource "cloudflare_email_routing_address" "vault" {
 
 resource "cloudflare_email_routing_rule" "vault" {
   zone_id = module.zone["sp_eo"].id
-  name    = "vault rule"
+  name    = "vault email rule"
   enabled = true
 
   matcher {
@@ -27,13 +27,30 @@ resource "cloudflare_email_routing_rule" "vault" {
 
 resource "cloudflare_email_routing_rule" "auth" {
   zone_id = module.zone["sp_eo"].id
-  name    = "auth rule"
+  name    = "auth email rule"
   enabled = true
 
   matcher {
     type  = "literal"
     field = "to"
     value = "auth@snakepi.eu.org"
+  }
+
+  action {
+    type  = "forward"
+    value = ["jstengyufei@gmail.com"]
+  }
+}
+
+resource "cloudflare_email_routing_rule" "hydra" {
+  zone_id = module.zone["sp_eo"].id
+  name    = "hydra email rule"
+  enabled = true
+
+  matcher {
+    type  = "literal"
+    field = "to"
+    value = "hydra@snakepi.eu.org"
   }
 
   action {

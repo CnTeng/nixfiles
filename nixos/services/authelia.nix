@@ -48,7 +48,7 @@ in {
         ];
       };
       environmentVariables = {
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets.smtp.path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."authelia/smtp".path;
       };
     };
 
@@ -65,9 +65,10 @@ in {
         owner = config.services.authelia.instances.default.user;
         sopsFile = ./secrets.yaml;
       };
-      "smtp" = {
+      "authelia/smtp" = {
         owner = config.services.authelia.instances.default.user;
         sopsFile = ./secrets.yaml;
+        key = "smtp";
       };
       "authelia/oidc/hmac" = {
         owner = config.services.authelia.instances.default.user;
