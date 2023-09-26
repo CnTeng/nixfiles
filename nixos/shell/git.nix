@@ -65,7 +65,9 @@ in {
         };
       };
 
-      home.packages = with pkgs; [gh commitizen];
+      programs.gh.enable = true;
+
+      home.packages = with pkgs; [commitizen];
     };
   };
 }
