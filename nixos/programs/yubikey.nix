@@ -21,5 +21,7 @@ in {
     ];
 
     services.pcscd.enable = true;
+
+    programs.yubikey-touch-detector.enable = true;
   };
 }
