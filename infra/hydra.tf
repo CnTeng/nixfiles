@@ -6,13 +6,14 @@ resource "hydra_project" "nixfiles" {
 }
 
 resource "hydra_jobset" "nixfiles" {
-  project           = hydra_project.nixfiles.name
-  state             = "enabled"
-  visible           = true
-  name              = "nixfiles"
-  type              = "flake"
-  flake_uri         = "github:CnTeng/nixfiles/main"
-  check_interval    = 120
-  scheduling_shares = 100
-  keep_evaluations  = 3
+  project             = hydra_project.nixfiles.name
+  state               = "enabled"
+  visible             = true
+  name                = "nixfiles"
+  type                = "flake"
+  flake_uri           = "github:CnTeng/nixfiles/main"
+  check_interval      = 120
+  scheduling_shares   = 100
+  keep_evaluations    = 3
+  email_notifications = true
 }
