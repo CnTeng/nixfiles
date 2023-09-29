@@ -25,9 +25,9 @@ in {
     services.caddy.virtualHosts."rsshub.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        import ${config.sops.secrets.cloudflare.path}
-
-        bind
+        tls {
+          import ${config.sops.secrets.cloudflare.path}
+        }
 
         encode gzip
 

@@ -9,61 +9,59 @@ in {
   options.services'.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [587 3222 8222];
+    networking.firewall.allowedTCPPorts = [8222];
 
-    services = {
-      vaultwarden = {
-        enable = true;
-        config = {
-          # Domain settings
-          DOMAIN = "https://vault.snakepi.xyz";
-          SIGNUPS_ALLOWED = true;
+    services.vaultwarden = {
+      enable = true;
+      # TODO: backup to remote
+      backupDir = "/var/lib/bitwarden_rs/backup";
+      config = {
+        DOMAIN = "https://vault.snakepi.xyz";
+        SIGNUPS_ALLOWED = false;
 
-          # Rocket specific settings
-          ROCKET_ADDRESS = "127.0.0.1";
-          ROCKET_PORT = 8222;
-          ROCKET_LOG = "critical";
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 8222;
 
-          # Enables websocket notifications
-          WEBSOCKET_ENABLED = true;
+        PUSH_ENABLED = true;
 
-          # Controls the WebSocket server address and port
-          WEBSOCKET_ADDRESS = "127.0.0.1";
-          WEBSOCKET_PORT = 3222;
-        };
-        environmentFile = config.sops.secrets.vaultwarden.path;
+        SMTP_HOST = "smtp.gmail.com";
+        SMTP_FROM = "vault@snakepi.eu.org";
+        SMTP_FROM_NAME = "Vaultwarden";
+        SMTP_SECURITY = "starttls";
+        SMTP_PORT = 587;
+        SMTP_USERNAME = "jstengyufei";
       };
+      environmentFile = config.sops.secrets.vaultwarden.path;
+    };
 
-      caddy.virtualHosts."vault.snakepi.xyz" = {
-        logFormat = "output stdout";
-        extraConfig = ''
+    services.caddy.virtualHosts."vault.snakepi.xyz" = {
+      logFormat = "output stdout";
+      extraConfig = ''
+        tls {
           import ${config.sops.secrets.cloudflare.path}
+        }
 
-          bind
+        encode gzip
 
-          encode gzip
+        header {
+          Strict-Transport-Security "max-age=31536000;"
+          X-XSS-Protection "1; mode=block"
+          X-Frame-Options "SAMEORIGIN"
+          X-Robots-Tag "none"
+          -Server
+        }
 
-          header / {
-            Strict-Transport-Security "max-age=31536000;"
-            X-XSS-Protection "1; mode=block"
-            X-Frame-Options "DENY"
-            X-Robots-Tag "none"
-            -Server
-          }
-
-          reverse_proxy /notifications/hub/negotiate 127.0.0.1:8222
-          reverse_proxy /notifications/hub 127.0.0.1:3222
-          reverse_proxy 127.0.0.1:8222 {
-            header_up X-Real-IP {remote_host}
-          }
-        '';
-      };
+        reverse_proxy 127.0.0.1:8222 {
+          header_up X-Real-IP {remote_host}
+        }
+      '';
     };
 
     sops.secrets.vaultwarden = {
       path = "/var/lib/vaultwarden.env";
       owner = "vaultwarden";
       sopsFile = ./secrets.yaml;
+      restartUnits = ["vaultwarden.service"];
     };
   };
 }

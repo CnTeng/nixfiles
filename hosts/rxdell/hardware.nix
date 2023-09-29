@@ -9,7 +9,6 @@
     devices.enable = true;
     stateless.enable = true;
     ssd.enable = true;
-    kernel.modules.zswap = true;
     monitor.enable = true;
     razer.enable = true;
     tlp.enable = true;
