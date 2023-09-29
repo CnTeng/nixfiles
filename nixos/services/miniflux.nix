@@ -30,11 +30,9 @@ in {
     services.caddy.virtualHosts."rss.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        import ${config.sops.secrets.cloudflare.path}
-
-        bind
-
-        encode gzip
+        tls {
+          import ${config.sops.secrets.cloudflare.path}
+        }
 
         header / {
           X-XSS-Protection "1; mode=block"

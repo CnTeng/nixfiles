@@ -83,7 +83,9 @@ in {
     services.caddy.virtualHosts."auth.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        import ${config.sops.secrets.cloudflare.path}
+        tls {
+          import ${config.sops.secrets.cloudflare.path}
+        }
 
         reverse_proxy 127.0.0.1:9091
       '';
