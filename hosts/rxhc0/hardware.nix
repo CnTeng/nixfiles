@@ -3,7 +3,6 @@
 
   hardware' = {
     stateless.enable = true;
-    kernel.modules.bbr = true;
     boot.enable = true;
   };
 

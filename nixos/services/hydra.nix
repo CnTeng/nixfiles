@@ -53,11 +53,9 @@ in {
     services.caddy.virtualHosts."hydra.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        import ${config.sops.secrets.cloudflare.path}
-
-        bind
-
-        encode gzip
+        tls {
+          import ${config.sops.secrets.cloudflare.path}
+        }
 
         reverse_proxy 127.0.0.1:9222
       '';
