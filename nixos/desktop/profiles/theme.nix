@@ -45,7 +45,7 @@ in {
             variant = toLower flavour;
             tweaks = ["rimless"];
           };
-          name = "Catppuccin-${flavour}-Standard-Blue-dark";
+          name = "Catppuccin-${flavour}-Standard-Blue-Dark";
         };
       };
     };
