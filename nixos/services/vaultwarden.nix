@@ -19,10 +19,11 @@ in {
         DOMAIN = "https://vault.snakepi.xyz";
         SIGNUPS_ALLOWED = false;
 
-        ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = 8222;
 
         PUSH_ENABLED = true;
+
+        DISABLE_ADMIN_TOKEN = true;
 
         SMTP_HOST = "smtp.gmail.com";
         SMTP_FROM = "vault@snakepi.eu.org";
@@ -49,6 +50,11 @@ in {
           X-Frame-Options "SAMEORIGIN"
           X-Robots-Tag "none"
           -Server
+        }
+
+        forward_auth /admin 127.0.0.1:9091 {
+          uri /api/verify?rd=https://auth.snakepi.xyz/
+          copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
         }
 
         reverse_proxy 127.0.0.1:8222 {
