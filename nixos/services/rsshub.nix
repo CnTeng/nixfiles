@@ -6,16 +6,22 @@
 with lib; let
   cfg = config.services'.rsshub;
 in {
-  options.services'.rsshub.enable = mkEnableOption "Rsshub";
+  options.services'.rsshub = {
+    enable = mkEnableOption "Rsshub" // {default = cfg.port != null;};
+    port = mkOption {
+      type = with types; nullOr port;
+      default = null;
+    };
+  };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [1200];
+    networking.firewall.allowedTCPPorts = [cfg.port];
 
     virtualisation.oci-containers = {
       backend = "docker";
       containers.rsshub = {
         image = "diygod/rsshub";
-        ports = ["1200:1200"];
+        ports = ["${toString cfg.port}:${toString cfg.port}"];
         environment = {
           HOTLINK_TEMPLATE = "https://i3.wp.com/\${host}\${pathname}";
         };
@@ -31,7 +37,7 @@ in {
 
         encode gzip
 
-        reverse_proxy 127.0.0.1:1200
+        reverse_proxy 127.0.0.1:${toString cfg.port}
       '';
     };
   };
