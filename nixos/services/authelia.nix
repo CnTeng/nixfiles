@@ -6,10 +6,16 @@
 with lib; let
   cfg = config.services'.authelia;
 in {
-  options.services'.authelia.enable = mkEnableOption "authelia";
+  options.services'.authelia = {
+    enable = mkEnableOption "Authelia" // {default = cfg.port != null;};
+    port = mkOption {
+      type = with types; nullOr port;
+      default = null;
+    };
+  };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [9091];
+    networking.firewall.allowedTCPPorts = [cfg.port];
 
     services.authelia.instances.default = {
       enable = true;
@@ -87,7 +93,7 @@ in {
           import ${config.sops.secrets.cloudflare.path}
         }
 
-        reverse_proxy 127.0.0.1:9091
+        reverse_proxy 127.0.0.1:${toString cfg.port}
       '';
     };
   };
