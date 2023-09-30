@@ -6,7 +6,13 @@
 with lib; let
   cfg = config.services'.harmonia;
 in {
-  options.services'.harmonia.enable = mkEnableOption "harmonia";
+  options.services'.harmonia = {
+    enable = mkEnableOption "harmonia" // {default = cfg.port != null;};
+    port = mkOption {
+      type = with types; nullOr port;
+      default = null;
+    };
+  };
 
   config = mkIf cfg.enable {
     users = {
@@ -23,7 +29,7 @@ in {
       enable = true;
       signKeyPath = config.sops.secrets.harmonia.path;
       settings = {
-        bind = "[::]:5222";
+        bind = "[::]:${toString cfg.port}";
         workers = 5;
         max_connection_rate = 256;
         priority = 30;
@@ -37,7 +43,7 @@ in {
           import ${config.sops.secrets.cloudflare.path}
         }
 
-        reverse_proxy 127.0.0.1:5222
+        reverse_proxy 127.0.0.1:${toString cfg.port}
       '';
     };
 
