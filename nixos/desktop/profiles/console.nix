@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     console = {
       useXkbConfig = true;
-      font = "ter-v20b";
+      # font = "ter-v20b";
       colors = with palette;
         map removeHashTag [
           "${base.hex}"
@@ -34,7 +34,7 @@ in {
           "${mauve.hex}"
           "${flamingo.hex}"
         ];
-      packages = [pkgs.terminus_font];
+      # packages = [pkgs.terminus_font];
     };
   };
 }
