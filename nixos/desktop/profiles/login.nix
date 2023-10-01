@@ -13,11 +13,9 @@ in {
   config = mkIf cfg.enable {
     services.greetd = {
       enable = true;
-      settings = {
-        default_session = {
-          command = "${getExe pkgs.greetd.tuigreet} --time --cmd Hyprland";
-          user = "greeter";
-        };
+      settings.default_session = {
+        command = "${getExe pkgs.greetd.tuigreet} -t -r --asterisks --window-padding 1 --cmd Hyprland";
+        user = "greeter";
       };
     };
   };
