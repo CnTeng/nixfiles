@@ -17,25 +17,9 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      boot = {
-        loader = {
-          systemd-boot.enable = mkIf (!cfg.secureboot) true;
-          efi.canTouchEfiVariables = true;
-        };
-
-        consoleLogLevel = 0;
-        initrd.verbose = false;
-        kernelParams = ["quiet"];
-
-        plymouth = {
-          enable = true;
-          themePackages = [
-            (pkgs.catppuccin-plymouth.override {
-              variant = "mocha";
-            })
-          ];
-          theme = "catppuccin-mocha";
-        };
+      boot.loader = {
+        systemd-boot.enable = mkIf (!cfg.secureboot) true;
+        efi.canTouchEfiVariables = true;
       };
     })
 

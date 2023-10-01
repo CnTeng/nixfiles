@@ -28,6 +28,7 @@ in {
       locker.enable = true;
       loginManager.enable = true;
       notification.enable = true;
+      plymouth.enable = true;
       services.enable = true;
       theme.enable = true;
       variables.enable = true;
@@ -291,6 +292,11 @@ in {
           bind = , escape, submap, reset
           submap = reset
         '';
+      };
+
+      systemd.user.targets.tray.Unit = {
+        Description = "Home Manager System Tray";
+        Requires = ["graphical-session-pre.target"];
       };
     };
   };
