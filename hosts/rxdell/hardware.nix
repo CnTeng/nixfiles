@@ -6,10 +6,10 @@
       secureboot = true;
     };
     cpu.intel.enable = true;
-    devices.enable = true;
     stateless.enable = true;
     tlp.enable = true;
   };
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
@@ -32,4 +32,6 @@
 
   # Support for firmware update
   services.fwupd.enable = true;
+
+  services.fstrim.enable = true;
 }
