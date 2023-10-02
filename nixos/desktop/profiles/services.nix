@@ -12,6 +12,16 @@ in {
     mkEnableOption "services component";
 
   config = mkIf cfg.enable {
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+
+    users.users.${user}.extraGroups = ["video"];
+
+    hardware.brillo.enable = true;
+
     services = {
       gnome = {
         # Fix warning 'The name org.a11y.Bus was not provided by any .service files'
