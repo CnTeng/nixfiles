@@ -2,47 +2,43 @@
   config,
   lib,
   user,
+  pkgs,
   ...
 }:
 with lib; let
   cfg = config.hardware'.devices;
-  inherit (cfg) components;
 in {
-  options.hardware'.devices = {
-    enable = mkEnableOption "all devices support";
-    components =
-      mapAttrs
-      (_: doc: mkEnableOption (mkDoc doc) // {default = cfg.enable;}) {
-        audio = "audio support";
-        light = "light support";
+  options.hardware'.devices.enable = mkEnableOption "devices support";
+
+  config = mkIf cfg.enable {
+    users.users.${user}.extraGroups = ["camera" "video" "audio" "i2c"];
+
+    hardware.i2c.enable = true;
+
+    hardware.openrazer = {
+      enable = true;
+      users = [user];
+    };
+
+    environment.systemPackages = [pkgs.ddcutil];
+
+    hardware.brillo.enable = true;
+
+    sound = {
+      enable = true;
+      mediaKeys.enable = true;
+    };
+
+    services.pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
       };
+      pulse.enable = true;
+      jack.enable = true;
+    };
+
+    services.fstrim.enable = true;
   };
-
-  config = mkIf cfg.enable (mkMerge [
-    {users.users.${user}.extraGroups = ["camera"];}
-
-    (mkIf components.audio {
-      users.users.${user}.extraGroups = ["audio"];
-
-      sound = {
-        enable = true;
-        mediaKeys.enable = true;
-      };
-
-      services.pipewire = {
-        enable = true;
-        alsa = {
-          enable = true;
-          support32Bit = true;
-        };
-        pulse.enable = true;
-        jack.enable = true;
-      };
-    })
-
-    (mkIf components.light {
-      users.users.${user}.extraGroups = ["video"];
-      hardware.brillo.enable = true;
-    })
-  ]);
 }

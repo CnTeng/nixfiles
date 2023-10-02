@@ -15,10 +15,9 @@ in {
     home-manager.users.${user} = {
       programs.ssh = {
         enable = true;
+        forwardAgent = true;
         matchBlocks = let
           mapBlock = n: {
-            port = 22;
-            forwardAgent = true;
             inherit user;
             hostname = "${n}.snakepi.xyz";
             identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@NixOS"];

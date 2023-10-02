@@ -8,11 +8,7 @@
     cpu.intel.enable = true;
     devices.enable = true;
     stateless.enable = true;
-    ssd.enable = true;
-    monitor.enable = true;
-    razer.enable = true;
     tlp.enable = true;
-    wireless.enable = true;
   };
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
