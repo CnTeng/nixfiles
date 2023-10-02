@@ -33,6 +33,7 @@ in {
       theme.enable = true;
       variables.enable = true;
       waybar.enable = true;
+      wireless.enable = true;
       xdg.enable = true;
     };
 

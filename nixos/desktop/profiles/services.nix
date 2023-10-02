@@ -28,13 +28,6 @@ in {
       home.packages = [pkgs.wl-clipboard];
 
       services.clipman.enable = true;
-
-      xsession.preferStatusNotifierItems = true;
-
-      services = {
-        blueman-applet.enable = true;
-        network-manager-applet.enable = true;
-      };
     };
   };
 }

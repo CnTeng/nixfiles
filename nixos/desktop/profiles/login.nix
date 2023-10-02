@@ -14,7 +14,13 @@ in {
     services.greetd = {
       enable = true;
       settings.default_session = {
-        command = "${getExe pkgs.greetd.tuigreet} -t -r --asterisks --window-padding 1 --cmd Hyprland";
+        command =
+          "${getExe pkgs.greetd.tuigreet} "
+          + "--time "
+          + "--user-menu "
+          + "--asterisks "
+          + "--window-padding 1 "
+          + "--cmd Hyprland";
         user = "greeter";
       };
     };
