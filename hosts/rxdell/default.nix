@@ -10,6 +10,7 @@
 
   programs' = {
     chrome.enable = true;
+    evince.enable = true;
     firefox.enable = true;
     foliate.enable = true;
     kdeconnect.enable = true;
