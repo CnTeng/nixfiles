@@ -5,7 +5,6 @@
       nvfetcher = p.nvfetcher;
       caddy = p.caddy;
       naive = p.naive;
-      wsl-notify-send = p.wsl-notify-send;
     };
     desktop = p: {
       nemo = p.cinnamon.nemo-with-extensions;

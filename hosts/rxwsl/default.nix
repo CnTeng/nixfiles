@@ -26,6 +26,5 @@
     linuxPackages.usbip
     picocom
     usbutils
-    wsl-notify-send
   ];
 }

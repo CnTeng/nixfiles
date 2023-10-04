@@ -30,7 +30,3 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 [naive]
 src.github = "klzgrad/naiveproxy"
 fetch.url = "https://github.com/klzgrad/naiveproxy/releases/download/$ver/naiveproxy-$ver-linux-x64.tar.xz"
-
-[wsl-notify-send]
-src.github = "stuartleeks/wsl-notify-send"
-fetch.url = "https://github.com/stuartleeks/wsl-notify-send/releases/download/$ver/wsl-notify-send_windows_amd64.zip"
