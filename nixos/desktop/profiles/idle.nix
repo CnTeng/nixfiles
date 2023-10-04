@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.desktop'.profiles.idleDaemon;
 
-  locker = getExe config.desktop'.profiles.locker.package;
+  locker = getExe config.desktop'.profiles.utils.locker;
   playerctl = getExe pkgs.playerctl;
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
 in {
