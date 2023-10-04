@@ -8,7 +8,6 @@
 with lib; let
   cfg = config.desktop'.hyprland;
 
-  inherit (config.users.users.${user}) home;
   inherit (config.desktop'.profiles) palette;
 in {
   imports = [../profiles];
@@ -20,17 +19,14 @@ in {
 
     desktop'.profiles = {
       console.enable = true;
-      fileManager.enable = true;
       fonts.enable = true;
       idleDaemon.enable = true;
       inputMethod.enable = true;
-      launcher.enable = true;
-      locker.enable = true;
       loginManager.enable = true;
-      notification.enable = true;
       plymouth.enable = true;
       services.enable = true;
       theme.enable = true;
+      utils.enable = true;
       variables.enable = true;
       waybar.enable = true;
       wireless.enable = true;
@@ -38,25 +34,25 @@ in {
     };
 
     home-manager.users.${user} = let
-      getExe' = profile: cmd: "${lib.getBin config.desktop'.profiles.${profile}.package}/bin/${cmd}";
+      getUtil = name: getExe config.desktop'.profiles.utils.${name};
+      getUtil' = name: cmd: getExe' config.desktop'.profiles.utils.${name} cmd;
 
-      wallpaper = pkgs.fetchurl {
+      image = pkgs.fetchurl {
         url = "https://w.wallhaven.cc/full/83/wallhaven-83o7j2.jpg";
         sha256 = "sha256-nu8GHG9USaJvZmzvUbBG4xw1x73f1pP+/BEElwboz2k=";
       };
-      swaybg = getExe pkgs.swaybg;
-      gtklock = getExe pkgs.gtklock;
-      terminal = getExe pkgs.kitty;
-      launcher = getExe config.desktop'.profiles.launcher.package;
-      notify = getExe' "notification" "dunstctl";
-      fileManager = getExe' "fileManager" "nemo";
-      brillo = getExe pkgs.brillo;
-      pamixer = getExe pkgs.pamixer;
-      playerctl = getExe pkgs.playerctl;
-      grim = getExe pkgs.grim;
-    in {
-      home.packages = with pkgs; [slurp grimblast hyprprop scratchpad];
 
+      wallpaper = getUtil "wallpaper";
+      locker = getUtil "locker";
+      terminal = getUtil "terminal";
+      launcher = getUtil "launcher";
+      notify = getUtil' "notify" "dunstctl";
+      fileManager = getUtil "fileManager";
+      brightctl = getUtil "brightctl";
+      pamixer = getExe pkgs.pamixer;
+      playerctl = getUtil "playerctl";
+      screenshot = getUtil "screenshot";
+    in {
       wayland.windowManager.hyprland = with palette; {
         enable = true;
         systemdIntegration = true;
@@ -123,7 +119,7 @@ in {
           ];
 
           # Startup
-          exec-once = ["${swaybg} -m fit -i ${wallpaper}"];
+          exec-once = ["${wallpaper} -m fit -i ${image}"];
 
           # Mouse binding
           bindm = [
@@ -141,12 +137,12 @@ in {
             "SUPER, V, togglesplit, # dwindle"
 
             # Screenshots
-            '', print, exec, ${grim} -g "$(slurp)" "${home}/Pictures/screenshots/$(date '+%y%m%d_%H-%M-%S').png''
-            ''SUPER_SHIFT, p, exec, ${grim} -g "$(slurp)" - | wl-copy --type image/png''
+            '', print, exec, ${screenshot} --notify --freeze copysave area''
+            ''SUPER_SHIFT, p, exec, ${screenshot} --notify --freeze copy area''
 
             # Keyboard control
-            ", XF86MonBrightnessUP, exec, ${brillo} -u 300000 -A 5"
-            ", XF86MonBrightnessDown, exec, ${brillo} -u 300000 -U 5"
+            ", XF86MonBrightnessUP, exec, ${brightctl} -u 300000 -A 5"
+            ", XF86MonBrightnessDown, exec, ${brightctl} -u 300000 -U 5"
 
             ", XF86AudioNext, exec, ${playerctl} next"
             ", XF86AudioPrev, exec, ${playerctl} previous"
@@ -247,6 +243,7 @@ in {
             "workspace 6, title:^(Spotify)$"
 
             "opacity 1 override 1 override, class:^(firefox)$"
+            "opacity 1 override 1 override, class:^(google-chrome)$"
 
             "float, class:^(nm-connection-editor)$"
             "float, class:^(.blueman-manager-wrapped)$"
@@ -266,7 +263,7 @@ in {
           submap = Exit
 
           bind = , L, exec, ${playerctl} play-pause
-          bind = , L, exec, ${gtklock}
+          bind = , L, exec, ${locker}
           bind = , L, submap, reset
           bind = , Q, exec, systemctl --user stop graphical-session.target
           bind = , Q, exit,

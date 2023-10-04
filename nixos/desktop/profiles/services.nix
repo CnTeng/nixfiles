@@ -14,29 +14,19 @@ in {
   config = mkIf cfg.enable {
     services.pipewire = {
       enable = true;
-      alsa.enable = true;
       pulse.enable = true;
     };
 
-    users.users.${user}.extraGroups = ["video"];
-
-    hardware.brillo.enable = true;
-
-    services = {
-      gnome = {
-        # Fix warning 'The name org.a11y.Bus was not provided by any .service files'
-        at-spi2-core.enable = true;
-        gnome-keyring.enable = true;
-      };
-
-      upower.enable = true;
-
-      dbus.implementation = "broker";
-    };
+    services.gnome.at-spi2-core.enable = true;
+    services.gnome.gnome-keyring.enable = true;
+    services.upower.enable = true;
+    services.dbus.implementation = "broker";
+    services.gvfs.enable = true;
 
     home-manager.users.${user} = {
       home.packages = [pkgs.wl-clipboard];
 
+      services.udiskie.enable = true;
       services.clipman.enable = true;
     };
   };

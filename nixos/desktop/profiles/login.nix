@@ -24,5 +24,7 @@ in {
         user = "greeter";
       };
     };
+
+    security.pam.services.greetd.enableGnomeKeyring = true;
   };
 }
