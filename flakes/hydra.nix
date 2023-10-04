@@ -8,8 +8,6 @@
       wsl-notify-send = p.wsl-notify-send;
     };
     desktop = p: {
-      hyprland = p.hyprland;
-      waybar = p.waybar;
       nemo = p.cinnamon.nemo-with-extensions;
     };
   in {
