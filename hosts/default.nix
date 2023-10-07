@@ -35,11 +35,6 @@
         targetHost = null;
       };
 
-      rxwsl.deployment = {
-        allowLocalDeployment = true;
-        targetHost = null;
-      };
-
       rxls0.deployment = {};
 
       rxhc0 = {
