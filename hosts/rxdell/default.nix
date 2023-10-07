@@ -17,6 +17,7 @@
     kitty.enable = true;
     obs.enable = true;
     others.enable = true;
+    serial.enable = true;
     spotify.enable = true;
     steam.enable = true;
     vscode.enable = true;
