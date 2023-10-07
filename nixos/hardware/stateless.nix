@@ -16,7 +16,7 @@ in {
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [
-        "/var"
+        "/var/lib"
         "/etc/nix"
         {
           directory = "/etc/secureboot";
