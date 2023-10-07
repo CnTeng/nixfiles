@@ -1,9 +1,11 @@
 name: Deploy
 on: [push, pull_request]
 jobs:
-  deploy:
+  ssh:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@main
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
@@ -11,10 +13,14 @@ jobs:
           name: id_ed25519
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           config: ${{ secrets.SSH_CONFIG }}
-      - name: Checkout
-        uses: actions/checkout@main
+
+  check:
+    steps:
       - name: Nix check
         uses: ./.github/workflows/check.yml
+
+  Deploy:
+    steps:
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Use nix cache
