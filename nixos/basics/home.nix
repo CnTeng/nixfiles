@@ -15,11 +15,12 @@ in {
 
   config = mkIf cfg.enable {
     home-manager = {
-      useGlobalPkgs = true;
       useUserPackages = true;
-      extraSpecialArgs = {inherit inputs user;};
+      useGlobalPkgs = true;
+    };
 
-      users.${user}.home.stateVersion = config.system.stateVersion;
+    home-manager.users.${user} = {
+      home.stateVersion = config.system.stateVersion;
     };
   };
 }

@@ -31,10 +31,6 @@ in {
         tdesktop
         element-desktop
         discord
-        qq
-
-        # Manager
-        font-manager
 
         thunderbird
 
