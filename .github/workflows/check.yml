@@ -3,6 +3,7 @@ on:
   workflow_call:
 jobs:
   check:
+    runs-on: ubuntu-latest
     steps:
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
