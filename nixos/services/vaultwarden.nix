@@ -19,8 +19,6 @@ in {
 
     services.vaultwarden = {
       enable = true;
-      # TODO: backup to remote
-      backupDir = "/var/lib/bitwarden_rs/backup";
       config = {
         DOMAIN = "https://vault.snakepi.xyz";
         SIGNUPS_ALLOWED = false;
