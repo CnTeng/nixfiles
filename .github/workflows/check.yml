@@ -5,6 +5,8 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@main
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Use nix cache

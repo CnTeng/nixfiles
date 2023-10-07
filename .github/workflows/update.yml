@@ -4,19 +4,15 @@ on:
     - cron: 0 4 * * *
 
 jobs:
-  checkout:
+  check:
+    uses: ./.github/workflows/check.yml
+
+  update:
     runs-on: ubuntu-latest
+    needs: check
     steps:
       - name: Checkout
         uses: actions/checkout@main
-
-  check:
-    steps:
-      - name: Nix check
-        uses: ./.github/workflows/check.yml
-
-  update:
-    steps:
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Update flake.lock
