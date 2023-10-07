@@ -1,16 +1,17 @@
 {withSystem, ...}: {
   flake.hydraJobs = let
-    common = p: {
-      colmena = p.colmena;
-      nvfetcher = p.nvfetcher;
-      caddy = p.caddy;
-      naive = p.naive;
-    };
-    desktop = p: {
-      nemo = p.cinnamon.nemo-with-extensions;
-    };
+    mkHydraJob = system: list:
+      with builtins;
+        listToAttrs (map (name: {
+            inherit name;
+            value = withSystem system ({pkgs, ...}: pkgs.${name});
+          })
+          list);
+
+    common = ["colmena" "nvfetcher" "caddy" "naive"];
+    desktop = ["hyprland" "waybar"];
   in {
-    aarch64-linux = withSystem "aarch64-linux" ({pkgs, ...}: common pkgs);
-    x86_64-linux = withSystem "x86_64-linux" ({pkgs, ...}: common pkgs // desktop pkgs);
+    aarch64-linux = mkHydraJob "aarch64-linux" common;
+    x86_64-linux = mkHydraJob "x86_64-linux" (common ++ desktop);
   };
 }
