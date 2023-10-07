@@ -15,11 +15,10 @@ jobs:
           config: ${{ secrets.SSH_CONFIG }}
 
   check:
-    steps:
-      - name: Nix check
-        uses: ./.github/workflows/check.yml
+    uses: ./.github/workflows/check.yml
 
   Deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
