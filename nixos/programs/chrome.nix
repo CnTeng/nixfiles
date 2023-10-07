@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -12,9 +11,13 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      programs.chromium = {
+      dconf.settings."org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+
+      programs.google-chrome = {
         enable = true;
-        package = pkgs.google-chrome;
+        commandLineArgs = ["--enable-wayland-ime"];
       };
     };
   };
