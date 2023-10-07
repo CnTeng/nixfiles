@@ -8,9 +8,8 @@
 with lib; let
   cfg = config.desktop'.profiles.idleDaemon;
 
-  locker = getExe config.desktop'.profiles.utils.locker;
+  locker = config.desktop'.profiles.utils.packages.locker.exec;
   playerctl = getExe pkgs.playerctl;
-  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
 in {
   options.desktop'.profiles.idleDaemon.enable =
     mkEnableOption "idle daemon component";
@@ -22,29 +21,20 @@ in {
         timeouts = [
           {
             timeout = 300;
-            command = locker;
-          }
-          {
-            timeout = 360;
-            command = "${hyprctl} dispatch dpms off";
-            resumeCommand = "${hyprctl} dispatch dpms on";
+            command = (getExe' pkgs.systemd "systemctl") + " suspend";
           }
         ];
         events = [
           {
-            event = "lock";
-            command = "${playerctl} play-pause";
-          }
-          {
-            event = "lock";
-            command = locker;
-          }
-          {
             event = "before-sleep";
-            command = "${playerctl} play-pause";
+            command = (getExe' pkgs.systemd "loginctl") + " lock-session";
           }
           {
-            event = "before-sleep";
+            event = "lock";
+            command = playerctl + " pause";
+          }
+          {
+            event = "lock";
             command = locker;
           }
         ];

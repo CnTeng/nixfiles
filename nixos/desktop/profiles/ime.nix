@@ -50,7 +50,6 @@ in {
             pinyin.globalSection = {
               CloudPinyinEnabled = "True";
               PinyinInPreedit = "True";
-              Prediction = "True";
             };
           };
         };

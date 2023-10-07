@@ -18,8 +18,6 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      services.playerctld.enable = true;
-
       programs.waybar = with palette; {
         enable = true;
         systemd.enable = true;
@@ -49,7 +47,7 @@ in {
               format-icons = {
                 "1" = " ";
                 "2" = " ";
-                "3" = " ";
+                "3" = " ";
                 "4" = " ";
                 "5" = " ";
                 "6" = " ";
@@ -86,7 +84,7 @@ in {
               player-icons = {
                 firefox = " ";
                 spotify = " ";
-                chromium = " ";
+                chromium = " ";
               };
               status-icons = {
                 playing = " ";
