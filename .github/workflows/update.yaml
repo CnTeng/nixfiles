@@ -1,6 +1,7 @@
 name: Update
-schedule:
-  - cron: 0 4 * * *
+on:
+  schedule:
+    - cron: 0 4 * * *
 
 jobs:
   update:
