@@ -40,7 +40,7 @@ in {
 
         cmd_duration.format = "[󱐋 $duration]($style) ";
 
-        directory.truncation_length = 1;
+        directory.fish_style_pwd_dir_length = 1;
 
         fill.symbol = " ";
 
