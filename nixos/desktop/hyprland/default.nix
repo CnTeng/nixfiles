@@ -34,8 +34,7 @@ in {
     };
 
     home-manager.users.${user} = let
-      getUtil = name: getExe config.desktop'.profiles.utils.${name};
-      getUtil' = name: cmd: getExe' config.desktop'.profiles.utils.${name} cmd;
+      getUtil = name: config.desktop'.profiles.utils.packages.${name}.exec;
 
       image = pkgs.fetchurl {
         url = "https://w.wallhaven.cc/full/83/wallhaven-83o7j2.jpg";
@@ -46,7 +45,7 @@ in {
       locker = getUtil "locker";
       terminal = getUtil "terminal";
       launcher = getUtil "launcher";
-      notify = getUtil' "notify" "dunstctl";
+      notify = getUtil "notify";
       fileManager = getUtil "fileManager";
       brightctl = getUtil "brightctl";
       pamixer = getExe pkgs.pamixer;
@@ -55,7 +54,7 @@ in {
     in {
       wayland.windowManager.hyprland = with palette; {
         enable = true;
-        systemdIntegration = true;
+        systemd.enable = true;
         settings = {
           general = {
             border_size = 4;
@@ -105,7 +104,7 @@ in {
             animate_manual_resizes = true;
           };
 
-          xwayland.use_nearest_neighbor = false;
+          xwayland.force_zero_scaling = true;
 
           monitor = [
             "eDP-1, preferred, auto, 1.25"
@@ -292,10 +291,10 @@ in {
         '';
       };
 
-      systemd.user.targets.tray.Unit = {
-        Description = "Home Manager System Tray";
-        Requires = ["graphical-session-pre.target"];
-      };
+      # systemd.user.targets.tray.Unit = {
+      #   Description = "Home Manager System Tray";
+      #   Requires = ["graphical-session-pre.target"];
+      # };
     };
   };
 }

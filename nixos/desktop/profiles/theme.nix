@@ -32,14 +32,7 @@ in {
         gtk.enable = true;
       };
 
-      gtk = {
-        enable = true;
-        font.name = "Roboto";
-        iconTheme = {
-          package = pkgs.papirus-icon-theme;
-          name = "Papirus-Dark";
-        };
-
+      gtk = let
         theme = {
           package = pkgs.catppuccin-gtk.override {
             variant = toLower flavour;
@@ -47,7 +40,34 @@ in {
           };
           name = "Catppuccin-${flavour}-Standard-Blue-Dark";
         };
+      in {
+        enable = true;
+        font.name = "Roboto";
+        iconTheme = {
+          package = pkgs.papirus-icon-theme;
+          name = "Papirus-Dark";
+        };
+
+        inherit theme;
       };
+      home.file = let
+        theme = {
+          package = pkgs.catppuccin-gtk.override {
+            variant = toLower flavour;
+            tweaks = ["rimless"];
+          };
+          name = "Catppuccin-${flavour}-Standard-Blue-Dark";
+        };
+      in {
+        ".config/gtk-4.0/gtk.css".source = "${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk.css";
+        ".config/gtk-4.0/gtk-dark.css".source = "${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk-dark.css";
+
+        ".config/gtk-4.0/assets" = {
+          recursive = true;
+          source = "${theme.package}/share/themes/${theme.name}/gtk-4.0/assets";
+        };
+      };
+      # home.sessionVariables.GTK_THEME = "Catppuccin-${flavour}-Standard-Blue-Dark";
     };
   };
 }
