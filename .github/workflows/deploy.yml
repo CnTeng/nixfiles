@@ -1,7 +1,5 @@
-name: "Deploy"
-on:
-  push:
-  pull_request:
+name: Deploy
+on: [push, pull_request]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,12 +13,11 @@ jobs:
           config: ${{ secrets.SSH_CONFIG }}
       - name: Checkout
         uses: actions/checkout@main
+      - name: Nix check
+        uses: ./.github/workflows/check.yml
       - name: Install nix
-        uses: cachix/install-nix-action@master
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Use nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Deploy remote hosts
-        run: |
-          nix develop --command colmena apply
+        run: nix develop --command colmena apply

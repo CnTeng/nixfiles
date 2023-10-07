@@ -1,0 +1,20 @@
+name: Update
+# on: [push, pull_request]
+schedule:
+  - cron: 0 4 * * *
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Nix check
+        uses: ./.github/workflows/check.yml
+      - name: Install nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          token: ${{ github.PAT }}
+          pr-title: "ci: update flake.lock"
