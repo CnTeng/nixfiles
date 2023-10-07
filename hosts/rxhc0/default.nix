@@ -14,5 +14,6 @@
     openssh.enable = true;
     rsshub.port = 1200;
     vaultwarden.port = 8222;
+    restic.enable = true;
   };
 }

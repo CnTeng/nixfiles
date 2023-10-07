@@ -27,5 +27,6 @@
     onedrive.enable = true;
     openssh.enable = true;
     dae.enable = true;
+    restic.enable = true;
   };
 }
