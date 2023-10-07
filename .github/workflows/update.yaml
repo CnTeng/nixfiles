@@ -1,10 +1,9 @@
 name: Update
-# on: [push, pull_request]
 schedule:
   - cron: 0 4 * * *
 
 jobs:
-  deploy:
+  update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
