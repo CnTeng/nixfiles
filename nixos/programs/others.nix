@@ -35,6 +35,8 @@ in {
         thunderbird
 
         sioyek
+
+        inkscape
       ];
     };
   };
