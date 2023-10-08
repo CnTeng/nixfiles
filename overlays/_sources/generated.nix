@@ -15,15 +15,15 @@
   };
   btopTheme = {
     pname = "btopTheme";
-    version = "89ff712eb62747491a76a7902c475007244ff202";
+    version = "c6469190f2ecf25f017d6120bf4e050e6b1d17af";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "btop";
-      rev = "89ff712eb62747491a76a7902c475007244ff202";
+      rev = "c6469190f2ecf25f017d6120bf4e050e6b1d17af";
       fetchSubmodules = false;
-      sha256 = "sha256-J3UezOQMDdxpflGax0rGBF/XMiKqdqZXuX4KMVGTxFk=";
+      sha256 = "sha256-jodJl4f2T9ViNqsY9fk8IV62CrpC5hy7WK3aRpu70Cs=";
     };
-    date = "2023-06-07";
+    date = "2023-10-07";
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";

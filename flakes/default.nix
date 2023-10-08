@@ -17,7 +17,6 @@
         [self.overlays.default]
         ++ map (n: inputs.${n}.overlays.default) [
           "colmena"
-          "nvfetcher"
           "hyprland"
         ];
     };
