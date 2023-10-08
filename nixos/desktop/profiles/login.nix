@@ -15,12 +15,12 @@ in {
       enable = true;
       settings.default_session = {
         command =
-          "${getExe pkgs.greetd.tuigreet} "
-          + "--time "
-          + "--user-menu "
-          + "--asterisks "
-          + "--window-padding 1 "
-          + "--cmd Hyprland";
+          "${getExe pkgs.greetd.tuigreet}"
+          + " --time"
+          + " --user-menu"
+          + " --asterisks"
+          + " --window-padding 1"
+          + " --cmd Hyprland";
         user = "greeter";
       };
     };
