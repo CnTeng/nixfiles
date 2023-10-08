@@ -1,5 +1,5 @@
 name: Check
-on: [workflow_call workflow_dispatch]
+on: [workflow_call, workflow_dispatch]
 
 jobs:
   check:
