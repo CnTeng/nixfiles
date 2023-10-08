@@ -1,7 +1,17 @@
 name: Deploy
-on: [push, workflow_call, workflow_dispatch]
+on:
+  push:
+  workflow_call:
+    inputs:
+      is_check:
+        default: true
+        required: false
+        type: boolen
+  workflow_dispatch:
+
 jobs:
   check:
+    if: ${{ inputs.is_check}}
     uses: ./.github/workflows/check.yml
 
   deploy:

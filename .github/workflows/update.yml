@@ -32,3 +32,5 @@ jobs:
   deploy:
     needs: update
     uses: ./.github/workflows/deploy.yml
+    with:
+      is_check: false

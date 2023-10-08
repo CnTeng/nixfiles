@@ -1,6 +1,6 @@
 name: Check
-on:
-  workflow_call:
+on: [workflow_call workflow_dispatch]
+
 jobs:
   check:
     runs-on: ubuntu-latest
