@@ -28,3 +28,7 @@ jobs:
         run: nix flake check --all-systems
       - name: Git push
         run: git push
+
+  deploy:
+    needs: update
+    uses: ./.github/workflows/deploy.yml
