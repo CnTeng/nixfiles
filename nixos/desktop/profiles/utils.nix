@@ -34,10 +34,11 @@ in {
   config = mkIf cfg.enable {
     # file manager
     desktop'.profiles.utils.packages.fileManager = {
-      package = pkgs.gnome.nautilus;
-      exec = (getExe' pkgs.gnome.nautilus "nautilus") + " --new-window";
+      package = pkgs.cinnamon.nemo-with-extensions;
+      exec = getExe pkgs.cinnamon.nemo-with-extensions;
     };
-    environment.systemPackages = [cfg.packages.fileManager.package pkgs.gnome.eog];
+    environment.systemPackages = [cfg.packages.fileManager.package pkgs.cinnamon.xviewer];
+    services.dbus.packages = [cfg.packages.fileManager.package];
     programs.file-roller.enable = true;
 
     # launcher
@@ -67,6 +68,18 @@ in {
     security.pam.services.gtklock = {};
 
     home-manager.users.${user} = {
+      # file manager
+      dconf.settings = {
+        "org/cinnamon/desktop/applications/terminal".exec = "kitty";
+        "org/nemo/preferences" = {
+          close-device-view-on-device-eject = true;
+          show-open-in-terminal-toolbar = true;
+          show-show-thumbnails-toolbar = true;
+          tooltips-in-icon-view = true;
+          tooltips-in-list-view = true;
+        };
+      };
+
       # playerctl
       services.playerctld.enable = true;
 
