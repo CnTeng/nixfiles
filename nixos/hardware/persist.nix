@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.hardware'.stateless;
+  cfg = config.hardware'.persist;
 in {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
-  options.hardware'.stateless.enable = mkEnableOption "persistent state";
+  options.hardware'.persist.enable = mkEnableOption "persistent state";
 
   config = mkIf cfg.enable {
     environment.persistence."/persist" = {

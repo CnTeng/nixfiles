@@ -15,7 +15,7 @@
         + " --since-commit HEAD"
         + " --only-verified"
         + " --fail";
-      stages = ["commit" "push"];
+      # stages = ["commit" "push"];
       pass_filenames = false;
     };
   };
