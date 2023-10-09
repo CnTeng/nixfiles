@@ -43,7 +43,6 @@ in {
       };
 
       wallpaper = getUtil "wallpaper";
-      locker = getUtil "locker";
       terminal = getUtil "terminal";
       launcher = getUtil "launcher";
       notify = getUtil "notify";
@@ -262,16 +261,15 @@ in {
           bind = SUPER_SHIFT, Escape, submap, Exit
           submap = Exit
 
-          bind = , L, exec, ${playerctl} play-pause
-          bind = , L, exec, ${locker}
+          bind = , L, exec, loginctl lock-session
           bind = , L, submap, reset
           bind = , Q, exec, systemctl --user stop graphical-session.target
-          bind = , Q, exit,
           bind = , Q, exec, loginctl terminate-session $XDG_SESSION_ID
           bind = , S, exec, systemctl poweroff
           bind = , R, exec, systemctl reboot
 
           bind = , escape, submap, reset
+          bind = CTRL, [, submap, reset
           submap = reset
 
           # Resize submap
