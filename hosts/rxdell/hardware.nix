@@ -1,34 +1,33 @@
 {pkgs, ...}: {
   hardware' = {
-    gpu.nvidia.enable = true;
     boot = {
       enable = true;
       secureboot = true;
     };
-    cpu.intel.enable = true;
-    stateless.enable = true;
-    tlp.enable = true;
+    cpu.enable = true;
+    nvidia.enable = true;
+    persist.enable = true;
+    power.enable = true;
   };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd = {
-      availableKernelModules = [
-        "xhci_pci"
-        "ahci"
-        "nvme"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-        "tpm"
-        "tpm_tis"
-        "tpm_crb"
-      ];
-      systemd.enable = true;
-    };
-
-    tmp.useTmpfs = true;
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ahci"
+      "nvme"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+    ];
   };
+
+  boot.initrd.systemd = {
+    enable = true;
+    enableTpm2 = true;
+  };
+
+  boot.tmp.useTmpfs = true;
 
   # Support for firmware update
   services.fwupd.enable = true;

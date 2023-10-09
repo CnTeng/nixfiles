@@ -23,6 +23,7 @@ in {
       idleDaemon.enable = true;
       inputMethod.enable = true;
       loginManager.enable = true;
+      opengl.enable = true;
       plymouth.enable = true;
       services.enable = true;
       theme.enable = true;

@@ -18,7 +18,7 @@ in {
         forwardAgent = true;
         matchBlocks = let
           mapBlock = n: {
-            # inherit user;
+            inherit user;
             hostname = "${n}.snakepi.xyz";
             identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@NixOS"];
           };

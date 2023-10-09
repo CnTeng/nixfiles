@@ -15,7 +15,7 @@ in {
     networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;
     environment.persistence."/persist".directories =
-      mkIf config.hardware'.stateless.enable
+      mkIf config.hardware'.persist.enable
       ["/etc/NetworkManager/system-connections"];
 
     # bluetooth

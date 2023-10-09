@@ -40,7 +40,7 @@ in {
 
       nix.registry.nixpkgs.flake = inputs.nixpkgs;
     })
-    (mkIf config.hardware'.stateless.enable {
+    (mkIf config.hardware'.persist.enable {
       environment.variables.NIX_REMOTE = "daemon";
 
       systemd.services.nix-daemon = {
