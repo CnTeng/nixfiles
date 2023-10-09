@@ -12,15 +12,16 @@ in {
     mkEnableOption "users config" // {default = true;};
 
   config = mkIf cfg.enable {
-    users.mutableUsers = true;
+    users = {
+      mutableUsers = true;
 
-    users.users = {
-      root.hashedPassword = hashedPassword;
-
-      ${user} = {
-        isNormalUser = true;
-        extraGroups = ["wheel"];
-        inherit hashedPassword;
+      users = {
+        root = {inherit hashedPassword;};
+        ${user} = {
+          isNormalUser = true;
+          extraGroups = ["wheel"];
+          inherit hashedPassword;
+        };
       };
     };
   };

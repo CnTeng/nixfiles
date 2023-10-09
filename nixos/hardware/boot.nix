@@ -17,14 +17,15 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      boot.loader = {
-        systemd-boot.enable = mkIf (!cfg.secureboot) true;
-        efi.canTouchEfiVariables = true;
-      };
+      boot.loader.systemd-boot.enable = true;
+
+      boot.loader.efi.canTouchEfiVariables = true;
     })
 
     (mkIf cfg.secureboot {
       environment.systemPackages = [pkgs.sbctl];
+
+      boot.loader.systemd-boot.enable = lib.mkForce false;
 
       boot.lanzaboote = {
         enable = true;

@@ -31,7 +31,7 @@ in {
 
     programs.ssh.startAgent = true;
 
-    environment.persistence."/persist" = mkIf config.hardware'.stateless.enable {
+    environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
       files = [
         "/etc/ssh/ssh_host_ed25519_key"
         "/etc/ssh/ssh_host_ed25519_key.pub"

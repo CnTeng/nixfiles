@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  user,
   ...
 }:
 with lib; let
@@ -12,7 +10,5 @@ in {
 
   config = mkIf cfg.enable {
     programs.steam.enable = true;
-
-    home-manager.users.${user} = {home.packages = [pkgs.protonup-ng];};
   };
 }

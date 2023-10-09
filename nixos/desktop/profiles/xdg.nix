@@ -41,7 +41,7 @@ in {
       };
     };
 
-    environment.persistence."/persist" = mkIf config.hardware'.stateless.enable {
+    environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
       users.${user}.directories = [
         "Desktop"
         "Documents"

@@ -18,7 +18,7 @@ in {
       wantedBy = mkForce ["graphical-session.target"]; # enable notifications
     };
 
-    environment.persistence."/persist" = mkIf config.hardware'.stateless.enable {
+    environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
       users.${user}.directories = ["OneDrive"];
     };
   };
