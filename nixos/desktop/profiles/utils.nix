@@ -53,19 +53,13 @@ in {
     # other
     desktop'.profiles.utils.packages.wallpaper.package = pkgs.swaybg;
     desktop'.profiles.utils.packages.terminal.package = pkgs.kitty;
-
     desktop'.profiles.utils.packages.playerctl.package = pkgs.playerctl;
-
     desktop'.profiles.utils.packages.screenshot.package = pkgs.grimblast;
 
     # brightctl
     desktop'.profiles.utils.packages.brightctl.package = pkgs.brillo;
     users.users.${user}.extraGroups = ["video"];
     hardware.brillo.enable = true;
-
-    # locker
-    desktop'.profiles.utils.packages.locker.package = pkgs.gtklock;
-    security.pam.services.gtklock = {};
 
     home-manager.users.${user} = {
       # file manager
