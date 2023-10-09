@@ -8,13 +8,14 @@
 with lib; let
   cfg = config.desktop'.profiles.idleDaemon;
 
-  locker = config.desktop'.profiles.utils.packages.locker.exec;
   playerctl = getExe pkgs.playerctl;
 in {
   options.desktop'.profiles.idleDaemon.enable =
     mkEnableOption "idle daemon component";
 
   config = mkIf cfg.enable {
+    security.pam.services.gtklock.text = "auth include login";
+
     home-manager.users.${user} = {
       services.swayidle = {
         enable = true;
@@ -35,7 +36,7 @@ in {
           }
           {
             event = "lock";
-            command = locker;
+            command = getExe pkgs.gtklock + " -d";
           }
         ];
         systemdTarget = "hyprland-session.target";
