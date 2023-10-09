@@ -2,6 +2,7 @@
   imports = [inputs.pre-commit.flakeModule];
 
   perSystem = {
+    config,
     lib,
     pkgs,
     ...
@@ -17,6 +18,10 @@
         + " --fail";
       # stages = ["commit" "push"];
       pass_filenames = false;
+    };
+
+    devshells.default.devshell.startup = {
+      pre-commit.text = config.pre-commit.installationScript;
     };
   };
 }
