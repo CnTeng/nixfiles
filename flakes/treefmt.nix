@@ -4,11 +4,13 @@
   perSystem = {...}: {
     treefmt = {
       projectRootFile = "flake.nix";
+
       programs = {
         alejandra.enable = true;
         prettier.enable = true;
-        shfmt.enable = true;
+        terraform.enable = true;
       };
+
       settings.formatter = {
         alejandra.excludes = ["overlays/_sources/*"];
         prettier.excludes = [

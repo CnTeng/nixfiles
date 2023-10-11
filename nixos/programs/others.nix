@@ -37,6 +37,9 @@ in {
         sioyek
 
         inkscape
+
+        todoist
+        todoist-electron
       ];
     };
   };

@@ -13,15 +13,14 @@ in {
   config = mkIf cfg.enable {
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
+    environment.systemPackages = [pkgs.xdg-utils];
+
     home-manager.users.${user} = {
       xdg.enable = true;
       xdg.userDirs = {
         enable = true;
         createDirectories = true;
       };
-
-      # For vscode and idea opening urls
-      home.packages = [pkgs.xdg-utils];
     };
 
     xdg.mime = {
