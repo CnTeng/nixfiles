@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.shell'.fzf;
-  inherit (config.desktop'.profiles) palette;
+  inherit (config.basics'.colors) palette;
 in {
   options.shell'.fzf.enable =
     mkEnableOption "fzf" // {default = true;};

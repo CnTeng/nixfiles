@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop'.profiles.loginManager;
+  cfg = config.desktop'.profiles.login;
 in {
-  options.desktop'.profiles.loginManager.enable =
+  options.desktop'.profiles.login.enable =
     mkEnableOption "login manager component";
 
   config = mkIf cfg.enable {

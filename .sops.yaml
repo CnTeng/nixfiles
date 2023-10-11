@@ -1,7 +1,6 @@
 keys:
   age:
     - &rxdell age143mhvlqr6lxvmkd8pehuxufy0a9xt43wpp38fk80t77jpquzm3aqg7k48u
-    - &rxwsl age1yj7etyceutkk4ctmguxmar7s8sutsyc07ee8tc0s6xmq8p6l85fs55gt68
 
     - &rxls0 age146nukhcpcv3prnxrhtfampz6cktsz98hmkve4nra0ywt0ytyepnsjng489
     - &rxhc0 age1g4rgsh5allvuqgm4xd2mjwyl6s8ap3g0c2n2528jxjd3238xx3ls6h98de
@@ -11,7 +10,6 @@ creation_rules:
     key_groups:
       - age:
           - *rxdell
-          - *rxwsl
           - *rxls0
           - *rxhc0
 
@@ -19,7 +17,6 @@ creation_rules:
     key_groups:
       - age:
           - *rxdell
-          - *rxwsl
           - *rxls0
           - *rxhc0
 
@@ -27,4 +24,3 @@ creation_rules:
     key_groups:
       - age:
           - *rxdell
-          - *rxwsl

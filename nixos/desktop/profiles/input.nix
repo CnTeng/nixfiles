@@ -62,7 +62,7 @@ in {
           Description = "Fcitx5 input method editor";
           PartOf = ["graphical-session.target"];
         };
-        Service.ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5";
+        Service.ExecStart = getExe' config.i18n.inputMethod.package "fcitx5";
         Install.WantedBy = ["graphical-session.target"];
       };
 

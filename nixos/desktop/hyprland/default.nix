@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.desktop'.hyprland;
 
-  inherit (config.desktop'.profiles) palette;
+  inherit (config.basics'.colors) palette;
 in {
   imports = [../profiles];
 
@@ -20,15 +20,15 @@ in {
     desktop'.profiles = {
       console.enable = true;
       fonts.enable = true;
-      idleDaemon.enable = true;
+      idle.enable = true;
       inputMethod.enable = true;
-      loginManager.enable = true;
+      login.enable = true;
       opengl.enable = true;
-      plymouth.enable = true;
       services.enable = true;
       theme.enable = true;
       utils.enable = true;
       variables.enable = true;
+      wallpaper.enable = true;
       waybar.enable = true;
       wireless.enable = true;
       xdg.enable = true;
@@ -37,12 +37,6 @@ in {
     home-manager.users.${user} = let
       getUtil = name: config.desktop'.profiles.utils.packages.${name}.exec;
 
-      image = pkgs.fetchurl {
-        url = "https://w.wallhaven.cc/full/83/wallhaven-83o7j2.jpg";
-        sha256 = "sha256-nu8GHG9USaJvZmzvUbBG4xw1x73f1pP+/BEElwboz2k=";
-      };
-
-      wallpaper = getUtil "wallpaper";
       terminal = getUtil "terminal";
       launcher = getUtil "launcher";
       notify = getUtil "notify";
@@ -57,13 +51,11 @@ in {
         systemd.enable = true;
         settings = {
           general = {
-            border_size = 4;
+            border_size = 3;
             gaps_in = 3;
             gaps_out = 5;
-            "col.inactive_border" = "rgb(${removeHashTag base.hex})";
-            "col.active_border" = "rgb(${removeHashTag blue.hex})";
-            "col.group_border" = "rgb(${removeHashTag overlay1.hex})";
-            "col.group_border_active" = "rgb(${removeHashTag lavender.hex})";
+            "col.active_border" = "rgba(${removeHashTag text.hex}e6)";
+            "col.inactive_border" = "rgba(${removeHashTag base.hex}e6)";
             cursor_inactive_timeout = 30;
             resize_on_border = true;
           };
@@ -74,13 +66,13 @@ in {
           };
 
           decoration = {
-            rounding = 5;
+            rounding = 6;
             active_opacity = 0.9;
             inactive_opacity = 0.98;
-            shadow_range = 12;
+            shadow_range = 20;
             shadow_offset = "3 3";
-            "col.shadow" = "rgb(${removeHashTag mantle.hex})";
-            "col.shadow_inactive" = "rgb(${removeHashTag crust.hex})";
+            "col.shadow" = "rgba(${removeHashTag crust.hex}e6)";
+            "col.shadow_inactive" = "rgba(${removeHashTag crust.hex}00)";
             blur = {
               size = 5;
               passes = 3;
@@ -99,6 +91,17 @@ in {
 
           gestures.workspace_swipe = true;
 
+          group = {
+            "col.border_active" = "rgba(${removeHashTag blue.hex}e6)";
+            "col.border_inactive" = "rgba(${removeHashTag base.hex}e6)";
+            groupbar = {
+              gradients = false;
+              render_titles = false;
+              "col.active" = "rgba(${removeHashTag blue.hex}e6)";
+              "col.inactive" = "rgba(${removeHashTag base.hex}00)";
+            };
+          };
+
           misc = {
             disable_hyprland_logo = true;
             animate_manual_resizes = true;
@@ -116,9 +119,6 @@ in {
             "windows, 1, 3, default, slide"
             "workspaces, 1, 6, default, slide"
           ];
-
-          # Startup
-          exec-once = ["${wallpaper} -m fit -i ${image}"];
 
           # Mouse binding
           bindm = [
