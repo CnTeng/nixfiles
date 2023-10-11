@@ -14,6 +14,22 @@ in {
     mkEnableOption "custom gtk and qt theme";
 
   config = mkIf cfg.enable {
+    boot = {
+      initrd.verbose = false;
+      consoleLogLevel = 0;
+      kernelParams = ["quiet" "udev.log_level=3"];
+
+      plymouth = {
+        enable = true;
+        themePackages = [
+          (pkgs.catppuccin-plymouth.override {
+            variant = toLower flavour;
+          })
+        ];
+        theme = "catppuccin-${toLower flavour}";
+      };
+    };
+
     qt = {
       enable = true;
       platformTheme = "gtk2";

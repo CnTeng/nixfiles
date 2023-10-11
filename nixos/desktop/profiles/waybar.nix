@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.desktop'.profiles.waybar;
 
-  inherit (config.desktop'.profiles) palette;
+  inherit (config.basics'.colors) palette;
 
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
   networkManager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";

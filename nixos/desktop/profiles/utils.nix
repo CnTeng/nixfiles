@@ -7,22 +7,14 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.utils;
-  inherit (config.desktop'.profiles) palette;
+  inherit (config.basics'.colors) palette;
   inherit (config.home-manager.users.${user}.gtk) iconTheme;
 
-  pkgModule = types.submodule (
-    {config, ...}: {
-      options = {
-        package = mkOption {
-          type = with types; nullOr package;
-        };
-        exec = mkOption {
-          type = types.str;
-          default = getExe config.package;
-        };
-      };
-    }
-  );
+  pkgModule = types.submodule {
+    options.exec = mkOption {
+      type = types.str;
+    };
+  };
 in {
   options.desktop'.profiles.utils = {
     enable = mkEnableOption "utils";
@@ -33,31 +25,24 @@ in {
 
   config = mkIf cfg.enable {
     # file manager
-    desktop'.profiles.utils.packages.fileManager = {
-      package = pkgs.cinnamon.nemo-with-extensions;
-      exec = getExe pkgs.cinnamon.nemo-with-extensions;
-    };
-    environment.systemPackages = [cfg.packages.fileManager.package pkgs.cinnamon.xviewer];
-    services.dbus.packages = [cfg.packages.fileManager.package];
+    desktop'.profiles.utils.packages.fileManager.exec = getExe pkgs.cinnamon.nemo-with-extensions;
+    environment.systemPackages = [pkgs.cinnamon.xviewer];
+    services.dbus.packages = [pkgs.cinnamon.nemo-with-extensions];
     programs.file-roller.enable = true;
 
     # launcher
-    desktop'.profiles.utils.packages.launcher.package = pkgs.fuzzel;
+    desktop'.profiles.utils.packages.launcher.exec = getExe pkgs.fuzzel;
 
     # notify
-    desktop'.profiles.utils.packages.notify = {
-      package = pkgs.dunst;
-      exec = getExe' pkgs.dunst "dunstctl";
-    };
+    desktop'.profiles.utils.packages.notify.exec = getExe' pkgs.dunst "dunstctl";
 
     # other
-    desktop'.profiles.utils.packages.wallpaper.package = pkgs.swaybg;
-    desktop'.profiles.utils.packages.terminal.package = pkgs.kitty;
-    desktop'.profiles.utils.packages.playerctl.package = pkgs.playerctl;
-    desktop'.profiles.utils.packages.screenshot.package = pkgs.grimblast;
+    desktop'.profiles.utils.packages.terminal.exec = getExe pkgs.kitty;
+    desktop'.profiles.utils.packages.playerctl.exec = getExe pkgs.playerctl;
+    desktop'.profiles.utils.packages.screenshot.exec = getExe pkgs.grimblast;
 
     # brightctl
-    desktop'.profiles.utils.packages.brightctl.package = pkgs.brillo;
+    desktop'.profiles.utils.packages.brightctl.exec = getExe pkgs.brillo;
     users.users.${user}.extraGroups = ["video"];
     hardware.brillo.enable = true;
 
@@ -96,6 +81,12 @@ in {
             selection-match = "${removeHashTag blue.hex}ff";
             border = "${removeHashTag blue.hex}e6";
           };
+          key-bindings = {
+            cancel = "Control+bracketleft Escape";
+            delete-line = "none";
+            prev = "Up Control+p Control+k";
+            next = "Down Control+n Control+j";
+          };
         };
       };
 
@@ -112,20 +103,20 @@ in {
             progress_bar_corner_radius = 5;
             icon_corner_radius = 5;
             frame_width = 4;
-            frame_color = "${blue.hex}";
+            frame_color = blue.hex;
             gap_size = 5;
             font = "RobotoMono Nerd Font 13";
             icon_theme = iconTheme.name;
             corner_radius = 10;
             mouse_right_click = "context";
             mouse_left_click = "close_current";
-            background = "${base.hex}e6";
-            foreground = "${text.hex}";
+            background = base.hex + "e6";
+            foreground = text.hex;
             max_icon_size = 128;
             timeout = 5;
           };
           urgency_critical = {
-            frame_color = "${peach.hex}";
+            frame_color = peach.hex;
           };
         };
       };

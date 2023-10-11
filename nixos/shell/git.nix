@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -42,16 +41,6 @@ in {
           gui.theme = {
             lightTheme = false;
           };
-          customCommands = [
-            {
-              key = "C";
-              command = "git cz c";
-              description = "commit with commitizen";
-              context = "files";
-              loadingText = "opening commitizen commit tool";
-              subprocess = true;
-            }
-          ];
         };
       };
 
@@ -66,8 +55,6 @@ in {
       };
 
       programs.gh.enable = true;
-
-      home.packages = with pkgs; [commitizen];
     };
   };
 }
