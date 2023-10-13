@@ -258,7 +258,7 @@ in {
 
         extraConfig = ''
           # Exit submap
-          bind = SUPER_SHIFT, Escape, submap, Exit
+          bind = SUPER, Escape, submap, Exit
           submap = Exit
 
           bind = , L, exec, loginctl lock-session
