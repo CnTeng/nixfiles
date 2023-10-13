@@ -73,7 +73,6 @@
         nvfetcher
         sops
         terraform-ls
-        trufflehog
       ];
     };
   };
