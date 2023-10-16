@@ -3,7 +3,6 @@
   config,
   lib,
   pkgs,
-  themes,
   user,
   ...
 }:
@@ -11,7 +10,7 @@ with lib; let
   cfg = config.shell'.utils;
   flavour = toLower config.basics'.colors.flavour;
 
-  inherit (themes) batTheme btopTheme;
+  catppuccin = pkgs.catppuccin.override {variant = flavour;};
 in {
   imports = [inputs.nix-index-database.nixosModules.nix-index];
 
@@ -30,12 +29,12 @@ in {
         enable = true;
         config.theme = "Catppuccin-${flavour}";
         themes."Catppuccin-${flavour}" = {
-          src = batTheme;
+          src = catppuccin + /bat;
           file = "Catppuccin-${flavour}.tmTheme";
         };
       };
-      xdg.configFile."btop/themes".source = btopTheme + /themes;
 
+      xdg.configFile."btop/themes".source = catppuccin + /btop;
       programs.btop = {
         enable = true;
         settings = {
