@@ -111,7 +111,8 @@ in {
 
           monitor = [
             "eDP-1, preferred, auto, 1.25"
-            ", preferred, auto, 1.25"
+            "DP-2, preferred, auto, 1.25"
+            "DP-3, preferred, auto, 1.75"
           ];
 
           animation = [
@@ -226,6 +227,7 @@ in {
 
           workspace = [
             "1, monitor:eDP-1, default:true"
+            "2, monitor:DP-2, default:true"
             "2, monitor:DP-3, default:true"
             "3, monitor:eDP-1, default:true"
             "4, monitor:eDP-1, default:true"
