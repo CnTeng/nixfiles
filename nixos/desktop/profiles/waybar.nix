@@ -24,7 +24,7 @@ in {
         settings = [
           {
             layer = "top";
-            output = ["eDP-1" "DP-3"];
+            output = ["eDP-1" "DP-2" "DP-3"];
             position = "top";
             height = 32;
             modules-left = ["hyprland/workspaces" "hyprland/submap" "hyprland/window"];
