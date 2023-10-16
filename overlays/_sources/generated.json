@@ -1,44 +1,4 @@
 {
-    "batTheme": {
-        "cargoLocks": null,
-        "date": "2022-11-10",
-        "extract": null,
-        "name": "batTheme",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "bat",
-            "rev": "ba4d16880d63e656acced2b7d4e034e4a93f74b1",
-            "sha256": "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=",
-            "type": "github"
-        },
-        "version": "ba4d16880d63e656acced2b7d4e034e4a93f74b1"
-    },
-    "btopTheme": {
-        "cargoLocks": null,
-        "date": "2023-10-07",
-        "extract": null,
-        "name": "btopTheme",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "btop",
-            "rev": "c6469190f2ecf25f017d6120bf4e050e6b1d17af",
-            "sha256": "sha256-jodJl4f2T9ViNqsY9fk8IV62CrpC5hy7WK3aRpu70Cs=",
-            "type": "github"
-        },
-        "version": "c6469190f2ecf25f017d6120bf4e050e6b1d17af"
-    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "date": null,
@@ -123,11 +83,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bIffHXJN7mtYRgBJPKymLdgnQ0naT8ZEyDzTAhP2J74=",
+            "sha256": "sha256-t/JXQ/ZCP4xFR9bRhVSowTBkTWITh+KHaULlR1H1dbY=",
             "type": "url",
-            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v117.0.5938.44-1/naiveproxy-v117.0.5938.44-1-linux-x64.tar.xz"
+            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v118.0.5993.65-1/naiveproxy-v118.0.5993.65-1-linux-x64.tar.xz"
         },
-        "version": "v117.0.5938.44-1"
+        "version": "v118.0.5993.65-1"
     },
     "palette": {
         "cargoLocks": null,

@@ -1,11 +1,3 @@
-[batTheme]
-src.git = "https://github.com/catppuccin/bat"
-fetch.github = "catppuccin/bat"
-
-[btopTheme]
-src.git = "https://github.com/catppuccin/btop"
-fetch.github = "catppuccin/btop"
-
 [fcitx5Theme]
 src.git = "https://github.com/catppuccin/fcitx5"
 fetch.github = "catppuccin/fcitx5"
