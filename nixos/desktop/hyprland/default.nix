@@ -251,10 +251,11 @@ in {
             "float, class:^(org.fcitx.)$"
           ];
 
-          blurls = [
-            "waybar"
-            "notifications"
-            "launcher"
+          layerrule = [
+            "blur, waybar"
+            "blur, notifications"
+            "blur, launcher"
+            "ignorezero, notifications"
           ];
         };
 

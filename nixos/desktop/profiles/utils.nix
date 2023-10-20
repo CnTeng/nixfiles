@@ -73,13 +73,13 @@ in {
             width = 50;
           };
           colors = with palette; {
-            background = "${removeHashTag base.hex}e6";
-            text = "${removeHashTag text.hex}ff";
-            match = "${removeHashTag blue.hex}ff";
-            selection = "${removeHashTag surface1.hex}ff";
-            selection-text = "${removeHashTag text.hex}ff";
-            selection-match = "${removeHashTag blue.hex}ff";
-            border = "${removeHashTag blue.hex}e6";
+            background = removeHashTag base.hex + "e6";
+            text = removeHashTag text.hex + "ff";
+            match = removeHashTag blue.hex + "ff";
+            selection = removeHashTag surface1.hex + "ff";
+            selection-text = removeHashTag text.hex + "ff";
+            selection-match = removeHashTag blue.hex + "ff";
+            border = removeHashTag text.hex + "e6";
           };
           key-bindings = {
             cancel = "Control+bracketleft Escape";
@@ -91,34 +91,28 @@ in {
       };
 
       # notify
-      services.dunst = with palette; {
+      services.mako = with palette; {
         enable = true;
-        inherit iconTheme;
-        settings = with palette; {
-          global = {
-            follow = "mouse";
-            enable_posix_regex = true;
-            width = "(0, 300)";
-            offset = "5x5";
-            progress_bar_corner_radius = 5;
-            icon_corner_radius = 5;
-            frame_width = 4;
-            frame_color = blue.hex;
-            gap_size = 5;
-            font = "RobotoMono Nerd Font 13";
-            icon_theme = iconTheme.name;
-            corner_radius = 10;
-            mouse_right_click = "context";
-            mouse_left_click = "close_current";
-            background = base.hex + "e6";
-            foreground = text.hex;
-            max_icon_size = 128;
-            timeout = 5;
-          };
-          urgency_critical = {
-            frame_color = peach.hex;
-          };
-        };
+        backgroundColor = base.hex + "e6";
+        textColor = text.hex;
+        iconPath = iconTheme.package + "/share/icons/Papirus-Dark";
+        borderColor = text.hex;
+        progressColor = "over " + surface0.hex;
+        margin = "0";
+        extraConfig = ''
+          outer-margin=5
+
+          [urgency=high]
+          border-color=${peach.hex}
+        '';
+
+        width = 300;
+        height = 150;
+        borderSize = 2;
+        borderRadius = 10;
+        maxIconSize = 96;
+        defaultTimeout = 10000;
+        font = "RobotoMono Nerd Font 13";
       };
     };
   };
