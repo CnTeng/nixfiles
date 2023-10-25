@@ -3,10 +3,10 @@
 {
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20230823";
+    version = "20231016";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230823.dict";
-      sha256 = "sha256-aPJN8NWxTTVol85pAqx2O6JFwtJaOSiBZ8DRWsPzCm8=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231016.dict";
+      sha256 = "sha256-aQAAg+ArqwI5/fbhY80oAkvpRonU6FUsfYuWp3Z2WCM=";
     };
   };
   fcitx5Theme = {
@@ -64,5 +64,29 @@
       sha256 = "sha256-y14fd8lvnG9hNY6CRU0JgxWouexEw91aIEMkr1NaM/4=";
     };
     date = "2023-07-10";
+  };
+  ttf-ms-win10 = {
+    pname = "ttf-ms-win10";
+    version = "417eb232e8d037964971ae2690560a7b12e5f0d4";
+    src = fetchFromGitHub {
+      owner = "streetsamurai00mi";
+      repo = "ttf-ms-win10";
+      rev = "417eb232e8d037964971ae2690560a7b12e5f0d4";
+      fetchSubmodules = false;
+      sha256 = "sha256-UwkHlrSRaXhfoMlimyXFETV9yq1SbvUXykrhigf+wP8=";
+    };
+    date = "2021-02-10";
+  };
+  ttf-wps-fonts = {
+    pname = "ttf-wps-fonts";
+    version = "b3e935355afcfb5240bac5a99707ffecc35772a2";
+    src = fetchFromGitHub {
+      owner = "BannedPatriot";
+      repo = "ttf-wps-fonts";
+      rev = "b3e935355afcfb5240bac5a99707ffecc35772a2";
+      fetchSubmodules = false;
+      sha256 = "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=";
+    };
+    date = "2017-08-15";
   };
 }
