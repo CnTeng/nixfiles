@@ -6,7 +6,7 @@
       ipv6 = {
         addresses = [
           {
-            address = "2a01:4f8:c010:a818::1";
+            address = "2a01:4f8:1c17:4986::1";
             prefixLength = 64;
           }
         ];
