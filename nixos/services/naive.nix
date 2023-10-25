@@ -11,15 +11,6 @@ in {
   config = mkIf cfg.enable {
     services'.caddy.enable = true;
 
-    boot = {
-      kernelModules = ["tcp_bbr"];
-      kernel.sysctl = {
-        "net.core.default_qdisc" = "cake";
-        "net.ipv4.tcp_fastopen" = 3;
-        "net.ipv4.tcp_congestion_control" = "bbr";
-      };
-    };
-
     services.caddy = {
       globalConfig = "order forward_proxy before reverse_proxy";
       extraConfig = ''
