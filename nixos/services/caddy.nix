@@ -9,6 +9,15 @@ in {
   options.services'.caddy.enable = mkEnableOption "Caddy";
 
   config = mkIf cfg.enable {
+    boot.kernelModules = ["tcp_bbr"];
+    boot.kernel.sysctl = {
+      "net.core.default_qdisc" = "cake";
+      "net.core.rmem_max" = 2500000;
+      "net.core.wmem_max" = 2500000;
+      "net.ipv4.tcp_fastopen" = 3;
+      "net.ipv4.tcp_congestion_control" = "bbr";
+    };
+
     services.caddy.enable = true;
 
     sops.secrets.cloudflare = {
