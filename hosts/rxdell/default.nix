@@ -18,6 +18,7 @@
     spotify.enable = true;
     steam.enable = true;
     vscode.enable = true;
+    wps.enable = true;
     yubikey.enable = true;
   };
 
