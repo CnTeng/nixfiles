@@ -45,7 +45,7 @@ resource "hcloud_primary_ip" "ipv6" {
 }
 
 resource "hcloud_firewall" "default" {
-  name = "default"
+  name = "${var.hostname}-default"
   rule {
     direction = "in"
     protocol  = "tcp"
