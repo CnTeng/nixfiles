@@ -21,9 +21,13 @@ jobs:
           git config --global user.name "CnTeng"
           git config --global user.email "me@snakepi.xyz"
       - name: Flake update
-        run: nix flake update --commit-lock-file
+        run: |
+          nix flake update --commit-lock-file --commit-lockfile-summary "bump: flake inputs"
       - name: Nvfetcher update
-        run: nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml
+        run: |
+          nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml
+          git add .
+          git commit -m "bump: overlays sources"
       - name: Flake check
         run: nix flake check --all-systems
       - name: Git push
