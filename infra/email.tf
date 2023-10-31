@@ -1,56 +1,31 @@
-resource "cloudflare_email_routing_settings" "snakepi_eu_org" {
-  zone_id = module.zone["sp_eo"].id
+locals {
+  email_rules = {
+    auth  = "auth@snakepi.eu.org"
+    hydra = "hydra@snakepi.eu.org"
+    vault = "vault@snakepi.eu.org"
+  }
+}
+
+resource "cloudflare_email_routing_settings" "sp_eo" {
+  zone_id = cloudflare_zone.zones["sp_eo"].id
   enabled = "true"
 }
 
-resource "cloudflare_email_routing_address" "vault" {
+resource "cloudflare_email_routing_address" "default" {
   account_id = local.secrets.cloudflare.account_id
   email      = "jstengyufei@gmail.com"
 }
 
-resource "cloudflare_email_routing_rule" "vault" {
-  zone_id = module.zone["sp_eo"].id
-  name    = "vault email rule"
-  enabled = true
+resource "cloudflare_email_routing_rule" "rules" {
+  for_each = local.email_rules
+  zone_id  = cloudflare_zone.zones["sp_eo"].id
+  name     = "${each.key} email rule"
+  enabled  = true
 
   matcher {
     type  = "literal"
     field = "to"
-    value = "vault@snakepi.eu.org"
-  }
-
-  action {
-    type  = "forward"
-    value = ["jstengyufei@gmail.com"]
-  }
-}
-
-resource "cloudflare_email_routing_rule" "auth" {
-  zone_id = module.zone["sp_eo"].id
-  name    = "auth email rule"
-  enabled = true
-
-  matcher {
-    type  = "literal"
-    field = "to"
-    value = "auth@snakepi.eu.org"
-  }
-
-  action {
-    type  = "forward"
-    value = ["jstengyufei@gmail.com"]
-  }
-}
-
-resource "cloudflare_email_routing_rule" "hydra" {
-  zone_id = module.zone["sp_eo"].id
-  name    = "hydra email rule"
-  enabled = true
-
-  matcher {
-    type  = "literal"
-    field = "to"
-    value = "hydra@snakepi.eu.org"
+    value = each.value
   }
 
   action {

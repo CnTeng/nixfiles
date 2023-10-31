@@ -44,13 +44,16 @@ in {
         };
       };
 
-      programs.ssh.matchBlocks = {
-        "github.com" = {
-          hostname = "ssh.github.com";
-          user = "git";
-          port = 443;
-          extraOptions.AddKeysToAgent = "yes";
-          identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@Github"];
+      programs.ssh = {
+        enable = true;
+        matchBlocks = {
+          "github.com" = {
+            hostname = "ssh.github.com";
+            user = "git";
+            port = 443;
+            extraOptions.AddKeysToAgent = "yes";
+            identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@Github"];
+          };
         };
       };
 

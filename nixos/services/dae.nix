@@ -21,7 +21,7 @@ in {
         }
 
         node {
-          naive: 'http://127.0.0.1:1080'
+          naive: 'socks://127.0.0.1:1080'
         }
 
         dns {
@@ -50,7 +50,7 @@ in {
         }
 
         routing {
-          pname(NetworkManager, naive) -> must_direct
+          pname(NetworkManager, naive, ssh) -> must_direct
 
           dip(geoip:private) -> direct
           dip(geoip:cn) -> direct
@@ -68,7 +68,7 @@ in {
 
     systemd.services.naiveproxy = let
       settings = {
-        listen = "http://127.0.0.1:1080";
+        listen = "socks://127.0.0.1:1080";
         proxy._secret = config.sops.secrets."naive/client".path;
       };
       settingsPath = "/etc/naive/config.json";

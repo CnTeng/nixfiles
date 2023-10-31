@@ -17,12 +17,10 @@ in {
   options.shell'.utils.enable = mkEnableOption "shell utils" // {default = true;};
 
   config = mkIf cfg.enable {
-    programs = {
-      direnv.enable = true;
+    programs.direnv.enable = true;
 
-      command-not-found.enable = false;
-      nix-index-database.comma.enable = true;
-    };
+    programs.command-not-found.enable = false;
+    programs.nix-index-database.comma.enable = true;
 
     home-manager.users.${user} = {
       programs.bat = {
