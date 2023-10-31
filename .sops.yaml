@@ -24,3 +24,5 @@ creation_rules:
     key_groups:
       - age:
           - *rxdell
+          - *rxls0
+          - *rxhc0

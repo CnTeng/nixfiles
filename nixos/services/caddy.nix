@@ -14,8 +14,9 @@ in {
       "net.core.default_qdisc" = "cake";
       "net.core.rmem_max" = 2500000;
       "net.core.wmem_max" = 2500000;
-      "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_congestion_control" = "bbr";
+      "net.ipv4.tcp_slow_start_after_idle" = 0;
+      "net.ipv4.tcp_notsent_lowat" = 16384;
     };
 
     services.caddy.enable = true;

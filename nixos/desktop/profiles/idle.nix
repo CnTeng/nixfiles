@@ -7,8 +7,6 @@
 }:
 with lib; let
   cfg = config.desktop'.profiles.idle;
-
-  playerctl = getExe pkgs.playerctl;
 in {
   options.desktop'.profiles.idle.enable =
     mkEnableOption "idle daemon component";
@@ -21,7 +19,7 @@ in {
         enable = true;
         timeouts = [
           {
-            timeout = 180;
+            timeout = 240;
             command = (getExe' pkgs.systemd "loginctl") + " lock-session";
           }
           {
@@ -32,17 +30,12 @@ in {
         events = [
           {
             event = "lock";
-            command = playerctl + " pause";
-          }
-          {
-            event = "lock";
             command =
-              getExe pkgs.gtklock
-              + " -d -S -b "
+              (getExe pkgs.playerctl + " pause && ")
+              + (getExe pkgs.gtklock + " -d -S -b ")
               + config.desktop'.profiles.wallpaper.image;
           }
         ];
-        systemdTarget = "hyprland-session.target";
       };
     };
   };
