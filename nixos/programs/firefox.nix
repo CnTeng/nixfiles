@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -43,9 +44,7 @@ in {
         "media.ffmpeg.vaapi.enabled" = true;
       };
       languagePacks = ["en-US" "zh-CN"];
-      nativeMessagingHosts = {
-        tridactyl = true;
-      };
+      nativeMessagingHosts.packages = [pkgs.tridactyl-native];
     };
   };
 }

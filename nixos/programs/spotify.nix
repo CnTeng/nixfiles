@@ -20,8 +20,8 @@ in {
 
       programs.spicetify = {
         enable = true;
-        theme = spicePkgs.themes."catppuccin-${toLower flavour}";
-        colorScheme = "blue";
+        theme = spicePkgs.themes.catppuccin;
+        colorScheme = toLower flavour;
 
         enabledExtensions = with spicePkgs.extensions; [
           copyToClipboard

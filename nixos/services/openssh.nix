@@ -14,22 +14,12 @@ in {
   options.services'.openssh.enable = mkEnableOption "openssh";
 
   config = mkIf cfg.enable {
-    services.openssh = {
-      enable = true;
-      ports = [22];
-      settings = {
-        PasswordAuthentication = true;
-        PermitRootLogin = mkDefault "yes";
-        GSSAPIAuthentication = false;
-      };
-    };
+    services.openssh.enable = true;
 
     users.users = {
       ${user}.openssh.authorizedKeys.keys = authorizedKeys;
       root.openssh.authorizedKeys.keys = authorizedKeys;
     };
-
-    programs.ssh.startAgent = true;
 
     environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
       files = [

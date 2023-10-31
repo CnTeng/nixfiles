@@ -14,7 +14,7 @@ in {
     services.caddy = {
       globalConfig = "order forward_proxy before reverse_proxy";
       extraConfig = ''
-        :443, ${config.networking.hostName}.snakepi.xyz {
+        :443, naive.snakepi.xyz {
         	tls yufei.teng@pm.me
 
           forward_proxy {
@@ -24,7 +24,7 @@ in {
             probe_resistance
           }
 
-          reverse_proxy https://nixos.org {
+          reverse_proxy https://github.com {
             header_up Host {upstream_hostport}
           }
         }
