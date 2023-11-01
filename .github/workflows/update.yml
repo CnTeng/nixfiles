@@ -26,8 +26,10 @@ jobs:
       - name: Nvfetcher update
         run: |
           nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml
-          git add .
-          git commit -m "bump: overlays sources"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -a -m "bump: overlays sources"
+          fi
       - name: Flake check
         run: nix flake check --all-systems
       - name: Git push
