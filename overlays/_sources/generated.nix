@@ -23,15 +23,15 @@
   };
   fishTheme = {
     pname = "fishTheme";
-    version = "91e6d6721362be05a5c62e235ed8517d90c567c9";
+    version = "0ce27b518e8ead555dec34dd8be3df5bd75cff8e";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "fish";
-      rev = "91e6d6721362be05a5c62e235ed8517d90c567c9";
+      rev = "0ce27b518e8ead555dec34dd8be3df5bd75cff8e";
       fetchSubmodules = false;
-      sha256 = "sha256-l9V7YMfJWhKDL65dNbxaddhaM6GJ0CFZ6z+4R6MJwBA=";
+      sha256 = "sha256-Dc/zdxfzAUM5NX8PxzfljRbYvO9f9syuLO8yBr+R3qg=";
     };
-    date = "2023-04-27";
+    date = "2023-11-02";
   };
   foliateTheme = {
     pname = "foliateTheme";
