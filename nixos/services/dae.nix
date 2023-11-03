@@ -8,6 +8,7 @@
 }:
 with lib; let
   cfg = config.services'.dae;
+  port = 1080;
 in {
   options.services'.dae.enable = mkEnableOption "dae";
 
@@ -21,7 +22,7 @@ in {
         }
 
         node {
-          naive: 'socks://127.0.0.1:1080'
+          naive: 'socks://127.0.0.1:${toString port}'
         }
 
         dns {
@@ -68,7 +69,7 @@ in {
 
     systemd.services.naiveproxy = let
       settings = {
-        listen = "socks://127.0.0.1:1080";
+        listen = "socks://127.0.0.1:${toString port}";
         proxy._secret = config.sops.secrets."naive/client".path;
       };
       settingsPath = "/etc/naive/config.json";

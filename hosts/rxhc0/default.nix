@@ -2,16 +2,16 @@
   imports = [./disko.nix ./hardware.nix ./network.nix];
 
   services' = {
-    authelia.port = 9091;
+    authelia.enable = true;
     caddy.enable = true;
     fail2ban.enable = true;
     firewall.enable = true;
-    harmonia.port = 5222;
-    hydra.port = 9222;
-    miniflux.port = 6222;
-    ntfy.port = 7222;
+    harmonia.enable = true;
+    hydra.enable = true;
+    miniflux.enable = true;
+    ntfy.enable = true;
     openssh.enable = true;
-    vaultwarden.port = 8222;
+    vaultwarden.enable = true;
     restic.enable = true;
   };
 }

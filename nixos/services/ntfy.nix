@@ -5,23 +5,18 @@
 }:
 with lib; let
   cfg = config.services'.ntfy;
+  port = 7222;
 in {
-  options.services'.ntfy = {
-    enable = mkEnableOption "ntfy-sh" // {default = cfg.port != null;};
-    port = mkOption {
-      type = with types; nullOr port;
-      default = null;
-    };
-  };
+  options.services'.ntfy.enable = mkEnableOption "ntfy-sh";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [port];
 
     services.ntfy-sh = {
       enable = true;
       settings = {
         base-url = "https://ntfy.snakepi.xyz";
-        listen-http = ":${toString cfg.port}";
+        listen-http = ":${toString port}";
         behind-proxy = true;
       };
     };
@@ -33,7 +28,7 @@ in {
           import ${config.sops.secrets.cloudflare.path}
         }
 
-        reverse_proxy 127.0.0.1:${toString cfg.port}
+        reverse_proxy 127.0.0.1:${toString port}
       '';
     };
   };
