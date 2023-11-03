@@ -5,22 +5,16 @@
 }:
 with lib; let
   cfg = config.services'.hydra;
+  inherit (config.services.hydra) port;
 in {
-  options.services'.hydra = {
-    enable = mkEnableOption "Hydra" // {default = cfg.port != null;};
-    port = mkOption {
-      type = with types; nullOr port;
-      default = null;
-    };
-  };
+  options.services'.hydra.enable = mkEnableOption "Hydra";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [port];
 
     services.hydra = {
       enable = true;
       hydraURL = "https://hydra.snakepi.xyz";
-      port = cfg.port;
       notificationSender = "hydra@snakepi.eu.org";
       smtpHost = "smtp.gmail.com";
       useSubstitutes = true;
@@ -63,7 +57,7 @@ in {
           import ${config.sops.secrets.cloudflare.path}
         }
 
-        reverse_proxy 127.0.0.1:${toString cfg.port}
+        reverse_proxy 127.0.0.1:${toString port}
       '';
     };
   };

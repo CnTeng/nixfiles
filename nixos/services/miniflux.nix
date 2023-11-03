@@ -6,23 +6,18 @@
 }:
 with lib; let
   cfg = config.services'.miniflux;
+  port = 6222;
 in {
-  options.services'.miniflux = {
-    enable = mkEnableOption "MiniFlux" // {default = cfg.port != null;};
-    port = mkOption {
-      type = with types; nullOr port;
-      default = null;
-    };
-  };
+  options.services'.miniflux.enable = mkEnableOption "MiniFlux";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [port];
 
     services.miniflux = {
       enable = true;
       config = {
         CREATE_ADMIN = mkForce "";
-        LISTEN_ADDR = "localhost:${toString cfg.port}";
+        LISTEN_ADDR = "localhost:${toString port}";
         BASE_URL = "https://rss.snakepi.xyz";
         OAUTH2_PROVIDER = "oidc";
         OAUTH2_CLIENT_ID = "miniflux";
@@ -45,7 +40,7 @@ in {
           X-Frame-Options "SAMEORIGIN"
         }
 
-        reverse_proxy 127.0.0.1:${toString cfg.port}
+        reverse_proxy 127.0.0.1:${toString port}
       '';
     };
 

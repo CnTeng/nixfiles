@@ -5,17 +5,12 @@
 }:
 with lib; let
   cfg = config.services'.vaultwarden;
+  port = 8222;
 in {
-  options.services'.vaultwarden = {
-    enable = mkEnableOption "Vaultwarden" // {default = cfg.port != null;};
-    port = mkOption {
-      type = with types; nullOr port;
-      default = null;
-    };
-  };
+  options.services'.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [port];
 
     services.vaultwarden = {
       enable = true;
@@ -23,11 +18,9 @@ in {
         DOMAIN = "https://vault.snakepi.xyz";
         SIGNUPS_ALLOWED = false;
 
-        ROCKET_PORT = cfg.port;
+        ROCKET_PORT = port;
 
         PUSH_ENABLED = true;
-
-        DISABLE_ADMIN_TOKEN = true;
 
         SMTP_HOST = "smtp.gmail.com";
         SMTP_FROM = "vault@snakepi.eu.org";
@@ -56,12 +49,7 @@ in {
           -Server
         }
 
-        forward_auth /admin localhost:${toString config.services'.authelia.port} {
-          uri /api/verify?rd=https://auth.snakepi.xyz/
-          copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
-        }
-
-        reverse_proxy localhost:${toString cfg.port} {
+        reverse_proxy localhost:${toString port} {
           header_up X-Real-IP {remote_host}
         }
       '';

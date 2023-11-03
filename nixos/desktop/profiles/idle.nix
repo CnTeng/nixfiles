@@ -31,7 +31,7 @@ in {
           {
             event = "lock";
             command =
-              (getExe pkgs.playerctl + " pause && ")
+              (getExe pkgs.playerctl + " pause; ")
               + (getExe pkgs.gtklock + " -d -S -b ")
               + config.desktop'.profiles.wallpaper.image;
           }
