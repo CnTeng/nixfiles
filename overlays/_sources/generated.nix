@@ -47,10 +47,10 @@
   };
   naive = {
     pname = "naive";
-    version = "v118.0.5993.65-1";
+    version = "v119.0.6045.66-1";
     src = fetchurl {
-      url = "https://github.com/klzgrad/naiveproxy/releases/download/v118.0.5993.65-1/naiveproxy-v118.0.5993.65-1-linux-x64.tar.xz";
-      sha256 = "sha256-t/JXQ/ZCP4xFR9bRhVSowTBkTWITh+KHaULlR1H1dbY=";
+      url = "https://github.com/klzgrad/naiveproxy/releases/download/v119.0.6045.66-1/naiveproxy-v119.0.6045.66-1-linux-x64.tar.xz";
+      sha256 = "sha256-w178YiE9PyCWwau+BcgtvsI6IRoUxhn6OkGznL+X8Pc=";
     };
   };
   palette = {
