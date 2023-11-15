@@ -20,6 +20,7 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: "bump: flake inputs"
+          pr-labels: automated
       - name: Git config
         run: |
           git config --global user.name "CnTeng"

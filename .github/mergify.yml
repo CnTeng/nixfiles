@@ -1,0 +1,11 @@
+pull_request_rules:
+  - name: Automatic merge when CI passes and reviews approve
+    conditions:
+      - label=automated
+      - check-success=Evaluate flake.nix
+      - check-success=nixosConfig rxdell
+      - check-success=nixosConfig rxhc0
+      - check-success=nixosConfig rxls0
+    actions:
+      merge:
+        method: merge
