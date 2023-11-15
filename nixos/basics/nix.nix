@@ -28,6 +28,8 @@ in {
           auto-allocate-uids = true;
           use-cgroups = true;
           use-xdg-base-directories = true;
+          trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
+          substituters = ["https://cache.garnix.io"];
         };
         gc = {
           automatic = true;

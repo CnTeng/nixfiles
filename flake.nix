@@ -2,9 +2,9 @@
   description = "NixOS Configuration";
 
   nixConfig = {
-    extra-substituters = ["https://cache.snakepi.xyz"];
+    extra-substituters = ["https://cache.garnix.io"];
     extra-trusted-public-keys = [
-      "cache.snakepi.xyz-1:CnMDci45ncAX/kR+3RyxeRLYa+9cFHH+LrOhVEiE1ss="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
   };
 
