@@ -16,26 +16,20 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Flake update
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "bump: flake inputs"
       - name: Git config
         run: |
           git config --global user.name "CnTeng"
           git config --global user.email "me@snakepi.xyz"
-      - name: Flake update
-        run: |
-          nix flake update --commit-lock-file --commit-lockfile-summary "bump: flake inputs"
       - name: Nvfetcher update
         run: |
           nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml
 
           if [ -n "$(git status --porcelain)" ]; then
             git commit -a -m "bump: overlays sources"
+            nix flake check --all-systems
+            git push
           fi
-      - name: Flake check
-        run: nix flake check --all-systems
-      - name: Git push
-        run: git push
-
-  deploy:
-    needs: update
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
