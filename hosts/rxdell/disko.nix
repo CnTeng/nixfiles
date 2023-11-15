@@ -27,7 +27,7 @@
             content = {
               type = "luks";
               name = "nixos";
-              extraOpenArgs = ["--allow-discards"];
+              settings.allowDiscards = true;
               content = {
                 type = "btrfs";
                 extraArgs = ["-L nixos" "-f"];

@@ -56,6 +56,8 @@ in {
       };
     };
 
+    environment.variables.GTK_IM_MODULE = lib.mkForce "wayland";
+
     home-manager.users.${user} = {
       systemd.user.services.fcitx5-daemon = {
         Unit = {

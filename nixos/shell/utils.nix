@@ -17,6 +17,8 @@ in {
   options.shell'.utils.enable = mkEnableOption "shell utils" // {default = true;};
 
   config = mkIf cfg.enable {
+    virtualisation.podman.enable = true;
+
     programs.direnv.enable = true;
 
     programs.command-not-found.enable = false;
