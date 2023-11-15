@@ -16,6 +16,9 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
       - name: Flake update
         uses: DeterminateSystems/update-flake-lock@main
         with:
