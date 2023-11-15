@@ -18,7 +18,10 @@ jobs:
           config: ${{ secrets.SSH_CONFIG }}
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Deploy remote hosts
-        run: nix develop --command colmena apply --nix-option accept-flake-config true
+        run: nix develop --command colmena apply
