@@ -1,7 +1,6 @@
 locals {
   email_rules = {
     auth  = "auth@snakepi.eu.org"
-    hydra = "hydra@snakepi.eu.org"
     vault = "vault@snakepi.eu.org"
   }
 }
