@@ -32,8 +32,6 @@ in {
         element-desktop
         discord
 
-        thunderbird
-
         sioyek
 
         inkscape

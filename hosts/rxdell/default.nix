@@ -20,6 +20,7 @@
     vscode.enable = true;
     wps.enable = true;
     yubikey.enable = true;
+    thunderbird.enable = true;
   };
 
   services' = {
@@ -28,4 +29,5 @@
     dae.enable = true;
     restic.enable = true;
   };
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 }

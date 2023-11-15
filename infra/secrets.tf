@@ -22,7 +22,7 @@ provider "cloudflare" {
 
 provider "hydra" {
   host     = local.secrets.hydra.host
-  username = "yufei"
+  username = "terraform"
   password = local.secrets.hydra.password
 }
 
