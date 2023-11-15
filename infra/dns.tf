@@ -8,8 +8,6 @@ locals {
   web_rec = {
     "@"   = { value = module.hcloud["rxhc0"].ipv4 }
     auth  = { value = module.hcloud["rxhc0"].ipv4 }
-    cache = { value = module.hcloud["rxhc0"].ipv4 }
-    hydra = { value = module.hcloud["rxhc0"].ipv4 }
     rss   = { value = module.hcloud["rxhc0"].ipv4 }
     ntfy  = { value = module.hcloud["rxhc0"].ipv4 }
     vault = { value = module.hcloud["rxhc0"].ipv4 }
@@ -88,4 +86,3 @@ resource "cloudflare_record" "pm_rec" {
   proxied  = false
   priority = can(each.value.priority) ? each.value.priority : null
 }
-
