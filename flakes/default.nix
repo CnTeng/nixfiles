@@ -3,7 +3,7 @@
   self,
   ...
 }: {
-  imports = [./devshell.nix ./hydra.nix ./treefmt.nix ./pre-commit.nix];
+  imports = [./devshell.nix ./treefmt.nix ./pre-commit.nix];
 
   perSystem = {
     pkgs,
