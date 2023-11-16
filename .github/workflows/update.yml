@@ -20,9 +20,9 @@ jobs:
       - name: Flake update
         uses: DeterminateSystems/update-flake-lock@main
         with:
-          branch: "bump_flake_inputs"
+          branch: bump_flake_inputs
           pr-title: "bump: flake inputs"
-          pr-labels: automated
+          pr-labels: merge-queue
 
   update-nvfetcher:
     runs-on: ubuntu-latest
@@ -54,5 +54,5 @@ jobs:
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           title: "bump: overlays sources"
-          labels: automated
+          labels: merge-queue
           body: ${{ steps.pr_body.outputs.content }}
