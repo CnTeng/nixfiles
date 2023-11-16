@@ -38,11 +38,14 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Create pr_body.txt
         run: nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml -l pr_body.txt
-      - name: Read package.json
+      - name: Read pr_body.txt
         id: pr_body
         uses: juliangruber/read-file-action@v1
         with:
           path: ./pr_body.txt
+      - name: Remove PR body template files
+        shell: bash
+        run: rm -f pr_body.txt
       - name: Create PR
         if: ${{ steps.pr_body.outputs.content }}
         uses: peter-evans/create-pull-request@v5
@@ -54,6 +57,3 @@ jobs:
           title: "bump: overlays sources"
           labels: automated
           body: ${{ steps.pr_body.outputs.content }}
-      - name: Remove PR body template files
-        shell: bash
-        run: rm -f pr_body.txt
