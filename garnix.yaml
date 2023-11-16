@@ -1,4 +1,4 @@
 builds:
   include:
     - nixosConfigurations.*
-    - devShells.*
+    - devShells.*.*

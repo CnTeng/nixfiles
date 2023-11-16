@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: rm -f pr_body.txt
       - name: Create PR
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v4
         with:
           branch: bump_overlays_sources
           delete-branch: true

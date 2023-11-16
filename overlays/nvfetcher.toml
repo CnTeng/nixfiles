@@ -30,7 +30,3 @@ fetch.github = "streetsamurai00mi/ttf-ms-win10"
 [ttf-wps-fonts]
 src.git = "https://github.com/BannedPatriot/ttf-wps-fonts"
 fetch.github = "BannedPatriot/ttf-wps-fonts"
-
-[hyprland]
-src.git = "https://github.com/hyprwm/Hyprland"
-fetch.github = "hyprwm/hyprland"
