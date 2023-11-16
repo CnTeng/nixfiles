@@ -1,12 +1,13 @@
 name: Deploy
 on:
-  check_suite:
-    types: [completed]
+  pull_request:
+    types:
+      - closed
   workflow_dispatch:
 
 jobs:
   deploy:
-    if: github.event.check_suite.app.slug == 'garnix-ci' && github.event.check_suite.conclusion == 'success'
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
