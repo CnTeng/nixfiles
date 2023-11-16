@@ -5,35 +5,55 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  update-flake:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
-      - name: Use nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
         with:
           extra-conf: |
             accept-flake-config = true
+      - name: Use nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Flake update
         uses: DeterminateSystems/update-flake-lock@main
         with:
+          branch: "bump_flake_inputs"
           pr-title: "bump: flake inputs"
           pr-labels: automated
-      - name: Git config
-        run: |
-          git config --global user.name "CnTeng"
-          git config --global user.email "me@snakepi.xyz"
-      - name: Nvfetcher update
-        run: |
-          nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml
 
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -a -m "bump: overlays sources"
-            nix flake check --all-systems
-            git push
-          fi
+  update-nvfetcher:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Install nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
+      - name: Use nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Create pr_body.txt
+        run: nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml -l pr_body.txt
+      - name: Read package.json
+        id: pr_body
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./pr_body.txt
+      - name: Create PR
+        if: ${{ steps.pr_body.outputs.content }}
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: bump_overlays_sources
+          delete-branch: true
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          title: "bump: overlays sources"
+          labels: automated
+          body: ${{ steps.pr_body.outputs.content }}
+      - name: Remove PR body template files
+        shell: bash
+        run: rm -f pr_body.txt
