@@ -45,6 +45,18 @@
     };
     date = "2023-02-01";
   };
+  hyprland = {
+    pname = "hyprland";
+    version = "91d6be1f09a0c0eaf585e88d315a7e56cac315a3";
+    src = fetchFromGitHub {
+      owner = "hyprwm";
+      repo = "hyprland";
+      rev = "91d6be1f09a0c0eaf585e88d315a7e56cac315a3";
+      fetchSubmodules = false;
+      sha256 = "sha256-5mBLKfqAnJwqImJ+L3Z/GZfxCoRNWwpmHt43Imzr8y0=";
+    };
+    date = "2023-11-15";
+  };
   naive = {
     pname = "naive";
     version = "v119.0.6045.66-1";
