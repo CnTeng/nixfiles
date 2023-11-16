@@ -47,7 +47,6 @@ jobs:
         shell: bash
         run: rm -f pr_body.txt
       - name: Create PR
-        if: ${{ steps.pr_body.outputs.content }}
         uses: peter-evans/create-pull-request@v5
         with:
           branch: bump_overlays_sources
