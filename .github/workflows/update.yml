@@ -20,6 +20,7 @@ jobs:
       - name: Flake update
         uses: DeterminateSystems/update-flake-lock@main
         with:
+          commit-msg: "bump: flake inputs"
           branch: bump_flake_inputs
           pr-title: "bump: flake inputs"
           pr-labels: merge-queue
@@ -49,6 +50,7 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
         with:
+          commit-message: "bump: overlays sources"
           branch: bump_overlays_sources
           delete-branch: true
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
