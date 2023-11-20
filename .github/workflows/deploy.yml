@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,10 +31,11 @@ jobs:
       - name: Send notification
         uses: fjogeleit/http-request-action@v1
         with:
-          url: https://ntfy.snakepi.xyz/dev
+          url: https://ntfy.snakepi.xyz
           bearerToken: ${{ secrets.NTFY_TOKEN }}
-          customHeaders: |
+          data: |
             {
-              'Title': 'Deploy NixOS'
+              "topic": "dev",
+              "title": "Deploy NixOS",
+              "message": "Deploy successfully."
             }
-          data: Deploy successfully.

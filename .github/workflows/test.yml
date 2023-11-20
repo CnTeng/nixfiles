@@ -1,0 +1,21 @@
+name: ntfy
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: https://ntfy.snakepi.xyz
+          bearerToken: ${{ secrets.NTFY_TOKEN }}
+          data: |
+            {
+              "topic": "dev",
+              "title": "Deploy NixOS",
+              "message": "Deploy successfully.",
+              "click": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "icon": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+            }
