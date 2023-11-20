@@ -30,16 +30,11 @@ in {
       };
     };
 
-    qt = {
-      enable = true;
-      platformTheme = "gtk2";
-      style = "gtk2";
-    };
-
     home-manager.users.${user} = {
-      systemd.user.sessionVariables = {
-        QT_QPA_PLATFORMTHEME = "gtk2";
-        QT_STYLE_OVERRIDE = "gtk2";
+      qt = {
+        enable = true;
+        platformTheme = "gtk";
+        style.name = "gtk2";
       };
 
       home.pointerCursor = {
