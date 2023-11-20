@@ -2,7 +2,6 @@
   config,
   lib,
   user,
-  pkgs,
   ...
 }:
 with lib; let
@@ -18,20 +17,10 @@ in {
   options.programs'.thunderbird.enable = mkEnableOption "thunderbird";
 
   config = mkIf cfg.enable {
-    systemd.user.services.protonmail-bridge = {
-      description = "Protonmail Bridge";
-      after = ["network.target"];
-      wantedBy = ["default.target"];
-      serviceConfig = {
-        Environment = "PATH=${pkgs.gnome.gnome-keyring}/bin";
-        Restart = "always";
-        ExecStart = (getExe' pkgs.protonmail-bridge "protonmail-bridge") + " --noninteractive";
-      };
-    };
+    services'.protonmail-bridge.enable = true;
+    services'.davmail.enable = true;
 
     home-manager.users.${user} = {
-      home.packages = with pkgs; [protonmail-bridge];
-
       accounts.email.accounts = {
         Proton = {
           primary = true;
@@ -61,14 +50,20 @@ in {
         };
 
         Outlook = {
-          flavor = "outlook.office365.com";
           address = "istengyf@outlook.com";
-          aliases = ["teng.yufei@outlook.com"];
           inherit realName;
-          thunderbird = {
-            enable = true;
-            settings = OAuth2Settings;
+          userName = "istengyf@outlook.com";
+          imap = {
+            host = "127.0.0.1";
+            port = 11143;
+            tls.enable = false;
           };
+          smtp = {
+            host = "127.0.0.1";
+            port = 11025;
+            tls.enable = false;
+          };
+          thunderbird.enable = true;
         };
 
         GmailJP = {
@@ -85,7 +80,7 @@ in {
         GmailHK = {
           flavor = "gmail.com";
           address = "jstengyufei@gmail.com";
-          realName = realName;
+          inherit realName;
           smtp.tls.useStartTls = true;
           thunderbird = {
             enable = true;
