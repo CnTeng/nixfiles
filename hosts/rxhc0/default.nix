@@ -1,8 +1,6 @@
 {
   imports = [./disko.nix ./hardware.nix ./network.nix];
 
-  basics'.system.stateVersion = "23.11";
-
   services' = {
     authelia.enable = true;
     caddy.enable = true;
