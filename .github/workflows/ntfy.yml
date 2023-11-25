@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  ntfy:
     runs-on: ubuntu-latest
     steps:
       - name: Send notification

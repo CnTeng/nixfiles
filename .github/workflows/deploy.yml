@@ -37,5 +37,7 @@ jobs:
             {
               "topic": "dev",
               "title": "Deploy NixOS",
-              "message": "Deploy successfully."
+              "message": "Deploy successfully.",
+              "click": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "icon": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
             }
