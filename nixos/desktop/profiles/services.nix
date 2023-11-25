@@ -23,6 +23,10 @@ in {
     services.dbus.implementation = "broker";
     services.gvfs.enable = true;
 
+    # power
+    services.tlp.enable = true;
+    services.thermald.enable = true;
+
     home-manager.users.${user} = {
       home.packages = [pkgs.wl-clipboard];
 
