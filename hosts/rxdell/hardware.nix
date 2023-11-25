@@ -7,7 +7,6 @@
     cpu.enable = true;
     nvidia.enable = true;
     persist.enable = true;
-    power.enable = true;
   };
 
   boot = {
