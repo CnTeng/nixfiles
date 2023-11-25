@@ -55,15 +55,15 @@
   };
   palette = {
     pname = "palette";
-    version = "59c8e6623594189e98a13afdded3f0fd6554d715";
+    version = "403e0effd3b1ba12e751e0d20e7704f1bc55e28e";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "palette";
-      rev = "59c8e6623594189e98a13afdded3f0fd6554d715";
+      rev = "403e0effd3b1ba12e751e0d20e7704f1bc55e28e";
       fetchSubmodules = false;
-      sha256 = "sha256-/YO9uGokJBs9lCo1ydZTQSQ3f/mXB6bJGYvfMB0in+k=";
+      sha256 = "sha256-uB+Diw0VpFToqvidx8yhOiNAdIkrbTuuyQwuReZFYjE=";
     };
-    date = "2023-10-27";
+    date = "2023-11-25";
   };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
