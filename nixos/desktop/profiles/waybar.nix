@@ -55,14 +55,6 @@ in {
                 urgent = " ";
               };
               show-special = true;
-              persistent_workspaces = {
-                "1" = ["eDP-1"];
-                "2" = ["DP-3"];
-                "3" = ["eDP-1"];
-                "4" = ["eDP-1"];
-                "5" = ["eDP-1"];
-                "6" = ["eDP-1"];
-              };
             };
 
             "hyprland/submap" = {format = " {}";};
