@@ -109,12 +109,6 @@ in {
 
           xwayland.force_zero_scaling = true;
 
-          monitor = [
-            "eDP-1, preferred, auto, 1.25"
-            "DP-2, preferred, auto, 1.25"
-            "DP-3, preferred, auto, 1.75"
-          ];
-
           animation = [
             "fade, 1, 3, default"
             "windows, 1, 3, default, slide"
@@ -126,6 +120,7 @@ in {
             "SUPER, mouse:272, movewindow"
             "SUPER, mouse:273, resizewindow"
           ];
+
           bind = [
             # Programs binding
             "SUPER, return, exec, ${terminal}"
@@ -227,8 +222,6 @@ in {
 
           workspace = [
             "1, monitor:eDP-1, default:true"
-            "2, monitor:DP-2, default:true"
-            "2, monitor:DP-3, default:true"
             "3, monitor:eDP-1, default:true"
             "4, monitor:eDP-1, default:true"
             "5, monitor:eDP-1, default:true"
