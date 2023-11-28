@@ -15,7 +15,8 @@
       config.allowUnfree = true;
       overlays = [
         self.overlays.default
-        inputs.colmena.overlay
+        inputs.colmena.overlays.default
+        inputs.hyprland.overlays.default
       ];
     };
 
