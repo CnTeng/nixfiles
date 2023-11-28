@@ -19,28 +19,12 @@ in {
 
       programs.rx-nvim = {
         enable = true;
-        extraPackages = with pkgs; [
-          nil
-          alejandra
-          prettierd
-        ];
-        gptSupport = {
-          enable = true;
-          secrets = {
-            hostPath = config.sops.secrets."chatgpt/host".path;
-            keyPath = config.sops.secrets."chatgpt/key".path;
-          };
-        };
-      };
-
-      xdg.desktopEntries.nvim-kitty = {
-        exec = "${getExe pkgs.kitty} -e nvim %F"; # launch with kitty
-        icon = "nvim";
-        comment = "Edit text files";
-        terminal = false;
-        name = "Neovim Kitty";
-        genericName = "Text Editor";
-        categories = ["Utility" "TextEditor"];
+        extraPackages = with pkgs; [nil nixfmt prettierd];
+        extraConfig = ''
+          vim.g.gptsupport = true
+          vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"
+          vim.g.gptkey= "${config.sops.secrets."chatgpt/key".path}"
+        '';
       };
     };
 
