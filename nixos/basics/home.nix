@@ -1,17 +1,12 @@
-{
-  config,
-  lib,
-  inputs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.basics'.home-manager;
+{ config, lib, inputs, user, ... }:
+with lib;
+let cfg = config.basics'.home-manager;
 in {
-  imports = [inputs.home-manager.nixosModules.home-manager];
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  options.basics'.home-manager.enable =
-    mkEnableOption "home-manager" // {default = true;};
+  options.basics'.home-manager.enable = mkEnableOption "home-manager" // {
+    default = true;
+  };
 
   config = mkIf cfg.enable {
     home-manager = {

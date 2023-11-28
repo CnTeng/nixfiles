@@ -1,19 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.profiles.opengl;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.desktop'.profiles.opengl;
 in {
-  options.desktop'.profiles.opengl.enable =
-    mkEnableOption "opengl component";
+  options.desktop'.profiles.opengl.enable = mkEnableOption "opengl component";
 
   config = mkIf cfg.enable {
-    hardware.opengl.extraPackages = with pkgs; [
-      intel-media-driver
-    ];
+    hardware.opengl.extraPackages = with pkgs; [ intel-media-driver ];
 
     environment.systemPackages = with pkgs; [
       pciutils

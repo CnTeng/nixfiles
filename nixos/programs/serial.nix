@@ -1,30 +1,19 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.serial;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.programs'.serial;
 in {
   options.programs'.serial.enable = mkEnableOption "serial";
 
   config = mkIf cfg.enable {
-    boot.kernelModules = ["ftdi_sio" "pl2303"];
+    boot.kernelModules = [ "ftdi_sio" "pl2303" ];
 
-    environment.systemPackages = with pkgs; [
-      picocom
-      usbutils
-    ];
+    environment.systemPackages = with pkgs; [ picocom usbutils ];
 
     services.udev.extraRules = ''
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", MODE:="0666"
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="5523", MODE:="0666"
     '';
 
-    i18n.supportedLocales = [
-      "C.UTF-8/UTF-8"
-      "zh_CN.GBK/GBK"
-    ];
+    i18n.supportedLocales = [ "C.UTF-8/UTF-8" "zh_CN.GBK/GBK" ];
   };
 }

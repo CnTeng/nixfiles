@@ -1,17 +1,13 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, user, ... }:
+with lib;
+let
   cfg = config.services'.miniflux;
   port = 6222;
 in {
   options.services'.miniflux.enable = mkEnableOption "MiniFlux";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [port];
+    networking.firewall.allowedTCPPorts = [ port ];
 
     services.miniflux = {
       enable = true;

@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.profiles.waybar;
 
   inherit (config.basics'.colors) palette;
@@ -13,189 +8,185 @@ with lib; let
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
   networkManager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 in {
-  options.desktop'.profiles.waybar.enable =
-    mkEnableOption "waybar";
+  options.desktop'.profiles.waybar.enable = mkEnableOption "waybar";
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.waybar = with palette; {
         enable = true;
         systemd.enable = true;
-        settings = [
-          {
-            layer = "top";
-            output = ["eDP-1" "DP-2" "DP-3"];
-            position = "top";
-            height = 32;
-            modules-left = ["hyprland/workspaces" "hyprland/submap" "hyprland/window"];
+        settings = [{
+          layer = "top";
+          output = [ "eDP-1" "DP-2" "DP-3" ];
+          position = "top";
+          height = 32;
+          modules-left =
+            [ "hyprland/workspaces" "hyprland/submap" "hyprland/window" ];
 
-            modules-right = [
-              "tray"
-              "mpris"
-              "idle_inhibitor"
-              "backlight"
-              "cpu"
-              "memory"
-              "pulseaudio"
-              "network"
-              "battery"
-              "clock"
-            ];
+          modules-right = [
+            "tray"
+            "mpris"
+            "idle_inhibitor"
+            "backlight"
+            "cpu"
+            "memory"
+            "pulseaudio"
+            "network"
+            "battery"
+            "clock"
+          ];
 
-            "hyprland/workspaces" = {
-              format = "{icon}";
-              format-icons = {
-                "1" = " ";
-                "2" = " ";
-                "3" = " ";
-                "4" = " ";
-                "5" = " ";
-                "6" = " ";
-                default = " ";
-                urgent = " ";
-              };
-              show-special = true;
+          "hyprland/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              "1" = " ";
+              "2" = " ";
+              "3" = " ";
+              "4" = " ";
+              "5" = " ";
+              "6" = " ";
+              default = " ";
+              special = " ";
+              urgent = " ";
             };
+            show-special = true;
+          };
 
-            "hyprland/submap" = {format = " {}";};
+          "hyprland/submap".format = " {}";
 
-            "hyprland/window" = {
-              separate-outputs = true;
+          "hyprland/window".separate-outputs = true;
+
+          tray = {
+            icon-size = 15;
+            spacing = 10;
+          };
+
+          mpris = {
+            format = "{player_icon} {status_icon}{title} {artist}";
+            artist-len = 10;
+            album-len = 10;
+            title-len = 10;
+            player-icons = {
+              firefox = " ";
+              spotify = " ";
+              chromium = " ";
             };
-
-            tray = {
-              icon-size = 15;
-              spacing = 10;
+            status-icons = {
+              playing = " ";
+              paused = " ";
+              stopped = " ";
             };
+            tooltip-format = ''
+              {title}
+              {artist}  {album}
+              {position} {length}'';
+          };
 
-            mpris = {
-              format = "{player_icon} {status_icon}{title} {artist}";
-              artist-len = 10;
-              album-len = 10;
-              title-len = 10;
-              player-icons = {
-                firefox = " ";
-                spotify = " ";
-                chromium = " ";
-              };
-              status-icons = {
-                playing = " ";
-                paused = " ";
-                stopped = " ";
-              };
-              tooltip-format = ''
-                {title}
-                {artist}  {album}
-                {position} {length}'';
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = " ";
+              deactivated = " ";
             };
+          };
 
-            idle_inhibitor = {
-              format = "{icon}";
-              format-icons = {
-                activated = " ";
-                deactivated = " ";
-              };
+          backlight = let brillo = lib.getExe pkgs.brillo;
+          in {
+            format = "{icon}{percent}%";
+            format-icons = " ";
+            on-scroll-up = "${brillo} -u 300000 -A 5";
+            on-scroll-down = "${brillo} -u 300000 -U 5";
+          };
+
+          cpu = {
+            format = " {usage}%";
+            on-click = "${systemMonitor}";
+          };
+
+          memory = {
+            format = " {percentage}%";
+            on-click = "${systemMonitor}";
+          };
+
+          pulseaudio = {
+            format = "{icon}{volume}%";
+            format-bluetooth = "󰂰 {volume}%";
+            format-muted = " ";
+            format-source = " {volume}%";
+            format-source-muted = " ";
+            format-icons = {
+              default = [ " " " " " " ];
+              headphone = "󰋋 ";
+              hdmi = " ";
+              headset = "󰋎 ";
+              hands-free = "󰋎 ";
+              portable = " ";
+              phone = " ";
+              car = " ";
             };
+            on-click = "${lib.getExe pkgs.pamixer} -t";
+            on-click-right = "${lib.getExe pkgs.pavucontrol}";
+            tooltip-format = "{icon}{desc} {volume}%";
+          };
 
-            backlight = let
-              brillo = lib.getExe pkgs.brillo;
-            in {
-              format = "{icon}{percent}%";
-              format-icons = " ";
-              on-scroll-up = "${brillo} -u 300000 -A 5";
-              on-scroll-down = "${brillo} -u 300000 -U 5";
+          network = {
+            format-wifi = "{icon}{essid}";
+            format-ethernet = "{icon}{ipaddr}";
+            format-linked = "{icon}No IP";
+            format-disconnected = "{icon}";
+            format-icons = {
+              ethernet = " ";
+              wifi = [ "󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 " ];
+              linked = " ";
+              disconnected = " ";
             };
+            max-length = 10;
+            tooltip-format = ''
+              {icon}{ifname} {ipaddr}/{cidr}
+               {bandwidthUpBits}
+               {bandwidthDownBits}'';
+            tooltip-format-wifi = ''
+              {icon}{essid} {signalStrength}%
+               {bandwidthUpBits}
+               {bandwidthDownBits}'';
+            on-click-right = "${networkManager}";
+          };
 
-            cpu = {
-              format = " {usage}%";
-              on-click = "${systemMonitor}";
+          battery = {
+            states = {
+              warning = 30;
+              critical = 15;
             };
+            format = "{icon}{capacity}%";
+            format-charging = " {capacity}%";
+            format-icons = [ " " " " " " " " " " ];
+          };
 
-            memory = {
-              format = " {percentage}%";
-              on-click = "${systemMonitor}";
-            };
-
-            pulseaudio = {
-              format = "{icon}{volume}%";
-              format-bluetooth = "󰂰 {volume}%";
-              format-muted = " ";
-              format-source = " {volume}%";
-              format-source-muted = " ";
-              format-icons = {
-                default = [" " " " " "];
-                headphone = "󰋋 ";
-                hdmi = " ";
-                headset = "󰋎 ";
-                hands-free = "󰋎 ";
-                portable = " ";
-                phone = " ";
-                car = " ";
-              };
-              on-click = "${lib.getExe pkgs.pamixer} -t";
-              on-click-right = "${lib.getExe pkgs.pavucontrol}";
-              tooltip-format = "{icon}{desc} {volume}%";
-            };
-
-            network = {
-              format-wifi = "{icon}{essid}";
-              format-ethernet = "{icon}{ipaddr}";
-              format-linked = "{icon}No IP";
-              format-disconnected = "{icon}";
-              format-icons = {
-                ethernet = " ";
-                wifi = ["󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 "];
-                linked = " ";
-                disconnected = " ";
-              };
-              max-length = 10;
-              tooltip-format = ''
-                {icon}{ifname} {ipaddr}/{cidr}
-                 {bandwidthUpBits}
-                 {bandwidthDownBits}'';
-              tooltip-format-wifi = ''
-                {icon}{essid} {signalStrength}%
-                 {bandwidthUpBits}
-                 {bandwidthDownBits}'';
-              on-click-right = "${networkManager}";
-            };
-
-            battery = {
-              states = {
-                warning = 30;
-                critical = 15;
-              };
-              format = "{icon}{capacity}%";
-              format-charging = " {capacity}%";
-              format-icons = [" " " " " " " " " "];
-            };
-
-            clock = {
-              format = "{: %b %d  %H:%M}";
-              format-alt = "{: %A %B %d %Y}";
-              tooltip-format = ''
-                <big>{:%Y %B}</big>
-                <tt><small>{calendar}</small></tt>'';
-              calendar = {
-                mode-mon-col = 3;
-                weeks-pos = "right";
-                on-scroll = 1;
-                format = {
-                  months = "<span color='${peach.hex}'><b>{}</b></span>";
-                  days = "<span color='${text.hex}'><b>{}</b></span>";
-                  weeks = "<span color='${blue.hex}'><b>W{}</b></span>";
-                  weekdays = "<span color='${yellow.hex}'><b>{}</b></span>";
-                  today = "<span color='${red.hex}'><b><u>{}</u></b></span>";
-                };
-              };
-              actions = {
-                on-click-right = "mode";
-                on-scroll-up = "shift_up";
-                on-scroll-down = "shift_down";
+          clock = {
+            format = "{: %b %d  %H:%M}";
+            format-alt = "{: %A %B %d %Y}";
+            tooltip-format = ''
+              <big>{:%Y %B}</big>
+              <tt><small>{calendar}</small></tt>'';
+            calendar = {
+              mode-mon-col = 3;
+              weeks-pos = "right";
+              on-scroll = 1;
+              format = {
+                months = "<span color='${peach.hex}'><b>{}</b></span>";
+                days = "<span color='${text.hex}'><b>{}</b></span>";
+                weeks = "<span color='${blue.hex}'><b>W{}</b></span>";
+                weekdays = "<span color='${yellow.hex}'><b>{}</b></span>";
+                today = "<span color='${red.hex}'><b><u>{}</u></b></span>";
               };
             };
-          }
-        ];
+            actions = {
+              on-click-right = "mode";
+              on-scroll-up = "shift_up";
+              on-scroll-down = "shift_down";
+            };
+          };
+        }];
 
         style = ''
           * {
@@ -223,9 +214,11 @@ in {
             padding: 0 0 0 3px;
             margin: 0 4px;
           }
-          #workspaces button.focused,
           #workspaces button.active {
             color: ${blue.hex};
+          }
+          #workspaces button.urgent{
+            color: ${red.hex};
           }
 
           #submap {

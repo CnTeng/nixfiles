@@ -1,15 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.services'.caddy;
+{ config, lib, ... }:
+with lib;
+let cfg = config.services'.caddy;
 in {
   options.services'.caddy.enable = mkEnableOption "Caddy";
 
   config = mkIf cfg.enable {
-    boot.kernelModules = ["tcp_bbr"];
+    boot.kernelModules = [ "tcp_bbr" ];
     boot.kernel.sysctl = {
       "net.core.default_qdisc" = "cake";
       "net.core.rmem_max" = 2500000;
@@ -24,7 +20,7 @@ in {
     sops.secrets.cloudflare = {
       owner = config.services.caddy.user;
       sopsFile = ./secrets.yaml;
-      restartUnits = ["caddy.service"];
+      restartUnits = [ "caddy.service" ];
     };
   };
 }

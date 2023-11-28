@@ -1,16 +1,13 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
+{ config, lib, ... }:
+with lib;
+let
   cfg = config.services'.vaultwarden;
   port = 8222;
 in {
   options.services'.vaultwarden.enable = mkEnableOption "Vaultwarden";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [port];
+    networking.firewall.allowedTCPPorts = [ port ];
 
     services.vaultwarden = {
       enable = true;
@@ -59,7 +56,7 @@ in {
       path = "/var/lib/vaultwarden.env";
       owner = "vaultwarden";
       sopsFile = ./secrets.yaml;
-      restartUnits = ["vaultwarden.service"];
+      restartUnits = [ "vaultwarden.service" ];
     };
   };
 }

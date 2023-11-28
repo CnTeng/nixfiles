@@ -1,15 +1,12 @@
-{
-  config,
-  lib,
-  # pkgs,
-  ...
-}:
-with lib; let
+{ config, lib,
+# pkgs,
+... }:
+with lib;
+let
   cfg = config.desktop'.profiles.console;
   inherit (config.basics'.colors) palette;
 in {
-  options.desktop'.profiles.console.enable =
-    mkEnableOption "console config";
+  options.desktop'.profiles.console.enable = mkEnableOption "console config";
 
   config = mkIf cfg.enable {
     console = {

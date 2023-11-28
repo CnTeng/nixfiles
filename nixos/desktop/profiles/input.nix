@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  themes,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, themes, user, ... }:
+with lib;
+let
   cfg = config.desktop'.profiles.inputMethod;
 
   inherit (config.basics'.colors) flavour;
@@ -20,10 +14,7 @@ in {
 
     i18n.inputMethod.enabled = "fcitx5";
     i18n.inputMethod.fcitx5 = {
-      addons = with pkgs; [
-        fcitx5-chinese-addons
-        fcitx5-pinyin-zhwiki
-      ];
+      addons = with pkgs; [ fcitx5-chinese-addons fcitx5-pinyin-zhwiki ];
       settings = {
         globalOptions = {
           "Hotkey/PrevPage"."1" = "comma";
@@ -35,9 +26,9 @@ in {
         };
         addons = {
           classicui.globalSection = {
-            Font = "\"Sarasa UI SC 11\"";
-            MenuFont = "\"Sarasa UI SC 11\"";
-            TrayFont = "\"Sarasa UI SC 11\"";
+            Font = ''"Sarasa UI SC 11"'';
+            MenuFont = ''"Sarasa UI SC 11"'';
+            TrayFont = ''"Sarasa UI SC 11"'';
             Theme = "catppuccin-${toLower flavour}";
             PerScreenDPI = "True";
             EnableFractionalScale = "False";

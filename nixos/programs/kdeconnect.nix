@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.kdeconnect;
+{ config, lib, user, ... }:
+with lib;
+let cfg = config.programs'.kdeconnect;
 in {
   options.programs'.kdeconnect.enable = mkEnableOption "KDE connect";
 

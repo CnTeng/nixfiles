@@ -1,5 +1,6 @@
-final: prev: let
-  callLibs = file: import file {lib = final;};
+final: prev:
+let
+  callLibs = file: import file { lib = final; };
 
   modules = callLibs ./modules.nix;
   trivial = callLibs ./trivial.nix;

@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, user, ... }:
+with lib;
+let
   cfg = config.programs'.thunderbird;
 
   inherit (config.users.users.${user}) home;
@@ -25,7 +21,7 @@ in {
         Proton = {
           primary = true;
           address = "yufei.teng@pm.me";
-          aliases = ["me@snakepi.xyz"];
+          aliases = [ "me@snakepi.xyz" ];
           inherit realName;
           userName = "yufei.teng@pm.me";
           imap = {
@@ -93,13 +89,13 @@ in {
         enable = true;
         profiles.default = {
           isDefault = true;
-          settings = {};
+          settings = { };
         };
       };
     };
 
     environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
-      users.${user}.directories = [".thunderbird"];
+      users.${user}.directories = [ ".thunderbird" ];
     };
   };
 }

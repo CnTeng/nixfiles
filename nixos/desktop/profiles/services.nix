@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.profiles.services;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.desktop'.profiles.services;
 in {
   options.desktop'.profiles.services.enable =
     mkEnableOption "services component";
@@ -28,22 +22,19 @@ in {
     services.thermald.enable = true;
 
     home-manager.users.${user} = {
-      home.packages = [pkgs.wl-clipboard];
+      home.packages = [ pkgs.wl-clipboard ];
 
       services.udiskie.enable = true;
       services.clipman.enable = true;
 
-      services.kanshi = let
-        hyprctl = getExe' pkgs.hyprland "hyprctl";
+      services.kanshi = let hyprctl = getExe' pkgs.hyprland "hyprctl";
       in {
         enable = true;
         profiles = {
-          undocked.outputs = [
-            {
-              criteria = "eDP-1";
-              scale = 1.25;
-            }
-          ];
+          undocked.outputs = [{
+            criteria = "eDP-1";
+            scale = 1.25;
+          }];
           docked-work = {
             outputs = [
               {

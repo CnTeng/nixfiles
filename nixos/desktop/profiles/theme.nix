@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.profiles.theme;
 
   inherit (config.basics'.colors) flavour;
@@ -17,14 +12,12 @@ in {
     boot = {
       initrd.verbose = false;
       consoleLogLevel = 0;
-      kernelParams = ["quiet" "udev.log_level=3"];
+      kernelParams = [ "quiet" "udev.log_level=3" ];
 
       plymouth = {
         enable = true;
         themePackages = [
-          (pkgs.catppuccin-plymouth.override {
-            variant = toLower flavour;
-          })
+          (pkgs.catppuccin-plymouth.override { variant = toLower flavour; })
         ];
         theme = "catppuccin-${toLower flavour}";
       };
@@ -47,7 +40,7 @@ in {
         theme = {
           package = pkgs.catppuccin-gtk.override {
             variant = toLower flavour;
-            tweaks = ["rimless"];
+            tweaks = [ "rimless" ];
           };
           name = "Catppuccin-${flavour}-Standard-Blue-Dark";
         };
@@ -65,13 +58,15 @@ in {
         theme = {
           package = pkgs.catppuccin-gtk.override {
             variant = toLower flavour;
-            tweaks = ["rimless"];
+            tweaks = [ "rimless" ];
           };
           name = "Catppuccin-${flavour}-Standard-Blue-Dark";
         };
       in {
-        ".config/gtk-4.0/gtk.css".source = "${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk.css";
-        ".config/gtk-4.0/gtk-dark.css".source = "${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk-dark.css";
+        ".config/gtk-4.0/gtk.css".source =
+          "${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk.css";
+        ".config/gtk-4.0/gtk-dark.css".source =
+          "${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk-dark.css";
 
         ".config/gtk-4.0/assets" = {
           recursive = true;

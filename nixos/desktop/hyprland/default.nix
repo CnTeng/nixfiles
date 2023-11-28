@@ -1,16 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.hyprland;
 
   inherit (config.basics'.colors) palette;
 in {
-  imports = [../profiles];
+  imports = [ ../profiles ];
 
   options.desktop'.hyprland.enable = mkEnableOption "hyprland";
 
@@ -84,9 +79,7 @@ in {
             numlock_by_default = true;
             repeat_delay = 300;
             scroll_method = "2fg";
-            touchpad = {
-              natural_scroll = true;
-            };
+            touchpad = { natural_scroll = true; };
           };
 
           gestures.workspace_swipe = true;
@@ -116,10 +109,8 @@ in {
           ];
 
           # Mouse binding
-          bindm = [
-            "SUPER, mouse:272, movewindow"
-            "SUPER, mouse:273, resizewindow"
-          ];
+          bindm =
+            [ "SUPER, mouse:272, movewindow" "SUPER, mouse:273, resizewindow" ];
 
           bind = [
             # Programs binding
@@ -132,8 +123,8 @@ in {
             "SUPER, V, togglesplit, # dwindle"
 
             # Screenshots
-            '', print, exec, ${screenshot} --notify --freeze copysave area''
-            ''SUPER_SHIFT, p, exec, ${screenshot} --notify --freeze copy area''
+            ", print, exec, ${screenshot} --notify --freeze copysave area"
+            "SUPER_SHIFT, p, exec, ${screenshot} --notify --freeze copy area"
 
             # Keyboard control
             ", XF86MonBrightnessUP, exec, ${brightctl} -u 300000 -A 5"
@@ -199,7 +190,7 @@ in {
             "SUPER, 1, workspace, 1"
             "SUPER, 2, workspace, 2"
             "SUPER, W, workspace, 3"
-            "SUPER, D, workspace, 4"
+            "SUPER, M, workspace, 4"
             "SUPER, T, workspace, 5"
             "SUPER, S, workspace, 6"
             "SUPER, 7, workspace, 7"
@@ -210,7 +201,7 @@ in {
             "SUPER_SHIFT, 1, movetoworkspace, 1"
             "SUPER_SHIFT, 2, movetoworkspace, 2"
             "SUPER_SHIFT, W, movetoworkspace, 3"
-            "SUPER_SHIFT, D, movetoworkspace, 4"
+            "SUPER_SHIFT, M, movetoworkspace, 4"
             "SUPER_SHIFT, T, movetoworkspace, 5"
             "SUPER_SHIFT, S, movetoworkspace, 6"
             "SUPER_SHIFT, 7, movetoworkspace, 7"
@@ -234,6 +225,7 @@ in {
           ];
 
           windowrulev2 = [
+            "workspace 4, class:^(thunderbird)$"
             "workspace 6, title:^(Spotify)$"
 
             "opacity 1 override 1 override, class:^(firefox)$"

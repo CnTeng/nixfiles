@@ -1,14 +1,8 @@
-{
-  inputs,
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.hardware'.boot;
+{ inputs, config, lib, pkgs, ... }:
+with lib;
+let cfg = config.hardware'.boot;
 in {
-  imports = [inputs.lanzaboote.nixosModules.lanzaboote];
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
   options.hardware'.boot = {
     enable = mkEnableOption "systemd-boot";
@@ -23,7 +17,7 @@ in {
     })
 
     (mkIf cfg.secureboot {
-      environment.systemPackages = [pkgs.sbctl];
+      environment.systemPackages = [ pkgs.sbctl ];
 
       boot.loader.systemd-boot.enable = lib.mkForce false;
 

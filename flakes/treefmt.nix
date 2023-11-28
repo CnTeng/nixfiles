@@ -1,23 +1,20 @@
-{inputs, ...}: {
-  imports = [inputs.treefmt.flakeModule];
+{ inputs, ... }: {
+  imports = [ inputs.treefmt.flakeModule ];
 
-  perSystem = {...}: {
+  perSystem = { ... }: {
     treefmt = {
       projectRootFile = "flake.nix";
 
       programs = {
-        alejandra.enable = true;
+        nixfmt.enable = true;
         prettier.enable = true;
         terraform.enable = true;
       };
 
       settings.formatter = {
-        alejandra.excludes = ["overlays/_sources/*"];
-        prettier.excludes = [
-          "overlays/_sources/*"
-          "secrets.yaml"
-          "tfstate.yaml"
-        ];
+        nixfmt.excludes = [ "overlays/_sources/*" ];
+        prettier.excludes =
+          [ "overlays/_sources/*" "secrets.yaml" "tfstate.yaml" ];
       };
     };
   };
