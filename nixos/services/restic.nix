@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.services'.restic;
+{ config, lib, ... }:
+with lib;
+let cfg = config.services'.restic;
 in {
   options.services'.restic.enable = mkEnableOption "restic";
 
@@ -20,18 +16,16 @@ in {
     services.restic.backups.persist = {
       passwordFile = config.sops.secrets."restic/password".path;
       rcloneConfigFile = config.sops.secrets."restic/rclone".path;
-      repository = "rclone:onedrive:Backups/persist/${config.networking.hostName}";
-      paths = ["/persist"];
-      exclude = [
-        "/persist/home/*/OneDrive"
-        "/persist/home/*/.cache"
-      ];
+      repository =
+        "rclone:onedrive:Backups/persist/${config.networking.hostName}";
+      paths = [ "/persist" ];
+      exclude = [ "/persist/home/*/OneDrive" "/persist/home/*/.cache" ];
       timerConfig = {
         OnCalendar = "daily";
         Persistent = true;
         RandomizedDelaySec = "1h";
       };
-      extraBackupArgs = ["--exclude-caches"];
+      extraBackupArgs = [ "--exclude-caches" ];
       initialize = true;
       pruneOpts = [
         "--keep-last 5"

@@ -1,16 +1,12 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, user, ... }:
+with lib;
+let
   cfg = config.shell'.git;
   inherit (config.users.users.${user}) home;
 
   flavour = toLower config.basics'.colors.flavour;
 in {
-  options.shell'.git.enable = mkEnableOption "git" // {default = true;};
+  options.shell'.git.enable = mkEnableOption "git" // { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -37,11 +33,7 @@ in {
 
       programs.lazygit = {
         enable = true;
-        settings = {
-          gui.theme = {
-            lightTheme = false;
-          };
-        };
+        settings = { gui.theme = { lightTheme = false; }; };
       };
 
       programs.ssh = {
@@ -52,7 +44,7 @@ in {
             user = "git";
             port = 443;
             extraOptions.AddKeysToAgent = "yes";
-            identityFile = ["${home}/.ssh/id_ed25519_sk_rk_auth@Github"];
+            identityFile = [ "${home}/.ssh/id_ed25519_sk_rk_auth@Github" ];
           };
         };
       };

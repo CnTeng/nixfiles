@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.services'.naive;
+{ config, lib, ... }:
+with lib;
+let cfg = config.services'.naive;
 in {
   options.services'.naive.enable = mkEnableOption "naive";
 
@@ -39,7 +35,7 @@ in {
     sops.secrets."naive/server" = {
       owner = config.services.caddy.user;
       sopsFile = ./secrets.yaml;
-      restartUnits = ["caddy.service"];
+      restartUnits = [ "caddy.service" ];
     };
   };
 }

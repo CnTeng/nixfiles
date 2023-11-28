@@ -1,20 +1,16 @@
-{
-  config,
-  inputs,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.basics'.nix;
+{ config, inputs, lib, ... }:
+with lib;
+let cfg = config.basics'.nix;
 in {
-  options.basics'.nix.enable =
-    mkEnableOption "nix config" // {default = true;};
+  options.basics'.nix.enable = mkEnableOption "nix config" // {
+    default = true;
+  };
 
   config = mkMerge [
     (mkIf cfg.enable {
       nix = {
         settings = {
-          nix-path = ["nixpkgs=${inputs.nixpkgs}"];
+          nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
           auto-optimise-store = true;
           builders-use-substitutes = true;
           experimental-features = [
@@ -24,12 +20,13 @@ in {
             "flakes"
             "nix-command"
           ];
-          trusted-users = ["root" "@wheel"];
+          trusted-users = [ "root" "@wheel" ];
           auto-allocate-uids = true;
           use-cgroups = true;
           use-xdg-base-directories = true;
-          trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
-          substituters = ["https://cache.garnix.io"];
+          trusted-public-keys =
+            [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+          substituters = [ "https://cache.garnix.io" ];
         };
         gc = {
           automatic = true;

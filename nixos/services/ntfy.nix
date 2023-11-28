@@ -1,16 +1,13 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
+{ config, lib, ... }:
+with lib;
+let
   cfg = config.services'.ntfy;
   port = 7222;
 in {
   options.services'.ntfy.enable = mkEnableOption "ntfy-sh";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [port];
+    networking.firewall.allowedTCPPorts = [ port ];
 
     services.ntfy-sh = {
       enable = true;

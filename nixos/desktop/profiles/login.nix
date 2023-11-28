@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.profiles.login;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.desktop'.profiles.login;
 in {
   options.desktop'.profiles.login.enable =
     mkEnableOption "login manager component";
@@ -14,13 +9,8 @@ in {
     services.greetd = {
       enable = true;
       settings.default_session = {
-        command =
-          "${getExe pkgs.greetd.tuigreet}"
-          + " --time"
-          + " --user-menu"
-          + " --asterisks"
-          + " --window-padding 1"
-          + " --cmd Hyprland";
+        command = "${getExe pkgs.greetd.tuigreet}" + " --time" + " --user-menu"
+          + " --asterisks" + " --window-padding 1" + " --cmd Hyprland";
         user = "greeter";
       };
     };

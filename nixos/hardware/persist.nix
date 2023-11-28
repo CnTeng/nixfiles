@@ -1,14 +1,8 @@
-{
-  config,
-  inputs,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.hardware'.persist;
+{ config, inputs, lib, user, ... }:
+with lib;
+let cfg = config.hardware'.persist;
 in {
-  imports = [inputs.impermanence.nixosModules.impermanence];
+  imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.hardware'.persist.enable = mkEnableOption "persistent state";
 
@@ -25,15 +19,9 @@ in {
           mode = "u=rwx,g=rx,o=rx";
         }
       ];
-      files = ["/etc/machine-id"];
-      users.${user}.directories = [
-        "Projects"
-        ".cache"
-        ".local"
-        ".mozilla"
-        ".ssh"
-        ".config"
-      ];
+      files = [ "/etc/machine-id" ];
+      users.${user}.directories =
+        [ "Projects" ".cache" ".local" ".mozilla" ".ssh" ".config" ];
     };
   };
 }

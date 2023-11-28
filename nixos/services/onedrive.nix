@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.services'.onedrive;
+{ config, lib, user, ... }:
+with lib;
+let cfg = config.services'.onedrive;
 in {
   options.services'.onedrive.enable = mkEnableOption "OneDrive";
 
@@ -13,13 +8,13 @@ in {
     services.onedrive.enable = true;
 
     systemd.user.services.onedrive-launcher = {
-      after = ["network-online.target"];
-      wants = ["network-online.target"];
-      wantedBy = mkForce ["graphical-session.target"]; # enable notifications
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = mkForce [ "graphical-session.target" ]; # enable notifications
     };
 
     environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
-      users.${user}.directories = ["OneDrive"];
+      users.${user}.directories = [ "OneDrive" ];
     };
   };
 }

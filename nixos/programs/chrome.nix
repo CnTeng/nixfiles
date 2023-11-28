@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.chrome;
+{ config, lib, user, ... }:
+with lib;
+let cfg = config.programs'.chrome;
 in {
   options.programs'.chrome.enable = mkEnableOption "Chrome";
 
@@ -17,7 +12,7 @@ in {
 
       programs.google-chrome = {
         enable = true;
-        commandLineArgs = ["--enable-wayland-ime"];
+        commandLineArgs = [ "--enable-wayland-ime" ];
       };
     };
   };

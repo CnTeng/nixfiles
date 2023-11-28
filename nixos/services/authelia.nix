@@ -1,30 +1,27 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
+{ config, lib, ... }:
+with lib;
+let
   cfg = config.services'.authelia;
   inherit (config.services.authelia.instances.default.settings.server) port;
 in {
   options.services'.authelia.enable = mkEnableOption "Authelia";
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [port];
+    networking.firewall.allowedTCPPorts = [ port ];
 
     services.authelia.instances.default = {
       enable = true;
       secrets = {
         jwtSecretFile = config.sops.secrets."authelia/jwt".path;
-        storageEncryptionKeyFile = config.sops.secrets."authelia/encryption".path;
+        storageEncryptionKeyFile =
+          config.sops.secrets."authelia/encryption".path;
         oidcHmacSecretFile = config.sops.secrets."authelia/oidc/hmac".path;
-        oidcIssuerPrivateKeyFile = config.sops.secrets."authelia/oidc/issuer".path;
+        oidcIssuerPrivateKeyFile =
+          config.sops.secrets."authelia/oidc/issuer".path;
       };
       settings = {
         theme = "auto";
-        session = {
-          domain = "snakepi.xyz";
-        };
+        session = { domain = "snakepi.xyz"; };
         storage.local.path = "/var/lib/authelia-default/db.sqlite3";
         authentication_backend = {
           password_reset.disable = true;
@@ -38,18 +35,18 @@ in {
           identifier = "snakepi.eu.org";
         };
         access_control.default_policy = "one_factor";
-        identity_providers.oidc.clients = [
-          {
-            id = "miniflux";
-            secret = "$pbkdf2-sha512$310000$wqRD8gk.yEkCKJfShbf05g$5igJi70xWSxkxiP3nQIGqVINeWF6tjfIO0Y.hB4h3yZ49xodHZTvCiQowhfNQzB4sghV/1gMUP42V.xVLb0z9g";
-            redirect_uris = ["https://rss.snakepi.xyz/oauth2/oidc/callback"];
-            authorization_policy = "two_factor";
-            scopes = ["openid" "profile" "email"];
-          }
-        ];
+        identity_providers.oidc.clients = [{
+          id = "miniflux";
+          secret =
+            "$pbkdf2-sha512$310000$wqRD8gk.yEkCKJfShbf05g$5igJi70xWSxkxiP3nQIGqVINeWF6tjfIO0Y.hB4h3yZ49xodHZTvCiQowhfNQzB4sghV/1gMUP42V.xVLb0z9g";
+          redirect_uris = [ "https://rss.snakepi.xyz/oauth2/oidc/callback" ];
+          authorization_policy = "two_factor";
+          scopes = [ "openid" "profile" "email" ];
+        }];
       };
       environmentVariables = {
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."authelia/smtp".path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE =
+          config.sops.secrets."authelia/smtp".path;
       };
     };
 

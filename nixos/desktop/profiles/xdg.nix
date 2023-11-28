@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  user,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.profiles.xdg;
+{ config, lib, user, pkgs, ... }:
+with lib;
+let cfg = config.desktop'.profiles.xdg;
 in {
   options.desktop'.profiles.xdg.enable = mkEnableOption "xdg component";
 
   config = mkIf cfg.enable {
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-    environment.systemPackages = [pkgs.xdg-utils];
+    environment.systemPackages = [ pkgs.xdg-utils ];
 
     home-manager.users.${user} = {
       xdg.enable = true;
@@ -36,7 +30,8 @@ in {
         "image/*" = "xviewer.desktop";
         "x-scheme-handler/terminal" = "kitty.desktop";
         "application/x-sh" = "kitty-open.desktop";
-        "application/x-shellscript" = ["kitty-open.desktop" "nvim-kitty.desktop"];
+        "application/x-shellscript" =
+          [ "kitty-open.desktop" "nvim-kitty.desktop" ];
       };
     };
 

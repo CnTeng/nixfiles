@@ -1,40 +1,32 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.desktop'.profiles.utils;
   inherit (config.basics'.colors) palette;
   inherit (config.home-manager.users.${user}.gtk) iconTheme;
 
-  pkgModule = types.submodule {
-    options.exec = mkOption {
-      type = types.str;
-    };
-  };
+  pkgModule =
+    types.submodule { options.exec = mkOption { type = types.str; }; };
 in {
   options.desktop'.profiles.utils = {
     enable = mkEnableOption "utils";
-    packages = mkOption {
-      type = types.attrsOf pkgModule;
-    };
+    packages = mkOption { type = types.attrsOf pkgModule; };
   };
 
   config = mkIf cfg.enable {
     # file manager
-    desktop'.profiles.utils.packages.fileManager.exec = getExe pkgs.cinnamon.nemo-with-extensions;
-    environment.systemPackages = [pkgs.cinnamon.xviewer];
-    services.dbus.packages = [pkgs.cinnamon.nemo-with-extensions];
+    desktop'.profiles.utils.packages.fileManager.exec =
+      getExe pkgs.cinnamon.nemo-with-extensions;
+    environment.systemPackages = [ pkgs.cinnamon.xviewer ];
+    services.dbus.packages = [ pkgs.cinnamon.nemo-with-extensions ];
     programs.file-roller.enable = true;
 
     # launcher
     desktop'.profiles.utils.packages.launcher.exec = getExe pkgs.fuzzel;
 
     # notify
-    desktop'.profiles.utils.packages.notify.exec = getExe' pkgs.dunst "dunstctl";
+    desktop'.profiles.utils.packages.notify.exec =
+      getExe' pkgs.dunst "dunstctl";
 
     # other
     desktop'.profiles.utils.packages.terminal.exec = getExe pkgs.kitty;
@@ -43,7 +35,7 @@ in {
 
     # brightctl
     desktop'.profiles.utils.packages.brightctl.exec = getExe pkgs.brillo;
-    users.users.${user}.extraGroups = ["video"];
+    users.users.${user}.extraGroups = [ "video" ];
     hardware.brillo.enable = true;
 
     home-manager.users.${user} = {

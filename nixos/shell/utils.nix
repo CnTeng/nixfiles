@@ -1,20 +1,16 @@
-{
-  inputs,
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
+{ inputs, config, lib, pkgs, user, ... }:
+with lib;
+let
   cfg = config.shell'.utils;
   flavour = toLower config.basics'.colors.flavour;
 
-  catppuccin = pkgs.catppuccin.override {variant = flavour;};
+  catppuccin = pkgs.catppuccin.override { variant = flavour; };
 in {
-  imports = [inputs.nix-index-database.nixosModules.nix-index];
+  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
-  options.shell'.utils.enable = mkEnableOption "shell utils" // {default = true;};
+  options.shell'.utils.enable = mkEnableOption "shell utils" // {
+    default = true;
+  };
 
   config = mkIf cfg.enable {
     virtualisation.podman.enable = true;
@@ -54,15 +50,7 @@ in {
 
       programs.zoxide.enable = true;
 
-      home.packages = with pkgs; [
-        wget
-        tree
-        neofetch
-        scc
-        gzip
-        unrar
-        unzipNLS
-      ];
+      home.packages = with pkgs; [ wget tree neofetch scc gzip unrar unzipNLS ];
     };
   };
 }
