@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, user, ... }:
+with lib;
+let
   cfg = config.services'.openssh;
   authorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHXYBwzvOg/23ZYFi8Jyw8Vr7thq16zrzI+/iLywTgwo ssh:deploy@NixOS"

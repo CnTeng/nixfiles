@@ -1,15 +1,9 @@
 # TODO: finsh tmux config
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.shell'.tmux;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.shell'.tmux;
 in {
-  options.shell'.tmux.enable = mkEnableOption "tmux" // {default = true;};
+  options.shell'.tmux.enable = mkEnableOption "tmux" // { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -79,22 +73,20 @@ in {
           bind-key -T copy-mode-vi 'C-l' select-pane -R
           bind-key -T copy-mode-vi 'C-\' select-pane -l
         '';
-        plugins = with pkgs.tmuxPlugins; [
-          {
-            plugin = catppuccin;
-            extraConfig = ''
-              set -g @catppuccin_flavour 'mocha'
-              set -g @catppuccin_l_left_separator "█"
-              set -g @catppuccin_l_right_separator "█"
-              set -g @catppuccin_r_left_separator "█"
-              set -g @catppuccin_r_right_separator "█"
+        plugins = with pkgs.tmuxPlugins; [{
+          plugin = catppuccin;
+          extraConfig = ''
+            set -g @catppuccin_flavour 'mocha'
+            set -g @catppuccin_l_left_separator "█"
+            set -g @catppuccin_l_right_separator "█"
+            set -g @catppuccin_r_left_separator "█"
+            set -g @catppuccin_r_right_separator "█"
 
-              # set -g @catppuccin_window_tabs_enabled on
-              set -g @catppuccin_user "on"
-              set -g @catppuccin_host "on"
-            '';
-          }
-        ];
+            # set -g @catppuccin_window_tabs_enabled on
+            set -g @catppuccin_user "on"
+            set -g @catppuccin_host "on"
+          '';
+        }];
       };
     };
   };

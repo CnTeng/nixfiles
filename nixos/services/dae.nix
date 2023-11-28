@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  user,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, utils, user, ... }:
+with lib;
+let
   cfg = config.services'.dae;
   port = 1080;
 in {
@@ -80,8 +74,8 @@ in {
         ${utils.genJqSecretsReplacementSnippet settings settingsPath}
       '';
       description = "naiveproxy Daemon";
-      after = ["network.target"];
-      wantedBy = ["multi-user.target"];
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${getExe pkgs.naive} --config ${settingsPath}";
       };

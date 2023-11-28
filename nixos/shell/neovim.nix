@@ -1,25 +1,18 @@
-{
-  inputs,
-  config,
-  lib,
-  user,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.shell'.neovim;
+{ inputs, config, lib, user, pkgs, ... }:
+with lib;
+let cfg = config.shell'.neovim;
 in {
   options.shell'.neovim = {
-    enable = mkEnableOption "Neovim" // {default = true;};
+    enable = mkEnableOption "Neovim" // { default = true; };
   };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      imports = [inputs.rx-nvim.homeModules.default];
+      imports = [ inputs.rx-nvim.homeModules.default ];
 
       programs.rx-nvim = {
         enable = true;
-        extraPackages = with pkgs; [nil nixfmt prettierd];
+        extraPackages = with pkgs; [ nil nixfmt prettierd ];
         extraConfig = ''
           vim.g.gptsupport = true
           vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"

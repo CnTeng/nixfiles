@@ -1,15 +1,7 @@
-{
-  inputs,
-  self,
-  ...
-}: {
-  imports = [./devshell.nix ./treefmt.nix ./pre-commit.nix];
+{ inputs, self, ... }: {
+  imports = [ ./devshell.nix ./treefmt.nix ./pre-commit.nix ];
 
-  perSystem = {
-    pkgs,
-    system,
-    ...
-  }: {
+  perSystem = { pkgs, system, ... }: {
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;

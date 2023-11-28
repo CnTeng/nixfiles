@@ -1,13 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.shell'.starship;
+{ config, lib, ... }:
+with lib;
+let cfg = config.shell'.starship;
 in {
-  options.shell'.starship.enable =
-    mkEnableOption "starship" // {default = true;};
+  options.shell'.starship.enable = mkEnableOption "starship" // {
+    default = true;
+  };
 
   config = mkIf cfg.enable {
     programs.starship = {
@@ -48,7 +45,8 @@ in {
 
         git_commit.format = "[$hash$tag]($style) ";
 
-        git_state.format = "[$state( $progress_current/$progress_total) ]($style) ";
+        git_state.format =
+          "[$state( $progress_current/$progress_total) ]($style) ";
 
         git_status.deleted = "x";
 
@@ -64,7 +62,7 @@ in {
 
         username = {
           style_user = "bold white";
-          format = ''[$user]($style)'';
+          format = "[$user]($style)";
         };
       };
     };

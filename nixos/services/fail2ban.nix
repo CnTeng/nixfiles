@@ -1,14 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.services'.fail2ban;
+{ config, lib, ... }:
+with lib;
+let cfg = config.services'.fail2ban;
 in {
   options.services'.fail2ban.enable = mkEnableOption "fail2ban";
 
-  config = mkIf cfg.enable {
-    services.fail2ban.enable = true;
-  };
+  config = mkIf cfg.enable { services.fail2ban.enable = true; };
 }

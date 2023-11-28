@@ -2,10 +2,9 @@
   description = "NixOS Configuration";
 
   nixConfig = {
-    extra-substituters = ["https://cache.garnix.io"];
-    extra-trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    ];
+    extra-substituters = [ "https://cache.garnix.io" ];
+    extra-trusted-public-keys =
+      [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
   };
 
   inputs = {
@@ -86,10 +85,10 @@
     };
   };
 
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "aarch64-linux"];
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" "aarch64-linux" ];
 
-      imports = [./flakes ./hosts ./nixos ./overlays];
+      imports = [ ./flakes ./hosts ./nixos ./overlays ];
     };
 }

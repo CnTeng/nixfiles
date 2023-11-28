@@ -1,18 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
-}:
-with lib; let
-  cfg = config.desktop'.profiles.wallpaper;
+{ config, lib, pkgs, user, ... }:
+with lib;
+let cfg = config.desktop'.profiles.wallpaper;
 in {
   options.desktop'.profiles.wallpaper = {
     enable = mkEnableOption "wallpaper profile";
-    image = mkOption {
-      type = with types; nullOr path;
-    };
+    image = mkOption { type = with types; nullOr path; };
   };
 
   config = mkIf cfg.enable {
@@ -25,16 +17,13 @@ in {
       systemd.user.services.swaybg = {
         Unit = {
           Description = "Wayland wallpaper daemon";
-          PartOf = ["graphical-session.target"];
+          PartOf = [ "graphical-session.target" ];
         };
         Service = {
-          ExecStart =
-            getExe pkgs.swaybg
-            + " -i ${cfg.image}"
-            + " -m fill";
+          ExecStart = getExe pkgs.swaybg + " -i ${cfg.image}" + " -m fill";
           Restart = "on-failure";
         };
-        Install.WantedBy = ["graphical-session.target"];
+        Install.WantedBy = [ "graphical-session.target" ];
       };
     };
   };

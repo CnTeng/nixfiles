@@ -1,16 +1,9 @@
 # Copy from https://github.com/nix-community/nur-combined/blob/master/repos/oluceps/pkgs/naiveproxy/default.nix
-{
-  lib,
-  stdenv,
-  autoPatchelfHook,
-  source,
-  glib,
-  ...
-}:
+{ lib, stdenv, autoPatchelfHook, source, glib, ... }:
 stdenv.mkDerivation {
   inherit (source) pname version src;
 
-  nativeBuildInputs = [autoPatchelfHook glib];
+  nativeBuildInputs = [ autoPatchelfHook glib ];
 
   installPhase = ''
     install -m755 -D naive $out/bin/naive

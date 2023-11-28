@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.programs'.firefox;
+{ config, lib, pkgs, ... }:
+with lib;
+let cfg = config.programs'.firefox;
 in {
   options.programs'.firefox.enable = mkEnableOption "Firefox";
 
@@ -43,8 +38,8 @@ in {
         # "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
       };
-      languagePacks = ["en-US" "zh-CN"];
-      nativeMessagingHosts.packages = [pkgs.tridactyl-native];
+      languagePacks = [ "en-US" "zh-CN" ];
+      nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     };
   };
 }
