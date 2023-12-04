@@ -14,13 +14,18 @@ in {
     };
 
     home-manager.users.${user} = {
-      systemd.user.services.swaybg = {
+      xdg.configFile."hypr/hyprpaper.conf".text = ''
+        preload = ${cfg.image}
+        wallpaper = , ${cfg.image}
+      '';
+
+      systemd.user.services.hyprpaper = {
         Unit = {
-          Description = "Wayland wallpaper daemon";
+          Description = "Hyprland wallpaper daemon";
           PartOf = [ "graphical-session.target" ];
         };
         Service = {
-          ExecStart = getExe pkgs.swaybg + " -i ${cfg.image}" + " -m fill";
+          ExecStart = getExe pkgs.hyprpaper;
           Restart = "on-failure";
         };
         Install.WantedBy = [ "graphical-session.target" ];

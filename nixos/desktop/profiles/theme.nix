@@ -24,11 +24,7 @@ in {
     };
 
     home-manager.users.${user} = {
-      qt = {
-        enable = true;
-        platformTheme = "gtk";
-        style.name = "gtk2";
-      };
+      qt.enable = true;
 
       home.pointerCursor = {
         package = pkgs.catppuccin-cursors."${toLower flavour}Dark";

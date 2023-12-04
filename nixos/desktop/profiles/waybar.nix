@@ -6,7 +6,6 @@ let
   inherit (config.basics'.colors) palette;
 
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
-  networkManager = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 in {
   options.desktop'.profiles.waybar.enable = mkEnableOption "waybar";
 
@@ -31,7 +30,6 @@ in {
             "cpu"
             "memory"
             "pulseaudio"
-            "network"
             "battery"
             "clock"
           ];
@@ -129,29 +127,6 @@ in {
             tooltip-format = "{icon}{desc} {volume}%";
           };
 
-          network = {
-            format-wifi = "{icon}{essid}";
-            format-ethernet = "{icon}{ipaddr}";
-            format-linked = "{icon}No IP";
-            format-disconnected = "{icon}";
-            format-icons = {
-              ethernet = " ";
-              wifi = [ "󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 " ];
-              linked = " ";
-              disconnected = " ";
-            };
-            max-length = 10;
-            tooltip-format = ''
-              {icon}{ifname} {ipaddr}/{cidr}
-               {bandwidthUpBits}
-               {bandwidthDownBits}'';
-            tooltip-format-wifi = ''
-              {icon}{essid} {signalStrength}%
-               {bandwidthUpBits}
-               {bandwidthDownBits}'';
-            on-click-right = "${networkManager}";
-          };
-
           battery = {
             states = {
               warning = 30;
@@ -242,7 +217,6 @@ in {
           #cpu,
           #memory,
           #pulseaudio,
-          #network,
           #battery,
           #clock {
             color: ${text.hex};
