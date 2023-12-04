@@ -62,8 +62,6 @@ in {
 
           decoration = {
             rounding = 6;
-            active_opacity = 0.9;
-            inactive_opacity = 0.98;
             shadow_range = 20;
             shadow_offset = "3 3";
             "col.shadow" = "rgba(${removeHashTag crust.hex}e6)";
@@ -228,8 +226,7 @@ in {
             "workspace 4, class:^(thunderbird)$"
             "workspace 6, title:^(Spotify)$"
 
-            "opacity 1 override 1 override, class:^(firefox)$"
-            "opacity 1 override 1 override, class:^(google-chrome)$"
+            "opacity 0.9 1.0, class:^(kitty)$"
 
             "float, class:^(nm-connection-editor)$"
             "float, class:^(.blueman-manager-wrapped)$"
