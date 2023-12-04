@@ -1,6 +1,4 @@
-{ config, lib,
-# pkgs,
-... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.desktop'.profiles.console;
