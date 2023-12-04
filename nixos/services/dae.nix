@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.services'.dae;
-  port = 1080;
+  port = 1081;
 in {
   options.services'.dae.enable = mkEnableOption "dae";
 
