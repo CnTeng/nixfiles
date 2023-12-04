@@ -6,6 +6,7 @@
   desktop'.hyprland.enable = true;
 
   programs' = {
+    adb.enable = true;
     chrome.enable = true;
     evince.enable = true;
     firefox.enable = true;
