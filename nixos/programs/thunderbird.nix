@@ -3,7 +3,6 @@ with lib;
 let
   cfg = config.programs'.thunderbird;
 
-  inherit (config.users.users.${user}) home;
   OAuth2Settings = id: {
     "mail.smtpserver.smtp_${id}.authMethod" = 10;
     "mail.server.server_${id}.authMethod" = 10;
@@ -13,63 +12,48 @@ in {
   options.programs'.thunderbird.enable = mkEnableOption "thunderbird";
 
   config = mkIf cfg.enable {
-    services'.protonmail-bridge.enable = true;
     services'.davmail.enable = true;
 
     home-manager.users.${user} = {
       accounts.email.accounts = {
-        Proton = {
-          primary = true;
-          address = "yufei.teng@pm.me";
-          aliases = [ "me@snakepi.xyz" ];
-          inherit realName;
-          userName = "yufei.teng@pm.me";
-          imap = {
-            host = "127.0.0.1";
-            port = 1143;
-            tls = {
-              enable = true;
-              useStartTls = true;
-              certificatesFile = home + "/.config/protonmail/bridge/cert.pem";
-            };
-          };
-          smtp = {
-            host = "127.0.0.1";
-            port = 1025;
-            tls = {
-              enable = true;
-              useStartTls = true;
-              certificatesFile = home + "/.config/protonmail/bridge/cert.pem";
-            };
-          };
-          thunderbird.enable = true;
-        };
-
         Outlook = {
           address = "istengyf@outlook.com";
+          aliases = [ "teng.yufei@outlook.com" ];
           inherit realName;
           userName = "istengyf@outlook.com";
           imap = {
             host = "127.0.0.1";
-            port = 11143;
+            port = 1143;
             tls.enable = false;
           };
           smtp = {
             host = "127.0.0.1";
-            port = 11025;
+            port = 1025;
             tls.enable = false;
           };
-          thunderbird.enable = true;
+          thunderbird = {
+            enable = true;
+            perIdentitySettings = id: {
+              "mail.identity.id_${id}.smtpServer" =
+                "smtp_${builtins.hashString "sha256" "Outlook"}";
+            };
+          };
         };
 
         GmailJP = {
+          primary = true;
           flavor = "gmail.com";
           address = "istengyf@gmail.com";
+          aliases = [ "me@snakepi.xyz" ];
           inherit realName;
           smtp.tls.useStartTls = true;
           thunderbird = {
             enable = true;
             settings = OAuth2Settings;
+            perIdentitySettings = id: {
+              "mail.identity.id_${id}.smtpServer" =
+                "smtp_${builtins.hashString "sha256" "GmailJP"}";
+            };
           };
         };
 
