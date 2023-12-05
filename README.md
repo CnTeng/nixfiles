@@ -52,6 +52,7 @@ sudo nixos-rebuild switch --flake .#server
 ```
 
 ## ⭐ Credits
+![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
 
 - [nix-config](https://github.com/Misterio77/nix-config/tree/main)
 - [nixos-config](https://github.com/MatthiasBenaets/nixos-config)
