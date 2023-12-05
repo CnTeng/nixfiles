@@ -29,8 +29,6 @@ in {
         sioyek
 
         inkscape
-
-        qtcreator
       ];
     };
   };
