@@ -65,6 +65,18 @@
     };
     date = "2023-11-25";
   };
+  qtcreatorTheme = {
+    pname = "qtcreatorTheme";
+    version = "ac6f95b71448b5dd473fed18fca42b88c9cc51e2";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "qtcreator";
+      rev = "ac6f95b71448b5dd473fed18fca42b88c9cc51e2";
+      fetchSubmodules = false;
+      sha256 = "sha256-dTcEJyJTI58DDlzFeBrNGqjON9kdkifsB9rGrNceBUA=";
+    };
+    date = "2023-10-21";
+  };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
     version = "417eb232e8d037964971ae2690560a7b12e5f0d4";
