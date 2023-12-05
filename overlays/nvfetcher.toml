@@ -10,6 +10,10 @@ fetch.github = "catppuccin/fish"
 src.git = "https://github.com/catppuccin/foliate"
 fetch.github = "catppuccin/foliate"
 
+[qtcreatorTheme]
+src.git = "https://github.com/catppuccin/qtcreator"
+fetch.github = "catppuccin/qtcreator"
+
 [palette]
 src.git = "https://github.com/catppuccin/palette"
 fetch.github = "catppuccin/palette"
