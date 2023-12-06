@@ -10,7 +10,10 @@ in {
   options.services'.openssh.enable = mkEnableOption "openssh";
 
   config = mkIf cfg.enable {
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
 
     users.users = {
       ${user}.openssh.authorizedKeys.keys = authorizedKeys;
