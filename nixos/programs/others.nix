@@ -7,10 +7,6 @@ in {
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
       home.packages = with pkgs; [
-        # Password manager
-        bitwarden
-        bitwarden-cli
-
         # Reader
         calibre
 
