@@ -46,20 +46,11 @@ jobs:
       - name: Create pr_body.txt
         run: |
           nix run .#nvfetcher -- \
-            --build-dir overlays/_sources \
-            --config overlays/nvfetcher.toml \
-            --changelog pr_body.txt
-          GIT_COMMIT_MESSAGE="$(cat pr_body.txt)"
-          echo "$GIT_COMMIT_MESSAGE" >> $GITHUB_ENV
+              --build-dir overlays/_sources \
+              --config overlays/nvfetcher.toml \
+              --changelog pr_body.txt
+          echo "GIT_COMMIT_MESSAGE=$(cat pr_body.txt)" >> $GITHUB_ENV
           rm -f pr_body.txt
-      # - name: Read pr_body.txt
-      #   id: pr_body
-      #   uses: juliangruber/read-file-action@v1
-      #   with:
-      #     path: ./pr_body.txt
-      # - name: Remove PR body template files
-      #   shell: bash
-      #   run: rm -f pr_body.txt
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
         with:
