@@ -14,10 +14,6 @@ fetch.github = "catppuccin/foliate"
 src.git = "https://github.com/catppuccin/qtcreator"
 fetch.github = "catppuccin/qtcreator"
 
-[rioTheme]
-src.git = "https://github.com/catppuccin/rio"
-fetch.github = "catppuccin/rio"
-
 [palette]
 src.git = "https://github.com/catppuccin/palette"
 fetch.github = "catppuccin/palette"
