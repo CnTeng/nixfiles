@@ -224,7 +224,7 @@ in {
 
           windowrulev2 = [
             "workspace 4, class:^(thunderbird)$"
-            "workspace 6, title:^(Spotify)$"
+            "workspace 6, title:^(Spotify Premium)$"
 
             "opacity 0.9 1.0, class:^(kitty)$"
 
