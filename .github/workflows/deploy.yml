@@ -23,21 +23,30 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            accept-flake-config = true
+            extra-substituters = https://cache.garnix.io
+            extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Deploy remote hosts
         run: nix develop --command colmena apply
-      - name: Send notification
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: https://ntfy.snakepi.xyz
-          bearerToken: ${{ secrets.NTFY_TOKEN }}
-          data: |
-            {
-              "topic": "dev",
-              "title": "Deploy NixOS",
-              "message": "Deploy successfully.",
-              "click": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-              "icon": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
-            }
+      - name: Notify success
+        if: success()
+        run: |
+          curl -u :${{ secrets.NTFY_TOKEN }} \
+            -H "Title: Deploy NixOS" \
+            -H "Tags: rocket,green_circle" \
+            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            -H "Icon: https://avatars.githubusercontent.com/u/487568?s=200&v=4" \
+            -d "Deploy success." \
+            https://ntfy.snakepi.xyz/dev
+      - name: Notify failure
+        if: failure()
+        run: |
+          curl -u :${{ secrets.NTFY_TOKEN }} \
+            -H "Title: Deploy NixOS" \
+            -H "Priority: high" \
+            -H "Tags: rocket,red_circle" \
+            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            -H "Icon: https://avatars.githubusercontent.com/u/487568?s=200&v=4" \
+            -d "Deploy failure." \
+            https://ntfy.snakepi.xyz/dev

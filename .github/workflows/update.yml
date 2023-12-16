@@ -48,9 +48,9 @@ jobs:
       - name: Create pr_body.txt
         run: |
           nix run .#nvfetcher -- \
-              --build-dir overlays/_sources \
-              --config overlays/nvfetcher.toml \
-              --changelog pr_body.txt
+            --build-dir overlays/_sources \
+            --config overlays/nvfetcher.toml \
+            --changelog pr_body.txt
           echo "GIT_COMMIT_MESSAGE=$(cat pr_body.txt)" >> $GITHUB_ENV
           rm -f pr_body.txt
       - name: Create PR
@@ -68,4 +68,3 @@ jobs:
 
             ```
             ${{ env.GIT_COMMIT_MESSAGE }}
-            ```
