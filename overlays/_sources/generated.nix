@@ -77,6 +77,18 @@
     };
     date = "2023-10-21";
   };
+  rioTheme = {
+    pname = "rioTheme";
+    version = "a8d3d3c61f828da5f3d6d02d7d489108f6428178";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "rio";
+      rev = "a8d3d3c61f828da5f3d6d02d7d489108f6428178";
+      fetchSubmodules = false;
+      sha256 = "sha256-bT789sEDJl3wQh/yfbmjD/J7XNr2ejOd0UsASguyCQo=";
+    };
+    date = "2023-12-05";
+  };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
     version = "417eb232e8d037964971ae2690560a7b12e5f0d4";
