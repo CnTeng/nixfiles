@@ -129,26 +129,6 @@
         },
         "version": "ac6f95b71448b5dd473fed18fca42b88c9cc51e2"
     },
-    "rioTheme": {
-        "cargoLocks": null,
-        "date": "2023-12-05",
-        "extract": null,
-        "name": "rioTheme",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "rio",
-            "rev": "a8d3d3c61f828da5f3d6d02d7d489108f6428178",
-            "sha256": "sha256-bT789sEDJl3wQh/yfbmjD/J7XNr2ejOd0UsASguyCQo=",
-            "type": "github"
-        },
-        "version": "a8d3d3c61f828da5f3d6d02d7d489108f6428178"
-    },
     "ttf-ms-win10": {
         "cargoLocks": null,
         "date": "2021-02-10",
