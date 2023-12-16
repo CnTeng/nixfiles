@@ -23,6 +23,12 @@ jobs:
           commit-msg: "bump: flake inputs"
           branch: bump_flake_inputs
           pr-title: "bump: flake inputs"
+          pr-body: |
+            Automated changes by GitHub Action.
+
+            ```
+            {{ env.GIT_COMMIT_MESSAGE }}
+            ```
           pr-labels: merge-queue
 
   update-nvfetcher:
@@ -38,15 +44,13 @@ jobs:
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Create pr_body.txt
-        run: nix run .#nvfetcher -- -o overlays/_sources -c overlays/nvfetcher.toml -l pr_body.txt
-      - name: Read pr_body.txt
-        id: pr_body
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./pr_body.txt
-      - name: Remove PR body template files
-        shell: bash
-        run: rm -f pr_body.txt
+        run: |
+          nix run .#nvfetcher -- \
+              --build-dir overlays/_sources \
+              --config overlays/nvfetcher.toml \
+              --changelog pr_body.txt
+          echo "GIT_COMMIT_MESSAGE=$(cat pr_body.txt)" >> $GITHUB_ENV
+          rm -f pr_body.txt
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
         with:
@@ -57,4 +61,9 @@ jobs:
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           title: "bump: overlays sources"
           labels: merge-queue
-          body: ${{ steps.pr_body.outputs.content }}
+          body: |
+            Automated changes by GitHub Action.
+
+            ```
+            ${{ env.GIT_COMMIT_MESSAGE }}
+            ```
