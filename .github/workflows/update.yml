@@ -49,7 +49,7 @@ jobs:
             --build-dir overlays/_sources \
             --config overlays/nvfetcher.toml \
             --changelog pr_body.txt
-          GIT_COMMIT_MESSAGE="$(cat body.txt)"
+          GIT_COMMIT_MESSAGE="$(cat pr_body.txt)"
           echo "$GIT_COMMIT_MESSAGE" >> $GITHUB_ENV
           rm -f pr_body.txt
       # - name: Read pr_body.txt
