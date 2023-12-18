@@ -4,7 +4,7 @@ let
   cfg = config.services'.ntfy;
   port = 7222;
 in {
-  options.services'.ntfy.enable = mkEnableOption "ntfy-sh";
+  options.services'.ntfy.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ port ];

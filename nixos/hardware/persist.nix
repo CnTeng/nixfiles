@@ -4,24 +4,16 @@ let cfg = config.hardware'.persist;
 in {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.hardware'.persist.enable = mkEnableOption "persistent state";
+  options.hardware'.persist.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
+    boot.tmp.useTmpfs = true;
+
     environment.persistence."/persist" = {
       hideMounts = true;
-      directories = [
-        "/var/lib"
-        "/etc/nix"
-        {
-          directory = "/etc/secureboot";
-          user = "root";
-          group = "root";
-          mode = "u=rwx,g=rx,o=rx";
-        }
-      ];
+      directories = [ "/var/lib" ];
       files = [ "/etc/machine-id" ];
-      users.${user}.directories =
-        [ "Projects" ".cache" ".local" ".mozilla" ".ssh" ".config" ];
+      users.${user}.directories = [ "Projects" ".cache" ".local" ".config" ];
     };
   };
 }

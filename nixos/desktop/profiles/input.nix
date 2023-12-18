@@ -3,11 +3,10 @@ with lib;
 let
   cfg = config.desktop'.profiles.inputMethod;
 
-  inherit (config.basics'.colors) flavour;
+  inherit (config.core'.colors) flavour;
   inherit (themes) fcitx5Theme;
 in {
-  options.desktop'.profiles.inputMethod.enable =
-    mkEnableOption "input method component";
+  options.desktop'.profiles.inputMethod.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.xserver.xkb.options = "ctrl:nocaps";

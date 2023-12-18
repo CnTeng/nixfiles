@@ -4,7 +4,7 @@ let
   cfg = config.services'.restic;
   inherit (config.networking) hostName;
 in {
-  options.services'.restic.enable = mkEnableOption "restic";
+  options.services'.restic.enable = mkEnableOption' { };
 
   config = let
     mkNtfyScript = status: priority: tag: ''

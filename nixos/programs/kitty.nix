@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.programs'.kitty;
-  inherit (config.basics'.colors) flavour;
+  inherit (config.core'.colors) flavour;
 in {
   options.programs'.kitty.enable = mkEnableOption "kitty";
 

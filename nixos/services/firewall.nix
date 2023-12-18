@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.services'.firewall;
 in {
-  options.services'.firewall.enable = mkEnableOption "firewall";
+  options.services'.firewall.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     networking.firewall = {

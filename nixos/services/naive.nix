@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.services'.naive;
 in {
-  options.services'.naive.enable = mkEnableOption "naive";
+  options.services'.naive.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services'.caddy.enable = true;

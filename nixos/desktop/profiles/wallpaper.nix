@@ -3,7 +3,7 @@ with lib;
 let cfg = config.desktop'.profiles.wallpaper;
 in {
   options.desktop'.profiles.wallpaper = {
-    enable = mkEnableOption "wallpaper profile";
+    enable = mkEnableOption' { };
     image = mkOption { type = with types; nullOr path; };
   };
 

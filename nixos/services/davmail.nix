@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.services'.davmail;
 in {
-  options.services'.davmail.enable = mkEnableOption "Davmail";
+  options.services'.davmail.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.davmail ];

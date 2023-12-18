@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.desktop'.profiles.wireless;
 in {
-  options.desktop'.profiles.wireless.enable = mkEnableOption "wireless support";
+  options.desktop'.profiles.wireless.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     # network

@@ -1,7 +1,7 @@
 {
   imports = [ ./disko.nix ./hardware.nix ];
 
-  basics'.system.stateVersion = "23.11";
+  system.stateVersion = "23.11";
 
   desktop'.hyprland.enable = true;
 
@@ -21,7 +21,6 @@
     steam.enable = true;
     vscode.enable = true;
     wps.enable = true;
-    yubikey.enable = true;
     thunderbird.enable = true;
   };
 
@@ -31,5 +30,4 @@
     dae.enable = true;
     restic.enable = true;
   };
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

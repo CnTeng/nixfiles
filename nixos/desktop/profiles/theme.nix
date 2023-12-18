@@ -3,9 +3,9 @@ with lib;
 let
   cfg = config.desktop'.profiles.theme;
 
-  inherit (config.basics'.colors) flavour;
+  inherit (config.core'.colors) flavour;
 in {
-  options.desktop'.profiles.theme.enable = mkEnableOption "custom gtk theme";
+  options.desktop'.profiles.theme.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     boot = {
