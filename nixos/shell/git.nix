@@ -2,11 +2,12 @@
 with lib;
 let
   cfg = config.shell'.git;
+
   inherit (config.users.users.${user}) home;
 
-  flavour = toLower config.basics'.colors.flavour;
+  flavour = toLower config.core'.colors.flavour;
 in {
-  options.shell'.git.enable = mkEnableOption "git" // { default = true; };
+  options.shell'.git.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

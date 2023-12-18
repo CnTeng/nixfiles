@@ -3,11 +3,11 @@ with lib;
 let
   cfg = config.desktop'.hyprland;
 
-  inherit (config.basics'.colors) palette;
+  inherit (config.core'.colors) palette;
 in {
   imports = [ ../profiles ];
 
-  options.desktop'.hyprland.enable = mkEnableOption "hyprland";
+  options.desktop'.hyprland.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     programs.hyprland.enable = true;

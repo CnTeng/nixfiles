@@ -7,7 +7,7 @@ let
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIM2a/zgM9DYJSYU7WY6wFiOOTO53xGlllNm3TEoXsJDsAAAADnNzaDphdXRoQE5peE9T ssh:auth@NixOS"
   ];
 in {
-  options.services'.openssh.enable = mkEnableOption "openssh";
+  options.services'.openssh.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.openssh = {

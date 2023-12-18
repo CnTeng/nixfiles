@@ -1,8 +1,10 @@
 { config, lib, user, ... }:
 with lib;
-let cfg = config.services'.onedrive;
+let
+  cfg = config.services'.onedrive;
+  inherit (config.hardware') persist;
 in {
-  options.services'.onedrive.enable = mkEnableOption "OneDrive";
+  options.services'.onedrive.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.onedrive.enable = true;
@@ -13,8 +15,7 @@ in {
       wantedBy = mkForce [ "graphical-session.target" ]; # enable notifications
     };
 
-    environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
-      users.${user}.directories = [ "OneDrive" ];
-    };
+    environment.persistence."/persist" =
+      mkIf persist.enable { users.${user}.directories = [ "OneDrive" ]; };
   };
 }

@@ -2,15 +2,13 @@
 with lib;
 let cfg = config.shell'.starship;
 in {
-  options.shell'.starship.enable = mkEnableOption "starship" // {
-    default = true;
-  };
+  options.shell'.starship.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
       settings = {
-        format = concatStrings [
+        format = lib.concatStrings [
           "$directory"
           "$git_branch"
           "$git_commit"
@@ -27,6 +25,7 @@ in {
           "[\\]](bold blue) )"
           "$character"
         ];
+
         command_timeout = 3000;
         add_newline = false;
 

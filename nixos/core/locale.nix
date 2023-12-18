@@ -1,10 +1,8 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.basics'.locale;
+let cfg = config.core'.locale;
 in {
-  options.basics'.locale.enable = mkEnableOption "locale config" // {
-    default = true;
-  };
+  options.core'.locale.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     time.timeZone = "Asia/Shanghai";

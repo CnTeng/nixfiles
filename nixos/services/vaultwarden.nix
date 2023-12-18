@@ -4,7 +4,7 @@ let
   cfg = config.services'.vaultwarden;
   port = 8222;
 in {
-  options.services'.vaultwarden.enable = mkEnableOption "Vaultwarden";
+  options.services'.vaultwarden.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ port ];
@@ -36,14 +36,15 @@ in {
           import ${config.sops.secrets.cloudflare.path}
         }
 
-        encode gzip
-
-        header {
+        header / {
           Strict-Transport-Security "max-age=31536000;"
-          X-XSS-Protection "1; mode=block"
+          X-XSS-Protection "0"
           X-Frame-Options "SAMEORIGIN"
-          X-Robots-Tag "none"
+          X-Robots-Tag "noindex, nofollow"
+          X-Content-Type-Options "nosniff"
           -Server
+          -X-Powered-By
+          -Last-Modified
         }
 
         reverse_proxy localhost:${toString port} {

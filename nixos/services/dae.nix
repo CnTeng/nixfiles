@@ -4,7 +4,7 @@ let
   cfg = config.services'.dae;
   port = 1081;
 in {
-  options.services'.dae.enable = mkEnableOption "dae";
+  options.services'.dae.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.dae = {

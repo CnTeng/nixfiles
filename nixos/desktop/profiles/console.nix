@@ -2,9 +2,9 @@
 with lib;
 let
   cfg = config.desktop'.profiles.console;
-  inherit (config.basics'.colors) palette;
+  inherit (config.core'.colors) palette;
 in {
-  options.desktop'.profiles.console.enable = mkEnableOption "console config";
+  options.desktop'.profiles.console.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     console = {

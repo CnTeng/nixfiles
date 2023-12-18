@@ -3,7 +3,6 @@
 
   disko.devices = {
     disk.nvme = {
-      type = "disk";
       device = "/dev/nvme0n1";
       content = {
         type = "table";

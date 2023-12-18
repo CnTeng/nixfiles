@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 with lib;
-let cfg = config.programs'.firefox;
+let
+  cfg = config.programs'.firefox;
+  inherit (config.hardware') persist;
 in {
   options.programs'.firefox.enable = mkEnableOption "Firefox";
 
@@ -41,5 +43,8 @@ in {
       languagePacks = [ "en-US" "zh-CN" ];
       nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     };
+
+    environment.persistence."/persist" =
+      mkIf persist.enable { users.${user}.directories = [ ".mozilla" ]; };
   };
 }

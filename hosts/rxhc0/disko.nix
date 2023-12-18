@@ -3,7 +3,6 @@
 
   disko.devices = {
     disk.sda = {
-      # type = "disk";
       device = "/dev/sda";
       content = {
         type = "gpt";
@@ -46,4 +45,6 @@
   };
 
   fileSystems."/persist".neededForBoot = true;
+
+  boot.initrd.systemd.enable = true;
 }

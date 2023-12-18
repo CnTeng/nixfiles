@@ -6,6 +6,13 @@ keys:
     - &rxhc0 age1g4rgsh5allvuqgm4xd2mjwyl6s8ap3g0c2n2528jxjd3238xx3ls6h98de
 
 creation_rules:
+  - path_regex: nixos/hardware/.*
+    key_groups:
+      - age:
+          - *rxdell
+          - *rxls0
+          - *rxhc0
+
   - path_regex: nixos/shell/.*
     key_groups:
       - age:

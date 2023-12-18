@@ -3,10 +3,9 @@ with lib;
 let
   cfg = config.desktop'.profiles.idle;
 
-  inherit (config.basics'.colors) palette;
+  inherit (config.core'.colors) palette;
 in {
-  options.desktop'.profiles.idle.enable =
-    mkEnableOption "idle daemon component";
+  options.desktop'.profiles.idle.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     security.pam.services.swaylock = { };
@@ -25,7 +24,6 @@ in {
           package = pkgs.swaylock-effects;
           settings = {
             # Options
-            ignore-empty-password = true;
             daemonize = true;
 
             # Appearance
