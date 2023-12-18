@@ -1,13 +1,11 @@
 { config, lib, user, ... }:
 with lib;
 let
-  cfg = config.basics'.users;
+  cfg = config.core'.users;
   hashedPassword =
     "$y$j9T$riMCfL.4mC/J482G5yj..1$d1hE7FKgRGPGtO.d4sIWVT6NB0x6RIIH46ZsZB.YUe.";
 in {
-  options.basics'.users.enable = mkEnableOption "users config" // {
-    default = true;
-  };
+  options.core'.users.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     users = {

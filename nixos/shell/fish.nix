@@ -1,11 +1,12 @@
-{ config, lib, pkgs, themes, user, ... }:
+{ config, lib, pkgs, user, themes, ... }:
 with lib;
 let
   cfg = config.shell'.fish;
-  inherit (config.basics'.colors) flavour;
+
+  inherit (config.core'.colors) flavour;
   inherit (themes) fishTheme;
 in {
-  options.shell'.fish.enable = mkEnableOption "fish" // { default = true; };
+  options.shell'.fish.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     programs.fish = {

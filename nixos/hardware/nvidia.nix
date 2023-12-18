@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.hardware'.nvidia;
 in {
-  options.hardware'.nvidia.enable = mkEnableOption "Nvidia GPU support";
+  options.hardware'.nvidia.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];

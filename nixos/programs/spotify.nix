@@ -4,7 +4,7 @@ let
   cfg = config.programs'.spotify;
   spicePkgs = inputs.spicetify.packages.${pkgs.system}.default;
 
-  inherit (config.basics'.colors) flavour;
+  inherit (config.core'.colors) flavour;
 in {
   options.programs'.spotify.enable = mkEnableOption "Spotify";
 

@@ -2,14 +2,14 @@
 with lib;
 let
   cfg = config.desktop'.profiles.utils;
-  inherit (config.basics'.colors) palette;
+  inherit (config.core'.colors) palette;
   inherit (config.home-manager.users.${user}.gtk) iconTheme;
 
   pkgModule =
     types.submodule { options.exec = mkOption { type = types.str; }; };
 in {
   options.desktop'.profiles.utils = {
-    enable = mkEnableOption "utils";
+    enable = mkEnableOption' { };
     packages = mkOption { type = types.attrsOf pkgModule; };
   };
 

@@ -3,11 +3,11 @@ with lib;
 let
   cfg = config.desktop'.profiles.waybar;
 
-  inherit (config.basics'.colors) palette;
+  inherit (config.core'.colors) palette;
 
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
 in {
-  options.desktop'.profiles.waybar.enable = mkEnableOption "waybar";
+  options.desktop'.profiles.waybar.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

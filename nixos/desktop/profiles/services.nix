@@ -2,8 +2,7 @@
 with lib;
 let cfg = config.desktop'.profiles.services;
 in {
-  options.desktop'.profiles.services.enable =
-    mkEnableOption "services component";
+  options.desktop'.profiles.services.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.pipewire = {

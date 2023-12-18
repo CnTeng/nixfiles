@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.desktop'.profiles.fonts;
 in {
-  options.desktop'.profiles.fonts.enable = mkEnableOption "fonts component";
+  options.desktop'.profiles.fonts.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     fonts.packages = with pkgs; [

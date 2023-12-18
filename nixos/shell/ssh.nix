@@ -1,12 +1,12 @@
 { config, lib, user, ... }:
 with lib;
 let
-  cfg = config.basics'.ssh;
+  cfg = config.shell'.ssh;
+
   inherit (config.users.users.${user}) home;
+  inherit (config.hardware') persist;
 in {
-  options.basics'.ssh.enable = mkEnableOption "ssh config" // {
-    default = true;
-  };
+  options.shell'.ssh.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     sops.secrets = {
@@ -39,5 +39,8 @@ in {
       startAgent = true;
       extraConfig = "Include ${config.sops.templates.ssh-config.path}";
     };
+
+    environment.persistence."/persist" =
+      lib.mkIf persist.enable { users.${user}.directories = [ ".ssh" ]; };
   };
 }

@@ -2,7 +2,7 @@
 with lib;
 let cfg = config.desktop'.profiles.xdg;
 in {
-  options.desktop'.profiles.xdg.enable = mkEnableOption "xdg component";
+  options.desktop'.profiles.xdg.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

@@ -3,7 +3,7 @@
 with lib;
 let cfg = config.shell'.tmux;
 in {
-  options.shell'.tmux.enable = mkEnableOption "tmux" // { default = true; };
+  options.shell'.tmux.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
