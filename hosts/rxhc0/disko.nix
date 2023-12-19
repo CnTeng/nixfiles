@@ -45,6 +45,4 @@
   };
 
   fileSystems."/persist".neededForBoot = true;
-
-  boot.initrd.systemd.enable = true;
 }

@@ -8,8 +8,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd.availableKernelModules =
-      [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "i915" ];
+    initrd.availableKernelModules = [ "usb_storage" "i915" ];
   };
 
   boot.loader.systemd-boot.enable = true;
