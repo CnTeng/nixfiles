@@ -1,15 +1,14 @@
-{ inputs, ... }: {
-  imports = [ inputs.devshell.flakeModule ];
-
+{ ... }: {
   perSystem = { config, pkgs, lib, ... }: {
-    devshells.default = {
-      commands = let
-        terraform = pkgs.terraform.withPlugins
-          (p: with p; [ aws cloudflare sops hcloud ]);
-      in [{
+    devShells.default = let
+      terraform = pkgs.writeShellApplication {
         name = "terraform";
-        category = "deploy";
-        command = ''
+        runtimeInputs = [
+          pkgs.sops
+          (pkgs.terraform.withPlugins
+            (p: with p; [ aws cloudflare sops hcloud ]))
+        ];
+        text = ''
           is_fmt=false
           is_version=false
 
@@ -23,39 +22,36 @@
             fi
           done
 
-          if [ "$is_fmt" = "true" -o "$is_version" = "true" ]; then
-            ${lib.getExe terraform} "$@"
+          if [ "$is_fmt" = "true" ] || [ "$is_version" = "true" ]; then
+            terraform "$@"
             exit 0
           fi
 
-          sops --output-type json \
+          if sops --output-type json \
                --output terraform.tfstate \
-               --decrypt tfstate.yaml
-
-          if [ $? -eq 0 ]; then
+               --decrypt tfstate.yaml; then
             echo -e "\033[32msops: decryption successful\033[0m\n"
           else
             echo -e "\033[31msops: decryption failed\033[0m\n"
           fi
 
-          ${lib.getExe terraform} "$@"
-
-          if [ $? -eq 0 ]; then
-            sops --input-type json \
+          if terraform "$@"; then
+            if sops --input-type json \
                  --output-type yaml \
                  --output tfstate.yaml \
-                 --encrypt terraform.tfstate
+                 --encrypt terraform.tfstate; then
+              echo -e "\n\033[32msops: encryption successful\033[0m"
+            else
+              echo -e "\n\033[31msops: encryption failed\033[0m"
+            fi
           fi
 
-          if [ $? -eq 0 ]; then
-            echo -e "\n\033[32msops: encryption successful\033[0m"
-          else
-            echo -e "\n\033[31msops: encryption failed\033[0m"
-          fi
         '';
-      }];
 
-      packages = with pkgs; [ colmena nvfetcher sops terraform-ls ];
+      };
+    in pkgs.mkShell {
+      packages = with pkgs; [ terraform colmena nvfetcher sops terraform-ls ];
+      shellHook = config.pre-commit.installationScript;
     };
   };
 }
