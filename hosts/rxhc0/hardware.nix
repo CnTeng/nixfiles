@@ -6,11 +6,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd = {
-    availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
-    kernelModules = [ "nvme" ];
+  boot.initrd.kernelModules = [ "virtio_gpu" ];
+  boot.kernelParams = [ "console=tty" ];
+
+  services.zram-generator = {
+    enable = true;
+    settings.zram0 = { };
   };
-
-  zramSwap.enable = true;
-
 }
