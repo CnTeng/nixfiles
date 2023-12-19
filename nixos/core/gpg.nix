@@ -1,11 +1,11 @@
 { config, lib, user, ... }:
 with lib;
 let
-  cfg = config.shell'.gpg;
+  cfg = config.core'.gpg;
 
   inherit (config.hardware') persist;
 in {
-  options.shell'.gpg.enable = mkEnableOption' { default = true; };
+  options.core'.gpg.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     programs.gnupg.agent.enable = true;

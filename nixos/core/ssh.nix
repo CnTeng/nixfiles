@@ -1,12 +1,12 @@
 { config, lib, user, ... }:
 with lib;
 let
-  cfg = config.shell'.ssh;
+  cfg = config.core'.ssh;
 
   inherit (config.users.users.${user}) home;
   inherit (config.hardware') persist;
 in {
-  options.shell'.ssh.enable = mkEnableOption' { default = true; };
+  options.core'.ssh.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     sops.secrets = {
