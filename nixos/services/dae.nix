@@ -60,6 +60,7 @@ in {
         }
       '';
     };
+    systemd.services.dae.requires = [ "naiveproxy.service" ];
 
     systemd.services.naiveproxy = let
       settings = {
