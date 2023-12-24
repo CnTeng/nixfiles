@@ -2,7 +2,11 @@
 with lib;
 let
   cfg = config.hardware'.yubikey;
-  yubikeyPkgs = with pkgs; [ yubikey-manager yubioath-flutter ];
+  yubikeyPkgs = with pkgs;
+    [
+      yubikey-manager
+      # yubioath-flutter
+    ];
 in {
   options.hardware'.yubikey.enable = mkEnableOption' { };
 
