@@ -49,8 +49,6 @@ in {
           };
         };
       };
-
-      programs.gh.enable = true;
     };
   };
 }
