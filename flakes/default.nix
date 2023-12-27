@@ -5,11 +5,7 @@
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [
-        self.overlays.default
-        inputs.colmena.overlays.default
-        inputs.hyprland.overlays.default
-      ];
+      overlays = [ self.overlays.default inputs.colmena.overlays.default ];
     };
 
     legacyPackages = pkgs;
