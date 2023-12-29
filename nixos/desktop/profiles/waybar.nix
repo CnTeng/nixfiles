@@ -172,14 +172,14 @@ in {
 
           window#waybar {
             color: ${text.hex};
-            background-color: rgba(${base.raw}, 0.9);
+            background-color: rgba(${toRgb base.rgb}, 0.9);
             opacity: 0.9;
             padding: 0;
           }
 
           #workspaces {
             color: ${text.hex};
-            background-color: rgba(${surface1.raw}, 0.9);
+            background-color: rgba(${toRgb surface1.rgb}, 0.9);
             padding: 0 4px;
             margin: 4px 3px 4px 0;
             border-radius: 0 11px 11px 0;
@@ -198,7 +198,7 @@ in {
 
           #submap {
             color: ${base.hex};
-            background-color: rgba(${red.raw}, 0.9);
+            background-color: rgba(${toRgb red.rgb}, 0.9);
             padding: 0 8px;
             margin: 4px 3px;
             border-radius: 11px;
@@ -220,7 +220,7 @@ in {
           #battery,
           #clock {
             color: ${text.hex};
-            background-color: rgba(${surface1.raw}, 0.9);
+            background-color: rgba(${toRgb surface1.rgb}, 0.9);
             padding: 0 4px;
             margin: 4px 0;
           }
