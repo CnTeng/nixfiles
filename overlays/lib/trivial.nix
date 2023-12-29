@@ -2,7 +2,7 @@
 with lib; rec {
   removeHashTag = hex: removePrefix "#" hex;
 
-  getColorHex = palette: color: removeHashTag palette.${color}.hex;
+  toRgb = rgb: "${toString rgb.r}, ${toString rgb.g}, ${toString rgb.b}";
 
   toDec = hex:
     let
@@ -23,7 +23,7 @@ with lib; rec {
       values = map parseDigit chars;
     in toString (foldl (x: y: x * 16 + y) 0 values);
 
-  toRgb = hex:
+  toRgb' = hex:
     let
       matchHex =
         builtins.match "([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})";

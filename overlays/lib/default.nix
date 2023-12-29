@@ -8,5 +8,5 @@ let
 in {
   inherit (modules) importModule;
   inherit (options) mkEnableOption';
-  inherit (trivial) removeHashTag toDec toRgb;
+  inherit (trivial) removeHashTag toRgb toRgb';
 }
