@@ -15,10 +15,10 @@
 
         defaults = { lib, name, ... }: {
           deployment = {
-            targetHost = lib.mkDefault "${name}";
-            tags = [ "${name}" ];
+            targetHost = lib.mkDefault name;
+            tags = [ name ];
           };
-          networking.hostName = "${name}";
+          networking.hostName = name;
           imports = [ self.nixosModules.default ./${name} ];
         };
 
