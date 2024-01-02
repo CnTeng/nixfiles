@@ -1,12 +1,12 @@
 { inputs, config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.hardware'.secureboot;
+  cfg = config.hardware'.secure-boot;
   inherit (config.hardware') persist;
 in {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-  options.hardware'.secureboot.enable = mkEnableOption' { };
+  options.hardware'.secure-boot.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.sbctl ];
