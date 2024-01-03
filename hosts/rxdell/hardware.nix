@@ -1,7 +1,10 @@
-{ pkgs, ... }: {
+{ inputs, config, lib, pkgs, ... }:
+let inherit (config.hardware') persist;
+in {
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+
   hardware' = {
-    systemd-boot.enable = true;
-    secure-boot.enable = true;
+    optimise.enable = true;
     nvidia.enable = true;
     persist.enable = true;
     yubikey.enable = true;
@@ -14,11 +17,17 @@
 
   boot.initrd.systemd.enable = true; # Support for luks tpm2
 
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
+
+  environment.persistence."/persist".directories =
+    lib.mkIf persist.enable [ "/etc/secureboot" ];
+
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
   services.fwupd.enable = true;
-  services.fstrim.enable = true;
-
-  zramSwap.enable = true;
 }

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, utils, user, ... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.services'.dae;
@@ -7,6 +7,11 @@ in {
   options.services'.dae.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
+    services'.naive-client = {
+      enable = true;
+      port = port;
+    };
+
     services.dae = {
       enable = true;
       config = ''
@@ -60,31 +65,7 @@ in {
         }
       '';
     };
-    systemd.services.dae.requires = [ "naiveproxy.service" ];
 
-    systemd.services.naiveproxy = let
-      settings = {
-        listen = "socks://127.0.0.1:${toString port}";
-        proxy._secret = config.sops.secrets."naive/client".path;
-      };
-      settingsPath = "/etc/naive/config.json";
-    in {
-      preStart = ''
-        umask 0077
-        mkdir -p /etc/naive
-        ${utils.genJqSecretsReplacementSnippet settings settingsPath}
-      '';
-      description = "naiveproxy Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = "${getExe pkgs.naive} --config ${settingsPath}";
-      };
-    };
-
-    sops.secrets."naive/client" = {
-      owner = user;
-      sopsFile = ./secrets.yaml;
-    };
+    systemd.services.dae.requires = [ "naive-client.service" ];
   };
 }

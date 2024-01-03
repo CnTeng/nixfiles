@@ -11,7 +11,3 @@ module "hcloud" {
   plan     = each.value.plan
   region   = each.value.region
 }
-
-output "rxhc" {
-  value = module.hcloud
-}
