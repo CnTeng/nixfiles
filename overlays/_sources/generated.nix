@@ -55,13 +55,13 @@
   };
   palette = {
     pname = "palette";
-    version = "6ce9a87b9b743218cacb52d20067e8d9063508a7";
+    version = "7f103c3e11f7f705ee1fb8ac430d90a798bbdfcb";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "palette";
-      rev = "6ce9a87b9b743218cacb52d20067e8d9063508a7";
+      rev = "7f103c3e11f7f705ee1fb8ac430d90a798bbdfcb";
       fetchSubmodules = false;
-      sha256 = "sha256-pXjTebsvkntvkpbs2X061zgUdVfwZ5MWC/eAD06F3BA=";
+      sha256 = "sha256-W1Bj/407i2XT7CmCBoFe2PCe10MB8lmnEQsWXSrJ6zg=";
     };
     date = "2024-01-02";
   };
