@@ -11,7 +11,3 @@ module "lightsail" {
   plan     = each.value.plan
   region   = each.value.region
 }
-
-output "rxls" {
-  value = module.lightsail
-}

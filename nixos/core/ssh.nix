@@ -3,41 +3,56 @@ with lib;
 let
   cfg = config.core'.ssh;
 
-  inherit (config.users.users.${user}) home;
   inherit (config.hardware') persist;
 in {
   options.core'.ssh.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      "outputs/rxhc/value/rxhc0/ipv4" = {
-        sopsFile = ../../infra/tfstate.yaml;
-        mode = "0444";
+      rxhc0-ipv4 = {
+        key = "outputs/hosts/value/rxhc0/ipv4";
+        owner = user;
+        sopsFile = config.sops-file.infra;
       };
-      "outputs/rxls/value/rxls0/ipv4" = {
-        sopsFile = ../../infra/tfstate.yaml;
-        mode = "0444";
+      rxls0-ipv4 = {
+        key = "outputs/hosts/value/rxls0/ipv4";
+        owner = user;
+        sopsFile = config.sops-file.infra;
       };
     };
 
     sops.templates.ssh-config = let
-      mkBlock = host: ip: ''
-        Host ${host}
-          User yufei
-          HostName ${ip}
-          IdentityFile ${home}/.ssh/id_ed25519_sk_rk_auth@NixOS
-      '';
+      mkHost = name:
+        let ip = config.sops.placeholder."${name}-ipv4";
+        in ''
+          Host ${name}
+            HostName ${ip}
+        '';
     in {
-      content =
-        mkBlock "rxhc0" config.sops.placeholder."outputs/rxhc/value/rxhc0/ipv4"
-        + mkBlock "rxls0"
-        config.sops.placeholder."outputs/rxls/value/rxls0/ipv4";
-      mode = "0444";
+      content = mkHost "rxhc0" + mkHost "rxls0";
+      owner = user;
     };
 
-    programs.ssh = {
-      startAgent = true;
-      extraConfig = "Include ${config.sops.templates.ssh-config.path}";
+    home-manager.users.${user} = {
+      services.ssh-agent.enable = true;
+
+      programs.ssh = {
+        enable = true;
+        forwardAgent = true;
+        includes = [ config.sops.templates.ssh-config.path ];
+        matchBlocks = let
+          defaultConfig = {
+            inherit user;
+            identityFile = [
+              "~/.ssh/id_ed25519_sk_rk_auth@NixOS"
+              "~/.ssh/id_ed25519_sk_backup@NixOS"
+            ];
+          };
+        in {
+          rxhc0 = defaultConfig;
+          rxls0 = defaultConfig;
+        };
+      };
     };
 
     environment.persistence."/persist" =
