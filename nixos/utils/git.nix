@@ -1,13 +1,11 @@
 { config, lib, user, ... }:
 with lib;
 let
-  cfg = config.shell'.git;
-
-  inherit (config.users.users.${user}) home;
+  cfg = config.utils'.git;
 
   flavour = toLower config.core'.colors.flavour;
 in {
-  options.shell'.git.enable = mkEnableOption' { default = true; };
+  options.utils'.git.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
@@ -37,17 +35,14 @@ in {
         settings = { gui.theme = { lightTheme = false; }; };
       };
 
-      programs.ssh = {
-        enable = true;
-        matchBlocks = {
-          "github.com" = {
-            hostname = "ssh.github.com";
-            user = "git";
-            port = 443;
-            extraOptions.AddKeysToAgent = "yes";
-            identityFile = [ "${home}/.ssh/id_ed25519_sk_rk_auth@Github" ];
-          };
-        };
+      programs.ssh.matchBlocks."github.com" = {
+        hostname = "ssh.github.com";
+        port = 443;
+        user = "git";
+        identityFile = [
+          "~/.ssh/id_ed25519_sk_rk_auth@Github"
+          "~/.ssh/id_ed25519_sk_backup@Github"
+        ];
       };
     };
   };

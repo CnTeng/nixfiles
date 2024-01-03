@@ -1,9 +1,9 @@
 # TODO: finsh tmux config
 { config, lib, pkgs, user, ... }:
 with lib;
-let cfg = config.shell'.tmux;
+let cfg = config.utils'.tmux;
 in {
-  options.shell'.tmux.enable = mkEnableOption' { default = true; };
+  options.utils'.tmux.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, user, ... }:
 with lib;
 let
-  cfg = config.shell'.btop;
+  cfg = config.utils'.btop;
 
   flavour = toLower config.core'.colors.flavour;
   catppuccin = pkgs.catppuccin.override { variant = flavour; };
 in {
-  options.shell'.btop.enable = mkEnableOption' { default = true; };
+  options.utils'.btop.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {

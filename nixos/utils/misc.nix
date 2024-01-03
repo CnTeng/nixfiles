@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 with lib;
-let cfg = config.shell'.misc;
+let cfg = config.utils'.misc;
 in {
-  options.shell'.misc.enable = mkEnableOption' { default = true; };
+  options.utils'.misc.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     programs.direnv.enable = true;

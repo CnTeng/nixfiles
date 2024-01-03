@@ -1,12 +1,12 @@
 { config, lib, pkgs, user, ... }:
 with lib;
 let
-  cfg = config.shell'.fzf;
+  cfg = config.utils'.fzf;
 
   inherit (config.core'.colors) palette;
   command = filetype: "${getExe pkgs.fd} -t ${filetype} -H -E .git";
 in {
-  options.shell'.fzf.enable = mkEnableOption' { default = true; };
+  options.utils'.fzf.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
