@@ -1,8 +1,8 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.shell'.starship;
+let cfg = config.utils'.starship;
 in {
-  options.shell'.starship.enable = mkEnableOption' { default = true; };
+  options.utils'.starship.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     programs.starship = {

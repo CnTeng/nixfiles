@@ -1,8 +1,8 @@
 { inputs, config, lib, pkgs, user, ... }:
 with lib;
-let cfg = config.shell'.neovim;
+let cfg = config.utils'.neovim;
 in {
-  options.shell'.neovim.enable = mkEnableOption' { default = true; };
+  options.utils'.neovim.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
