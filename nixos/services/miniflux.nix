@@ -22,9 +22,7 @@ in {
     services.caddy.virtualHosts."rss.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        tls {
-          import ${config.sops.secrets.cloudflare.path}
-        }
+        import ${config.sops.templates.cf-tls.path}
 
         reverse_proxy 127.0.0.1:${toString port}
       '';

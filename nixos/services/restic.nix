@@ -18,12 +18,9 @@ in {
     '';
   in mkIf cfg.enable {
     sops.secrets = {
-      "restic/rclone" = {
-        sopsFile = ./secrets.yaml;
-        key = "rclone";
-      };
+      "restic/rclone".sopsFile = ./secrets.yaml;
       "restic/password".sopsFile = ./secrets.yaml;
-      ntfy.sopsFile = ./secrets.yaml;
+      "restic/ntfy".sopsFile = ./secrets.yaml;
     };
 
     services.restic.backups.persist = {
@@ -50,18 +47,17 @@ in {
 
     systemd.services = {
       restic-backups-persist = {
-        environment.NTFY_TOKEN = config.sops.secrets.ntfy.path;
         onSuccess = [ "restic-ntfy-success.service" ];
         onFailure = [ "restic-ntfy-failure.service" ];
       };
 
       restic-ntfy-success = {
-        environment.NTFY_TOKEN = config.sops.secrets.ntfy.path;
+        environment.NTFY_TOKEN = config.sops.secrets."restic/ntfy".path;
         script = mkNtfyScript "success" "default" "green_circle";
       };
 
       restic-ntfy-failure = {
-        environment.NTFY_TOKEN = config.sops.secrets.ntfy.path;
+        environment.NTFY_TOKEN = config.sops.secrets."restic/ntfy".path;
         script = mkNtfyScript "failure" "high" "red_circle";
       };
     };

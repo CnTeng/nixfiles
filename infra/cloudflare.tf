@@ -5,7 +5,7 @@ resource "cloudflare_api_token" "cdntls" {
 
   policy {
     permission_groups = [
-      data.cloudflare_api_token_permission_groups.all.zone["DNS Read"],
+      data.cloudflare_api_token_permission_groups.all.zone["DNS Write"],
       data.cloudflare_api_token_permission_groups.all.zone["Zone Read"],
     ]
     resources = {
@@ -14,7 +14,7 @@ resource "cloudflare_api_token" "cdntls" {
   }
 }
 
-output "cloudflare_token" {
+output "cf_api_token" {
   value     = cloudflare_api_token.cdntls.value
   sensitive = true
 }

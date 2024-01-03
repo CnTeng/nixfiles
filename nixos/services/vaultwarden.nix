@@ -32,9 +32,7 @@ in {
     services.caddy.virtualHosts."vault.snakepi.xyz" = {
       logFormat = "output stdout";
       extraConfig = ''
-        tls {
-          import ${config.sops.secrets.cloudflare.path}
-        }
+        import ${config.sops.templates.cf-tls.path}
 
         header / {
           Strict-Transport-Security "max-age=31536000;"

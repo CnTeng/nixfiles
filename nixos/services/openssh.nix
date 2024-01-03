@@ -5,6 +5,7 @@ let
   authorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHXYBwzvOg/23ZYFi8Jyw8Vr7thq16zrzI+/iLywTgwo ssh:deploy@NixOS"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIM2a/zgM9DYJSYU7WY6wFiOOTO53xGlllNm3TEoXsJDsAAAADnNzaDphdXRoQE5peE9T ssh:auth@NixOS"
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIOFNK1cWw9D1ES3Ae+IDC2Lm0SbsKykhLzJyhMJGLmEBAAAABHNzaDo= ssh:backup@NixOS"
   ];
 in {
   options.services'.openssh.enable = mkEnableOption' { };

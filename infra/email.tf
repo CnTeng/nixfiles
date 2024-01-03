@@ -1,6 +1,5 @@
 locals {
   sp_eo_rules = {
-    auth  = "auth@snakepi.eu.org"
     vault = "vault@snakepi.eu.org"
   }
   sp_xyz_rules = {
