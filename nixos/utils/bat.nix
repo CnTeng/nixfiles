@@ -1,12 +1,12 @@
 { config, lib, pkgs, user, ... }:
 with lib;
 let
-  cfg = config.shell'.bat;
+  cfg = config.utils'.bat;
 
   flavour = toLower config.core'.colors.flavour;
   catppuccin = pkgs.catppuccin.override { variant = flavour; };
 in {
-  options.shell'.bat.enable = mkEnableOption' { default = true; };
+  options.utils'.bat.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
