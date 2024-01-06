@@ -11,7 +11,7 @@ locals {
     ntfy  = { value = module.hcloud["rxhc0"].ipv4 }
     vault = { value = module.hcloud["rxhc0"].ipv4 }
     www   = { value = module.hcloud["rxhc0"].ipv4 }
-    naive = { value = module.lightsail["rxls0"].ipv4, proxied = false }
+    tuic  = { value = module.lightsail["rxls0"].ipv4, proxied = false }
   }
 }
 
