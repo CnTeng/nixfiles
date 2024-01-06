@@ -27,7 +27,7 @@
   services' = {
     onedrive.enable = true;
     openssh.enable = true;
-    dae.enable = true;
     restic.enable = true;
+    tuic-client.enable = true;
   };
 }
