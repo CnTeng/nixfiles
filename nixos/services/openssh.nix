@@ -1,4 +1,4 @@
-{ config, lib, user, ... }:
+{ config, lib, pkgs, user, ... }:
 with lib;
 let
   cfg = config.services'.openssh;
@@ -28,6 +28,19 @@ in {
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
       ];
+    };
+
+    security.sudo.extraConfig = ''
+      Defaults env_keep+=SSH_AUTH_SOCK
+    '';
+
+    security.pam.services.sudo = { config, ... }: {
+      rules.auth.rssh = {
+        order = config.rules.auth.unix.order - 10;
+        control = "sufficient";
+        modulePath = "${pkgs.pam_rssh}/lib/libpam_rssh.so";
+        settings.auth_key_file = "/etc/ssh/authorized_keys.d/${user}";
+      };
     };
   };
 }
