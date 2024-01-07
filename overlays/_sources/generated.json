@@ -91,7 +91,7 @@
     },
     "palette": {
         "cargoLocks": null,
-        "date": "2024-01-02",
+        "date": "2024-01-06",
         "extract": null,
         "name": "palette",
         "passthru": null,
@@ -103,11 +103,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "palette",
-            "rev": "7f103c3e11f7f705ee1fb8ac430d90a798bbdfcb",
-            "sha256": "sha256-W1Bj/407i2XT7CmCBoFe2PCe10MB8lmnEQsWXSrJ6zg=",
+            "rev": "823bd0179d491facf8ca368451dddb713926bc0e",
+            "sha256": "sha256-rTWSA8HE9WfVRsbY4FUV12mvYimE+drOIUhcM/oX+D4=",
             "type": "github"
         },
-        "version": "7f103c3e11f7f705ee1fb8ac430d90a798bbdfcb"
+        "version": "823bd0179d491facf8ca368451dddb713926bc0e"
     },
     "qtcreatorTheme": {
         "cargoLocks": null,
