@@ -55,15 +55,15 @@
   };
   palette = {
     pname = "palette";
-    version = "7f103c3e11f7f705ee1fb8ac430d90a798bbdfcb";
+    version = "823bd0179d491facf8ca368451dddb713926bc0e";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "palette";
-      rev = "7f103c3e11f7f705ee1fb8ac430d90a798bbdfcb";
+      rev = "823bd0179d491facf8ca368451dddb713926bc0e";
       fetchSubmodules = false;
-      sha256 = "sha256-W1Bj/407i2XT7CmCBoFe2PCe10MB8lmnEQsWXSrJ6zg=";
+      sha256 = "sha256-rTWSA8HE9WfVRsbY4FUV12mvYimE+drOIUhcM/oX+D4=";
     };
-    date = "2024-01-02";
+    date = "2024-01-06";
   };
   qtcreatorTheme = {
     pname = "qtcreatorTheme";
