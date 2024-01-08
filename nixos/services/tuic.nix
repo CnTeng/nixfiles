@@ -13,124 +13,139 @@ in {
   config = mkIf (server.enable || client.enable) {
     networking.firewall.allowedUDPPorts = [ port ];
 
-    sops.secrets = let
-      units = optional server.enable "sing-box.service"
-        ++ optional client.enable "dae.service";
-    in {
-      cf-dns01-token = {
+    sops.secrets = {
+      cf-dns01-token = mkIf server.enable {
         key = "outputs/cf_api_token/value";
         sopsFile = config.sops-file.infra;
         restartUnits = [ "sing-box.service" ];
       };
 
-      tuic-ip = {
+      tuic-ip = mkIf client.enable {
         key = "outputs/hosts/value/rxls0/ipv4";
         sopsFile = config.sops-file.infra;
-        restartUnits = [ "dae.service" ];
+        restartUnits = [ "sing-box.service" ];
       };
 
       "tuic/uuid" = {
         sopsFile = ./secrets.yaml;
-        restartUnits = units;
+        restartUnits = [ "sing-box.service" ];
       };
 
       "tuic/pass" = {
         sopsFile = ./secrets.yaml;
-        restartUnits = units;
+        restartUnits = [ "sing-box.service" ];
       };
     };
 
-    services.sing-box = mkIf server.enable {
+    services.sing-box = {
       enable = true;
-      settings = {
-        log.level = "info";
-        inbounds = [{
-          type = "tuic";
-          listen = "::";
-          listen_port = port;
-          users = [{
-            uuid._secret = config.sops.secrets."tuic/uuid".path;
-            password._secret = config.sops.secrets."tuic/pass".path;
-          }];
-          congestion_control = "bbr";
-          tls = {
-            enabled = true;
-            server_name = "tuic.snakepi.xyz";
-            acme = {
-              domain = "tuic.snakepi.xyz";
-              email = "isyufei.teng@gmail.com";
-              dns01_challenge = {
-                provider = "cloudflare";
-                api_token._secret = config.sops.secrets.cf-dns01-token.path;
+      settings = let
+        serverConfig = {
+          inbounds = [{
+            type = "tuic";
+            listen = "::";
+            listen_port = port;
+            users = [{
+              uuid._secret = config.sops.secrets."tuic/uuid".path;
+              password._secret = config.sops.secrets."tuic/pass".path;
+            }];
+            congestion_control = "bbr";
+            tls = {
+              enabled = true;
+              server_name = "tuic.snakepi.xyz";
+              acme = {
+                domain = "tuic.snakepi.xyz";
+                email = "isyufei.teng@gmail.com";
+                dns01_challenge = {
+                  provider = "cloudflare";
+                  api_token._secret = config.sops.secrets.cf-dns01-token.path;
+                };
               };
             };
+          }];
+        };
+
+        clientConfig = {
+          dns = {
+            servers = [
+              {
+                tag = "google";
+                address = "tls://8.8.8.8";
+              }
+              {
+                tag = "local";
+                address = "https://223.5.5.5/dns-query";
+                detour = "direct";
+              }
+            ];
+            rules = [{
+              outbound = "any";
+              server = "local";
+            }];
+            strategy = "ipv4_only";
           };
-        }];
-      };
-    };
-
-    sops.templates.dae-config = {
-      content = ''
-        global {
-          wan_interface: auto
-        }
-
-        node {
-          tuic: 'tuic://${config.sops.placeholder."tuic/uuid"}:${
-            config.sops.placeholder."tuic/pass"
-          }@${config.sops.placeholder.tuic-ip}:${
-            toString port
-          }?sni=tuic.snakepi.xyz&congestion_control=bbr'
-        }
-
-        dns {
-          upstream {
-            google: 'tcp+udp://dns.google.com:53'
-            ali: 'udp://dns.alidns.com:53'
-          }
-          routing {
-            request {
-              fallback: ali
+          inbounds = [{
+            type = "tun";
+            interface_name = "tun0";
+            inet4_address = "172.19.0.1/30";
+            inet6_address = "fdfe:dcba:9876::1/126";
+            auto_route = true;
+            strict_route = false;
+          }];
+          outbounds = [
+            {
+              type = "tuic";
+              server._secret = config.sops.secrets.tuic-ip.path;
+              server_port = port;
+              uuid._secret = config.sops.secrets."tuic/uuid".path;
+              password._secret = config.sops.secrets."tuic/pass".path;
+              congestion_control = "bbr";
+              tls = {
+                enabled = true;
+                server_name = "tuic.snakepi.xyz";
+              };
             }
-            response {
-              upstream(google) -> accept
-              ip(geoip:private) && !qname(geosite:cn) -> google
-              fallback: accept
+            {
+              type = "direct";
+              tag = "direct";
             }
-          }
-        }
-
-        group {
-          proxy {
-            policy: fixed(0)
-          }
-        }
-
-        routing {
-          pname(NetworkManager, ssh) -> must_direct
-
-          dip(224.0.0.0/3, 'ff00::/8') -> direct
-          dip(geoip:private) -> direct
-          dip(geoip:cn) -> direct
-
-          domain(geosite:category-ads) -> block
-          domain(geosite:cn) -> direct
-
-          fallback: proxy
-        }
-      '';
+            {
+              type = "dns";
+              tag = "dns-out";
+            }
+          ];
+          route = {
+            rules = [
+              {
+                port = [ 53 ];
+                outbound = "dns-out";
+              }
+              {
+                protocol = "dns";
+                outbound = "dns-out";
+              }
+              {
+                geosite = [ "cn" ];
+                outbound = "direct";
+              }
+              {
+                geoip = [ "cn" ];
+                outbound = "direct";
+              }
+            ];
+            auto_detect_interface = true;
+          };
+        };
+      in {
+        log.level = "info";
+      } // optionalAttrs server.enable serverConfig
+      // optionalAttrs client.enable clientConfig;
     };
 
-    boot.kernel.sysctl = {
-      "net.ipv4.conf.all.forwarding" = true;
-      "net.ipv6.conf.all.forwarding" = true;
-      "net.ipv4.conf.all.send_redirects" = false;
-      "net.ipv4.ip_forward" = true;
-    };
+    networking.firewall.trustedInterfaces = [ "tun0" ];
 
-    services.dae = mkIf client.enable {
-      enable = true;
-      configFile = config.sops.templates.dae-config.path;
-    };
+    boot.kernelModules = [ "tun" ];
+
+    boot.kernel.sysctl = { "net.ipv4.conf.tun0.rp_filter" = false; };
   };
 }
