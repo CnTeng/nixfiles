@@ -5,7 +5,6 @@
 
   services' = {
     fail2ban.enable = true;
-    firewall.enable = true;
     openssh.enable = true;
     tuic-server.enable = true;
   };
