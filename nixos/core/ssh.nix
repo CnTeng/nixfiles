@@ -39,6 +39,7 @@ in {
       programs.ssh = {
         enable = true;
         forwardAgent = true;
+        addKeysToAgent = "yes";
         includes = [ config.sops.templates.ssh-config.path ];
         matchBlocks = let
           defaultConfig = {
