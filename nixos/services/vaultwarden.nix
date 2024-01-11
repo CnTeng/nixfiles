@@ -3,11 +3,12 @@ with lib;
 let
   cfg = config.services'.vaultwarden;
   port = 8222;
+  smtpPort = 587;
 in {
   options.services'.vaultwarden.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ port ];
+    networking.firewall.allowedTCPPorts = [ port smtpPort ];
 
     services.vaultwarden = {
       enable = true;
@@ -23,7 +24,7 @@ in {
         SMTP_FROM = "vault@snakepi.eu.org";
         SMTP_FROM_NAME = "Vaultwarden";
         SMTP_SECURITY = "starttls";
-        SMTP_PORT = 587;
+        SMTP_PORT = smtpPort;
         SMTP_USERNAME = "jstengyufei";
       };
       environmentFile = config.sops.secrets.vaultwarden.path;
