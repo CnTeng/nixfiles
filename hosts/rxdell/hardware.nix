@@ -4,6 +4,7 @@ in {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
   hardware' = {
+    network.enable = true;
     optimise.enable = true;
     nvidia.enable = true;
     persist.enable = true;

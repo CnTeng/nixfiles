@@ -1,7 +1,11 @@
 { config, modulesPath, ... }: {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
-  hardware'.persist.enable = true;
+  hardware' = {
+    network.enable = true;
+    optimise.enable = true;
+    persist.enable = true;
+  };
 
   boot.initrd.kernelModules = [ "virtio_gpu" ];
   boot.kernelParams = [ "console=tty" ];
