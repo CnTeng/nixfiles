@@ -41,6 +41,7 @@ in {
       enable = true;
       settings = let
         serverConfig = {
+          log.level = "info";
           inbounds = [{
             type = "tuic";
             listen = "::";
@@ -66,6 +67,7 @@ in {
         };
 
         clientConfig = {
+          log.level = "trace";
           dns = {
             servers = [
               {
@@ -74,7 +76,7 @@ in {
               }
               {
                 tag = "local";
-                address = "https://223.5.5.5/dns-query";
+                address = "223.5.5.5";
                 detour = "direct";
               }
             ];
@@ -82,7 +84,6 @@ in {
               outbound = "any";
               server = "local";
             }];
-            strategy = "ipv4_only";
           };
           inbounds = [{
             type = "tun";
@@ -125,27 +126,21 @@ in {
                 outbound = "dns-out";
               }
               {
-                geosite = [ "cn" ];
+                geoip = [ "private" ];
                 outbound = "direct";
               }
               {
-                geoip = [ "cn" ];
+                process_name = [ "ssh" ];
                 outbound = "direct";
               }
             ];
             auto_detect_interface = true;
           };
         };
-      in {
-        log.level = "info";
-      } // optionalAttrs server.enable serverConfig
+      in optionalAttrs server.enable serverConfig
       // optionalAttrs client.enable clientConfig;
     };
 
     networking.firewall.trustedInterfaces = [ "tun0" ];
-
-    boot.kernelModules = [ "tun" ];
-
-    boot.kernel.sysctl = { "net.ipv4.conf.tun0.rp_filter" = false; };
   };
 }
