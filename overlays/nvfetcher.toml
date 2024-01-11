@@ -18,6 +18,11 @@ fetch.github = "catppuccin/qtcreator"
 src.git = "https://github.com/catppuccin/palette"
 fetch.github = "catppuccin/palette"
 
+[river-unstable]
+src.git = "https://github.com/riverwm/river"
+fetch.github = "riverwm/river"
+git.fetchSubmodules = true
+
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."
