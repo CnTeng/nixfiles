@@ -6,7 +6,6 @@
   services' = {
     caddy.enable = true;
     fail2ban.enable = true;
-    firewall.enable = true;
     miniflux.enable = true;
     ntfy.enable = true;
     openssh.enable = true;
