@@ -17,7 +17,6 @@
     others.enable = true;
     qtcreator.enable = true;
     serial.enable = true;
-    spotify.enable = true;
     steam.enable = true;
     vscode.enable = true;
     wps.enable = true;

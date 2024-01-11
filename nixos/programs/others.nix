@@ -25,6 +25,8 @@ in {
         sioyek
 
         inkscape
+
+        spotify
       ];
     };
   };
