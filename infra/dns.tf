@@ -28,5 +28,4 @@ resource "cloudflare_record" "web_rec" {
   value    = each.value.value
   type     = "A"
   proxied  = can(each.value.proxied) ? each.value.proxied : true
-  priority = can(each.value.priority) ? each.value.priority : null
 }
