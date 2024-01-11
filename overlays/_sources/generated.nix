@@ -45,14 +45,6 @@
     };
     date = "2023-02-01";
   };
-  naive = {
-    pname = "naive";
-    version = "v120.0.6099.43-1";
-    src = fetchurl {
-      url = "https://github.com/klzgrad/naiveproxy/releases/download/v120.0.6099.43-1/naiveproxy-v120.0.6099.43-1-linux-x64.tar.xz";
-      sha256 = "sha256-bxCZeYx8mGo8OgjSb0TMWpX4QBpqAgd4MhTkclpWb2M=";
-    };
-  };
   palette = {
     pname = "palette";
     version = "823bd0179d491facf8ca368451dddb713926bc0e";

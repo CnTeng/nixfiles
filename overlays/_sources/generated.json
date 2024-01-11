@@ -74,21 +74,6 @@
         },
         "version": "40ae4528569d864cba8f4e64716c3361f7244209"
     },
-    "naive": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "naive",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-bxCZeYx8mGo8OgjSb0TMWpX4QBpqAgd4MhTkclpWb2M=",
-            "type": "url",
-            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v120.0.6099.43-1/naiveproxy-v120.0.6099.43-1-linux-x64.tar.xz"
-        },
-        "version": "v120.0.6099.43-1"
-    },
     "palette": {
         "cargoLocks": null,
         "date": "2024-01-06",
