@@ -129,6 +129,26 @@
         },
         "version": "ac6f95b71448b5dd473fed18fca42b88c9cc51e2"
     },
+    "river-unstable": {
+        "cargoLocks": null,
+        "date": "2024-01-10",
+        "extract": null,
+        "name": "river-unstable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "riverwm",
+            "repo": "river",
+            "rev": "f6c434c7a7d313c7bca9f42030fdac58efbad491",
+            "sha256": "sha256-wdLly7c3ZzcASAkvkRfJhoTkz3dAWw/Am2nW6c4x69w=",
+            "type": "github"
+        },
+        "version": "f6c434c7a7d313c7bca9f42030fdac58efbad491"
+    },
     "ttf-ms-win10": {
         "cargoLocks": null,
         "date": "2021-02-10",
