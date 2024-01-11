@@ -77,6 +77,18 @@
     };
     date = "2023-10-21";
   };
+  river-unstable = {
+    pname = "river-unstable";
+    version = "f6c434c7a7d313c7bca9f42030fdac58efbad491";
+    src = fetchFromGitHub {
+      owner = "riverwm";
+      repo = "river";
+      rev = "f6c434c7a7d313c7bca9f42030fdac58efbad491";
+      fetchSubmodules = true;
+      sha256 = "sha256-wdLly7c3ZzcASAkvkRfJhoTkz3dAWw/Am2nW6c4x69w=";
+    };
+    date = "2024-01-10";
+  };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
     version = "417eb232e8d037964971ae2690560a7b12e5f0d4";

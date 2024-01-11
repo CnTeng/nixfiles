@@ -40,7 +40,7 @@ in {
       };
     };
 
-    environment.variables.GTK_IM_MODULE = lib.mkForce "wayland";
+    # environment.variables.GTK_IM_MODULE = lib.mkForce "wayland";
 
     home-manager.users.${user} = {
       i18n.inputMethod.enabled = "fcitx5";
