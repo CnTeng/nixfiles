@@ -116,7 +116,7 @@
     },
     "river-unstable": {
         "cargoLocks": null,
-        "date": "2024-01-11",
+        "date": "2024-01-12",
         "extract": null,
         "name": "river-unstable",
         "passthru": null,
@@ -128,11 +128,11 @@
             "name": null,
             "owner": "riverwm",
             "repo": "river",
-            "rev": "62dbe34bdafd2c3d15fc4d1555350011b2ccdae5",
-            "sha256": "sha256-ZuCgmSGsc7k3qwykGdf8eBKCjVOVO7SR8rKmBhDr0Cc=",
+            "rev": "6e9bd83e1d0e2132d2def338b51f66867cd88907",
+            "sha256": "sha256-9VUiK87/Fz3mzLJuj+qQPf0+mVFeYyb6n6vyctTu7cE=",
             "type": "github"
         },
-        "version": "62dbe34bdafd2c3d15fc4d1555350011b2ccdae5"
+        "version": "6e9bd83e1d0e2132d2def338b51f66867cd88907"
     },
     "ttf-ms-win10": {
         "cargoLocks": null,
