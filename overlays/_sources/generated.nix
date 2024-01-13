@@ -71,15 +71,15 @@
   };
   river-unstable = {
     pname = "river-unstable";
-    version = "62dbe34bdafd2c3d15fc4d1555350011b2ccdae5";
+    version = "6e9bd83e1d0e2132d2def338b51f66867cd88907";
     src = fetchFromGitHub {
       owner = "riverwm";
       repo = "river";
-      rev = "62dbe34bdafd2c3d15fc4d1555350011b2ccdae5";
+      rev = "6e9bd83e1d0e2132d2def338b51f66867cd88907";
       fetchSubmodules = true;
-      sha256 = "sha256-ZuCgmSGsc7k3qwykGdf8eBKCjVOVO7SR8rKmBhDr0Cc=";
+      sha256 = "sha256-9VUiK87/Fz3mzLJuj+qQPf0+mVFeYyb6n6vyctTu7cE=";
     };
-    date = "2024-01-11";
+    date = "2024-01-12";
   };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
