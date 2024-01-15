@@ -35,15 +35,15 @@
   };
   foliateTheme = {
     pname = "foliateTheme";
-    version = "40ae4528569d864cba8f4e64716c3361f7244209";
+    version = "ffca991a1d9f7f92d52256ec8cc766028ab82925";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "foliate";
-      rev = "40ae4528569d864cba8f4e64716c3361f7244209";
+      rev = "ffca991a1d9f7f92d52256ec8cc766028ab82925";
       fetchSubmodules = false;
-      sha256 = "sha256-tpZj1/gV2TEdcequ+0EFz/3Hv4UN2dcdbJvT8a/i+hs=";
+      sha256 = "sha256-4Rt9elZLGuZjSgYsbIaN9u7mxUDfJi3ayIBd0KwF58g=";
     };
-    date = "2023-02-01";
+    date = "2024-01-15";
   };
   palette = {
     pname = "palette";
