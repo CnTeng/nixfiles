@@ -19,8 +19,7 @@ in {
           output = [ "eDP-1" "DP-2" "DP-3" ];
           position = "top";
           height = 32;
-          modules-left =
-            [ "hyprland/workspaces" "hyprland/submap" "hyprland/window" ];
+          modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
 
           modules-right = [
             "tray"
@@ -34,7 +33,7 @@ in {
             "clock"
           ];
 
-          "hyprland/workspaces" = {
+          "sway/workspaces" = {
             format = "{icon}";
             format-icons = {
               "1" = " ";
@@ -50,9 +49,9 @@ in {
             show-special = true;
           };
 
-          "hyprland/submap".format = " {}";
+          "sway/mode".format = " {}";
 
-          "hyprland/window".separate-outputs = true;
+          "sway/window".separate-outputs = true;
 
           tray = {
             icon-size = 15;
@@ -196,7 +195,7 @@ in {
             color: ${red.hex};
           }
 
-          #submap {
+          #mode {
             color: ${base.hex};
             background-color: rgba(${toRgb red.rgb}, 0.9);
             padding: 0 8px;

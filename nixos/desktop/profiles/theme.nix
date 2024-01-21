@@ -44,8 +44,6 @@ in {
           name = "Catppuccin-${flavour}-Standard-Blue-Dark";
         };
       };
-
-      # home.sessionVariables.GTK_THEME = "Catppuccin-${flavour}-Standard-Blue-Dark";
     };
   };
 }

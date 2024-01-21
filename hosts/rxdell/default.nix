@@ -3,7 +3,7 @@
 
   system.stateVersion = "23.11";
 
-  desktop'.hyprland.enable = true;
+  desktop'.sway.enable = true;
 
   programs' = {
     adb.enable = true;

@@ -1,27 +1,14 @@
-[fcitx5Theme]
-src.git = "https://github.com/catppuccin/fcitx5"
-fetch.github = "catppuccin/fcitx5"
+[palette]
+src.git = "https://github.com/catppuccin/palette"
+fetch.github = "catppuccin/palette"
 
 [fishTheme]
 src.git = "https://github.com/catppuccin/fish"
 fetch.github = "catppuccin/fish"
 
-[foliateTheme]
-src.git = "https://github.com/catppuccin/foliate"
-fetch.github = "catppuccin/foliate"
-
-[qtcreatorTheme]
-src.git = "https://github.com/catppuccin/qtcreator"
-fetch.github = "catppuccin/qtcreator"
-
-[palette]
-src.git = "https://github.com/catppuccin/palette"
-fetch.github = "catppuccin/palette"
-
-[river-unstable]
-src.git = "https://github.com/riverwm/river"
-fetch.github = "riverwm/river"
-git.fetchSubmodules = true
+[fcitx5-catppuccin]
+src.git = "https://github.com/catppuccin/fcitx5"
+fetch.github = "catppuccin/fcitx5"
 
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
