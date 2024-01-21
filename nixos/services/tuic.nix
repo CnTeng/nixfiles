@@ -3,7 +3,7 @@ with lib;
 let
   server = config.services'.tuic-server;
   client = config.services'.tuic-client;
-  port = 443;
+  port = 1080;
 in {
   options.services' = {
     tuic-server.enable = mkEnableOption' { };
@@ -21,7 +21,7 @@ in {
       };
 
       tuic-ip = mkIf client.enable {
-        key = "outputs/hosts/value/rxls0/ipv4";
+        key = "outputs/hosts/value/rxhc0/ipv4";
         sopsFile = config.sops-file.infra;
         restartUnits = [ "sing-box.service" ];
       };
@@ -126,7 +126,11 @@ in {
                 outbound = "dns-out";
               }
               {
-                geoip = [ "private" ];
+                ip_is_private = true;
+                outbound = "direct";
+              }
+              {
+                rule_set = "geoip-cn";
                 outbound = "direct";
               }
               {
@@ -134,6 +138,13 @@ in {
                 outbound = "direct";
               }
             ];
+            rule_set = [{
+              tag = "geoip-cn";
+              type = "remote";
+              format = "binary";
+              url =
+                "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs";
+            }];
             auto_detect_interface = true;
           };
         };
