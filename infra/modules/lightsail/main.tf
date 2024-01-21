@@ -63,8 +63,8 @@ resource "aws_lightsail_instance_public_ports" "default" {
 
   port_info {
     protocol          = "udp"
-    from_port         = 443
-    to_port           = 443
+    from_port         = 1080
+    to_port           = 1080
     cidrs             = ["0.0.0.0/0", ]
     cidr_list_aliases = []
     ipv6_cidrs        = ["::/0", ]
