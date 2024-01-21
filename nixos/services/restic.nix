@@ -30,7 +30,7 @@ in {
       paths = [ "/persist" ];
       exclude = [ "/persist/home/*/OneDrive" "/persist/home/*/.cache" ];
       timerConfig = {
-        OnCalendar = "daily";
+        OnCalendar = "*-*-* 12:00:00";
         Persistent = true;
         RandomizedDelaySec = "1h";
       };
