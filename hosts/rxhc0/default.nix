@@ -11,5 +11,6 @@
     openssh.enable = true;
     vaultwarden.enable = true;
     restic.enable = true;
+    tuic-server.enable = true;
   };
 }

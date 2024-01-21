@@ -47,7 +47,6 @@
           fi
 
         '';
-
       };
     in pkgs.mkShell {
       packages = with pkgs; [ terraform colmena nvfetcher sops terraform-ls ];
