@@ -26,52 +26,7 @@ in {
       services.udiskie.enable = true;
       services.clipman.enable = true;
 
-      services.kanshi = let hyprctl = getExe' pkgs.hyprland "hyprctl";
-      in {
-        enable = true;
-        profiles = {
-          undocked.outputs = [{
-            criteria = "eDP-1";
-            scale = 1.25;
-          }];
-          docked-work = {
-            outputs = [
-              {
-                criteria = "eDP-1";
-                scale = 1.25;
-              }
-              {
-                criteria = "Dell Inc. DELL U2518D 3M7K8013ARCL";
-                position = "1536,0";
-                scale = 1.25;
-              }
-            ];
-            exec = [
-              "${hyprctl} dispatch workspace 2"
-              "${hyprctl} dispatch moveworkspacetomonitor 2 1"
-            ];
-          };
-
-          docked-home = {
-            outputs = [
-              {
-                criteria = "eDP-1";
-                scale = 1.25;
-              }
-              {
-                criteria = "Dell Inc. DELL U2723QX 843R0P3";
-                position = "1536,0";
-                scale = 1.75;
-              }
-            ];
-            exec = [
-              "${hyprctl} dispatch workspace 2"
-              "${hyprctl} dispatch moveworkspacetomonitor 2 1"
-            ];
-          };
-        };
-        systemdTarget = "graphical-session.target";
-      };
+      services.playerctld.enable = true;
     };
   };
 }

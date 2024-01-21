@@ -1,17 +1,10 @@
-{ config, lib, pkgs, themes, user, ... }:
+{ config, lib, pkgs, user, ... }:
 with lib;
-let
-  cfg = config.programs'.foliate;
-  inherit (themes) foliateTheme;
+let cfg = config.programs'.foliate;
 in {
   options.programs'.foliate.enable = mkEnableOption "Foliate";
 
   config = mkIf cfg.enable {
-    home-manager.users.${user} = {
-      home.packages = [ pkgs.foliate ];
-
-      xdg.configFile."com.github.johnfactotum.Foliate/themes.json".source =
-        "${foliateTheme}/themes.json";
-    };
+    home-manager.users.${user} = { home.packages = [ pkgs.foliate ]; };
   };
 }
