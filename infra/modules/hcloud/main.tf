@@ -73,6 +73,15 @@ resource "hcloud_firewall" "default" {
       "::/0"
     ]
   }
+  rule {
+    direction = "in"
+    protocol  = "udp"
+    port      = "1080"
+    source_ips = [
+      "0.0.0.0/0",
+      "::/0"
+    ]
+  }
 }
 
 output "ipv4" {
