@@ -1,7 +1,9 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.core'.locale;
-in {
+let
+  cfg = config.core'.locale;
+in
+{
   options.core'.locale.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {

@@ -1,7 +1,9 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.hardware'.optimise;
-in {
+let
+  cfg = config.hardware'.optimise;
+in
+{
   options.hardware'.optimise.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

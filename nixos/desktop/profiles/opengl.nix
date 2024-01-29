@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.desktop'.profiles.opengl;
-in {
+let
+  cfg = config.desktop'.profiles.opengl;
+in
+{
   options.desktop'.profiles.opengl.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

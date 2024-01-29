@@ -1,7 +1,15 @@
-{ config, inputs, lib, user, ... }:
+{
+  config,
+  inputs,
+  lib,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.hardware'.persist;
-in {
+let
+  cfg = config.hardware'.persist;
+in
+{
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.hardware'.persist.enable = mkEnableOption' { };
@@ -13,7 +21,12 @@ in {
       hideMounts = true;
       directories = [ "/var/lib" ];
       files = [ "/etc/machine-id" ];
-      users.${user}.directories = [ "Projects" ".cache" ".local" ".config" ];
+      users.${user}.directories = [
+        "Projects"
+        ".cache"
+        ".local"
+        ".config"
+      ];
     };
   };
 }

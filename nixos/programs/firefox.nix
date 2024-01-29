@@ -1,9 +1,16 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.programs'.firefox;
   inherit (config.hardware') persist;
-in {
+in
+{
   options.programs'.firefox.enable = mkEnableOption "Firefox";
 
   config = mkIf cfg.enable {
@@ -40,11 +47,15 @@ in {
         # "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
       };
-      languagePacks = [ "en-US" "zh-CN" ];
+      languagePacks = [
+        "en-US"
+        "zh-CN"
+      ];
       nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     };
 
-    environment.persistence."/persist" =
-      mkIf persist.enable { users.${user}.directories = [ ".mozilla" ]; };
+    environment.persistence."/persist" = mkIf persist.enable {
+      users.${user}.directories = [ ".mozilla" ];
+    };
   };
 }

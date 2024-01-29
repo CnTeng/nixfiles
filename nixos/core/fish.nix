@@ -1,11 +1,19 @@
-{ config, lib, pkgs, user, themes, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  themes,
+  ...
+}:
 with lib;
 let
   cfg = config.core'.fish;
 
   inherit (config.core'.colors) flavour;
   inherit (themes) fishTheme;
-in {
+in
+{
   options.core'.fish.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -22,10 +30,12 @@ in {
     home-manager.users.${user} = {
       programs.fish = {
         enable = true;
-        plugins = [{
-          name = "fzf-fish";
-          inherit (pkgs.fishPlugins.fzf-fish) src;
-        }];
+        plugins = [
+          {
+            name = "fzf-fish";
+            inherit (pkgs.fishPlugins.fzf-fish) src;
+          }
+        ];
         interactiveShellInit = ''
           fish_config theme choose "Catppuccin ${flavour}"
         '';

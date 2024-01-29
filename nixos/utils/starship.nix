@@ -1,7 +1,9 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.utils'.starship;
-in {
+let
+  cfg = config.utils'.starship;
+in
+{
   options.utils'.starship.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -44,8 +46,7 @@ in {
 
         git_commit.format = "[$hash$tag]($style) ";
 
-        git_state.format =
-          "[$state( $progress_current/$progress_total) ]($style) ";
+        git_state.format = "[$state( $progress_current/$progress_total) ]($style) ";
 
         git_status.deleted = "x";
 

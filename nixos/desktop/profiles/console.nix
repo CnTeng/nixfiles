@@ -3,12 +3,14 @@ with lib;
 let
   cfg = config.desktop'.profiles.console;
   inherit (config.core'.colors) palette;
-in {
+in
+{
   options.desktop'.profiles.console.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     console = {
-      colors = with palette;
+      colors =
+        with palette;
         map removeHashTag [
           base.hex
           mantle.hex

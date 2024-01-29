@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.services'.davmail;
-in {
+let
+  cfg = config.services'.davmail;
+in
+{
   options.services'.davmail.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

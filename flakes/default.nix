@@ -1,13 +1,23 @@
-{ inputs, self, ... }: {
-  imports = [ ./devshell.nix ./treefmt.nix ./pre-commit.nix ];
+{ inputs, self, ... }:
+{
+  imports = [
+    ./devshell.nix
+    ./treefmt.nix
+    ./pre-commit.nix
+  ];
 
-  perSystem = { pkgs, system, ... }: {
-    _module.args.pkgs = import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = [ self.overlays.default inputs.colmena.overlays.default ];
+  perSystem =
+    { pkgs, system, ... }:
+    {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          self.overlays.default
+          inputs.colmena.overlays.default
+        ];
+      };
+
+      legacyPackages = pkgs;
     };
-
-    legacyPackages = pkgs;
-  };
 }

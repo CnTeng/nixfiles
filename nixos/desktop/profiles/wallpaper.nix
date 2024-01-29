@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.desktop'.profiles.wallpaper;
-in {
+let
+  cfg = config.desktop'.profiles.wallpaper;
+in
+{
   options.desktop'.profiles.wallpaper = {
     enable = mkEnableOption' { };
     image = mkOption {

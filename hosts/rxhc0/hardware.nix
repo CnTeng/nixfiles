@@ -1,4 +1,5 @@
-{ config, modulesPath, ... }: {
+{ config, modulesPath, ... }:
+{
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
   hardware' = {
@@ -32,8 +33,7 @@
     '';
     owner = "systemd-network";
   };
-  environment.etc."systemd/network/40-enp1s0.network".source =
-    config.sops.templates.enp1s0.path;
+  environment.etc."systemd/network/40-enp1s0.network".source = config.sops.templates.enp1s0.path;
 
   systemd.network.enable = true;
 }

@@ -1,7 +1,16 @@
-{ inputs, config, lib, pkgs, user, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.utils'.neovim;
-in {
+let
+  cfg = config.utils'.neovim;
+in
+{
   options.utils'.neovim.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -10,7 +19,11 @@ in {
 
       programs.rx-nvim = {
         enable = true;
-        extraPackages = with pkgs; [ nil nixfmt prettierd ];
+        extraPackages = with pkgs; [
+          nil
+          nixfmt-rfc-style
+          prettierd
+        ];
         extraConfig = ''
           vim.g.gptsupport = true
           vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"

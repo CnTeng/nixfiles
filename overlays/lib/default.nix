@@ -5,7 +5,8 @@ let
   modules = callLibs ./modules.nix;
   options = callLibs ./options.nix;
   trivial = callLibs ./trivial.nix;
-in {
+in
+{
   inherit (modules) importModule;
   inherit (options) mkEnableOption';
   inherit (trivial) removeHashTag toRgb toRgb';

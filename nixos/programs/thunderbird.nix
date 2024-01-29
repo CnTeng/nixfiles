@@ -1,4 +1,9 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.programs'.thunderbird;
@@ -8,7 +13,8 @@ let
     "mail.server.server_${id}.authMethod" = 10;
   };
   realName = "Teng Yufei";
-in {
+in
+{
   options.programs'.thunderbird.enable = mkEnableOption "thunderbird";
 
   config = mkIf cfg.enable {
@@ -34,8 +40,7 @@ in {
           thunderbird = {
             enable = true;
             perIdentitySettings = id: {
-              "mail.identity.id_${id}.smtpServer" =
-                "smtp_${builtins.hashString "sha256" "Outlook"}";
+              "mail.identity.id_${id}.smtpServer" = "smtp_${builtins.hashString "sha256" "Outlook"}";
             };
           };
         };
@@ -51,8 +56,7 @@ in {
             enable = true;
             settings = OAuth2Settings;
             perIdentitySettings = id: {
-              "mail.identity.id_${id}.smtpServer" =
-                "smtp_${builtins.hashString "sha256" "GmailJP"}";
+              "mail.identity.id_${id}.smtpServer" = "smtp_${builtins.hashString "sha256" "GmailJP"}";
             };
           };
         };

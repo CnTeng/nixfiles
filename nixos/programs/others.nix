@@ -1,7 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.programs'.others;
-in {
+let
+  cfg = config.programs'.others;
+in
+{
   options.programs'.others.enable = mkEnableOption "others programs";
 
   config = mkIf cfg.enable {

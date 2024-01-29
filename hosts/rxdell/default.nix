@@ -1,5 +1,8 @@
 {
-  imports = [ ./disko.nix ./hardware.nix ];
+  imports = [
+    ./disko.nix
+    ./hardware.nix
+  ];
 
   system.stateVersion = "23.11";
 

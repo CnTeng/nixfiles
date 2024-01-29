@@ -4,11 +4,15 @@ let
   cfg = config.services'.vaultwarden;
   port = 8222;
   smtpPort = 587;
-in {
+in
+{
   options.services'.vaultwarden.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ port smtpPort ];
+    networking.firewall.allowedTCPPorts = [
+      port
+      smtpPort
+    ];
 
     services.vaultwarden = {
       enable = true;

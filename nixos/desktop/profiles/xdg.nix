@@ -1,7 +1,15 @@
-{ config, lib, user, pkgs, ... }:
+{
+  config,
+  lib,
+  user,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.desktop'.profiles.xdg;
-in {
+let
+  cfg = config.desktop'.profiles.xdg;
+in
+{
   options.desktop'.profiles.xdg.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
@@ -30,8 +38,10 @@ in {
         "image/*" = "xviewer.desktop";
         "x-scheme-handler/terminal" = "kitty.desktop";
         "application/x-sh" = "kitty-open.desktop";
-        "application/x-shellscript" =
-          [ "kitty-open.desktop" "nvim-kitty.desktop" ];
+        "application/x-shellscript" = [
+          "kitty-open.desktop"
+          "nvim-kitty.desktop"
+        ];
       };
     };
 

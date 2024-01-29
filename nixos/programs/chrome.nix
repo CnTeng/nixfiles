@@ -1,7 +1,14 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.programs'.chrome;
-in {
+let
+  cfg = config.programs'.chrome;
+in
+{
   options.programs'.chrome.enable = mkEnableOption "Chrome";
 
   config = mkIf cfg.enable {

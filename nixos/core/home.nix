@@ -1,7 +1,15 @@
-{ config, lib, inputs, user, ... }:
+{
+  config,
+  lib,
+  inputs,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.core'.home-manager;
-in {
+let
+  cfg = config.core'.home-manager;
+in
+{
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   options.core'.home-manager.enable = mkEnableOption' { default = true; };

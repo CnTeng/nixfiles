@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.services'.ntfy;
   port = 7222;
-in {
+in
+{
   options.services'.ntfy.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

@@ -1,7 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.desktop'.profiles.services;
-in {
+let
+  cfg = config.desktop'.profiles.services;
+in
+{
   options.desktop'.profiles.services.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

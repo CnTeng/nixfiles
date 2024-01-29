@@ -1,8 +1,14 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.desktop'.profiles.utils;
-
-in {
+let
+  cfg = config.desktop'.profiles.utils;
+in
+{
   options.desktop'.profiles.utils.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

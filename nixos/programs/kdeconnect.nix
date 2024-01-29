@@ -1,7 +1,14 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.programs'.kdeconnect;
-in {
+let
+  cfg = config.programs'.kdeconnect;
+in
+{
   options.programs'.kdeconnect.enable = mkEnableOption "KDE connect";
 
   config = mkIf cfg.enable {

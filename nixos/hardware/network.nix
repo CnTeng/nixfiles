@@ -1,7 +1,9 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.hardware'.network;
-in {
+let
+  cfg = config.hardware'.network;
+in
+{
   options.hardware'.network.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

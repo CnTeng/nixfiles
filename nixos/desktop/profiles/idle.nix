@@ -1,17 +1,25 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.desktop'.profiles.idle;
 
   inherit (config.core'.colors) palette;
-in {
+in
+{
   options.desktop'.profiles.idle.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     security.pam.services.swaylock = { };
 
     home-manager.users.${user} = {
-      programs.swaylock = with palette;
+      programs.swaylock =
+        with palette;
         let
           mkBaseColor = n: {
             "${n}-color" = base.hex + "e6";
@@ -19,7 +27,8 @@ in {
             "${n}-ver-color" = base.hex + "e6";
             "${n}-wrong-color" = base.hex + "e6";
           };
-        in {
+        in
+        {
           enable = true;
           package = pkgs.swaylock-effects;
           settings = {
@@ -58,11 +67,12 @@ in {
             command = (getExe' pkgs.systemd "systemctl") + " suspend";
           }
         ];
-        events = [{
-          event = "lock";
-          command = (getExe pkgs.playerctl + " pause; ")
-            + getExe pkgs.swaylock-effects;
-        }];
+        events = [
+          {
+            event = "lock";
+            command = (getExe pkgs.playerctl + " pause; ") + getExe pkgs.swaylock-effects;
+          }
+        ];
       };
     };
   };

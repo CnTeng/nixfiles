@@ -1,1 +1,4 @@
-{ lib, ... }: { imports = lib.importModule { dir = ./.; }; }
+{ lib, ... }:
+{
+  imports = lib.importModule { dir = ./.; };
+}

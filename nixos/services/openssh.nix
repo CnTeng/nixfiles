@@ -1,4 +1,10 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.services'.openssh;
@@ -7,7 +13,8 @@ let
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIM2a/zgM9DYJSYU7WY6wFiOOTO53xGlllNm3TEoXsJDsAAAADnNzaDphdXRoQE5peE9T ssh:auth@NixOS"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIOFNK1cWw9D1ES3Ae+IDC2Lm0SbsKykhLzJyhMJGLmEBAAAABHNzaDo= ssh:backup@NixOS"
   ];
-in {
+in
+{
   options.services'.openssh.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
@@ -34,13 +41,15 @@ in {
       Defaults env_keep+=SSH_AUTH_SOCK
     '';
 
-    security.pam.services.sudo = { config, ... }: {
-      rules.auth.rssh = {
-        order = config.rules.auth.unix.order - 10;
-        control = "sufficient";
-        modulePath = "${pkgs.pam_rssh}/lib/libpam_rssh.so";
-        settings.auth_key_file = "/etc/ssh/authorized_keys.d/${user}";
+    security.pam.services.sudo =
+      { config, ... }:
+      {
+        rules.auth.rssh = {
+          order = config.rules.auth.unix.order - 10;
+          control = "sufficient";
+          modulePath = "${pkgs.pam_rssh}/lib/libpam_rssh.so";
+          settings.auth_key_file = "/etc/ssh/authorized_keys.d/${user}";
+        };
       };
-    };
   };
 }

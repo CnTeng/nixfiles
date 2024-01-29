@@ -1,11 +1,18 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.utils'.fzf;
 
   inherit (config.core'.colors) palette;
   command = filetype: "${getExe pkgs.fd} -t ${filetype} -H -E .git";
-in {
+in
+{
   options.utils'.fzf.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -13,10 +20,16 @@ in {
       programs.fzf = {
         enable = true;
         defaultCommand = command "f";
-        defaultOptions = [ "--height 40%" "--layout reverse" "--info inline" ];
+        defaultOptions = [
+          "--height 40%"
+          "--layout reverse"
+          "--info inline"
+        ];
         fileWidgetCommand = command "f";
-        fileWidgetOptions =
-          [ "--preview 'bat --color=always {}'" "--preview-window '~3'" ];
+        fileWidgetOptions = [
+          "--preview 'bat --color=always {}'"
+          "--preview-window '~3'"
+        ];
         changeDirWidgetCommand = command "d";
         changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
         colors = with palette; {

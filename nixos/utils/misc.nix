@@ -1,7 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.utils'.misc;
-in {
+let
+  cfg = config.utils'.misc;
+in
+{
   options.utils'.misc.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -12,11 +20,17 @@ in {
     home-manager.users.${user} = {
       programs.bash.enable = true;
 
-      programs.tealdeer.enable = true;
-
       programs.zoxide.enable = true;
 
-      home.packages = with pkgs; [ wget tree neofetch scc gzip unrar unzipNLS ];
+      home.packages = with pkgs; [
+        wget
+        tree
+        neofetch
+        scc
+        gzip
+        unrar
+        unzipNLS
+      ];
     };
   };
 }

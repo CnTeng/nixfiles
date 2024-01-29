@@ -1,7 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.programs'.obs;
-in {
+let
+  cfg = config.programs'.obs;
+in
+{
   options.programs'.obs.enable = mkEnableOption "OBS Studio";
 
   config = mkIf cfg.enable {

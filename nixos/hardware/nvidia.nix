@@ -1,7 +1,9 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.hardware'.nvidia;
-in {
+let
+  cfg = config.hardware'.nvidia;
+in
+{
   options.hardware'.nvidia.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

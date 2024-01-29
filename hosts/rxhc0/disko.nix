@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   imports = [ inputs.disko.nixosModules.default ];
 
   disko.devices = {
@@ -21,14 +22,23 @@
             size = "100%";
             content = {
               type = "btrfs";
-              extraArgs = [ "-L nixos" "-f" ];
+              extraArgs = [
+                "-L nixos"
+                "-f"
+              ];
               subvolumes = {
                 "/nix" = {
-                  mountOptions = [ "noatime" "compress=zstd" ];
+                  mountOptions = [
+                    "noatime"
+                    "compress=zstd"
+                  ];
                   mountpoint = "/nix";
                 };
                 "/persist" = {
-                  mountOptions = [ "noatime" "compress=zstd" ];
+                  mountOptions = [
+                    "noatime"
+                    "compress=zstd"
+                  ];
                   mountpoint = "/persist";
                 };
               };
@@ -40,7 +50,10 @@
 
     nodev."/" = {
       fsType = "tmpfs";
-      mountOptions = [ "defaults" "mode=755" ];
+      mountOptions = [
+        "defaults"
+        "mode=755"
+      ];
     };
   };
 

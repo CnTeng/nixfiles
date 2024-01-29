@@ -1,10 +1,16 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.core'.ssh;
 
   inherit (config.hardware') persist;
-in {
+in
+{
   options.core'.ssh.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -21,17 +27,22 @@ in {
       };
     };
 
-    sops.templates.ssh-config = let
-      mkHost = name:
-        let ip = config.sops.placeholder."${name}-ipv4";
-        in ''
-          Host ${name}
-            HostName ${ip}
-        '';
-    in {
-      content = mkHost "rxhc0" + mkHost "rxls0";
-      owner = user;
-    };
+    sops.templates.ssh-config =
+      let
+        mkHost =
+          name:
+          let
+            ip = config.sops.placeholder."${name}-ipv4";
+          in
+          ''
+            Host ${name}
+              HostName ${ip}
+          '';
+      in
+      {
+        content = mkHost "rxhc0" + mkHost "rxls0";
+        owner = user;
+      };
 
     home-manager.users.${user} = {
       services.ssh-agent.enable = true;
@@ -41,22 +52,25 @@ in {
         forwardAgent = true;
         addKeysToAgent = "yes";
         includes = [ config.sops.templates.ssh-config.path ];
-        matchBlocks = let
-          defaultConfig = {
-            inherit user;
-            identityFile = [
-              "~/.ssh/id_ed25519_sk_rk_auth@NixOS"
-              "~/.ssh/id_ed25519_sk_backup@NixOS"
-            ];
+        matchBlocks =
+          let
+            defaultConfig = {
+              inherit user;
+              identityFile = [
+                "~/.ssh/id_ed25519_sk_rk_auth@NixOS"
+                "~/.ssh/id_ed25519_sk_backup@NixOS"
+              ];
+            };
+          in
+          {
+            rxhc0 = defaultConfig;
+            rxls0 = defaultConfig;
           };
-        in {
-          rxhc0 = defaultConfig;
-          rxls0 = defaultConfig;
-        };
       };
     };
 
-    environment.persistence."/persist" =
-      lib.mkIf persist.enable { users.${user}.directories = [ ".ssh" ]; };
+    environment.persistence."/persist" = lib.mkIf persist.enable {
+      users.${user}.directories = [ ".ssh" ];
+    };
   };
 }

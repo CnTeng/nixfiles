@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.desktop'.profiles.inputMethod;
 
   inherit (config.core'.colors) flavour;
-in {
+in
+{
   options.desktop'.profiles.inputMethod.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

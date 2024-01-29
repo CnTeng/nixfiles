@@ -1,10 +1,16 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.utils'.git;
 
   flavour = toLower config.core'.colors.flavour;
-in {
+in
+{
   options.utils'.git.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -32,7 +38,11 @@ in {
 
       programs.lazygit = {
         enable = true;
-        settings = { gui.theme = { lightTheme = false; }; };
+        settings = {
+          gui.theme = {
+            lightTheme = false;
+          };
+        };
       };
 
       programs.ssh.matchBlocks."github.com" = {

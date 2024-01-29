@@ -1,9 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.hardware'.yubikey;
-  yubikeyPkgs = with pkgs; [ yubikey-manager yubioath-flutter ];
-in {
+  yubikeyPkgs = with pkgs; [
+    yubikey-manager
+    yubioath-flutter
+  ];
+in
+{
   options.hardware'.yubikey.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

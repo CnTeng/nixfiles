@@ -1,7 +1,14 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
-let cfg = config.utils'.yazi;
-in {
+let
+  cfg = config.utils'.yazi;
+in
+{
   options.utils'.yazi.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {

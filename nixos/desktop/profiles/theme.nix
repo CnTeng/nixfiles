@@ -1,23 +1,31 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.desktop'.profiles.theme;
 
   inherit (config.core'.colors) flavour;
-in {
+in
+{
   options.desktop'.profiles.theme.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     boot = {
       initrd.verbose = false;
       consoleLogLevel = 0;
-      kernelParams = [ "quiet" "udev.log_level=3" ];
+      kernelParams = [
+        "quiet"
+        "udev.log_level=3"
+      ];
 
       plymouth = {
         enable = true;
-        themePackages = [
-          (pkgs.catppuccin-plymouth.override { variant = toLower flavour; })
-        ];
+        themePackages = [ (pkgs.catppuccin-plymouth.override { variant = toLower flavour; }) ];
         theme = "catppuccin-${toLower flavour}";
       };
     };

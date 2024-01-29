@@ -1,9 +1,15 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 with lib;
 let
   cfg = config.services'.miniflux;
   port = 6222;
-in {
+in
+{
   options.services'.miniflux.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {

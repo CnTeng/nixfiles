@@ -1,7 +1,14 @@
-{ config, inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 with lib;
-let cfg = config.core'.nix;
-in {
+let
+  cfg = config.core'.nix;
+in
+{
   options.core'.nix.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
@@ -22,9 +29,11 @@ in {
       ];
       nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
       substituters = [ "https://cache.garnix.io" ];
-      trusted-public-keys =
-        [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
-      trusted-users = [ "root" "@wheel" ];
+      trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       use-cgroups = true;
       use-xdg-base-directories = true;
     };

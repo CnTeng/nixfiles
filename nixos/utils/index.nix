@@ -1,7 +1,14 @@
-{ inputs, config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 with lib;
-let cfg = config.utils'.nix-index;
-in {
+let
+  cfg = config.utils'.nix-index;
+in
+{
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
   options.utils'.nix-index.enable = mkEnableOption' { default = true; };

@@ -1,6 +1,10 @@
 { lib, ... }:
-with lib; {
-  mkEnableOption' = { default ? false }:
+with lib;
+{
+  mkEnableOption' =
+    {
+      default ? false,
+    }:
     mkOption {
       inherit default;
       type = types.bool;
