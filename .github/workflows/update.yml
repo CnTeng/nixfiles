@@ -54,7 +54,7 @@ jobs:
           echo "GIT_COMMIT_MESSAGE=$(cat pr_body.txt)" >> $GITHUB_ENV
           rm -f pr_body.txt
       - name: Create PR
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "bump: overlays sources"
           branch: bump_overlays_sources
