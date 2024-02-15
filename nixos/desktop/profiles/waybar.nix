@@ -30,12 +30,12 @@ in
               "DP-3"
             ];
             position = "top";
-            height = 32;
             modules-left = [
               "sway/workspaces"
               "sway/mode"
-              "sway/window"
             ];
+
+            modules-center = [ "clock" ];
 
             modules-right = [
               "tray"
@@ -46,7 +46,6 @@ in
               "memory"
               "pulseaudio"
               "battery"
-              "clock"
             ];
 
             "sway/workspaces" = {
@@ -66,8 +65,6 @@ in
             };
 
             "sway/mode".format = " {}";
-
-            "sway/window".separate-outputs = true;
 
             tray = {
               icon-size = 15;
@@ -127,7 +124,7 @@ in
             pulseaudio = {
               format = "{icon}{volume}%";
               format-bluetooth = "󰂰 {volume}%";
-              format-muted = " ";
+              format-muted = " ";
               format-source = " {volume}%";
               format-source-muted = " ";
               format-icons = {
@@ -163,6 +160,9 @@ in
                 " "
                 " "
               ];
+              tooltip-format = ''
+                {power}W
+                {timeTo}'';
             };
 
             clock = {
@@ -176,11 +176,11 @@ in
                 weeks-pos = "right";
                 on-scroll = 1;
                 format = {
-                  months = "<span color='${peach.hex}'><b>{}</b></span>";
-                  days = "<span color='${text.hex}'><b>{}</b></span>";
-                  weeks = "<span color='${blue.hex}'><b>W{}</b></span>";
-                  weekdays = "<span color='${yellow.hex}'><b>{}</b></span>";
-                  today = "<span color='${red.hex}'><b><u>{}</u></b></span>";
+                  months = "<span color='${red_1}'><b>{}</b></span>";
+                  days = "<span color='${light_1}'><b>{}</b></span>";
+                  weeks = "<span color='${blue_1}'><b>W{}</b></span>";
+                  weekdays = "<span color='${yellow_1}'><b>{}</b></span>";
+                  today = "<span color='${red_1}'><b><u>{}</u></b></span>";
                 };
               };
               actions = {
@@ -199,88 +199,38 @@ in
             font-size: 14px;
           }
 
-          window#waybar {
-            color: ${text.hex};
-            background-color: rgba(${toRgb base.rgb}, 0.9);
-            opacity: 0.9;
-            padding: 0;
-          }
-
-          #workspaces {
-            color: ${text.hex};
-            background-color: rgba(${toRgb surface1.rgb}, 0.9);
-            padding: 0 4px;
-            margin: 4px 3px 4px 0;
-            border-radius: 0 11px 11px 0;
-          }
-          #workspaces button {
-            color: ${text.hex};
-            padding: 0 0 0 3px;
-            margin: 0 4px;
-          }
-          #workspaces button.active {
-            color: ${blue.hex};
-          }
-          #workspaces button.urgent{
-            color: ${red.hex};
-          }
-
-          #mode {
-            color: ${base.hex};
-            background-color: rgba(${toRgb red.rgb}, 0.9);
-            padding: 0 8px;
-            margin: 4px 3px;
-            border-radius: 11px;
-          }
-
-          #window,
-          #tray {
-            color: ${text.hex};
-            padding: 0 4px;
-            margin: 4px 3px;
-          }
-
+          #workspaces,
+          #mode,
+          #clock,
+          #tray,
           #mpris,
           #idle_inhibitor,
           #backlight,
           #cpu,
           #memory,
           #pulseaudio,
-          #battery,
-          #clock {
-            color: ${text.hex};
-            background-color: rgba(${toRgb surface1.rgb}, 0.9);
-            padding: 0 4px;
-            margin: 4px 0;
-          }
-
-          #mpris,
-          #idle_inhibitor,
-          #cpu,
-          #clock {
-            padding-left: 8px;
-            margin-left: 3px;
-            border-top-left-radius: 11px;
-            border-bottom-left-radius: 11px;
-          }
-
-          #mpris,
-          #backlight,
           #battery {
-            padding-right: 8px;
-            margin-right: 3px;
-            border-top-right-radius: 11px;
-            border-bottom-right-radius: 11px;
+            padding: 0 6px;
+          }
+
+          #workspaces button {
+            padding: 3px 6px;
+          }
+          #workspaces button.focused {
+            color: ${blue_1};
+          }
+          #workspaces button.urgent {
+            color: ${red_1};
           }
 
           #battery.warning {
-            color: ${yellow.hex};
+            color: ${yellow_1};
           }
           #battery.critical {
-            color: ${red.hex};
+            color: ${red_1};
           }
           #battery.charging {
-            color: ${green.hex};
+            color: ${green_1};
           }
         '';
       };

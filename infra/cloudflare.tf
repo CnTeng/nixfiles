@@ -14,7 +14,25 @@ resource "cloudflare_api_token" "cdntls" {
   }
 }
 
+resource "cloudflare_api_token" "r2" {
+  name = "r2"
+
+  policy {
+    permission_groups = [
+      data.cloudflare_api_token_permission_groups.all.account["Workers R2 Storage Write"],
+    ]
+    resources = {
+      "com.cloudflare.api.account.*" = "*"
+    }
+  }
+}
+
 output "cf_api_token" {
   value     = cloudflare_api_token.cdntls.value
+  sensitive = true
+}
+
+output "r2_api_token" {
+  value     = cloudflare_api_token.r2.value
   sensitive = true
 }

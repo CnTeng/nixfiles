@@ -3,8 +3,6 @@ with lib;
 rec {
   removeHashTag = hex: removePrefix "#" hex;
 
-  toRgb = rgb: "${toString rgb.r}, ${toString rgb.g}, ${toString rgb.b}";
-
   toDec =
     hex:
     let
@@ -28,7 +26,7 @@ rec {
     in
     toString (foldl (x: y: x * 16 + y) 0 values);
 
-  toRgb' =
+  toRgb =
     hex:
     let
       matchHex = builtins.match "([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})";

@@ -15,17 +15,17 @@ in
   options.desktop'.profiles.idle.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    security.pam.services.swaylock = { };
+    security.pam.services.gtklock = { };
 
     home-manager.users.${user} = {
       programs.swaylock =
         with palette;
         let
           mkBaseColor = n: {
-            "${n}-color" = base.hex + "e6";
-            "${n}-clear-color" = base.hex + "e6";
-            "${n}-ver-color" = base.hex + "e6";
-            "${n}-wrong-color" = base.hex + "e6";
+            "${n}-color" = dark_1 + "e6";
+            "${n}-clear-color" = dark_1 + "e6";
+            "${n}-ver-color" = dark_1 + "e6";
+            "${n}-wrong-color" = dark_1 + "e6";
           };
         in
         {
@@ -38,20 +38,20 @@ in
             # Appearance
             indicator = true;
             clock = true;
-            image = toString config.desktop'.profiles.wallpaper.image;
+            screenshots = true;
 
             font = "RobotoMono Nerd Font";
             font-size = 50;
             indicator-radius = 120;
 
-            key-hl-color = blue.hex;
-            bs-hl-color = red.hex;
-            separator-color = base.hex + "e6";
+            key-hl-color = blue_1;
+            bs-hl-color = red_1;
+            separator-color = dark_1 + "e6";
 
-            text-color = text.hex;
-            text-clear-color = teal.hex;
-            text-ver-color = green.hex;
-            text-wrong-color = red.hex;
+            text-color = light_1;
+            text-clear-color = blue_1;
+            text-ver-color = green_1;
+            text-wrong-color = red_1;
           } // mkBaseColor "inside" // mkBaseColor "line" // mkBaseColor "ring";
         };
 
@@ -70,7 +70,11 @@ in
         events = [
           {
             event = "lock";
-            command = (getExe pkgs.playerctl + " pause; ") + getExe pkgs.swaylock-effects;
+            command = getExe pkgs.playerctl + " pause";
+          }
+          {
+            event = "lock";
+            command = getExe pkgs.gtklock + " -d -S";
           }
         ];
       };

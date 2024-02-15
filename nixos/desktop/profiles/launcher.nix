@@ -1,13 +1,13 @@
 {
   config,
   lib,
+  pkgs,
   user,
   ...
 }:
 with lib;
 let
   cfg = config.desktop'.profiles.launcher;
-  inherit (config.core'.colors) palette;
 in
 {
   options.desktop'.profiles.launcher.enable = mkEnableOption' { };
@@ -16,34 +16,29 @@ in
     home-manager.users.${user} =
       { config, ... }:
       {
-        programs.fuzzel = {
-          enable = true;
-          settings = {
-            main = {
-              font = "RobotoMono Nerd Font:size=15";
-              icon-theme = "Papirus-Dark";
-              lines = 5;
-              width = 50;
-            };
-            colors = with palette; {
-              background = removeHashTag base.hex + "e6";
-              text = removeHashTag text.hex + "ff";
-              match = removeHashTag blue.hex + "ff";
-              selection = removeHashTag surface1.hex + "ff";
-              selection-text = removeHashTag text.hex + "ff";
-              selection-match = removeHashTag blue.hex + "ff";
-              border = removeHashTag text.hex + "e6";
-            };
-            key-bindings = {
-              cancel = "Control+bracketleft Escape";
-              delete-line = "none";
-              prev = "Up Control+p Control+k";
-              next = "Down Control+n Control+j";
-            };
-          };
-        };
+        home.packages = [ pkgs.tofi ];
+        xdg.configFile."tofi/config".text = ''
+          font = RobotoMono Nerd Font
+          font-size = 12
 
-        wayland.windowManager.sway.config.menu = getExe config.programs.fuzzel.package;
+          width = 100%
+          height = 50
+
+          anchor = top
+          fuzzy-match = true
+          drun-launch = true 
+
+          horizontal = true
+          prompt-text = " Run: "
+          outline-width = 0
+          border-width = 0
+          min-input-width = 120
+          result-spacing = 15
+          corner-radius = 10
+          margin-top = 30
+        '';
+
+        wayland.windowManager.sway.config.menu = getExe' pkgs.tofi "tofi-drun";
       };
   };
 }

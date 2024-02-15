@@ -7,6 +7,7 @@ locals {
 
   web_rec = {
     "@"   = { value = module.hcloud["rxhc0"].ipv4 }
+    book  = { value = module.hcloud["rxhc0"].ipv4 }
     rss   = { value = module.hcloud["rxhc0"].ipv4 }
     ntfy  = { value = module.hcloud["rxhc0"].ipv4 }
     vault = { value = module.hcloud["rxhc0"].ipv4 }

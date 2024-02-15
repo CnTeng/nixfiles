@@ -1,14 +1,13 @@
 { config, lib, ... }:
 with lib;
 let
-  server = config.services'.tuic-server;
-  client = config.services'.tuic-client;
+  inherit (config.services'.tuic) server client;
   port = 1080;
 in
 {
-  options.services' = {
-    tuic-server.enable = mkEnableOption' { };
-    tuic-client.enable = mkEnableOption' { };
+  options.services'.tuic = {
+    server.enable = mkEnableOption' { };
+    client.enable = mkEnableOption' { };
   };
 
   config = mkIf (server.enable || client.enable) {
@@ -22,7 +21,7 @@ in
       };
 
       tuic-ip = mkIf client.enable {
-        key = "outputs/hosts/value/rxhc0/ipv4";
+        key = "outputs/hosts/value/rxls0/ipv4";
         sopsFile = config.sops-file.infra;
         restartUnits = [ "sing-box.service" ];
       };

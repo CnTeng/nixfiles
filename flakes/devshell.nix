@@ -60,7 +60,6 @@
                   echo -e "\n\033[31msops: encryption failed\033[0m"
                 fi
               fi
-
             '';
           };
         in

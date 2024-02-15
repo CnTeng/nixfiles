@@ -7,14 +7,14 @@
 with lib;
 let
   cfg = config.desktop'.profiles.inputMethod;
-
-  inherit (config.core'.colors) flavour;
 in
 {
   options.desktop'.profiles.inputMethod.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
     services.xserver.xkb.options = "ctrl:nocaps";
+    console.useXkbConfig = true;
+
     environment.pathsToLink = [ "/share/fcitx5" ];
 
     i18n.inputMethod.enabled = "fcitx5";
@@ -22,7 +22,6 @@ in
       addons = with pkgs; [
         fcitx5-chinese-addons
         fcitx5-pinyin-zhwiki
-        fcitx5-catppuccin
       ];
       settings = {
         globalOptions = {
@@ -44,7 +43,7 @@ in
             Font = ''"Sarasa UI SC 11"'';
             MenuFont = ''"Sarasa UI SC 11"'';
             TrayFont = ''"Sarasa UI SC 11"'';
-            Theme = "catppuccin-${toLower flavour}";
+            UseDarkTheme = "True";
             EnableFractionalScale = "False";
           };
           pinyin.globalSection = {

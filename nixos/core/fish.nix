@@ -3,15 +3,11 @@
   lib,
   pkgs,
   user,
-  themes,
   ...
 }:
 with lib;
 let
   cfg = config.core'.fish;
-
-  inherit (config.core'.colors) flavour;
-  inherit (themes) fishTheme;
 in
 {
   options.core'.fish.enable = mkEnableOption' { default = true; };
@@ -36,11 +32,7 @@ in
             inherit (pkgs.fishPlugins.fzf-fish) src;
           }
         ];
-        interactiveShellInit = ''
-          fish_config theme choose "Catppuccin ${flavour}"
-        '';
       };
-      xdg.configFile."fish/themes".source = "${fishTheme}/themes";
     };
   };
 }

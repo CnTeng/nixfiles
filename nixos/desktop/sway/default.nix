@@ -8,8 +8,6 @@
 with lib;
 let
   cfg = config.desktop'.sway;
-  inherit (config.core'.colors) palette;
-  inherit (config.desktop'.profiles.wallpaper) image;
 in
 {
   imports = [ ../profiles ];
@@ -26,7 +24,6 @@ in
     };
 
     desktop'.profiles = {
-      console.enable = true;
       fonts.enable = true;
       idle.enable = true;
       inputMethod.enable = true;
@@ -38,7 +35,6 @@ in
       theme.enable = true;
       utils.enable = true;
       variables.enable = true;
-      wallpaper.enable = true;
       waybar.enable = true;
       wireless.enable = true;
       xdg.enable = true;
@@ -58,7 +54,7 @@ in
                 "RobotoMono Nerd Font"
                 "Sarasa UI SC"
               ];
-              size = 11.0;
+              size = 10.0;
             };
             window = {
               titlebar = false;
@@ -68,15 +64,7 @@ in
             assigns = { };
             workspaceAutoBackAndForth = true;
             modifier = "Mod4";
-            colors = {
-              focused = {
-                border = palette.text.hex;
-                background = palette.base.hex;
-                text = palette.text.hex;
-                indicator = palette.blue.hex;
-                childBorder = palette.text.hex;
-              };
-            };
+            colors = { };
             bars = [ ];
             startup = [
               {
@@ -89,7 +77,7 @@ in
               outer = 3;
               smartGaps = true;
             };
-            terminal = getExe pkgs.kitty;
+            terminal = getExe pkgs.wezterm;
             keybindings =
               let
                 inherit (config.wayland.windowManager.sway.config) modifier menu;
@@ -128,12 +116,19 @@ in
               };
               "type:keyboard".xkb_options = "ctrl:nocaps";
             };
-            output = {
-              "*".bg = "${image} fill";
-              eDP-1.scale = "1.25";
-              "Dell Inc. DELL U2518D 3M7K8013ARCL".scale = "1.25";
-              "Dell Inc. DELL U2723QX 843R0P3".scale = "1.75";
-            };
+            output =
+              let
+                image = pkgs.fetchurl {
+                  url = "https://w.wallhaven.cc/full/l8/wallhaven-l8dgv2.jpg";
+                  sha256 = "sha256-dHTiXhzyju9yPVCixe7VMOG9T9FyQG/Hm79zhe0P4wk=";
+                };
+              in
+              {
+                "*".bg = "${image} fill";
+                eDP-1.scale = "1.25";
+                "Dell Inc. DELL U2518D 3M7K8013ARCL".scale = "1.25";
+                "Dell Inc. DELL U2723QX 843R0P3".scale = "1.75";
+              };
             modes.exit = {
               l = "exec loginctl lock-session; mode default";
               q = "exec systemctl --user stop sway-session.target; loginctl terminate-session $XDG_SESSION_ID";

@@ -1,24 +1,4 @@
 {
-    "fcitx5-catppuccin": {
-        "cargoLocks": null,
-        "date": "2022-10-05",
-        "extract": null,
-        "name": "fcitx5-catppuccin",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "fcitx5",
-            "rev": "ce244cfdf43a648d984719fdfd1d60aab09f5c97",
-            "sha256": "sha256-uFaCbyrEjv4oiKUzLVFzw+UY54/h7wh2cntqeyYwGps=",
-            "type": "github"
-        },
-        "version": "ce244cfdf43a648d984719fdfd1d60aab09f5c97"
-    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "date": null,
@@ -33,46 +13,6 @@
             "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20240210.dict"
         },
         "version": "20240210"
-    },
-    "fishTheme": {
-        "cargoLocks": null,
-        "date": "2023-11-02",
-        "extract": null,
-        "name": "fishTheme",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "fish",
-            "rev": "0ce27b518e8ead555dec34dd8be3df5bd75cff8e",
-            "sha256": "sha256-Dc/zdxfzAUM5NX8PxzfljRbYvO9f9syuLO8yBr+R3qg=",
-            "type": "github"
-        },
-        "version": "0ce27b518e8ead555dec34dd8be3df5bd75cff8e"
-    },
-    "palette": {
-        "cargoLocks": null,
-        "date": "2024-02-12",
-        "extract": null,
-        "name": "palette",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "palette",
-            "rev": "e44233ceae6809d50cba3c0c95332cc87ffff022",
-            "sha256": "sha256-96ZO0LBN9z0+sIg3mdFI6kNSgX3R2x3bND9KzyYpFy4=",
-            "type": "github"
-        },
-        "version": "e44233ceae6809d50cba3c0c95332cc87ffff022"
     },
     "ttf-ms-win10": {
         "cargoLocks": null,

@@ -28,7 +28,7 @@ in
     '';
 
     i18n.supportedLocales = [
-      "C.UTF-8/UTF-8"
+      (config.i18n.defaultLocale + "/UTF-8")
       "zh_CN.GBK/GBK"
     ];
   };

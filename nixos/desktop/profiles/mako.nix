@@ -18,17 +18,17 @@ in
       {
         services.mako = with palette; {
           enable = true;
-          backgroundColor = base.hex + "e6";
-          textColor = text.hex;
+          backgroundColor = dark_4 + "e6";
+          textColor = light_1;
           iconPath = config.gtk.iconTheme.package + "/share/icons/Papirus-Dark";
-          borderColor = text.hex;
-          progressColor = "over " + surface0.hex;
+          borderColor = light_1;
+          progressColor = "over " + dark_1;
           margin = "0";
           extraConfig = ''
             outer-margin=5
 
             [urgency=high]
-            border-color=${peach.hex}
+            border-color=${red_1}
           '';
 
           width = 300;

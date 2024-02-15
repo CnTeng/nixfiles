@@ -10,21 +10,13 @@
     let
       lib = pkgs.lib.extend (self.overlays.lib);
       user = "yufei";
-
-      sources = pkgs.callPackage ../overlays/_sources/generated.nix { };
-      themes = with lib; genAttrs (attrNames sources) (n: sources.${n}.src);
     in
     {
       colmenaHive = inputs.colmena.lib.makeHive {
         meta = {
           nixpkgs = pkgs;
           specialArgs = {
-            inherit
-              inputs
-              lib
-              themes
-              user
-              ;
+            inherit inputs lib user;
           };
         };
 
