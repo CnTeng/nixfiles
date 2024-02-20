@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.programs'.wezterm;
-  inherit (config.core'.colors) flavour;
+
   luaFormat = lib.generators.toLua { };
   inherit (lib.generators) mkLuaInline;
 in
@@ -52,7 +52,7 @@ in
               font_size = 10.0;
             };
 
-            color_scheme = "Catppuccin ${flavour}";
+            color_scheme = "Apple System Colors";
           };
       };
     };

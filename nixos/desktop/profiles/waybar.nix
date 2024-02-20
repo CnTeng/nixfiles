@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.desktop'.profiles.waybar;
 
-  inherit (config.core'.colors) palette;
+  inherit (config.desktop'.profiles) palette;
 
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
 in

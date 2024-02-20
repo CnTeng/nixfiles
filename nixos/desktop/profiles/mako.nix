@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.desktop'.profiles.mako;
-  inherit (config.core'.colors) palette;
+  inherit (config.desktop'.profiles) palette;
 in
 {
   options.desktop'.profiles.mako.enable = mkEnableOption' { };

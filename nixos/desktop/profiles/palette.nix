@@ -1,26 +1,13 @@
 { lib, ... }:
 with lib;
 {
-  options.core'.colors = {
-    flavour = mkOption {
-      default = "Mocha";
-      type = types.enum [
-        "Latte"
-        "Frappe"
-        "Macchiato"
-        "Mocha"
-      ];
-      visible = false;
-    };
-
-    palette = mkOption {
-      default = { };
-      type = types.attrs;
-      visible = false;
-    };
+  options.desktop'.profiles.palette = mkOption {
+    default = { };
+    type = types.attrs;
+    visible = false;
   };
 
-  config.core'.colors.palette = {
+  config.desktop'.profiles.palette = {
     blue_1 = "#99c1f1";
     blue_2 = "#62a0ea";
     blue_3 = "#3584e4";
@@ -61,6 +48,7 @@ with lib;
     light_3 = "#deddda";
     light_4 = "#c0bfbc";
     light_5 = "#9a9996";
+    dark_0 = "#242424";
     dark_1 = "#77767b";
     dark_2 = "#5e5c64";
     dark_3 = "#3d3846";
