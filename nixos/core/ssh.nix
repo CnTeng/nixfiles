@@ -57,8 +57,8 @@ in
             defaultConfig = {
               inherit user;
               identityFile = [
-                "~/.ssh/id_ed25519_sk_rk_auth@NixOS"
-                "~/.ssh/id_ed25519_sk_backup@NixOS"
+                "~/.ssh/id_ed25519_sk_rk_nixos"
+                "~/.ssh/id_ed25519_sk_nixos"
               ];
             };
           in
