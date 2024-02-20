@@ -9,6 +9,14 @@
       sha256 = "sha256-vNHS5n3TqSwpUx2wG26w7rK6jSqrvLANeG2n0vA4iYk=";
     };
   };
+  naive = {
+    pname = "naive";
+    version = "v122.0.6261.43-1";
+    src = fetchurl {
+      url = "https://github.com/klzgrad/naiveproxy/releases/download/v122.0.6261.43-1/naiveproxy-v122.0.6261.43-1-linux-x64.tar.xz";
+      sha256 = "sha256-m0yJO/ufu6gx9D2d54Dyh1i/q0oev7mZDkcLEFsZIEY=";
+    };
+  };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
     version = "417eb232e8d037964971ae2690560a7b12e5f0d4";
