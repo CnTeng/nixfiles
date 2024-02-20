@@ -35,6 +35,7 @@ in
       services.clipman.enable = true;
 
       services.playerctld.enable = true;
+      services.swayosd.enable = true;
     };
   };
 }

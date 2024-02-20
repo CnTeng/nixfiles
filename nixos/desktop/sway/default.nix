@@ -82,11 +82,10 @@ in
               let
                 inherit (config.wayland.windowManager.sway.config) modifier menu;
 
+                swayosd = getExe' pkgs.swayosd "swayosd-client";
                 grimblast = getExe pkgs.grimblast;
                 nautilus = getExe' pkgs.gnome.nautilus "nautilus";
-                brillo = getExe pkgs.brillo;
                 playerctl = getExe pkgs.playerctl;
-                pamixer = getExe pkgs.pamixer;
               in
               lib.mkOptionDefault {
                 "${modifier}+Shift+q" = "null";
@@ -98,16 +97,16 @@ in
 
                 Print = "exec ${grimblast} --notify --freeze copysave area";
 
-                XF86MonBrightnessUP = "exec ${brillo} -u 300000 -A 5";
-                XF86MonBrightnessDown = "exec ${brillo} -u 300000 -U 5";
+                XF86MonBrightnessUP = "exec ${swayosd} --brightness raise";
+                XF86MonBrightnessDown = "exec ${swayosd} --brightness lower";
 
                 XF86AudioNext = "exec ${playerctl} next";
                 XF86AudioPrev = "exec ${playerctl} previous";
                 XF86AudioPlay = "exec ${playerctl} play-pause";
                 XF86AudioStop = "exec ${playerctl} stop";
-                XF86AudioRaiseVolume = "exec ${pamixer} -i 10";
-                XF86AudioLowerVolume = "exec ${pamixer} -d 10";
-                XF86AudioMute = "exec ${pamixer} -t";
+                XF86AudioRaiseVolume = "exec ${swayosd} --output-volume raise";
+                XF86AudioLowerVolume = "exec ${swayosd} --output-volume lower";
+                XF86AudioMute = "exec ${swayosd} --output-volume mute-toggle";
               };
             input = {
               "type:touchpad" = {
