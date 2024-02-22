@@ -20,8 +20,8 @@ in
         owner = user;
         sopsFile = config.sops-file.infra;
       };
-      rxls0-ipv4 = {
-        key = "outputs/hosts/value/rxls0/ipv4";
+      lssg-ipv4 = {
+        key = "outputs/hosts/value/lssg/ipv4";
         owner = user;
         sopsFile = config.sops-file.infra;
       };
@@ -40,7 +40,7 @@ in
           '';
       in
       {
-        content = mkHost "rxhc0" + mkHost "rxls0";
+        content = mkHost "rxhc0" + mkHost "lssg";
         owner = user;
       };
 
@@ -64,7 +64,7 @@ in
           in
           {
             rxhc0 = defaultConfig;
-            rxls0 = defaultConfig;
+            lssg = defaultConfig;
           };
       };
     };

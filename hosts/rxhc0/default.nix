@@ -17,5 +17,6 @@
     vaultwarden.enable = true;
     restic.enable = true;
     tuic.server.enable = true;
+    naive.server.enable = true;
   };
 }

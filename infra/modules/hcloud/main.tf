@@ -89,5 +89,5 @@ output "ipv4" {
 }
 
 output "ipv6" {
-  value = hcloud_primary_ip.ipv6.ip_network
+  value = hcloud_primary_ip.ipv6.ip_address
 }

@@ -7,7 +7,7 @@ locals {
 }
 
 provider "aws" {
-  region     = "ap-northeast-1"
+  region     = "ap-southeast-1"
   access_key = local.secrets.aws.access_key
   secret_key = local.secrets.aws.secret_key
 }

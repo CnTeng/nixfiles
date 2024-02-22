@@ -39,7 +39,7 @@
           targetHost = null;
         };
 
-        rxls0.deployment = { };
+        lssg.deployment = { };
 
         rxhc0 = {
           deployment.buildOnTarget = true;

@@ -3,7 +3,7 @@ keys:
     - &yufei age1m9azc8t9pr8580e035dlcrpu5cqvt4q3fvshmkd4ym54sfpxrdwq2qjtpn
 
     - &rxdell age143mhvlqr6lxvmkd8pehuxufy0a9xt43wpp38fk80t77jpquzm3aqg7k48u
-    - &rxls0 age146nukhcpcv3prnxrhtfampz6cktsz98hmkve4nra0ywt0ytyepnsjng489
+    - &lssg age1acupz46dkd20nqq8mktc8v7chrws6hnvcw2r5hpyd35ajg2gtdhqfx9uf6
     - &rxhc0 age1g4rgsh5allvuqgm4xd2mjwyl6s8ap3g0c2n2528jxjd3238xx3ls6h98de
 
 creation_rules:
@@ -12,7 +12,7 @@ creation_rules:
       - age:
           - *yufei
           - *rxdell
-          - *rxls0
+          - *lssg
           - *rxhc0
 
   - path_regex: nixos/utils/.*
@@ -20,7 +20,7 @@ creation_rules:
       - age:
           - *yufei
           - *rxdell
-          - *rxls0
+          - *lssg
           - *rxhc0
 
   - path_regex: nixos/services/.*
@@ -28,7 +28,7 @@ creation_rules:
       - age:
           - *yufei
           - *rxdell
-          - *rxls0
+          - *lssg
           - *rxhc0
 
   - path_regex: infra/.*
@@ -36,5 +36,5 @@ creation_rules:
       - age:
           - *yufei
           - *rxdell
-          - *rxls0
+          - *lssg
           - *rxhc0

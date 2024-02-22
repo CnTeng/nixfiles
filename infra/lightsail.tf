@@ -1,6 +1,6 @@
 locals {
   rxls = {
-    rxls0 = { plan = "micro_3_0", region = "ap-northeast-1a" }
+    lssg = { plan = "nano_3_0", region = "ap-southeast-1a" }
   }
 }
 

@@ -26,7 +26,7 @@
 
       [Network]
       DHCP=ipv4
-      Address=${config.sops.placeholder.rxhc0-ipv6}
+      Address=${config.sops.placeholder.rxhc0-ipv6}/64
 
       [Route]
       Gateway=fe80::1
