@@ -76,8 +76,10 @@ in
             dns = {
               servers = [
                 {
-                  tag = "google";
-                  address = "tls://8.8.8.8";
+                  tag = "cloudflare";
+                  address = "https://1.1.1.1/dns-query";
+                  address_resolver = "local";
+                  detour = "proxy";
                 }
                 {
                   tag = "local";
@@ -110,10 +112,12 @@ in
                 uuid._secret = config.sops.secrets."tuic/uuid".path;
                 password._secret = config.sops.secrets."tuic/pass".path;
                 congestion_control = "bbr";
+                network = "tcp";
                 tls = {
                   enabled = true;
                   server_name = "tuic.snakepi.xyz";
                 };
+                tag = "proxy";
               }
               # {
               #   type = "socks";
@@ -159,6 +163,12 @@ in
               ];
               rule_set = [
                 {
+                  tag = "geosite-cn";
+                  type = "remote";
+                  format = "binary";
+                  url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs";
+                }
+                {
                   tag = "geoip-cn";
                   type = "remote";
                   format = "binary";
@@ -170,6 +180,11 @@ in
           };
         in
         optionalAttrs server.enable serverConfig // optionalAttrs client.enable clientConfig;
+    };
+
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.all.forwarding" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
     };
 
     networking.firewall.trustedInterfaces = [ "tun0" ];
