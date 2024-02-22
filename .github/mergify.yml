@@ -9,7 +9,7 @@ queue_rules:
       - check-success=Evaluate flake.nix
       - check-success=nixosConfig rxdell
       - check-success=nixosConfig rxhc0
-      - check-success=nixosConfig rxls0
+      - check-success=nixosConfig lssg
       - check-success=devShell default [x86_64-linux]
       - check-success=devShell default [aarch64-linux]
 
