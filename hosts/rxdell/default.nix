@@ -32,6 +32,5 @@
     openssh.enable = true;
     restic.enable = true;
     tuic.client.enable = true;
-    naive.client.enable = true;
   };
 }

@@ -14,21 +14,6 @@
         },
         "version": "20240210"
     },
-    "naive": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "naive",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-m0yJO/ufu6gx9D2d54Dyh1i/q0oev7mZDkcLEFsZIEY=",
-            "type": "url",
-            "url": "https://github.com/klzgrad/naiveproxy/releases/download/v122.0.6261.43-1/naiveproxy-v122.0.6261.43-1-linux-x64.tar.xz"
-        },
-        "version": "v122.0.6261.43-1"
-    },
     "ttf-ms-win10": {
         "cargoLocks": null,
         "date": "2021-02-10",

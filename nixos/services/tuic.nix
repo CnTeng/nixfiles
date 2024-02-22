@@ -119,12 +119,6 @@ in
                 };
                 tag = "proxy";
               }
-              # {
-              #   type = "socks";
-              #   server = "127.0.0.1";
-              #   server_port = 1081;
-              #   tag = "proxy";
-              # }
               {
                 type = "direct";
                 tag = "direct";
@@ -139,10 +133,6 @@ in
                 {
                   port = [ 53 ];
                   outbound = "dns-out";
-                }
-                {
-                  port = [ 1081 ];
-                  outbound = "direct";
                 }
                 {
                   protocol = "dns";
