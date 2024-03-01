@@ -5,12 +5,17 @@ prev.sway-unwrapped.overrideAttrs (
       (prev.fetchpatch {
         name = "0001-text_input-Implement-input-method-popups.patch";
         url = "https://aur.archlinux.org/cgit/aur.git/plain/0001-text_input-Implement-input-method-popups.patch?h=sway-im";
-        sha256 = "sha256-xrBnQhtA6LgyW0e0wKwymlMvx/JfrjBidq1a3GFKzZo=";
+        sha256 = "sha256-A+rBaWMWs616WllVoo21AJaf9lxg/oCG0b9tHLfuJII=";
       })
       (prev.fetchpatch {
-        name = "0002-backport-sway-im-to-v1.8.patch";
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/0002-backport-sway-im-to-v1.8.patch?h=sway-im";
-        sha256 = "sha256-IpyipHgoXl7vVmBpBULiS6WtieMfkeARB+930Fl+51c=";
+        name = "0002-chore-fractal-scale-handle.patch";
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/0002-chore-fractal-scale-handle.patch?h=sway-im";
+        sha256 = "sha256-YOFm0A4uuRSuiwnvF9xbp8Wl7oGicFGnq61vLegqJ0E=";
+      })
+      (prev.fetchpatch {
+        name = "0003-chore-left_pt-on-method-popup.patch";
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/0003-chore-left_pt-on-method-popup.patch?h=sway-im";
+        sha256 = "sha256-PzhQBRpyB1WhErn05UBtBfaDW5bxnQLRKWu8jy7dEiM=";
       })
     ];
   }
