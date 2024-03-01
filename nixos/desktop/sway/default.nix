@@ -15,12 +15,14 @@ in
   options.desktop'.sway.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    services.xserver.enable = true;
-
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
       extraOptions = [ "--unsupported-gpu" ];
+      extraPackages = with pkgs; [
+        xdg-utils
+        wl-clipboard
+      ];
     };
 
     desktop'.profiles = {
@@ -74,7 +76,6 @@ in
             gaps = {
               inner = 3;
               outer = 3;
-              smartGaps = true;
             };
             terminal = getExe pkgs.wezterm;
             keybindings =
@@ -89,6 +90,7 @@ in
               lib.mkOptionDefault {
                 "${modifier}+Shift+q" = "null";
                 "${modifier}+q" = "kill";
+                "${modifier}+p" = "exec ${getExe pkgs.hyprpicker} -a";
                 "${modifier}+d" = "null";
                 "${modifier}+e" = "exec ${nautilus}";
                 "${modifier}+space" = "exec ${menu}";

@@ -20,6 +20,7 @@ in
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
+
     home-manager.users.${user} = {
       services.network-manager-applet.enable = true;
       services.blueman-applet.enable = true;
