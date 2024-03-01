@@ -15,6 +15,10 @@ in
   options.programs'.wezterm.enable = mkEnableOption "wezterm";
 
   config = mkIf cfg.enable {
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".local/share/wezterm" ];
+    };
+
     home-manager.users.${user} = {
       programs.wezterm = {
         enable = true;

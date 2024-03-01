@@ -15,11 +15,11 @@ in
   config = mkIf cfg.enable {
     programs.direnv.enable = true;
 
-    programs.bash.blesh.enable = true;
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".local/share/zoxide" ];
+    };
 
     home-manager.users.${user} = {
-      programs.bash.enable = true;
-
       programs.zoxide.enable = true;
 
       home.packages = with pkgs; [

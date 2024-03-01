@@ -19,5 +19,9 @@ in
         plugins = with pkgs; [ obs-studio-plugins.wlrobs ];
       };
     };
+
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".config/obs-studio" ];
+    };
   };
 }

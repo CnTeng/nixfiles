@@ -7,8 +7,6 @@
 with lib;
 let
   cfg = config.core'.gpg;
-
-  inherit (config.hardware') persist;
 in
 {
   options.core'.gpg.enable = mkEnableOption' { default = true; };
@@ -16,7 +14,7 @@ in
   config = mkIf cfg.enable {
     programs.gnupg.agent.enable = true;
 
-    environment.persistence."/persist" = mkIf persist.enable {
+    environment.persistence."/persist" = {
       users.${user}.directories = [ ".gnupg" ];
     };
   };

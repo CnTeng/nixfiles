@@ -14,6 +14,10 @@ in
   options.utils'.tmux.enable = mkEnableOption' { default = true; };
 
   config = mkIf cfg.enable {
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".cache/zellij" ];
+    };
+
     home-manager.users.${user} = {
       programs.zellij.enable = true;
 

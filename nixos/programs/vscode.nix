@@ -19,5 +19,9 @@ in
         package = pkgs.vscode-fhs;
       };
     };
+
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".config/Code" ];
+    };
   };
 }

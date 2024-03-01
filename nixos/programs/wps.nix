@@ -21,5 +21,12 @@ in
     home-manager.users.${user} = {
       home.packages = [ pkgs.wpsoffice-cn ];
     };
+
+    environment.persistence."/persist" = {
+      users.${user}.directories = [
+        ".config/Kingsoft"
+        ".local/share/Kingsoft"
+      ];
+    };
   };
 }

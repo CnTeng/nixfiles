@@ -34,5 +34,9 @@ in
         ];
       };
     };
+
+    environment.persistence."/persist" = {
+      users.${user}.files = [ ".local/share/fish/fish_history" ];
+    };
   };
 }

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -20,17 +19,23 @@ in
 
     services.gnome.at-spi2-core.enable = true;
     services.gnome.gnome-keyring.enable = true;
-    services.upower.enable = true;
+
     services.dbus.implementation = "broker";
     services.gvfs.enable = true;
 
     # power
+    services.upower.enable = true;
     services.tlp.enable = true;
     services.thermald.enable = true;
 
-    home-manager.users.${user} = {
-      home.packages = [ pkgs.wl-clipboard ];
+    environment.persistence."/persist" = {
+      users.${user}.directories = [
+        ".local/share/keyrings"
+        ".local/state/wireplumber"
+      ];
+    };
 
+    home-manager.users.${user} = {
       services.udiskie.enable = true;
       services.clipman.enable = true;
 

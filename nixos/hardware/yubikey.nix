@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  user,
   ...
 }:
 with lib;
@@ -33,6 +34,13 @@ in
       enable = true;
       cue = true;
       authFile = config.sops.secrets.yubikey.path;
+    };
+
+    environment.persistence."/persist" = {
+      users.${user}.directories = [
+        ".config/Yubico"
+        ".local/share/com.yubico.authenticator"
+      ];
     };
   };
 }

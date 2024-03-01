@@ -82,8 +82,11 @@ in
       };
     };
 
-    environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
-      users.${user}.directories = [ ".thunderbird" ];
+    environment.persistence."/persist" = {
+      users.${user}.directories = [
+        ".thunderbird"
+        ".cache/thunderbird"
+      ];
     };
   };
 }

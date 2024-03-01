@@ -18,5 +18,9 @@ in
         config.theme = "OneHalfDark";
       };
     };
+
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".cache/bat" ];
+    };
   };
 }

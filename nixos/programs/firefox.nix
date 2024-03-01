@@ -8,7 +8,6 @@
 with lib;
 let
   cfg = config.programs'.firefox;
-  inherit (config.hardware') persist;
 in
 {
   options.programs'.firefox.enable = mkEnableOption "Firefox";
@@ -54,8 +53,11 @@ in
       nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     };
 
-    environment.persistence."/persist" = mkIf persist.enable {
-      users.${user}.directories = [ ".mozilla" ];
+    environment.persistence."/persist" = {
+      users.${user}.directories = [
+        ".mozilla"
+        ".cache/mozilla"
+      ];
     };
   };
 }

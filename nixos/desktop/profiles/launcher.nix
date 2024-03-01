@@ -41,5 +41,14 @@ in
 
         wayland.windowManager.sway.config.menu = getExe' pkgs.tofi "tofi-drun" + " | xargs swaymsg exec --";
       };
+
+    environment.persistence."/persist" = {
+      users.${user}.files = [
+        ".cache/tofi-compgen"
+        ".cache/tofi-drun"
+        ".local/state/tofi-drun-history"
+        ".local/state/tofi-history"
+      ];
+    };
   };
 }

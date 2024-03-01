@@ -16,5 +16,17 @@ in
     home-manager.users.${user} = {
       home.packages = [ pkgs.qtcreator ];
     };
+
+    environment.persistence."/persist" = {
+      users.${user} = {
+        files = [ ".config/QtProject.conf" ];
+        directories = [
+          ".config/clangd"
+          ".config/QtProject"
+          ".cache/clangd"
+          ".cache/QtProject"
+        ];
+      };
+    };
   };
 }

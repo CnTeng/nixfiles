@@ -20,5 +20,9 @@ in
         indicator = true;
       };
     };
+
+    environment.persistence."/persist" = {
+      users.${user}.directories = [ ".config/kdeconnect" ];
+    };
   };
 }

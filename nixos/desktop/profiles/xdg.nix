@@ -2,7 +2,6 @@
   config,
   lib,
   user,
-  pkgs,
   ...
 }:
 with lib;
@@ -13,10 +12,6 @@ in
   options.desktop'.profiles.xdg.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-    environment.systemPackages = [ pkgs.xdg-utils ];
-
     home-manager.users.${user} = {
       xdg.enable = true;
       xdg.userDirs = {
@@ -52,6 +47,7 @@ in
         "Downloads"
         "Music"
         "Pictures"
+        "Projects"
         "Public"
         "Templates"
         "Videos"

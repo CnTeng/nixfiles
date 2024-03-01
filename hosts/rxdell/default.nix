@@ -13,7 +13,6 @@
     chrome.enable = true;
     evince.enable = true;
     firefox.enable = true;
-    foliate.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
     obs.enable = true;
@@ -21,10 +20,10 @@
     qtcreator.enable = true;
     serial.enable = true;
     steam.enable = true;
-    vscode.enable = true;
-    wps.enable = true;
     thunderbird.enable = true;
+    vscode.enable = true;
     wezterm.enable = true;
+    wps.enable = true;
   };
 
   services' = {
