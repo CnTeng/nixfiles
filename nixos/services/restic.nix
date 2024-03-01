@@ -29,12 +29,31 @@ in
         "restic/rclone".sopsFile = ./secrets.yaml;
         "restic/password".sopsFile = ./secrets.yaml;
         "restic/ntfy".sopsFile = ./secrets.yaml;
+        r2-endpoint = {
+          key = "outputs/r2/value/endpoint";
+          sopsFile = config.sops-file.infra;
+        };
+        r2-access-key = {
+          key = "outputs/r2/value/access_key";
+          sopsFile = config.sops-file.infra;
+        };
+        r2-secret-key = {
+          key = "outputs/r2/value/secret_key";
+          sopsFile = config.sops-file.infra;
+        };
       };
+
+      sops.templates."restic/repository".content = "s3:${config.sops.placeholder.r2-endpoint}/persist/${hostName}";
+
+      sops.templates."restic/environment".content = ''
+        AWS_ACCESS_KEY_ID=${config.sops.placeholder.r2-access-key}
+        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder.r2-secret-key}
+      '';
 
       services.restic.backups.persist = {
         passwordFile = config.sops.secrets."restic/password".path;
-        rcloneConfigFile = config.sops.secrets."restic/rclone".path;
-        repository = "rclone:onedrive:Backups/persist/${hostName}";
+        environmentFile = config.sops.templates."restic/environment".path;
+        repositoryFile = config.sops.templates."restic/repository".path;
         paths = [ "/persist" ];
         exclude = [
           "/persist/home/*/OneDrive"

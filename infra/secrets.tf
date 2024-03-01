@@ -19,3 +19,19 @@ provider "hcloud" {
 provider "cloudflare" {
   api_token = local.secrets.cloudflare.api_token
 }
+
+provider "aws" {
+  alias  = "r2"
+  region = "us-east-1"
+
+  skip_credentials_validation = true
+  skip_region_validation      = true
+  skip_requesting_account_id  = true
+
+  access_key = local.secrets.cloudflare.r2_access_key
+  secret_key = local.secrets.cloudflare.r2_secret_key
+
+  endpoints {
+    s3 = "https://${local.secrets.cloudflare.account_id}.r2.cloudflarestorage.com"
+  }
+}
