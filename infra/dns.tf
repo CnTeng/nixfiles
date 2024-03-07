@@ -6,14 +6,11 @@ locals {
   }
 
   web_rec = {
-    "@"   = { value = module.hcloud["rxhc0"].ipv4 }
-    book  = { value = module.hcloud["rxhc0"].ipv4 }
-    rss   = { value = module.hcloud["rxhc0"].ipv4 }
-    ntfy  = { value = module.hcloud["rxhc0"].ipv4 }
-    vault = { value = module.hcloud["rxhc0"].ipv4 }
-    www   = { value = module.hcloud["rxhc0"].ipv4 }
-    rxhc0 = { value = module.hcloud["rxhc0"].ipv4, proxied = false }
-    lssg  = { value = module.lightsail["lssg"].ipv4, proxied = false }
+    "@"   = { value = module.hcloud["hcax"].ipv4 }
+    rss   = { value = module.hcloud["hcax"].ipv4 }
+    ntfy  = { value = module.hcloud["hcax"].ipv4 }
+    vault = { value = module.hcloud["hcax"].ipv4 }
+    www   = { value = module.hcloud["hcax"].ipv4 }
     tuic  = { value = module.lightsail["lssg"].ipv4, proxied = false }
   }
 }

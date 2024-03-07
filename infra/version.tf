@@ -1,11 +1,11 @@
 terraform {
   required_providers {
-    sops = { source = "carlpett/sops" }
-
-    aws = { source = "hashicorp/aws" }
-
-    hcloud = { source = "hetznercloud/hcloud" }
-
+    aws        = { source = "hashicorp/aws" }
     cloudflare = { source = "cloudflare/cloudflare" }
+    external   = { source = "hashicorp/external" }
+    hcloud     = { source = "hetznercloud/hcloud" }
+    null       = { source = "hashicorp/null" }
+    sops       = { source = "carlpett/sops" }
+    tls        = { source = "hashicorp/tls" }
   }
 }
