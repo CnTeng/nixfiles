@@ -41,7 +41,7 @@
 
         lssg.deployment = { };
 
-        rxhc0 = {
+        hcax = {
           deployment.buildOnTarget = true;
           nixpkgs.system = "aarch64-linux";
         };
