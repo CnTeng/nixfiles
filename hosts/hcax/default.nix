@@ -10,11 +10,8 @@
     miniflux.enable = true;
     ntfy.enable = true;
     # onedrive.enable = true;
-    openssh.enable = true;
     vaultwarden.enable = true;
     restic.enable = true;
     tuic.server.enable = true;
   };
-
-  utils'.neovim.enable = false;
 }

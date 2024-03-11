@@ -7,14 +7,12 @@ with lib;
       exclude ? [ ],
     }:
     map (n: dir + "/${n}") (
-      subtractLists
-        (
-          [
-            "default.nix"
-            "secrets.yaml"
-          ]
-          ++ exclude
-        )
-        (attrNames (builtins.readDir dir))
+      subtractLists (
+        [
+          "default.nix"
+          "secrets.yaml"
+        ]
+        ++ exclude
+      ) (attrNames (builtins.readDir dir))
     );
 }

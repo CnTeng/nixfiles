@@ -13,8 +13,3 @@ resource "cloudflare_api_token" "cdntls" {
     }
   }
 }
-
-output "cf_api_token" {
-  value     = cloudflare_api_token.cdntls.value
-  sensitive = true
-}

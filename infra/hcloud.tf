@@ -13,6 +13,7 @@ module "hcloud" {
 }
 
 module "nixos" {
+  depends_on  = [null_resource.output]
   source      = "./modules/nixos"
   for_each    = local.rxhc
   hostname    = each.key

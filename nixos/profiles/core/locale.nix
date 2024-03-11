@@ -1,0 +1,4 @@
+{ ... }:
+{
+  time.timeZone = "Asia/Shanghai";
+}

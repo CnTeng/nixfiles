@@ -12,11 +12,8 @@ in
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
   hardware' = {
-    network.enable = true;
     nvidia.enable = true;
-    optimise.enable = true;
     persist.enable = true;
-    yubikey.enable = true;
   };
 
   boot = {
@@ -41,4 +38,6 @@ in
   hardware.enableRedistributableFirmware = true;
 
   services.fwupd.enable = true;
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

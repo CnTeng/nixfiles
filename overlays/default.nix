@@ -16,12 +16,10 @@
           f: dir:
           with builtins;
           listToAttrs (
-            map
-              (name: {
-                inherit name;
-                value = f dir name;
-              })
-              (attrNames (readDir ./${dir}))
+            map (name: {
+              inherit name;
+              value = f dir name;
+            }) (attrNames (readDir ./${dir}))
           );
       in
       (mkOverlay mkPackage "packages") // (mkOverlay mkOverride "overrides");

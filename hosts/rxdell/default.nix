@@ -24,11 +24,11 @@
     vscode.enable = true;
     wezterm.enable = true;
     wps.enable = true;
+    yubikey.enable = true;
   };
 
   services' = {
     onedrive.enable = true;
-    openssh.enable = true;
     restic.enable = true;
     tuic.client.enable = true;
   };

@@ -6,7 +6,7 @@ prev.caddy.override {
       args
       // {
         vendorHash = "sha256-dnKAwOrQkICkUVsyWJO+o2N4HcImLaL+fPyq8hUd5/8=";
-        patches = [ ./caddy-with-plugins.patch ];
+        patches = [ ./caddy-with-plugins.diff ];
       }
     );
 }

@@ -9,9 +9,8 @@
       bootSize = "1G";
       swapSize = "4G";
     };
-    network.enable = true;
-    optimise.enable = true;
     persist.enable = true;
+    remote-unlock.enable = true;
   };
 
   boot.initrd.kernelModules = [ "virtio_gpu" ];
@@ -20,10 +19,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  sops.secrets.hcax-ipv6 = {
-    key = "outputs/hosts/value/hcax/ipv6";
-    sopsFile = config.sops-file.infra;
-  };
+  sops.secrets.hcax-ipv6 = { };
 
   networking = {
     useDHCP = false;
@@ -45,9 +41,4 @@
     owner = "systemd-network";
   };
   environment.etc."systemd/network/40-enp1s0.network".source = config.sops.templates.enp1s0.path;
-
-  boot.initrd.network.enable = true;
-  boot.initrd.network.udhcpc.enable = true;
-
-  systemd.network.enable = true;
 }

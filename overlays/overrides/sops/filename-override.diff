@@ -1,0 +1,2320 @@
+diff --git a/.github/workflows/cli.yml b/.github/workflows/cli.yml
+index ef5e63a19..61da5432c 100644
+--- a/.github/workflows/cli.yml
++++ b/.github/workflows/cli.yml
+@@ -28,7 +28,7 @@ jobs:
+       VAULT_ADDR: "http://127.0.0.1:8200"
+     steps:
+       - name: Set up Go 1.20
+-        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
++        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+         with:
+           go-version: '1.20'
+         id: go
+diff --git a/.github/workflows/release.yml b/.github/workflows/release.yml
+index 0c39f8393..eea4c9a5e 100644
+--- a/.github/workflows/release.yml
++++ b/.github/workflows/release.yml
+@@ -30,16 +30,16 @@ jobs:
+           fetch-depth: 0
+ 
+       - name: Setup Go
+-        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.0.1
++        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v4.0.1
+         with:
+           go-version: 1.20.x
+           cache: false
+ 
+       - name: Setup Syft
+-        uses: anchore/sbom-action/download-syft@78fc58e266e87a38d4194b2137a3d4e9bcaf7ca1 # v0.14.3
++        uses: anchore/sbom-action/download-syft@5ecf649a417b8ae17dc8383dc32d46c03f2312df # v0.15.1
+ 
+       - name: Setup Cosign
+-        uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
++        uses: sigstore/cosign-installer@1fc5bd396d372bee37d608f955b336615edf79c8 # v3.2.0
+ 
+       - name: Setup QEMU
+         uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3.0.0
+diff --git a/README.rst b/README.rst
+index c6a40453b..82cf622d4 100644
+--- a/README.rst
++++ b/README.rst
+@@ -203,7 +203,7 @@ configuration directory. On Linux, this would be ``$XDG_CONFIG_HOME/sops/age/key
+ On macOS, this would be ``$HOME/Library/Application Support/sops/age/keys.txt``. On
+ Windows, this would be ``%AppData%\sops\age\keys.txt``. You can specify the location
+ of this file manually by setting the environment variable **SOPS_AGE_KEY_FILE**.
+-Alternatively you can provide the the key(s) directly by setting the **SOPS_AGE_KEY**
++Alternatively, you can provide the key(s) directly by setting the **SOPS_AGE_KEY**
+ environment variable.
+ 
+ The contents of this key file should be a list of age X25519 identities, one
+@@ -483,7 +483,7 @@ with the freshly added master keys. The removed entries are simply deleted from
+ the file.
+ 
+ When removing keys, it is recommended to rotate the data key using ``-r``,
+-otherwise owners of the removed key may have add access to the data key in the
++otherwise, owners of the removed key may have add access to the data key in the
+ past.
+ 
+ KMS AWS Profiles
+@@ -566,7 +566,7 @@ SOPS has the ability to use `AWS KMS key policy and encryption context
+ <http://docs.aws.amazon.com/kms/latest/developerguide/encryption-context.html>`_
+ to refine the access control of a given KMS master key.
+ 
+-When creating a new file, you can specify encryption context in the
++When creating a new file, you can specify the encryption context in the
+ ``--encryption-context`` flag by comma separated list of key-value pairs:
+ 
+ .. code:: sh
+@@ -776,6 +776,7 @@ like so:
+                       context:
+                           foo: bar
+                     - arn: arn2
++                      aws_profile: myprofile
+               # Second key group
+               - pgp:
+                     - fingerprint3
+@@ -818,6 +819,7 @@ with ``shamir_threshold``:
+                       context:
+                           foo: bar
+                     - arn: arn2
++                      aws_profile: myprofile
+               # Second key group
+               - pgp:
+                     - fingerprint3
+@@ -975,7 +977,7 @@ written to disk.
+ 
+ 
+ If the command you want to run only operates on files, you can use ``exec-file``
+-instead. By default SOPS will use a FIFO to pass the contents of the
++instead. By default, SOPS will use a FIFO to pass the contents of the
+ decrypted file to the new program. Using a FIFO, secrets are only passed in
+ memory which has two benefits: the plaintext secrets never touch the disk, and
+ the child process can only read the secrets once. In contexts where this won't
+@@ -1092,8 +1094,8 @@ configuring the client.
+ ``vault_kv_mount_name`` is used if your Vault KV is mounted somewhere other than ``secret/``.
+ ``vault_kv_version`` supports ``1`` and ``2``, with ``2`` being the default.
+ 
+-If destination secret path already exists in Vault and contains same data as the source file, it
+-will be skipped.
++If the destination secret path already exists in Vault and contains the same data as the source
++file, it will be skipped.
+ 
+ Below is an example of publishing to Vault (using token auth with a local dev instance of Vault).
+ 
+@@ -1128,15 +1130,15 @@ Below is an example of publishing to Vault (using token auth with a local dev in
+ Important information on types
+ ------------------------------
+ 
+-YAML and JSON type extensions
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++YAML, JSON, ENV and INI type extensions
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ SOPS uses the file extension to decide which encryption method to use on the file
+ content. ``YAML``, ``JSON``, ``ENV``, and ``INI`` files are treated as trees of data, and key/values are
+ extracted from the files to only encrypt the leaf values. The tree structure is also
+ used to check the integrity of the file.
+ 
+-Therefore, if a file is encrypted using a specific format, it need to be decrypted
++Therefore, if a file is encrypted using a specific format, it needs to be decrypted
+ in the same format. The easiest way to achieve this is to conserve the original file
+ extension after encrypting a file. For example:
+ 
+@@ -1160,8 +1162,44 @@ When operating on stdin, use the ``--input-type`` and ``--output-type`` flags as
+ 
+     $ cat myfile.json | sops --input-type json --output-type json -d /dev/stdin
+ 
++JSON and JSON_binary indentation
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++SOPS indents ``JSON`` files by default using one ``tab``. However, you can change
++this default behaviour to use ``spaces`` by either using the additional ``--indent=2`` CLI option or
++by configuring ``.sops.yaml`` with the code below.
++
++The special value ``0`` disables indentation, and ``-1`` uses a single tab.
++
++.. code:: yaml
++
++  stores:
++      json:
++          indent: 2
++      json_binary:
++          indent: 2
++
++YAML indentation
++~~~~~~~~~~~~~~~~
++
++SOPS indents ``YAML`` files by default using 4 spaces. However, you can change
++this default behaviour by either using the additional ``--indent=2`` CLI option or
++by configuring ``.sops.yaml`` with:
++
++.. code:: yaml
++
++  stores:
++      yaml:
++          indent: 2
++
++.. note::
++
++  The YAML emitter used by sops only supports values between 2 and 9. If you specify 1,
++  or 10 and larger, the indent will be 2.
++
+ YAML anchors
+ ~~~~~~~~~~~~
++
+ SOPS only supports a subset of ``YAML``'s many types. Encrypting YAML files that
+ contain strings, numbers and booleans will work fine, but files that contain anchors
+ will not work, because the anchors redefine the structure of the file at load time.
+@@ -1191,7 +1229,7 @@ YAML Streams
+ formats like ``JSON`` do not. SOPS is able to handle both. This means the
+ following multi-document will be encrypted as expected:
+ 
+-.. code:: yaml
++.. code:: yaml-stream
+ 
+     ---
+     data: foo
+@@ -1425,6 +1463,9 @@ to any key of a file. When set, all values underneath the key that set the
+ Note that, while in cleartext, unencrypted content is still added to the
+ checksum of the file, and thus cannot be modified outside of SOPS without
+ breaking the file integrity check.
++This behavior can be modified using ``--mac-only-encrypted`` flag or ``.sops.yaml``
++config file which makes SOPS compute a MAC only over values it encrypted and
++not all values.
+ 
+ The unencrypted suffix can be set to a different value using the
+ ``--unencrypted-suffix`` option.
+@@ -1443,7 +1484,7 @@ will encrypt the values under the ``data`` and ``stringData`` keys in a YAML fil
+ containing kubernetes secrets.  It will not encrypt other values that help you to
+ navigate the file, like ``metadata`` which contains the secrets' names.
+ 
+-Conversely, you can opt in to only left certain keys without encrypting by using the 
++Conversely, you can opt in to only leave certain keys without encrypting by using the 
+ ``--unencrypted-regex`` option, which will leave the values unencrypted of those keys 
+ that match the supplied regular expression. For example, this command:
+ 
+@@ -1537,6 +1578,9 @@ In addition to authenticating branches of the tree using keys as additional
+ data, SOPS computes a MAC on all the values to ensure that no value has been
+ added or removed fraudulently. The MAC is stored encrypted with AES_GCM and
+ the data key under tree -> ``sops`` -> ``mac``.
++This behavior can be modified using ``--mac-only-encrypted`` flag or ``.sops.yaml``
++config file which makes SOPS compute a MAC only over values it encrypted and
++not all values.
+ 
+ Motivation
+ ----------
+diff --git a/age/keysource_test.go b/age/keysource_test.go
+index 62d0fcf78..1a07058a6 100644
+--- a/age/keysource_test.go
++++ b/age/keysource_test.go
+@@ -313,8 +313,8 @@ func TestMasterKey_loadIdentities(t *testing.T) {
+ 		tmpDir := t.TempDir()
+ 		overwriteUserConfigDir(t, tmpDir)
+ 
+-		// We need to use os.UserConfigDir and not tmpDir as it may add a suffix
+-		cfgDir, err := os.UserConfigDir()
++		// We need to use getUserConfigDir and not tmpDir as it may add a suffix
++		cfgDir, err := getUserConfigDir()
+ 		assert.NoError(t, err)
+ 		keyPath := filepath.Join(cfgDir, SopsAgeKeyUserConfigPath)
+ 		assert.True(t, strings.HasPrefix(keyPath, cfgDir))
+@@ -341,8 +341,8 @@ func TestMasterKey_loadIdentities(t *testing.T) {
+ 		tmpDir := t.TempDir()
+ 		overwriteUserConfigDir(t, tmpDir)
+ 
+-		// We need to use os.UserConfigDir and not tmpDir as it may add a suffix
+-		cfgDir, err := os.UserConfigDir()
++		// We need to use getUserConfigDir and not tmpDir as it may add a suffix
++		cfgDir, err := getUserConfigDir()
+ 		assert.NoError(t, err)
+ 		keyPath1 := filepath.Join(cfgDir, SopsAgeKeyUserConfigPath)
+ 		assert.True(t, strings.HasPrefix(keyPath1, cfgDir))
+diff --git a/cmd/sops/common/common.go b/cmd/sops/common/common.go
+index fa54ecc7d..4960e6e47 100644
+--- a/cmd/sops/common/common.go
++++ b/cmd/sops/common/common.go
+@@ -10,6 +10,7 @@ import (
+ 	"github.com/getsops/sops/v3"
+ 	"github.com/getsops/sops/v3/cmd/sops/codes"
+ 	. "github.com/getsops/sops/v3/cmd/sops/formats"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/getsops/sops/v3/keys"
+ 	"github.com/getsops/sops/v3/keyservice"
+ 	"github.com/getsops/sops/v3/kms"
+@@ -35,26 +36,26 @@ type Store interface {
+ 	ExampleFileEmitter
+ }
+ 
+-type storeConstructor = func() Store
++type storeConstructor = func(*config.StoresConfig) Store
+ 
+-func newBinaryStore() Store {
+-	return &json.BinaryStore{}
++func newBinaryStore(c *config.StoresConfig) Store {
++	return json.NewBinaryStore(&c.JSONBinary)
+ }
+ 
+-func newDotenvStore() Store {
+-	return &dotenv.Store{}
++func newDotenvStore(c *config.StoresConfig) Store {
++	return dotenv.NewStore(&c.Dotenv)
+ }
+ 
+-func newIniStore() Store {
+-	return &ini.Store{}
++func newIniStore(c *config.StoresConfig) Store {
++	return ini.NewStore(&c.INI)
+ }
+ 
+-func newJsonStore() Store {
+-	return &json.Store{}
++func newJsonStore(c *config.StoresConfig) Store {
++	return json.NewStore(&c.JSON)
+ }
+ 
+-func newYamlStore() Store {
+-	return &yaml.Store{}
++func newYamlStore(c *config.StoresConfig) Store {
++	return yaml.NewStore(&c.YAML)
+ }
+ 
+ var storeConstructors = map[Format]storeConstructor{
+@@ -153,27 +154,27 @@ func NewExitError(i interface{}, exitCode int) *cli.ExitError {
+ 
+ // StoreForFormat returns the correct format-specific implementation
+ // of the Store interface given the format.
+-func StoreForFormat(format Format) Store {
++func StoreForFormat(format Format, c *config.StoresConfig) Store {
+ 	storeConst, found := storeConstructors[format]
+ 	if !found {
+ 		storeConst = storeConstructors[Binary] // default
+ 	}
+-	return storeConst()
++	return storeConst(c)
+ }
+ 
+ // DefaultStoreForPath returns the correct format-specific implementation
+ // of the Store interface given the path to a file
+-func DefaultStoreForPath(path string) Store {
++func DefaultStoreForPath(c *config.StoresConfig, path string) Store {
+ 	format := FormatForPath(path)
+-	return StoreForFormat(format)
++	return StoreForFormat(format, c)
+ }
+ 
+ // DefaultStoreForPathOrFormat returns the correct format-specific implementation
+ // of the Store interface given the formatString if specified, or the path to a file.
+ // This is to support the cli, where both are provided.
+-func DefaultStoreForPathOrFormat(path, format string) Store {
++func DefaultStoreForPathOrFormat(c *config.StoresConfig, path string, format string) Store {
+ 	formatFmt := FormatForPathOrString(path, format)
+-	return StoreForFormat(formatFmt)
++	return StoreForFormat(formatFmt, c)
+ }
+ 
+ // KMS_ENC_CTX_BUG_FIXED_VERSION represents the SOPS version in which the
+diff --git a/cmd/sops/edit.go b/cmd/sops/edit.go
+index 4ac92e487..d71906f1a 100644
+--- a/cmd/sops/edit.go
++++ b/cmd/sops/edit.go
+@@ -35,6 +35,7 @@ type editExampleOpts struct {
+ 	EncryptedSuffix   string
+ 	UnencryptedRegex  string
+ 	EncryptedRegex    string
++	MACOnlyEncrypted  bool
+ 	KeyGroups         []sops.KeyGroup
+ 	GroupThreshold    int
+ }
+@@ -65,6 +66,7 @@ func editExample(opts editExampleOpts) ([]byte, error) {
+ 			EncryptedSuffix:   opts.EncryptedSuffix,
+ 			UnencryptedRegex:  opts.UnencryptedRegex,
+ 			EncryptedRegex:    opts.EncryptedRegex,
++			MACOnlyEncrypted:  opts.MACOnlyEncrypted,
+ 			Version:           version.Version,
+ 			ShamirThreshold:   opts.GroupThreshold,
+ 		},
+diff --git a/cmd/sops/encrypt.go b/cmd/sops/encrypt.go
+index f5b770e7a..826fa496a 100644
+--- a/cmd/sops/encrypt.go
++++ b/cmd/sops/encrypt.go
+@@ -23,6 +23,7 @@ type encryptOpts struct {
+ 	EncryptedSuffix   string
+ 	UnencryptedRegex  string
+ 	EncryptedRegex    string
++	MACOnlyEncrypted  bool
+ 	KeyGroups         []sops.KeyGroup
+ 	GroupThreshold    int
+ }
+@@ -82,6 +83,7 @@ func encrypt(opts encryptOpts) (encryptedFile []byte, err error) {
+ 			EncryptedSuffix:   opts.EncryptedSuffix,
+ 			UnencryptedRegex:  opts.UnencryptedRegex,
+ 			EncryptedRegex:    opts.EncryptedRegex,
++			MACOnlyEncrypted:  opts.MACOnlyEncrypted,
+ 			Version:           version.Version,
+ 			ShamirThreshold:   opts.GroupThreshold,
+ 		},
+diff --git a/cmd/sops/main.go b/cmd/sops/main.go
+index 0ccbb95ba..26e084c26 100644
+--- a/cmd/sops/main.go
++++ b/cmd/sops/main.go
+@@ -48,6 +48,21 @@ func init() {
+ 	log = logging.NewLogger("CMD")
+ }
+ 
++func warnMoreThanOnePositionalArgument(c *cli.Context) {
++	if c.NArg() > 1 {
++		log.Warn("More than one positional argument provided. Only the first one will be used!")
++		potentialFlag := ""
++		for i, value := range c.Args() {
++			if i > 0 && strings.HasPrefix(value, "-") {
++				potentialFlag = value
++			}
++		}
++		if potentialFlag != "" {
++			log.Warn(fmt.Sprintf("Note that one of the ignored positional argument is %q, which looks like a flag. Flags must always be provided before the first positional argument!", potentialFlag))
++		}
++	}
++}
++
+ func main() {
+ 	cli.VersionPrinter = version.PrintVersion
+ 	app := cli.NewApp()
+@@ -71,7 +86,8 @@ func main() {
+ 		{Name: "Adrian Utrilla", Email: "adrianutrilla@gmail.com"},
+ 		{Name: "Julien Vehent", Email: "jvehent@mozilla.com"},
+ 	}
+-	app.UsageText = `sops is an editor of encrypted files that supports AWS KMS and PGP
++	app.UsageText = `sops is an editor of encrypted files that supports AWS KMS, GCP, AZKV,
++	PGP, and Age
+ 
+    To encrypt or decrypt a document with AWS KMS, specify the KMS ARN
+    in the -k flag or in the SOPS_KMS_ARN environment variable.
+@@ -80,26 +96,28 @@ func main() {
+    To encrypt or decrypt a document with GCP KMS, specify the
+    GCP KMS resource ID in the --gcp-kms flag or in the SOPS_GCP_KMS_IDS
+    environment variable.
+-   (you need to setup google application default credentials. See
++   (You need to setup Google application default credentials. See
+     https://developers.google.com/identity/protocols/application-default-credentials)
+ 
+ 
+-   To encrypt or decrypt a document with HashiCorp Vault's Transit Secret Engine, specify the
+-   Vault key URI name in the --hc-vault-transit flag or in the SOPS_VAULT_URIS environment variable (eg. https://vault.example.org:8200/v1/transit/keys/dev
+-      where 'https://vault.example.org:8200' is the vault server, 'transit' the enginePath, and 'dev' is the name of the key )
+-   environment variable.
+-   (you need to enable the Transit Secrets Engine in Vault. See
+-      https://www.vaultproject.io/docs/secrets/transit/index.html)
++   To encrypt or decrypt a document with HashiCorp Vault's Transit Secret
++   Engine, specify the Vault key URI name in the --hc-vault-transit flag
++   or in the SOPS_VAULT_URIS environment variable (for example
++   https://vault.example.org:8200/v1/transit/keys/dev, where
++   'https://vault.example.org:8200' is the vault server, 'transit' the
++   enginePath, and 'dev' is the name of the key).
++   (You need to enable the Transit Secrets Engine in Vault. See
++    https://www.vaultproject.io/docs/secrets/transit/index.html)
+ 
+    To encrypt or decrypt a document with Azure Key Vault, specify the
+-   Azure Key Vault key URL in the --azure-kv flag or in the SOPS_AZURE_KEYVAULT_URL
+-   environment variable.
+-   (authentication is based on environment variables, see
++   Azure Key Vault key URL in the --azure-kv flag or in the
++   SOPS_AZURE_KEYVAULT_URL environment variable.
++   (Authentication is based on environment variables, see
+     https://docs.microsoft.com/en-us/go/azure/azure-sdk-go-authorization#use-environment-based-authentication.
+-    The user/sp needs the key/encrypt and key/decrypt permissions)
++    The user/sp needs the key/encrypt and key/decrypt permissions.)
+ 
+-   To encrypt or decrypt using age, specify the recipient in the -a flag, or
+-   in the SOPS_AGE_RECIPIENTS environment variable.
++   To encrypt or decrypt using age, specify the recipient in the -a flag,
++   or in the SOPS_AGE_RECIPIENTS environment variable.
+ 
+    To encrypt or decrypt using PGP, specify the PGP fingerprint in the
+    -p flag or in the SOPS_PGP_FP environment variable.
+@@ -107,17 +125,22 @@ func main() {
+    To use multiple KMS or PGP keys, separate them by commas. For example:
+        $ sops -p "10F2...0A, 85D...B3F21" file.yaml
+ 
+-   The -p, -k, --gcp-kms, --hc-vault-transit and --azure-kv flags are only used to encrypt new documents. Editing
+-   or decrypting existing documents can be done with "sops file" or
+-   "sops -d file" respectively. The KMS and PGP keys listed in the encrypted
+-   documents are used then. To manage master keys in existing documents, use
+-   the "add-{kms,pgp,gcp-kms,azure-kv,hc-vault-transit}" and "rm-{kms,pgp,gcp-kms,azure-kv,hc-vault-transit}" flags.
++   The -p, -k, --gcp-kms, --hc-vault-transit, and --azure-kv flags are only
++   used to encrypt new documents. Editing or decrypting existing documents
++   can be done with "sops file" or "sops -d file" respectively. The KMS and
++   PGP keys listed in the encrypted documents are used then. To manage master
++   keys in existing documents, use the "add-{kms,pgp,gcp-kms,azure-kv,hc-vault-transit}"
++   and "rm-{kms,pgp,gcp-kms,azure-kv,hc-vault-transit}" flags with --rotate
++   or the updatekeys command.
+ 
+    To use a different GPG binary than the one in your PATH, set SOPS_GPG_EXEC.
+ 
+    To select a different editor than the default (vim), set EDITOR.
+ 
+-   For more information, see the README at github.com/mozilla/sops`
++   Note that flags must always be provided before the filename to operate on.
++   Otherwise, they will be ignored.
++
++   For more information, see the README at https://github.com/getsops/sops`
+ 	app.EnableBashCompletion = true
+ 	app.Commands = []cli.Command{
+ 		{
+@@ -129,13 +152,17 @@ func main() {
+ 					Name:  "background",
+ 					Usage: "background the process and don't wait for it to complete",
+ 				},
++				cli.BoolFlag{
++					Name:  "pristine",
++					Usage: "insert only the decrypted values into the environment without forwarding existing environment variables",
++				},
+ 				cli.StringFlag{
+ 					Name:  "user",
+ 					Usage: "the user to run the command as",
+ 				},
+ 			}, keyserviceFlags...),
+ 			Action: func(c *cli.Context) error {
+-				if len(c.Args()) != 2 {
++				if c.NArg() != 2 {
+ 					return common.NewExitError(fmt.Errorf("error: missing file to decrypt"), codes.ErrorGeneric)
+ 				}
+ 
+@@ -163,6 +190,7 @@ func main() {
+ 					Command:    command,
+ 					Plaintext:  output,
+ 					Background: c.Bool("background"),
++					Pristine:   c.Bool("pristine"),
+ 					User:       c.String("user"),
+ 				}); err != nil {
+ 					return toExitError(err)
+@@ -202,7 +230,7 @@ func main() {
+ 				},
+ 			}, keyserviceFlags...),
+ 			Action: func(c *cli.Context) error {
+-				if len(c.Args()) != 2 {
++				if c.NArg() != 2 {
+ 					return common.NewExitError(fmt.Errorf("error: missing file to decrypt"), codes.ErrorGeneric)
+ 				}
+ 
+@@ -279,6 +307,7 @@ func main() {
+ 				if c.NArg() < 1 {
+ 					return common.NewExitError("Error: no file specified", codes.NoFileSpecified)
+ 				}
++				warnMoreThanOnePositionalArgument(c)
+ 				path := c.Args()[0]
+ 				info, err := os.Stat(path)
+ 				if err != nil {
+@@ -390,7 +419,7 @@ func main() {
+ 						},
+ 						cli.StringSliceFlag{
+ 							Name:  "hc-vault-transit",
+-							Usage: "the full vault path to the key used to encrypt/decrypt. Make you choose and configure a key with encrption/decryption enabled (e.g. 'https://vault.example.org:8200/v1/transit/keys/dev'). Can be specified more than once",
++							Usage: "the full vault path to the key used to encrypt/decrypt. Make you choose and configure a key with encryption/decryption enabled (e.g. 'https://vault.example.org:8200/v1/transit/keys/dev'). Can be specified more than once",
+ 						},
+ 						cli.StringSliceFlag{
+ 							Name:  "age",
+@@ -416,6 +445,9 @@ func main() {
+ 						vaultURIs := c.StringSlice("hc-vault-transit")
+ 						azkvs := c.StringSlice("azure-kv")
+ 						ageRecipients := c.StringSlice("age")
++						if c.NArg() != 0 {
++							return common.NewExitError(fmt.Errorf("error: no positional arguments allowed"), codes.ErrorGeneric)
++						}
+ 						var group sops.KeyGroup
+ 						for _, fp := range pgpFps {
+ 							group = append(group, pgp.NewMasterKeyFromFingerprint(fp))
+@@ -481,7 +513,11 @@ func main() {
+ 						},
+ 					}, keyserviceFlags...),
+ 					ArgsUsage: `[index]`,
++
+ 					Action: func(c *cli.Context) error {
++						if c.NArg() != 1 {
++							return common.NewExitError(fmt.Errorf("error: exactly one positional argument (index) required"), codes.ErrorGeneric)
++						}
+ 						group, err := strconv.ParseUint(c.Args().First(), 10, 32)
+ 						if err != nil {
+ 							return fmt.Errorf("failed to parse [index] argument: %s", err)
+@@ -502,7 +538,7 @@ func main() {
+ 		},
+ 		{
+ 			Name:      "updatekeys",
+-			Usage:     "update the keys of a SOPS file using the config file",
++			Usage:     "update the keys of SOPS files using the config file",
+ 			ArgsUsage: `file`,
+ 			Flags: append([]cli.Flag{
+ 				cli.BoolFlag{
+@@ -528,18 +564,35 @@ func main() {
+ 				if c.NArg() < 1 {
+ 					return common.NewExitError("Error: no file specified", codes.NoFileSpecified)
+ 				}
+-				err = updatekeys.UpdateKeys(updatekeys.Opts{
+-					InputPath:   c.Args()[0],
+-					GroupQuorum: c.Int("shamir-secret-sharing-quorum"),
+-					KeyServices: keyservices(c),
+-					Interactive: !c.Bool("yes"),
+-					ConfigPath:  configPath,
+-					InputType:   c.String("input-type"),
+-				})
+-				if cliErr, ok := err.(*cli.ExitError); ok && cliErr != nil {
+-					return cliErr
+-				} else if err != nil {
+-					return common.NewExitError(err, codes.ErrorGeneric)
++				failedCounter := 0
++				for _, path := range c.Args() {
++					err := updatekeys.UpdateKeys(updatekeys.Opts{
++						InputPath:   path,
++						GroupQuorum: c.Int("shamir-secret-sharing-quorum"),
++						KeyServices: keyservices(c),
++						Interactive: !c.Bool("yes"),
++						ConfigPath:  configPath,
++						InputType:   c.String("input-type"),
++					})
++
++					if c.NArg() == 1 {
++						// a single argument was given, keep compatibility of the error
++						if cliErr, ok := err.(*cli.ExitError); ok && cliErr != nil {
++							return cliErr
++						} else if err != nil {
++							return common.NewExitError(err, codes.ErrorGeneric)
++						}
++					}
++
++					// multiple arguments given (patched functionality),
++					// finish updating of remaining files and fail afterwards
++					if err != nil {
++						failedCounter++
++						log.Error(err)
++					}
++				}
++				if failedCounter > 0 {
++					return common.NewExitError(fmt.Errorf("failed updating %d key(s)", failedCounter), codes.ErrorGeneric)
+ 				}
+ 				return nil
+ 			},
+@@ -668,6 +721,10 @@ func main() {
+ 			Name:  "ignore-mac",
+ 			Usage: "ignore Message Authentication Code during decryption",
+ 		},
++		cli.BoolFlag{
++			Name:  "mac-only-encrypted",
++			Usage: "compute MAC only over values which end up encrypted",
++		},
+ 		cli.StringFlag{
+ 			Name:  "unencrypted-suffix",
+ 			Usage: "override the unencrypted key suffix.",
+@@ -700,6 +757,10 @@ func main() {
+ 			Name:  "shamir-secret-sharing-threshold",
+ 			Usage: "the number of master keys required to retrieve the data key with shamir",
+ 		},
++		cli.IntFlag{
++			Name:  "indent",
++			Usage: "the number of spaces to indent YAML or JSON encoded file",
++		},
+ 		cli.BoolFlag{
+ 			Name:  "verbose",
+ 			Usage: "Enable verbose logging output",
+@@ -708,6 +769,10 @@ func main() {
+ 			Name:  "output",
+ 			Usage: "Save the output after encryption or decryption to the file specified",
+ 		},
++		cli.StringFlag{
++			Name:  "filename-override",
++			Usage: "Use this filename instead of the provided argument for loading configuration, and for determining input type and output type",
++		},
+ 	}, keyserviceFlags...)
+ 
+ 	app.Action = func(c *cli.Context) error {
+@@ -717,6 +782,7 @@ func main() {
+ 		if c.NArg() < 1 {
+ 			return common.NewExitError("Error: no file specified", codes.NoFileSpecified)
+ 		}
++		warnMoreThanOnePositionalArgument(c)
+ 		if c.Bool("in-place") && c.String("output") != "" {
+ 			return common.NewExitError("Error: cannot operate on both --output and --in-place", codes.ErrorConflictingParameters)
+ 		}
+@@ -733,12 +799,17 @@ func main() {
+ 				return common.NewExitError("Error: cannot operate on non-existent file", codes.NoFileSpecified)
+ 			}
+ 		}
++		fileNameOverride := c.String("filename-override")
++		if fileNameOverride == "" {
++			fileNameOverride = fileName
++		}
+ 
+ 		unencryptedSuffix := c.String("unencrypted-suffix")
+ 		encryptedSuffix := c.String("encrypted-suffix")
+ 		encryptedRegex := c.String("encrypted-regex")
+ 		unencryptedRegex := c.String("unencrypted-regex")
+-		conf, err := loadConfig(c, fileName, nil)
++		macOnlyEncrypted := c.Bool("mac-only-encrypted")
++		conf, err := loadConfig(c, fileNameOverride, nil)
+ 		if err != nil {
+ 			return toExitError(err)
+ 		}
+@@ -756,6 +827,9 @@ func main() {
+ 			if unencryptedRegex == "" {
+ 				unencryptedRegex = conf.UnencryptedRegex
+ 			}
++			if !macOnlyEncrypted {
++				macOnlyEncrypted = conf.MACOnlyEncrypted
++			}
+ 		}
+ 
+ 		cryptRuleCount := 0
+@@ -781,19 +855,19 @@ func main() {
+ 			unencryptedSuffix = sops.DefaultUnencryptedSuffix
+ 		}
+ 
+-		inputStore := inputStore(c, fileName)
+-		outputStore := outputStore(c, fileName)
++		inputStore := inputStore(c, fileNameOverride)
++		outputStore := outputStore(c, fileNameOverride)
+ 		svcs := keyservices(c)
+ 
+ 		var output []byte
+ 		if c.Bool("encrypt") {
+ 			var groups []sops.KeyGroup
+-			groups, err = keyGroups(c, fileName)
++			groups, err = keyGroups(c, fileNameOverride)
+ 			if err != nil {
+ 				return toExitError(err)
+ 			}
+ 			var threshold int
+-			threshold, err = shamirThreshold(c, fileName)
++			threshold, err = shamirThreshold(c, fileNameOverride)
+ 			if err != nil {
+ 				return toExitError(err)
+ 			}
+@@ -806,6 +880,7 @@ func main() {
+ 				EncryptedSuffix:   encryptedSuffix,
+ 				UnencryptedRegex:  unencryptedRegex,
+ 				EncryptedRegex:    encryptedRegex,
++				MACOnlyEncrypted:  macOnlyEncrypted,
+ 				KeyServices:       svcs,
+ 				KeyGroups:         groups,
+ 				GroupThreshold:    threshold,
+@@ -948,12 +1023,12 @@ func main() {
+ 			} else {
+ 				// File doesn't exist, edit the example file instead
+ 				var groups []sops.KeyGroup
+-				groups, err = keyGroups(c, fileName)
++				groups, err = keyGroups(c, fileNameOverride)
+ 				if err != nil {
+ 					return toExitError(err)
+ 				}
+ 				var threshold int
+-				threshold, err = shamirThreshold(c, fileName)
++				threshold, err = shamirThreshold(c, fileNameOverride)
+ 				if err != nil {
+ 					return toExitError(err)
+ 				}
+@@ -963,6 +1038,7 @@ func main() {
+ 					EncryptedSuffix:   encryptedSuffix,
+ 					UnencryptedRegex:  unencryptedRegex,
+ 					EncryptedRegex:    encryptedRegex,
++					MACOnlyEncrypted:  macOnlyEncrypted,
+ 					KeyGroups:         groups,
+ 					GroupThreshold:    threshold,
+ 				})
+@@ -1055,12 +1131,36 @@ func keyservices(c *cli.Context) (svcs []keyservice.KeyServiceClient) {
+ 	return
+ }
+ 
++func loadStoresConfig(context *cli.Context, path string) (*config.StoresConfig, error) {
++	var configPath string
++	if context.String("config") != "" {
++		configPath = context.String("config")
++	} else {
++		// Ignore config not found errors returned from FindConfigFile since the config file is not mandatory
++		foundPath, err := config.FindConfigFile(".")
++		if err != nil {
++			return config.NewStoresConfig(), nil
++		}
++		configPath = foundPath
++	}
++	return config.LoadStoresConfig(configPath)
++}
++
+ func inputStore(context *cli.Context, path string) common.Store {
+-	return common.DefaultStoreForPathOrFormat(path, context.String("input-type"))
++	storesConf, _ := loadStoresConfig(context, path)
++	return common.DefaultStoreForPathOrFormat(storesConf, path, context.String("input-type"))
+ }
+ 
+ func outputStore(context *cli.Context, path string) common.Store {
+-	return common.DefaultStoreForPathOrFormat(path, context.String("output-type"))
++	storesConf, _ := loadStoresConfig(context, path)
++	if context.IsSet("indent") {
++		indent := context.Int("indent")
++		storesConf.YAML.Indent = indent
++		storesConf.JSON.Indent = indent
++		storesConf.JSONBinary.Indent = indent
++	}
++
++	return common.DefaultStoreForPathOrFormat(storesConf, path, context.String("output-type"))
+ }
+ 
+ func parseTreePath(arg string) ([]interface{}, error) {
+diff --git a/cmd/sops/subcommand/exec/exec.go b/cmd/sops/subcommand/exec/exec.go
+index c32739f20..e7201107f 100644
+--- a/cmd/sops/subcommand/exec/exec.go
++++ b/cmd/sops/subcommand/exec/exec.go
+@@ -21,6 +21,7 @@ type ExecOpts struct {
+ 	Command    string
+ 	Plaintext  []byte
+ 	Background bool
++	Pristine   bool
+ 	Fifo       bool
+ 	User       string
+ 	Filename   string
+@@ -83,7 +84,12 @@ func ExecWithEnv(opts ExecOpts) error {
+ 		SwitchUser(opts.User)
+ 	}
+ 
+-	env := os.Environ()
++	var env []string
++
++	if !opts.Pristine {
++		env = os.Environ()
++	}
++
+ 	lines := bytes.Split(opts.Plaintext, []byte("\n"))
+ 	for _, line := range lines {
+ 		if len(line) == 0 {
+diff --git a/cmd/sops/subcommand/updatekeys/updatekeys.go b/cmd/sops/subcommand/updatekeys/updatekeys.go
+index 6bb105864..66ea01e22 100644
+--- a/cmd/sops/subcommand/updatekeys/updatekeys.go
++++ b/cmd/sops/subcommand/updatekeys/updatekeys.go
+@@ -40,7 +40,11 @@ func UpdateKeys(opts Opts) error {
+ }
+ 
+ func updateFile(opts Opts) error {
+-	store := common.DefaultStoreForPathOrFormat(opts.InputPath, opts.InputType)
++	sc, err := config.LoadStoresConfig(opts.ConfigPath)
++	if err != nil {
++		return err
++	}
++	store := common.DefaultStoreForPath(sc, opts.InputPath)
+ 	log.Printf("Syncing keys for file %s", opts.InputPath)
+ 	tree, err := common.LoadEncryptedFile(store, opts.InputPath)
+ 	if err != nil {
+diff --git a/config/config.go b/config/config.go
+index c2475a2b9..643268682 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -63,9 +63,34 @@ func FindConfigFile(start string) (string, error) {
+ 	return "", fmt.Errorf("Config file not found")
+ }
+ 
++type DotenvStoreConfig struct{}
++
++type INIStoreConfig struct{}
++
++type JSONStoreConfig struct {
++	Indent int `yaml:"indent"`
++}
++
++type JSONBinaryStoreConfig struct {
++	Indent int `yaml:"indent"`
++}
++
++type YAMLStoreConfig struct {
++	Indent int `yaml:"indent"`
++}
++
++type StoresConfig struct {
++	Dotenv     DotenvStoreConfig     `yaml:"dotenv"`
++	INI        INIStoreConfig        `yaml:"ini"`
++	JSONBinary JSONBinaryStoreConfig `yaml:"json_binary"`
++	JSON       JSONStoreConfig       `yaml:"json"`
++	YAML       YAMLStoreConfig       `yaml:"yaml"`
++}
++
+ type configFile struct {
+ 	CreationRules    []creationRule    `yaml:"creation_rules"`
+ 	DestinationRules []destinationRule `yaml:"destination_rules"`
++	Stores           StoresConfig      `yaml:"stores"`
+ }
+ 
+ type keyGroup struct {
+@@ -123,6 +148,14 @@ type creationRule struct {
+ 	EncryptedSuffix   string     `yaml:"encrypted_suffix"`
+ 	UnencryptedRegex  string     `yaml:"unencrypted_regex"`
+ 	EncryptedRegex    string     `yaml:"encrypted_regex"`
++	MACOnlyEncrypted  bool       `yaml:"mac_only_encrypted"`
++}
++
++func NewStoresConfig() *StoresConfig {
++	storesConfig := &StoresConfig{}
++	storesConfig.JSON.Indent = -1
++	storesConfig.JSONBinary.Indent = -1
++	return storesConfig
+ }
+ 
+ // Load loads a sops config file into a temporary struct
+@@ -142,6 +175,7 @@ type Config struct {
+ 	EncryptedSuffix   string
+ 	UnencryptedRegex  string
+ 	EncryptedRegex    string
++	MACOnlyEncrypted  bool
+ 	Destination       publish.Destination
+ 	OmitExtensions    bool
+ }
+@@ -164,7 +198,7 @@ func getKeyGroupsFromCreationRule(cRule *creationRule, kmsEncryptionContext map[
+ 				keyGroup = append(keyGroup, pgp.NewMasterKeyFromFingerprint(k))
+ 			}
+ 			for _, k := range group.KMS {
+-				keyGroup = append(keyGroup, kms.NewMasterKey(k.Arn, k.Role, k.Context))
++				keyGroup = append(keyGroup, kms.NewMasterKeyWithProfile(k.Arn, k.Role, k.Context, k.AwsProfile))
+ 			}
+ 			for _, k := range group.GCPKMS {
+ 				keyGroup = append(keyGroup, gcpkms.NewMasterKeyFromResourceID(k.ResourceID))
+@@ -227,6 +261,7 @@ func loadConfigFile(confPath string) (*configFile, error) {
+ 		return nil, fmt.Errorf("could not read config file: %s", err)
+ 	}
+ 	conf := &configFile{}
++	conf.Stores = *NewStoresConfig()
+ 	err = conf.load(confBytes)
+ 	if err != nil {
+ 		return nil, fmt.Errorf("error loading config: %s", err)
+@@ -265,6 +300,7 @@ func configFromRule(rule *creationRule, kmsEncryptionContext map[string]*string)
+ 		EncryptedSuffix:   rule.EncryptedSuffix,
+ 		UnencryptedRegex:  rule.UnencryptedRegex,
+ 		EncryptedRegex:    rule.EncryptedRegex,
++		MACOnlyEncrypted:  rule.MACOnlyEncrypted,
+ 	}, nil
+ }
+ 
+@@ -383,3 +419,11 @@ func LoadDestinationRuleForFile(confPath string, filePath string, kmsEncryptionC
+ 	}
+ 	return parseDestinationRuleForFile(conf, filePath, kmsEncryptionContext)
+ }
++
++func LoadStoresConfig(confPath string) (*StoresConfig, error) {
++	conf, err := loadConfigFile(confPath)
++	if err != nil {
++		return nil, err
++	}
++	return &conf.Stores, nil
++}
+diff --git a/config/config_test.go b/config/config_test.go
+index 4c43686c0..8f4fb006b 100644
+--- a/config/config_test.go
++++ b/config/config_test.go
+@@ -93,6 +93,7 @@ creation_rules:
+     key_groups:
+     - kms:
+       - arn: foo
++        aws_profile: bar
+       pgp:
+       - bar
+       gcp_kms:
+@@ -105,6 +106,7 @@ creation_rules:
+       - 'https://foo.vault:8200/v1/foo/keys/foo-key'
+     - kms:
+       - arn: baz
++        aws_profile: foo
+       pgp:
+       - qux
+       gcp_kms:
+@@ -156,6 +158,14 @@ creation_rules:
+     unencrypted_regex: "^dec:"
+     `)
+ 
++var sampleConfigWithMACOnlyEncrypted = []byte(`
++creation_rules:
++  - path_regex: barbar*
++    kms: "1"
++    pgp: "2"
++    mac_only_encrypted: true
++    `)
++
+ var sampleConfigWithInvalidParameters = []byte(`
+ creation_rules:
+   - path_regex: foobar*
+@@ -287,14 +297,14 @@ func TestLoadConfigFileWithGroups(t *testing.T) {
+ 				PathRegex: "",
+ 				KeyGroups: []keyGroup{
+ 					{
+-						KMS:     []kmsKey{{Arn: "foo"}},
++						KMS:     []kmsKey{{Arn: "foo", AwsProfile: "bar"}},
+ 						PGP:     []string{"bar"},
+ 						GCPKMS:  []gcpKmsKey{{ResourceID: "foo"}},
+ 						AzureKV: []azureKVKey{{VaultURL: "https://foo.vault.azure.net", Key: "foo-key", Version: "fooversion"}},
+ 						Vault:   []string{"https://foo.vault:8200/v1/foo/keys/foo-key"},
+ 					},
+ 					{
+-						KMS: []kmsKey{{Arn: "baz"}},
++						KMS: []kmsKey{{Arn: "baz", AwsProfile: "foo"}},
+ 						PGP: []string{"qux"},
+ 						GCPKMS: []gcpKmsKey{
+ 							{ResourceID: "bar"},
+@@ -414,6 +424,12 @@ func TestLoadConfigFileWithEncryptedRegex(t *testing.T) {
+ 	assert.Equal(t, "^enc:", conf.EncryptedRegex)
+ }
+ 
++func TestLoadConfigFileWithMACOnlyEncrypted(t *testing.T) {
++	conf, err := parseCreationRuleForFile(parseConfigFile(sampleConfigWithMACOnlyEncrypted, t), "/conf/path", "barbar", nil)
++	assert.Equal(t, nil, err)
++	assert.Equal(t, true, conf.MACOnlyEncrypted)
++}
++
+ func TestLoadConfigFileWithInvalidParameters(t *testing.T) {
+ 	_, err := parseCreationRuleForFile(parseConfigFile(sampleConfigWithInvalidParameters, t), "/conf/path", "foobar", nil)
+ 	assert.NotNil(t, err)
+diff --git a/decrypt/decrypt.go b/decrypt/decrypt.go
+index c3b2ba64b..e26cbe479 100644
+--- a/decrypt/decrypt.go
++++ b/decrypt/decrypt.go
+@@ -12,6 +12,7 @@ import (
+ 	"github.com/getsops/sops/v3/aes"
+ 	"github.com/getsops/sops/v3/cmd/sops/common"
+ 	. "github.com/getsops/sops/v3/cmd/sops/formats" // Re-export
++	"github.com/getsops/sops/v3/config"
+ )
+ 
+ // File is a wrapper around Data that reads a local encrypted
+@@ -32,7 +33,7 @@ func File(path, format string) (cleartext []byte, err error) {
+ // decrypts the data and returns its cleartext in an []byte.
+ func DataWithFormat(data []byte, format Format) (cleartext []byte, err error) {
+ 
+-	store := common.StoreForFormat(format)
++	store := common.StoreForFormat(format, config.NewStoresConfig())
+ 
+ 	// Load SOPS file and access the data key
+ 	tree, err := store.LoadEncryptedFile(data)
+diff --git a/functional-tests/src/lib.rs b/functional-tests/src/lib.rs
+index e5e92f799..98881d4ee 100644
+--- a/functional-tests/src/lib.rs
++++ b/functional-tests/src/lib.rs
+@@ -508,7 +508,7 @@ b: ba"#
+             .expect("Error running sops");
+         assert!(!output.status
+                     .success(),
+-                "SOPS succeeded decrypting a file with a missing decrytion key");
++                "SOPS succeeded decrypting a file with a missing decryption key");
+     }
+ 
+     #[test]
+diff --git a/go.mod b/go.mod
+index 4f6ee5383..0d2ee204a 100644
+--- a/go.mod
++++ b/go.mod
+@@ -3,22 +3,22 @@ module github.com/getsops/sops/v3
+ go 1.19
+ 
+ require (
+-	cloud.google.com/go/kms v1.15.2
+-	cloud.google.com/go/storage v1.33.0
++	cloud.google.com/go/kms v1.15.5
++	cloud.google.com/go/storage v1.35.1
+ 	filippo.io/age v1.1.1
+-	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.8.0
++	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.9.0
+ 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.4.0
+ 	github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys v1.0.1
+ 	github.com/ProtonMail/go-crypto v0.0.0-20230923063757-afb1ddc0824c
+-	github.com/aws/aws-sdk-go-v2 v1.21.1
+-	github.com/aws/aws-sdk-go-v2/config v1.18.44
+-	github.com/aws/aws-sdk-go-v2/credentials v1.13.42
+-	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.11.89
+-	github.com/aws/aws-sdk-go-v2/service/kms v1.24.6
+-	github.com/aws/aws-sdk-go-v2/service/s3 v1.40.1
+-	github.com/aws/aws-sdk-go-v2/service/sts v1.23.1
++	github.com/aws/aws-sdk-go-v2 v1.24.0
++	github.com/aws/aws-sdk-go-v2/config v1.26.1
++	github.com/aws/aws-sdk-go-v2/credentials v1.16.12
++	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.15.7
++	github.com/aws/aws-sdk-go-v2/service/kms v1.27.5
++	github.com/aws/aws-sdk-go-v2/service/s3 v1.47.5
++	github.com/aws/aws-sdk-go-v2/service/sts v1.26.5
+ 	github.com/blang/semver v3.5.1+incompatible
+-	github.com/fatih/color v1.15.0
++	github.com/fatih/color v1.16.0
+ 	github.com/getsops/gopgagent v0.0.0-20170926210634-4d7ea76ff71a
+ 	github.com/golang/protobuf v1.5.3
+ 	github.com/google/go-cmp v0.6.0
+@@ -34,41 +34,41 @@ require (
+ 	github.com/sirupsen/logrus v1.9.3
+ 	github.com/stretchr/testify v1.8.4
+ 	github.com/urfave/cli v1.22.14
+-	golang.org/x/net v0.17.0
+-	golang.org/x/sys v0.13.0
+-	golang.org/x/term v0.13.0
+-	google.golang.org/api v0.146.0
+-	google.golang.org/genproto/googleapis/rpc v0.0.0-20231009173412-8bfb1ae86b6c
+-	google.golang.org/grpc v1.58.3
++	golang.org/x/net v0.19.0
++	golang.org/x/sys v0.15.0
++	golang.org/x/term v0.15.0
++	google.golang.org/api v0.153.0
++	google.golang.org/genproto/googleapis/rpc v0.0.0-20231120223509-83a465c0220f
++	google.golang.org/grpc v1.59.0
+ 	google.golang.org/protobuf v1.31.0
+ 	gopkg.in/ini.v1 v1.67.0
+ 	gopkg.in/yaml.v3 v3.0.1
+ )
+ 
+ require (
+-	cloud.google.com/go v0.110.8 // indirect
+-	cloud.google.com/go/compute v1.23.0 // indirect
++	cloud.google.com/go v0.110.10 // indirect
++	cloud.google.com/go/compute v1.23.3 // indirect
+ 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
+-	cloud.google.com/go/iam v1.1.2 // indirect
+-	github.com/Azure/azure-sdk-for-go/sdk/internal v1.3.0 // indirect
++	cloud.google.com/go/iam v1.1.5 // indirect
++	github.com/Azure/azure-sdk-for-go/sdk/internal v1.5.0 // indirect
+ 	github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal v1.0.0 // indirect
+ 	github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78 // indirect
+ 	github.com/AzureAD/microsoft-authentication-library-for-go v1.1.1 // indirect
+ 	github.com/Microsoft/go-winio v0.6.0 // indirect
+ 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
+-	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.14 // indirect
+-	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.13.12 // indirect
+-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.42 // indirect
+-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.36 // indirect
+-	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.44 // indirect
+-	github.com/aws/aws-sdk-go-v2/internal/v4a v1.1.5 // indirect
+-	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.15 // indirect
+-	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.1.37 // indirect
+-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.36 // indirect
+-	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.15.5 // indirect
+-	github.com/aws/aws-sdk-go-v2/service/sso v1.15.1 // indirect
+-	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.17.2 // indirect
+-	github.com/aws/smithy-go v1.15.0 // indirect
++	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.5.4 // indirect
++	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.14.10 // indirect
++	github.com/aws/aws-sdk-go-v2/internal/configsources v1.2.9 // indirect
++	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.5.9 // indirect
++	github.com/aws/aws-sdk-go-v2/internal/ini v1.7.2 // indirect
++	github.com/aws/aws-sdk-go-v2/internal/v4a v1.2.9 // indirect
++	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.10.4 // indirect
++	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.2.9 // indirect
++	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.10.9 // indirect
++	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.16.9 // indirect
++	github.com/aws/aws-sdk-go-v2/service/sso v1.18.5 // indirect
++	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.21.5 // indirect
++	github.com/aws/smithy-go v1.19.0 // indirect
+ 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
+ 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
+ 	github.com/cloudflare/circl v1.3.3 // indirect
+@@ -76,16 +76,16 @@ require (
+ 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
+ 	github.com/davecgh/go-spew v1.1.1 // indirect
+ 	github.com/docker/cli v20.10.17+incompatible // indirect
+-	github.com/docker/docker v20.10.24+incompatible // indirect
++	github.com/docker/docker v24.0.7+incompatible // indirect
+ 	github.com/docker/go-connections v0.4.0 // indirect
+ 	github.com/docker/go-units v0.4.0 // indirect
+-	github.com/go-jose/go-jose/v3 v3.0.0 // indirect
++	github.com/go-jose/go-jose/v3 v3.0.1 // indirect
+ 	github.com/gogo/protobuf v1.3.2 // indirect
+ 	github.com/golang-jwt/jwt/v5 v5.0.0 // indirect
+ 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+ 	github.com/google/s2a-go v0.1.7 // indirect
+-	github.com/google/uuid v1.3.1 // indirect
+-	github.com/googleapis/enterprise-certificate-proxy v0.3.1 // indirect
++	github.com/google/uuid v1.4.0 // indirect
++	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
+ 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
+ 	github.com/hashicorp/errwrap v1.1.0 // indirect
+ 	github.com/hashicorp/go-hclog v1.2.1 // indirect
+@@ -101,7 +101,7 @@ require (
+ 	github.com/kr/text v0.2.0 // indirect
+ 	github.com/kylelemons/godebug v1.1.0 // indirect
+ 	github.com/mattn/go-colorable v0.1.13 // indirect
+-	github.com/mattn/go-isatty v0.0.17 // indirect
++	github.com/mattn/go-isatty v0.0.20 // indirect
+ 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+ 	github.com/moby/term v0.0.0-20201216013528-df9cb8a40635 // indirect
+ 	github.com/opencontainers/go-digest v1.0.0 // indirect
+@@ -115,17 +115,17 @@ require (
+ 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
+ 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
+ 	go.opencensus.io v0.24.0 // indirect
+-	golang.org/x/crypto v0.14.0 // indirect
++	golang.org/x/crypto v0.16.0 // indirect
+ 	golang.org/x/mod v0.9.0 // indirect
+-	golang.org/x/oauth2 v0.12.0 // indirect
+-	golang.org/x/sync v0.3.0 // indirect
+-	golang.org/x/text v0.13.0 // indirect
+-	golang.org/x/time v0.0.0-20220609170525-579cf78fd858 // indirect
++	golang.org/x/oauth2 v0.14.0 // indirect
++	golang.org/x/sync v0.5.0 // indirect
++	golang.org/x/text v0.14.0 // indirect
++	golang.org/x/time v0.5.0 // indirect
+ 	golang.org/x/tools v0.7.0 // indirect
+ 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
+ 	google.golang.org/appengine v1.6.7 // indirect
+-	google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97 // indirect
+-	google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13 // indirect
++	google.golang.org/genproto v0.0.0-20231106174013-bbf56f31fb17 // indirect
++	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17 // indirect
+ 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+ 	gopkg.in/yaml.v2 v2.4.0 // indirect
+ )
+diff --git a/go.sum b/go.sum
+index 29bea6d41..e3ba1b954 100644
+--- a/go.sum
++++ b/go.sum
+@@ -1,24 +1,24 @@
+ cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+-cloud.google.com/go v0.110.8 h1:tyNdfIxjzaWctIiLYOTalaLKZ17SI44SKFW26QbOhME=
+-cloud.google.com/go v0.110.8/go.mod h1:Iz8AkXJf1qmxC3Oxoep8R1T36w8B92yU29PcBhHO5fk=
+-cloud.google.com/go/compute v1.23.0 h1:tP41Zoavr8ptEqaW6j+LQOnyBBhO7OkOMAGrgLopTwY=
+-cloud.google.com/go/compute v1.23.0/go.mod h1:4tCnrn48xsqlwSAiLf1HXMQk8CONslYbdiEZc9FEIbM=
++cloud.google.com/go v0.110.10 h1:LXy9GEO+timppncPIAZoOj3l58LIU9k+kn48AN7IO3Y=
++cloud.google.com/go v0.110.10/go.mod h1:v1OoFqYxiBkUrruItNM3eT4lLByNjxmJSV/xDKJNnic=
++cloud.google.com/go/compute v1.23.3 h1:6sVlXXBmbd7jNX0Ipq0trII3e4n1/MsADLK6a+aiVlk=
++cloud.google.com/go/compute v1.23.3/go.mod h1:VCgBUoMnIVIR0CscqQiPJLAG25E3ZRZMzcFZeQ+h8CI=
+ cloud.google.com/go/compute/metadata v0.2.3 h1:mg4jlk7mCAj6xXp9UJ4fjI9VUI5rubuGBW5aJ7UnBMY=
+ cloud.google.com/go/compute/metadata v0.2.3/go.mod h1:VAV5nSsACxMJvgaAuX6Pk2AawlZn8kiOGuCv6gTkwuA=
+-cloud.google.com/go/iam v1.1.2 h1:gacbrBdWcoVmGLozRuStX45YKvJtzIjJdAolzUs1sm4=
+-cloud.google.com/go/iam v1.1.2/go.mod h1:A5avdyVL2tCppe4unb0951eI9jreack+RJ0/d+KUZOU=
+-cloud.google.com/go/kms v1.15.2 h1:lh6qra6oC4AyWe5fUUUBe/S27k12OHAleOOOw6KakdE=
+-cloud.google.com/go/kms v1.15.2/go.mod h1:3hopT4+7ooWRCjc2DxgnpESFxhIraaI2IpAVUEhbT/w=
+-cloud.google.com/go/storage v1.33.0 h1:PVrDOkIC8qQVa1P3SXGpQvfuJhN2LHOoyZvWs8D2X5M=
+-cloud.google.com/go/storage v1.33.0/go.mod h1:Hhh/dogNRGca7IWv1RC2YqEn0c0G77ctA/OxflYkiD8=
++cloud.google.com/go/iam v1.1.5 h1:1jTsCu4bcsNsE4iiqNT5SHwrDRCfRmIaaaVFhRveTJI=
++cloud.google.com/go/iam v1.1.5/go.mod h1:rB6P/Ic3mykPbFio+vo7403drjlgvoWfYpJhMXEbzv8=
++cloud.google.com/go/kms v1.15.5 h1:pj1sRfut2eRbD9pFRjNnPNg/CzJPuQAzUujMIM1vVeM=
++cloud.google.com/go/kms v1.15.5/go.mod h1:cU2H5jnp6G2TDpUGZyqTCoy1n16fbubHZjmVXSMtwDI=
++cloud.google.com/go/storage v1.35.1 h1:B59ahL//eDfx2IIKFBeT5Atm9wnNmj3+8xG/W4WB//w=
++cloud.google.com/go/storage v1.35.1/go.mod h1:M6M/3V/D3KpzMTJyPOR/HU6n2Si5QdaXYEsng2xgOs8=
+ filippo.io/age v1.1.1 h1:pIpO7l151hCnQ4BdyBujnGP2YlUo0uj6sAVNHGBvXHg=
+ filippo.io/age v1.1.1/go.mod h1:l03SrzDUrBkdBx8+IILdnn2KZysqQdbEBUQ4p3sqEQE=
+-github.com/Azure/azure-sdk-for-go/sdk/azcore v1.8.0 h1:9kDVnTz3vbfweTqAUmk/a/pH5pWFCHtvRpHYC0G/dcA=
+-github.com/Azure/azure-sdk-for-go/sdk/azcore v1.8.0/go.mod h1:3Ug6Qzto9anB6mGlEdgYMDF5zHQ+wwhEaYR4s17PHMw=
++github.com/Azure/azure-sdk-for-go/sdk/azcore v1.9.0 h1:fb8kj/Dh4CSwgsOzHeZY4Xh68cFVbzXx+ONXGMY//4w=
++github.com/Azure/azure-sdk-for-go/sdk/azcore v1.9.0/go.mod h1:uReU2sSxZExRPBAg3qKzmAucSi51+SP1OhohieR821Q=
+ github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.4.0 h1:BMAjVKJM0U/CYF27gA0ZMmXGkOcvfFtD0oHVZ1TIPRI=
+ github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.4.0/go.mod h1:1fXstnBMas5kzG+S3q8UoJcmyU6nUeunJcMDHcRYHhs=
+-github.com/Azure/azure-sdk-for-go/sdk/internal v1.3.0 h1:sXr+ck84g/ZlZUOZiNELInmMgOsuGwdjjVkEIde0OtY=
+-github.com/Azure/azure-sdk-for-go/sdk/internal v1.3.0/go.mod h1:okt5dMMTOFjX/aovMlrjvvXoPMBVSPzk9185BT0+eZM=
++github.com/Azure/azure-sdk-for-go/sdk/internal v1.5.0 h1:d81/ng9rET2YqdVkVwkb6EXeRrLJIwyGnJcAlAWKwhs=
++github.com/Azure/azure-sdk-for-go/sdk/internal v1.5.0/go.mod h1:s4kgfzA0covAXNicZHDMN58jExvcng2mC/DepXiF1EI=
+ github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys v1.0.1 h1:MyVTgWR8qd/Jw1Le0NZebGBUCLbtak3bJ3z1OlqZBpw=
+ github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys v1.0.1/go.mod h1:GpPjLhVR9dnUoJMyHWSPy71xY9/lcmpzIPZXmF0FCVY=
+ github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal v1.0.0 h1:D3occbWoio4EBLkbkevetNMAVX197GkzbUMtqjGWn80=
+@@ -36,46 +36,46 @@ github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5/go.mod h1:lmUJ/7eu/Q8
+ github.com/ProtonMail/go-crypto v0.0.0-20230923063757-afb1ddc0824c h1:kMFnB0vCcX7IL/m9Y5LO+KQYv+t1CQOiFe6+SV2J7bE=
+ github.com/ProtonMail/go-crypto v0.0.0-20230923063757-afb1ddc0824c/go.mod h1:EjAoLdwvbIOoOQr3ihjnSoLZRtE8azugULFRteWMNc0=
+ github.com/armon/go-radix v0.0.0-20180808171621-7fddfc383310/go.mod h1:ufUuZ+zHj4x4TnLV4JWEpy2hxWSpsRywHrMgIH9cCH8=
+-github.com/aws/aws-sdk-go-v2 v1.21.1 h1:wjHYshtPpYOZm+/mu3NhVgRRc0baM6LJZOmxPZ5Cwzs=
+-github.com/aws/aws-sdk-go-v2 v1.21.1/go.mod h1:ErQhvNuEMhJjweavOYhxVkn2RUx7kQXVATHrjKtxIpM=
+-github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.14 h1:Sc82v7tDQ/vdU1WtuSyzZ1I7y/68j//HJ6uozND1IDs=
+-github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.14/go.mod h1:9NCTOURS8OpxvoAVHq79LK81/zC78hfRWFn+aL0SPcY=
+-github.com/aws/aws-sdk-go-v2/config v1.18.44 h1:U10NQ3OxiY0dGGozmVIENIDnCT0W432PWxk2VO8wGnY=
+-github.com/aws/aws-sdk-go-v2/config v1.18.44/go.mod h1:pHxnQBldd0heEdJmolLBk78D1Bf69YnKLY3LOpFImlU=
+-github.com/aws/aws-sdk-go-v2/credentials v1.13.42 h1:KMkjpZqcMOwtRHChVlHdNxTUUAC6NC/b58mRZDIdcRg=
+-github.com/aws/aws-sdk-go-v2/credentials v1.13.42/go.mod h1:7ltKclhvEB8305sBhrpls24HGxORl6qgnQqSJ314Uw8=
+-github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.13.12 h1:3j5lrl9kVQrJ1BU4O0z7MQ8sa+UXdiLuo4j0V+odNI8=
+-github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.13.12/go.mod h1:JbFpcHDBdsex1zpIKuVRorZSQiZEyc3MykNCcjgz174=
+-github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.11.89 h1:XPqSyw8SBSLMRrF9Oip6tQpivXWJLMn8sdRoAsUCQQA=
+-github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.11.89/go.mod h1:OkYwM7gYm9HieL6emYtkg7Pb7Jd8FFM5Pl5uAZ1h2jo=
+-github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.42 h1:817VqVe6wvwE46xXy6YF5RywvjOX6U2zRQQ6IbQFK0s=
+-github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.42/go.mod h1:oDfgXoBBmj+kXnqxDDnIDnC56QBosglKp8ftRCTxR+0=
+-github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.36 h1:7ZApaXzWbo8slc+W5TynuUlB4z66g44h7uqa3/d/BsY=
+-github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.36/go.mod h1:rwr4WnmFi3RJO0M4dxbJtgi9BPLMpVBMX1nUte5ha9U=
+-github.com/aws/aws-sdk-go-v2/internal/ini v1.3.44 h1:quOJOqlbSfeJTboXLjYXM1M9T52LBXqLoTPlmsKLpBo=
+-github.com/aws/aws-sdk-go-v2/internal/ini v1.3.44/go.mod h1:LNy+P1+1LiRcCsVYr/4zG5n8zWFL0xsvZkOybjbftm8=
+-github.com/aws/aws-sdk-go-v2/internal/v4a v1.1.5 h1:8JG9ny0BqBDzmtIzbpaN+eke152ZNsYKApFJ/q29Hxo=
+-github.com/aws/aws-sdk-go-v2/internal/v4a v1.1.5/go.mod h1:kEDHQApP/ukMO9natNftgUN3NaTsMxK6jb2jjpSMX7Y=
+-github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.15 h1:7R8uRYyXzdD71KWVCL78lJZltah6VVznXBazvKjfH58=
+-github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.15/go.mod h1:26SQUPcTNgV1Tapwdt4a1rOsYRsnBsJHLMPoxK2b0d8=
+-github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.1.37 h1:Mx1zJlYbiUQANWT40koevLvxawGFolmkaP4m+LuyG7M=
+-github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.1.37/go.mod h1:PjKIAMFthKPgG/B8bbRpo3F8jfr2q2L+w3u78jJ12a0=
+-github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.36 h1:YXlm7LxwNlauqb2OrinWlcvtsflTzP8GaMvYfQBhoT4=
+-github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.36/go.mod h1:ou9ffqJ9hKOVZmjlC6kQ6oROAyG1M4yBKzR+9BKbDwk=
+-github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.15.5 h1:sAAz28SeA7YZl8Yaphjs9tlLsflhdniQPjf3X2cqr4s=
+-github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.15.5/go.mod h1:HC7gNz3VH0p+RvLKK+HqNQv/gHy+1Os3ko/F41s3+aw=
+-github.com/aws/aws-sdk-go-v2/service/kms v1.24.6 h1:rp9DrFG3na9nuqsBZWb5KwvZrODhjayqFVJe8jmeVY8=
+-github.com/aws/aws-sdk-go-v2/service/kms v1.24.6/go.mod h1:I/absi3KLfE37J5QWMKyoYT8ZHA9t8JOC+Rb7Cyy+vc=
+-github.com/aws/aws-sdk-go-v2/service/s3 v1.40.1 h1:FqIaVPbs2W8U3fszl2PCL1IDKeRdM7TssjWamL6b2mg=
+-github.com/aws/aws-sdk-go-v2/service/s3 v1.40.1/go.mod h1:X0e0NCAx4GjOrKro7s9QYy+YEIFhgCkt6gYKVKhZB5Y=
+-github.com/aws/aws-sdk-go-v2/service/sso v1.15.1 h1:ZN3bxw9OYC5D6umLw6f57rNJfGfhg1DIAAcKpzyUTOE=
+-github.com/aws/aws-sdk-go-v2/service/sso v1.15.1/go.mod h1:PieckvBoT5HtyB9AsJRrYZFY2Z+EyfVM/9zG6gbV8DQ=
+-github.com/aws/aws-sdk-go-v2/service/ssooidc v1.17.2 h1:fSCCJuT5i6ht8TqGdZc5Q5K9pz/atrf7qH4iK5C9XzU=
+-github.com/aws/aws-sdk-go-v2/service/ssooidc v1.17.2/go.mod h1:5eNtr+vNc5vVd92q7SJ+U/HszsIdhZBEyi9dkMRKsp8=
+-github.com/aws/aws-sdk-go-v2/service/sts v1.23.1 h1:ASNYk1ypWAxRhJjKS0jBnTUeDl7HROOpeSMu1xDA/I8=
+-github.com/aws/aws-sdk-go-v2/service/sts v1.23.1/go.mod h1:2cnsAhVT3mqusovc2stUSUrSBGTcX9nh8Tu6xh//2eI=
+-github.com/aws/smithy-go v1.15.0 h1:PS/durmlzvAFpQHDs4wi4sNNP9ExsqZh6IlfdHXgKK8=
+-github.com/aws/smithy-go v1.15.0/go.mod h1:Tg+OJXh4MB2R/uN61Ko2f6hTZwB/ZYGOtib8J3gBHzA=
++github.com/aws/aws-sdk-go-v2 v1.24.0 h1:890+mqQ+hTpNuw0gGP6/4akolQkSToDJgHfQE7AwGuk=
++github.com/aws/aws-sdk-go-v2 v1.24.0/go.mod h1:LNh45Br1YAkEKaAqvmE1m8FUx6a5b/V0oAKV7of29b4=
++github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.5.4 h1:OCs21ST2LrepDfD3lwlQiOqIGp6JiEUqG84GzTDoyJs=
++github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.5.4/go.mod h1:usURWEKSNNAcAZuzRn/9ZYPT8aZQkR7xcCtunK/LkJo=
++github.com/aws/aws-sdk-go-v2/config v1.26.1 h1:z6DqMxclFGL3Zfo+4Q0rLnAZ6yVkzCRxhRMsiRQnD1o=
++github.com/aws/aws-sdk-go-v2/config v1.26.1/go.mod h1:ZB+CuKHRbb5v5F0oJtGdhFTelmrxd4iWO1lf0rQwSAg=
++github.com/aws/aws-sdk-go-v2/credentials v1.16.12 h1:v/WgB8NxprNvr5inKIiVVrXPuuTegM+K8nncFkr1usU=
++github.com/aws/aws-sdk-go-v2/credentials v1.16.12/go.mod h1:X21k0FjEJe+/pauud82HYiQbEr9jRKY3kXEIQ4hXeTQ=
++github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.14.10 h1:w98BT5w+ao1/r5sUuiH6JkVzjowOKeOJRHERyy1vh58=
++github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.14.10/go.mod h1:K2WGI7vUvkIv1HoNbfBA1bvIZ+9kL3YVmWxeKuLQsiw=
++github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.15.7 h1:FnLf60PtjXp8ZOzQfhJVsqF0OtYKQZWQfqOLshh8YXg=
++github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.15.7/go.mod h1:tDVvl8hyU6E9B8TrnNrZQEVkQlB8hjJwcgpPhgtlnNg=
++github.com/aws/aws-sdk-go-v2/internal/configsources v1.2.9 h1:v+HbZaCGmOwnTTVS86Fleq0vPzOd7tnJGbFhP0stNLs=
++github.com/aws/aws-sdk-go-v2/internal/configsources v1.2.9/go.mod h1:Xjqy+Nyj7VDLBtCMkQYOw1QYfAEZCVLrfI0ezve8wd4=
++github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.5.9 h1:N94sVhRACtXyVcjXxrwK1SKFIJrA9pOJ5yu2eSHnmls=
++github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.5.9/go.mod h1:hqamLz7g1/4EJP+GH5NBhcUMLjW+gKLQabgyz6/7WAU=
++github.com/aws/aws-sdk-go-v2/internal/ini v1.7.2 h1:GrSw8s0Gs/5zZ0SX+gX4zQjRnRsMJDJ2sLur1gRBhEM=
++github.com/aws/aws-sdk-go-v2/internal/ini v1.7.2/go.mod h1:6fQQgfuGmw8Al/3M2IgIllycxV7ZW7WCdVSqfBeUiCY=
++github.com/aws/aws-sdk-go-v2/internal/v4a v1.2.9 h1:ugD6qzjYtB7zM5PN/ZIeaAIyefPaD82G8+SJopgvUpw=
++github.com/aws/aws-sdk-go-v2/internal/v4a v1.2.9/go.mod h1:YD0aYBWCrPENpHolhKw2XDlTIWae2GKXT1T4o6N6hiM=
++github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.10.4 h1:/b31bi3YVNlkzkBrm9LfpaKoaYZUxIAj4sHfOTmLfqw=
++github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.10.4/go.mod h1:2aGXHFmbInwgP9ZfpmdIfOELL79zhdNYNmReK8qDfdQ=
++github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.2.9 h1:/90OR2XbSYfXucBMJ4U14wrjlfleq/0SB6dZDPncgmo=
++github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.2.9/go.mod h1:dN/Of9/fNZet7UrQQ6kTDo/VSwKPIq94vjlU16bRARc=
++github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.10.9 h1:Nf2sHxjMJR8CSImIVCONRi4g0Su3J+TSTbS7G0pUeMU=
++github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.10.9/go.mod h1:idky4TER38YIjr2cADF1/ugFMKvZV7p//pVeV5LZbF0=
++github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.16.9 h1:iEAeF6YC3l4FzlJPP9H3Ko1TXpdjdqWffxXjp8SY6uk=
++github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.16.9/go.mod h1:kjsXoK23q9Z/tLBrckZLLyvjhZoS+AGrzqzUfEClvMM=
++github.com/aws/aws-sdk-go-v2/service/kms v1.27.5 h1:7lKTr8zJ2nVaVgyII+7hUayTi7xWedMuANiNVXiD2S8=
++github.com/aws/aws-sdk-go-v2/service/kms v1.27.5/go.mod h1:D9FVDkZjkZnnFHymJ3fPVz0zOUlNSd0xcIIVmmrAac8=
++github.com/aws/aws-sdk-go-v2/service/s3 v1.47.5 h1:Keso8lIOS+IzI2MkPZyK6G0LYcK3My2LQ+T5bxghEAY=
++github.com/aws/aws-sdk-go-v2/service/s3 v1.47.5/go.mod h1:vADO6Jn+Rq4nDtfwNjhgR84qkZwiC6FqCaXdw/kYwjA=
++github.com/aws/aws-sdk-go-v2/service/sso v1.18.5 h1:ldSFWz9tEHAwHNmjx2Cvy1MjP5/L9kNoR0skc6wyOOM=
++github.com/aws/aws-sdk-go-v2/service/sso v1.18.5/go.mod h1:CaFfXLYL376jgbP7VKC96uFcU8Rlavak0UlAwk1Dlhc=
++github.com/aws/aws-sdk-go-v2/service/ssooidc v1.21.5 h1:2k9KmFawS63euAkY4/ixVNsYYwrwnd5fIvgEKkfZFNM=
++github.com/aws/aws-sdk-go-v2/service/ssooidc v1.21.5/go.mod h1:W+nd4wWDVkSUIox9bacmkBP5NMFQeTJ/xqNabpzSR38=
++github.com/aws/aws-sdk-go-v2/service/sts v1.26.5 h1:5UYvv8JUvllZsRnfrcMQ+hJ9jNICmcgKPAO1CER25Wg=
++github.com/aws/aws-sdk-go-v2/service/sts v1.26.5/go.mod h1:XX5gh4CB7wAs4KhcF46G6C8a2i7eupU19dcAAE+EydU=
++github.com/aws/smithy-go v1.19.0 h1:KWFKQV80DpP3vJrrA9sVAHQ5gc2z8i4EzrLhLlWXcBM=
++github.com/aws/smithy-go v1.19.0/go.mod h1:NukqUGpCZIILqqiV0NIjeFh24kd/FAa4beRb6nbIUPE=
+ github.com/bgentry/speakeasy v0.1.0/go.mod h1:+zsyZBPWlz7T6j88CTgSN5bM796AkVf0kBD4zp0CCIs=
+ github.com/blang/semver v3.5.1+incompatible h1:cQNTCjp13qL8KC3Nbxr/y2Bqb63oX6wdnnjpJbkM4JQ=
+ github.com/blang/semver v3.5.1+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
+@@ -108,8 +108,8 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
+ github.com/dnaeon/go-vcr v1.2.0 h1:zHCHvJYTMh1N7xnV7zf1m1GPBF9Ad0Jk/whtQ1663qI=
+ github.com/docker/cli v20.10.17+incompatible h1:eO2KS7ZFeov5UJeaDmIs1NFEDRf32PaqRpvoEkKBy5M=
+ github.com/docker/cli v20.10.17+incompatible/go.mod h1:JLrzqnKDaYBop7H2jaqPtU4hHvMKP+vjCwu2uszcLI8=
+-github.com/docker/docker v20.10.24+incompatible h1:Ugvxm7a8+Gz6vqQYQQ2W7GYq5EUPaAiuPgIfVyI3dYE=
+-github.com/docker/docker v20.10.24+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
++github.com/docker/docker v24.0.7+incompatible h1:Wo6l37AuwP3JaMnZa226lzVXGA3F9Ig1seQen0cKYlM=
++github.com/docker/docker v24.0.7+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
+ github.com/docker/go-connections v0.4.0 h1:El9xVISelRB7BuFusrZozjnkIM5YnzCViNKohAFqRJQ=
+ github.com/docker/go-connections v0.4.0/go.mod h1:Gbd7IOopHjR8Iph03tsViu4nIes5XhDvyHbTtUxmeec=
+ github.com/docker/go-units v0.4.0 h1:3uh0PgVws3nIA0Q+MwDC8yjEPf9zjRfZZWXZYDct3Tw=
+@@ -120,13 +120,13 @@ github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1m
+ github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
+ github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
+ github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
+-github.com/fatih/color v1.15.0 h1:kOqh6YHBtK8aywxGerMG2Eq3H6Qgoqeo13Bk2Mv/nBs=
+-github.com/fatih/color v1.15.0/go.mod h1:0h5ZqXfHYED7Bhv2ZJamyIOUej9KtShiJESRwBDUSsw=
++github.com/fatih/color v1.16.0 h1:zmkK9Ngbjj+K0yRhTVONQh1p/HknKYSlNT+vZCzyokM=
++github.com/fatih/color v1.16.0/go.mod h1:fL2Sau1YI5c0pdGEVCbKQbLXB6edEj1ZgiY4NijnWvE=
+ github.com/frankban/quicktest v1.11.3/go.mod h1:wRf/ReqHper53s+kmmSZizM8NamnL3IM0I9ntUbOk+k=
+ github.com/getsops/gopgagent v0.0.0-20170926210634-4d7ea76ff71a h1:qc+7TV35Pq/FlgqECyS5ywq8cSN9j1fwZg6uyZ7G0B0=
+ github.com/getsops/gopgagent v0.0.0-20170926210634-4d7ea76ff71a/go.mod h1:awFzISqLJoZLm+i9QQ4SgMNHDqljH6jWV0B36V5MrUM=
+-github.com/go-jose/go-jose/v3 v3.0.0 h1:s6rrhirfEP/CGIoc6p+PZAeogN2SxKav6Wp7+dyMWVo=
+-github.com/go-jose/go-jose/v3 v3.0.0/go.mod h1:RNkWWRld676jZEYoV3+XK8L2ZnNSvIsxFMht0mSX+u8=
++github.com/go-jose/go-jose/v3 v3.0.1 h1:pWmKFVtt+Jl0vBZTIpz/eAKwsm6LkIxDVVbFHKkchhA=
++github.com/go-jose/go-jose/v3 v3.0.1/go.mod h1:RNkWWRld676jZEYoV3+XK8L2ZnNSvIsxFMht0mSX+u8=
+ github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
+ github.com/go-test/deep v1.0.2 h1:onZX1rnHT3Wv6cqNgYyFOOlgVKJrksuCMCRvJStbMYw=
+ github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
+@@ -161,7 +161,6 @@ github.com/google/go-cmp v0.5.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
+ github.com/google/go-cmp v0.5.3/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+ github.com/google/go-cmp v0.5.4/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+ github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+-github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
+ github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
+ github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
+ github.com/google/martian/v3 v3.3.2 h1:IqNFLAmvJOgVlpdEBiQbDc2EwKW77amAycfTuWKdfvw=
+@@ -170,10 +169,10 @@ github.com/google/s2a-go v0.1.7/go.mod h1:50CgR4k1jNlWBu4UfS4AcfhVe1r6pdZPygJ3R8
+ github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 h1:El6M4kTTCOh6aBiKaUGG7oYTSPP8MxqL4YI3kZKwcP4=
+ github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510/go.mod h1:pupxD2MaaD3pAXIBCelhxNneeOaAeabZDe5s4K6zSpQ=
+ github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+-github.com/google/uuid v1.3.1 h1:KjJaJ9iWZ3jOFZIf1Lqf4laDRCasjl0BCmnEGxkdLb4=
+-github.com/google/uuid v1.3.1/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+-github.com/googleapis/enterprise-certificate-proxy v0.3.1 h1:SBWmZhjUDRorQxrN0nwzf+AHBxnbFjViHQS4P0yVpmQ=
+-github.com/googleapis/enterprise-certificate-proxy v0.3.1/go.mod h1:VLSiSSBs/ksPL8kq3OBOQ6WRI2QnaFynd1DCjZ62+V0=
++github.com/google/uuid v1.4.0 h1:MtMxsa51/r9yyhkyLsVeVt0B+BGQZzpQiTQ4eHZ8bc4=
++github.com/google/uuid v1.4.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
++github.com/googleapis/enterprise-certificate-proxy v0.3.2 h1:Vie5ybvEvT75RniqhfFxPRy3Bf7vr3h0cechB90XaQs=
++github.com/googleapis/enterprise-certificate-proxy v0.3.2/go.mod h1:VLSiSSBs/ksPL8kq3OBOQ6WRI2QnaFynd1DCjZ62+V0=
+ github.com/googleapis/gax-go/v2 v2.12.0 h1:A+gCJKdRfqXkr+BIRGtZLibNXf0m1f9E4HG56etFpas=
+ github.com/googleapis/gax-go/v2 v2.12.0/go.mod h1:y+aIqrI5eb1YGMVJfuV3185Ts/D7qKpsEkdD5+I6QGU=
+ github.com/goware/prefixer v0.0.0-20160118172347-395022866408 h1:Y9iQJfEqnN3/Nce9cOegemcy/9Ai5k3huT6E80F3zaw=
+@@ -232,8 +231,8 @@ github.com/mattn/go-isatty v0.0.3/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNx
+ github.com/mattn/go-isatty v0.0.12/go.mod h1:cbi8OIDigv2wuxKPP5vlRcQ1OAZbq2CE4Kysco4FUpU=
+ github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27kJ6hsGG94=
+ github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
+-github.com/mattn/go-isatty v0.0.17 h1:BTarxUcIeDqL27Mc+vyvdWYSL28zpIhv3RoTdsLMPng=
+-github.com/mattn/go-isatty v0.0.17/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
++github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
++github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
+ github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
+ github.com/mitchellh/go-homedir v1.1.0 h1:lukF9ziXFxDFPkA1vsr5zpc1XuPDn/wFntq5mG+4E0Y=
+ github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
+@@ -315,8 +314,8 @@ golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPh
+ golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
+ golang.org/x/crypto v0.3.1-0.20221117191849-2c476679df9a/go.mod h1:hebNnKkNXi2UzZN1eVRvBB7co0a+JxK6XbPiWVs/3J4=
+ golang.org/x/crypto v0.7.0/go.mod h1:pYwdfH91IfpZVANVyUOhSIPZaFoJGxTFbZhFTx+dXZU=
+-golang.org/x/crypto v0.14.0 h1:wBqGXzWJW6m1XrIKlAH0Hs1JJ7+9KBwnIO8v66Q9cHc=
+-golang.org/x/crypto v0.14.0/go.mod h1:MVFd36DqK4CsrnJYDkBA3VC4m2GkXAM0PvzMCn4JQf4=
++golang.org/x/crypto v0.16.0 h1:mMMrFzRSCF0GvB7Ne27XVtVAaXLrPmgPC7/v0tkwHaY=
++golang.org/x/crypto v0.16.0/go.mod h1:gCAAfMLgwOJRpTjQ2zCCt2OcSfYMTeZVSRtQlPC7Nq4=
+ golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
+ golang.org/x/lint v0.0.0-20181026193005-c67002cb31c3/go.mod h1:UVdnD1Gm6xHRNCYTkRU2/jEulfH38KcIWyp/GAMgvoE=
+ golang.org/x/lint v0.0.0-20190227174305-5b3e6a55c961/go.mod h1:wehouNa3lNwaWXcvxsM5YxQ5yQlVC4a0KAMCusXpPoU=
+@@ -343,11 +342,11 @@ golang.org/x/net v0.0.0-20220722155237-a158d28d115b/go.mod h1:XRhObCWvk6IyKnWLug
+ golang.org/x/net v0.2.0/go.mod h1:KqCZLdyyvdV855qA2rE3GC2aiw5xGR5TEjj8smXukLY=
+ golang.org/x/net v0.6.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
+ golang.org/x/net v0.8.0/go.mod h1:QVkue5JL9kW//ek3r6jTKnTFis1tRmNAW2P1shuFdJc=
+-golang.org/x/net v0.17.0 h1:pVaXccu2ozPjCXewfr1S7xza/zcXTity9cCdXQYSjIM=
+-golang.org/x/net v0.17.0/go.mod h1:NxSsAGuq816PNPmqtQdLE42eU2Fs7NoRIZrHJAlaCOE=
++golang.org/x/net v0.19.0 h1:zTwKpTd2XuCqf8huc7Fo2iSy+4RHPd10s4KzeTnVr1c=
++golang.org/x/net v0.19.0/go.mod h1:CfAk/cbD4CthTvqiEl8NpboMuiuOYsAr/7NOjZJtv1U=
+ golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
+-golang.org/x/oauth2 v0.12.0 h1:smVPGxink+n1ZI5pkQa8y6fZT0RW0MgCO5bFpepy4B4=
+-golang.org/x/oauth2 v0.12.0/go.mod h1:A74bZ3aGXgCY0qaIC9Ahg6Lglin4AMAco8cIv9baba4=
++golang.org/x/oauth2 v0.14.0 h1:P0Vrf/2538nmC0H+pEQ3MNFRRnVR7RlqyVw+bvm26z0=
++golang.org/x/oauth2 v0.14.0/go.mod h1:lAtNWgaWfL4cm7j2OV8TxGi9Qb7ECORx8DktCY74OwM=
+ golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+ golang.org/x/sync v0.0.0-20181108010431-42b317875d0f/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+ golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+@@ -355,8 +354,8 @@ golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e/go.mod h1:RxMgew5VJxzue5/jJ
+ golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+ golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+ golang.org/x/sync v0.1.0/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+-golang.org/x/sync v0.3.0 h1:ftCYgMx6zT/asHUrPw8BLLscYtGznsLAnjq5RH9P66E=
+-golang.org/x/sync v0.3.0/go.mod h1:FU7BRWz2tNW+3quACPkgCx/L+uEAv1htQ0V83Z9Rj+Y=
++golang.org/x/sync v0.5.0 h1:60k92dhOjHxJkrqnwsfl8KuaHbn/5dl0lUPUklKo3qE=
++golang.org/x/sync v0.5.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
+ golang.org/x/sys v0.0.0-20180823144017-11551d06cbcc/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+ golang.org/x/sys v0.0.0-20180830151530-49385e6e1522/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+ golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+@@ -386,15 +385,15 @@ golang.org/x/sys v0.2.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+ golang.org/x/sys v0.3.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+ golang.org/x/sys v0.5.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+ golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+-golang.org/x/sys v0.13.0 h1:Af8nKPmuFypiUBjVoU9V20FiaFXOcuZI21p0ycVYYGE=
+-golang.org/x/sys v0.13.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
++golang.org/x/sys v0.15.0 h1:h48lPFYpsTvQJZF4EKyI4aLHaev3CxivZmv7yZig9pc=
++golang.org/x/sys v0.15.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
+ golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
+ golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
+ golang.org/x/term v0.2.0/go.mod h1:TVmDHMZPmdnySmBfhjOoOdhjzdE1h4u1VwSiw2l1Nuc=
+ golang.org/x/term v0.5.0/go.mod h1:jMB1sMXY+tzblOD4FWmEbocvup2/aLOaQEp7JmGp78k=
+ golang.org/x/term v0.6.0/go.mod h1:m6U89DPEgQRMq3DNkDClhWw02AUbt2daBVO4cn4Hv9U=
+-golang.org/x/term v0.13.0 h1:bb+I9cTfFazGW51MZqBVmZy7+JEJMouUHTUSKVQLBek=
+-golang.org/x/term v0.13.0/go.mod h1:LTmsnFJwVN6bCy1rVCoS+qHT1HhALEFxKncY3WNNh4U=
++golang.org/x/term v0.15.0 h1:y/Oo/a/q3IXu26lQgl04j/gjuBDOBlx7X6Om1j2CPW4=
++golang.org/x/term v0.15.0/go.mod h1:BDl952bC7+uMoWR75FIrCDx79TPU9oHkTZ9yRbYOrX0=
+ golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
+ golang.org/x/text v0.3.2/go.mod h1:bEr9sfX3Q8Zfm5fL9x+3itogRgK3+ptLWKqgva+5dAk=
+ golang.org/x/text v0.3.3/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
+@@ -402,10 +401,10 @@ golang.org/x/text v0.3.7/go.mod h1:u+2+/6zg+i71rQMx5EYifcz6MCKuco9NR6JIITiCfzQ=
+ golang.org/x/text v0.4.0/go.mod h1:mrYo+phRRbMaCq/xk9113O4dZlRixOauAjOtrjsXDZ8=
+ golang.org/x/text v0.7.0/go.mod h1:mrYo+phRRbMaCq/xk9113O4dZlRixOauAjOtrjsXDZ8=
+ golang.org/x/text v0.8.0/go.mod h1:e1OnstbJyHTd6l/uOt8jFFHp6TRDWZR/bV3emEE/zU8=
+-golang.org/x/text v0.13.0 h1:ablQoSUd0tRdKxZewP80B+BaqeKJuVhuRxj/dkrun3k=
+-golang.org/x/text v0.13.0/go.mod h1:TvPlkZtksWOMsz7fbANvkp4WM8x/WCo/om8BMLbz+aE=
+-golang.org/x/time v0.0.0-20220609170525-579cf78fd858 h1:Dpdu/EMxGMFgq0CeYMh4fazTD2vtlZRYE7wyynxJb9U=
+-golang.org/x/time v0.0.0-20220609170525-579cf78fd858/go.mod h1:tRJNPiyCQ0inRvYxbN9jk5I+vvW/OXSQhTDSoE431IQ=
++golang.org/x/text v0.14.0 h1:ScX5w1eTa3QqT8oi6+ziP7dTV1S2+ALU0bI+0zXKWiQ=
++golang.org/x/text v0.14.0/go.mod h1:18ZOQIKpY8NJVqYksKHtTdi31H5itFRjB5/qKTNYzSU=
++golang.org/x/time v0.5.0 h1:o7cqy6amK/52YcAKIPlM3a+Fpj35zvRj2TP+e1xFSfk=
++golang.org/x/time v0.5.0/go.mod h1:3BpzKBy/shNhVucY/MWOyx10tF3SFh9QdLuxbVysPQM=
+ golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
+ golang.org/x/tools v0.0.0-20190114222345-bf090417da8b/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
+ golang.org/x/tools v0.0.0-20190226205152-f727befe758c/go.mod h1:9Yl7xja0Znq3iFh3HoIrodX9oNMXvdceNzlUR8zjMvY=
+@@ -425,8 +424,8 @@ golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8T
+ golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
+ golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 h1:H2TDz8ibqkAF6YGhCdN3jS9O0/s90v0rJh3X/OLHEUk=
+ golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2/go.mod h1:K8+ghG5WaK9qNqU5K3HdILfMLy1f3aNYFI/wnl100a8=
+-google.golang.org/api v0.146.0 h1:9aBYT4vQXt9dhCuLNfwfd3zpwu8atg0yPkjBymwSrOM=
+-google.golang.org/api v0.146.0/go.mod h1:OARJqIfoYjXJj4C1AiBSXYZt03qsoz8FQYU6fBEfrHM=
++google.golang.org/api v0.153.0 h1:N1AwGhielyKFaUqH07/ZSIQR3uNPcV7NVw0vj+j4iR4=
++google.golang.org/api v0.153.0/go.mod h1:3qNJX5eOmhiWYc67jRA/3GsDw97UFb5ivv7Y2PrriAY=
+ google.golang.org/appengine v1.1.0/go.mod h1:EbEs0AVv82hx2wNQdGPgUI5lhzA/G0D9YwlJXL52JkM=
+ google.golang.org/appengine v1.4.0/go.mod h1:xpcJRLb0r/rnEns0DIKYYv+WjYCduHsrkT7/EB5XEv4=
+ google.golang.org/appengine v1.6.7 h1:FZR1q0exgwxzPzp/aF+VccGrSfxfPpkBqjIIEq3ru6c=
+@@ -434,19 +433,19 @@ google.golang.org/appengine v1.6.7/go.mod h1:8WjMMxjGQR8xUklV/ARdw2HLXBOI7O7uCID
+ google.golang.org/genproto v0.0.0-20180817151627-c66870c02cf8/go.mod h1:JiN7NxoALGmiZfu7CAH4rXhgtRTLTxftemlI0sWmxmc=
+ google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55/go.mod h1:DMBHOl98Agz4BDEuKkezgsaosCRResVns1a3J2ZsMNc=
+ google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013/go.mod h1:NbSheEEYHJ7i3ixzK3sjbqSGDJWnxyFXZblF3eUsNvo=
+-google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97 h1:SeZZZx0cP0fqUyA+oRzP9k7cSwJlvDFiROO72uwD6i0=
+-google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97/go.mod h1:t1VqOqqvce95G3hIDCT5FeO3YUc6Q4Oe24L/+rNMxRk=
+-google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13 h1:U7+wNaVuSTaUqNvK2+osJ9ejEZxbjHHk8F2b6Hpx0AE=
+-google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13/go.mod h1:RdyHbowztCGQySiCvQPgWQWgWhGnouTdCflKoDBt32U=
+-google.golang.org/genproto/googleapis/rpc v0.0.0-20231009173412-8bfb1ae86b6c h1:jHkCUWkseRf+W+edG5hMzr/Uh1xkDREY4caybAq4dpY=
+-google.golang.org/genproto/googleapis/rpc v0.0.0-20231009173412-8bfb1ae86b6c/go.mod h1:4cYg8o5yUbm77w8ZX00LhMVNl/YVBFJRYWDc0uYWMs0=
++google.golang.org/genproto v0.0.0-20231106174013-bbf56f31fb17 h1:wpZ8pe2x1Q3f2KyT5f8oP/fa9rHAKgFPr/HZdNuS+PQ=
++google.golang.org/genproto v0.0.0-20231106174013-bbf56f31fb17/go.mod h1:J7XzRzVy1+IPwWHZUzoD0IccYZIrXILAQpc+Qy9CMhY=
++google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17 h1:JpwMPBpFN3uKhdaekDpiNlImDdkUAyiJ6ez/uxGaUSo=
++google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17/go.mod h1:0xJLfVdJqpAPl8tDg1ujOCGzx6LFLttXT5NhllGOXY4=
++google.golang.org/genproto/googleapis/rpc v0.0.0-20231120223509-83a465c0220f h1:ultW7fxlIvee4HYrtnaRPon9HpEgFk5zYpmfMgtKB5I=
++google.golang.org/genproto/googleapis/rpc v0.0.0-20231120223509-83a465c0220f/go.mod h1:L9KNLi232K1/xB6f7AlSX692koaRnKaWSR0stBki0Yc=
+ google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
+ google.golang.org/grpc v1.23.0/go.mod h1:Y5yQAOtifL1yxbo5wqy6BxZv8vAUGQwXBOALyacEbxg=
+ google.golang.org/grpc v1.25.1/go.mod h1:c3i+UQWmh7LiEpx4sFZnkU36qjEYZ0imhYfXVyQciAY=
+ google.golang.org/grpc v1.27.0/go.mod h1:qbnxyOmOxrQa7FizSgH+ReBfzJrCY1pSN7KXBS8abTk=
+ google.golang.org/grpc v1.33.2/go.mod h1:JMHMWHQWaTccqQQlmk3MJZS+GWXOdAesneDmEnv2fbc=
+-google.golang.org/grpc v1.58.3 h1:BjnpXut1btbtgN/6sp+brB2Kbm2LjNXnidYujAVbSoQ=
+-google.golang.org/grpc v1.58.3/go.mod h1:tgX3ZQDlNJGU96V6yHh1T/JeoBQ2TXdr43YbYSsCJk0=
++google.golang.org/grpc v1.59.0 h1:Z5Iec2pjwb+LEOqzpB2MR12/eKFhDPhuqW91O+4bwUk=
++google.golang.org/grpc v1.59.0/go.mod h1:aUPDwccQo6OTjy7Hct4AfBPD1GptF4fyUjIkQ9YtF98=
+ google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod h1:DFci5gLYBciE7Vtevhsrf46CRTquxDuWsQurQQe4oz8=
+ google.golang.org/protobuf v0.0.0-20200221191635-4d8936d0db64/go.mod h1:kwYJMbMJ01Woi6D6+Kah6886xMZcty6N08ah7+eCXa0=
+ google.golang.org/protobuf v0.0.0-20200228230310-ab0ca4ff8a60/go.mod h1:cfTl7dwQJ+fmap5saPgwCLgHXTUD7jkjRqWcaiX5VyM=
+diff --git a/hcvault/keysource_test.go b/hcvault/keysource_test.go
+index 5f548caac..355a47868 100644
+--- a/hcvault/keysource_test.go
++++ b/hcvault/keysource_test.go
+@@ -85,7 +85,7 @@ func TestMain(m *testing.M) {
+ 		code = m.Run()
+ 	}
+ 
+-	// This can't be deferred, as os.Exit simpy does not care
++	// This can't be deferred, as os.Exit simply does not care
+ 	if err := pool.Purge(resource); err != nil {
+ 		logger.Fatalf("could not purge resource: %s", err)
+ 	}
+@@ -359,7 +359,14 @@ func Test_dataKeyFromSecret(t *testing.T) {
+ 
+ func Test_vaultClient(t *testing.T) {
+ 	t.Run("client", func(t *testing.T) {
++		tmpDir := t.TempDir()
++
++		// Reset before and after to make sure the override is taken into
++		// account, and restored after the test.
++		homedir.Reset()
++		t.Cleanup(func() { homedir.Reset() })
+ 		t.Setenv("VAULT_TOKEN", "")
++		t.Setenv("HOME", tmpDir)
+ 
+ 		got, err := vaultClient(testVaultAddress, "")
+ 		assert.NoError(t, err)
+diff --git a/kms/keysource.go b/kms/keysource.go
+index a28398090..1749b3455 100644
+--- a/kms/keysource.go
++++ b/kms/keysource.go
+@@ -88,6 +88,14 @@ func NewMasterKey(arn string, role string, context map[string]*string) *MasterKe
+ 	}
+ }
+ 
++// NewMasterKeyWithProfile creates a new MasterKey from an ARN, role, context
++// and awsProfile, setting the creation date to the current date.
++func NewMasterKeyWithProfile(arn string, role string, context map[string]*string, awsProfile string) *MasterKey {
++	k := NewMasterKey(arn, role, context)
++	k.AwsProfile = awsProfile
++	return k
++}
++
+ // NewMasterKeyFromArn takes an ARN string and returns a new MasterKey for that
+ // ARN.
+ func NewMasterKeyFromArn(arn string, context map[string]*string, awsProfile string) *MasterKey {
+diff --git a/kms/keysource_test.go b/kms/keysource_test.go
+index 4bed28621..a2bb76b3f 100644
+--- a/kms/keysource_test.go
++++ b/kms/keysource_test.go
+@@ -6,6 +6,7 @@ import (
+ 	"fmt"
+ 	logger "log"
+ 	"os"
++	"path/filepath"
+ 	"testing"
+ 	"time"
+ 
+@@ -100,7 +101,7 @@ func TestMain(m *testing.M) {
+ 		code = m.Run()
+ 	}
+ 
+-	// This can't be deferred, as os.Exit simpy does not care
++	// This can't be deferred, as os.Exit simply does not care
+ 	if err := pool.Purge(resource); err != nil {
+ 		logger.Fatalf("could not purge resource: %s", err)
+ 	}
+@@ -122,6 +123,22 @@ func TestNewMasterKey(t *testing.T) {
+ 	assert.NotNil(t, key.CreationDate)
+ }
+ 
++func TestNewMasterKeyWithProfile(t *testing.T) {
++	var (
++		dummyRole              = "a-role"
++		dummyEncryptionContext = map[string]*string{
++			"foo": aws.String("bar"),
++		}
++		dummyProfile = "a-profile"
++	)
++	key := NewMasterKeyWithProfile(dummyARN, dummyRole, dummyEncryptionContext, dummyProfile)
++	assert.Equal(t, dummyARN, key.Arn)
++	assert.Equal(t, dummyRole, key.Role)
++	assert.Equal(t, dummyEncryptionContext, key.EncryptionContext)
++	assert.Equal(t, dummyProfile, key.AwsProfile)
++	assert.NotNil(t, key.CreationDate)
++}
++
+ func TestNewMasterKeyFromArn(t *testing.T) {
+ 	t.Run("arn", func(t *testing.T) {
+ 		var (
+@@ -383,14 +400,14 @@ func TestMasterKey_createKMSConfig(t *testing.T) {
+ 	tests := []struct {
+ 		name       string
+ 		key        MasterKey
++		envFunc    func(t *testing.T)
+ 		assertFunc func(t *testing.T, cfg *aws.Config, err error)
+ 		fallback   bool
+ 	}{
+ 		{
+-			name: "valid config",
++			name: "valid config with credentials provider",
+ 			key: MasterKey{
+ 				credentialsProvider: credentials.NewStaticCredentialsProvider("test-id", "test-secret", "test-token"),
+-				AwsProfile:          "test-profile",
+ 				Arn:                 "arn:aws:kms:us-west-2:107501996527:key/612d5f0p-p1l3-45e6-aca6-a5b005693a48",
+ 			},
+ 			assertFunc: func(t *testing.T, cfg *aws.Config, err error) {
+@@ -402,6 +419,30 @@ func TestMasterKey_createKMSConfig(t *testing.T) {
+ 				assert.Equal(t, "test-id", creds.AccessKeyID)
+ 				assert.Equal(t, "test-secret", creds.SecretAccessKey)
+ 				assert.Equal(t, "test-token", creds.SessionToken)
++			},
++		},
++		{
++			name: "valid config with profile",
++			key: MasterKey{
++				AwsProfile: "test-profile",
++				Arn:        "arn:aws:kms:us-west-2:107501996527:key/612d5f0p-p1l3-45e6-aca6-a5b005693a48",
++			},
++			envFunc: func(t *testing.T) {
++				credentialsFile := filepath.Join(t.TempDir(), ".aws", "credentials")
++				assert.NoError(t, os.MkdirAll(filepath.Dir(credentialsFile), 0o700))
++				assert.NoError(t, os.WriteFile(credentialsFile, []byte(`[test-profile]
++aws_access_key_id = test-id
++aws_secret_access_key = test-secret`), 0600))
++
++				t.Setenv("AWS_SHARED_CREDENTIALS_FILE", credentialsFile)
++			},
++			assertFunc: func(t *testing.T, cfg *aws.Config, err error) {
++				assert.NoError(t, err)
++
++				creds, err := cfg.Credentials.Retrieve(context.TODO())
++				assert.NoError(t, err)
++				assert.Equal(t, "test-id", creds.AccessKeyID)
++				assert.Equal(t, "test-secret", creds.SecretAccessKey)
+ 
+ 				// ConfigSources is a slice of config.Config, which in turn is an interface.
+ 				// Since we use a LoadOptions object, we assert the type of cfgSrc and then
+@@ -441,7 +482,11 @@ func TestMasterKey_createKMSConfig(t *testing.T) {
+ 			key: MasterKey{
+ 				Arn: "arn:aws:kms:us-west-2:107501996527:key/612d5f0p-p1l3-45e6-aca6-a5b005693a48",
+ 			},
+-			fallback: true,
++			envFunc: func(t *testing.T) {
++				t.Setenv("AWS_ACCESS_KEY_ID", "id")
++				t.Setenv("AWS_SECRET_ACCESS_KEY", "secret")
++				t.Setenv("AWS_SESSION_TOKEN", "token")
++			},
+ 			assertFunc: func(t *testing.T, cfg *aws.Config, err error) {
+ 				assert.NoError(t, err)
+ 
+@@ -457,11 +502,8 @@ func TestMasterKey_createKMSConfig(t *testing.T) {
+ 	for _, tt := range tests {
+ 		t.Run(tt.name, func(t *testing.T) {
+ 			tt := tt
+-			// Set the environment variables if we want to fallback
+-			if tt.fallback {
+-				t.Setenv("AWS_ACCESS_KEY_ID", "id")
+-				t.Setenv("AWS_SECRET_ACCESS_KEY", "secret")
+-				t.Setenv("AWS_SESSION_TOKEN", "token")
++			if tt.envFunc != nil {
++				tt.envFunc(t)
+ 			}
+ 			cfg, err := tt.key.createKMSConfig()
+ 			tt.assertFunc(t, cfg, err)
+@@ -514,7 +556,7 @@ func Test_stsSessionName(t *testing.T) {
+ 		}
+ 		got, err := stsSessionName()
+ 		assert.Error(t, err)
+-		assert.ErrorContains(t, err, "failed to construct STS session nam")
++		assert.ErrorContains(t, err, "failed to construct STS session name")
+ 		assert.Empty(t, got)
+ 	})
+ 
+diff --git a/pgp/keysource.go b/pgp/keysource.go
+index 7c14ff265..a95c4d008 100644
+--- a/pgp/keysource.go
++++ b/pgp/keysource.go
+@@ -240,7 +240,7 @@ func (r SecRing) ApplyToMasterKey(key *MasterKey) {
+ // errSet is a collection of captured errors.
+ type errSet []error
+ 
+-// Error joins the errors into a "; " seperated string.
++// Error joins the errors into a "; " separated string.
+ func (e errSet) Error() string {
+ 	str := make([]string, len(e))
+ 	for i, err := range e {
+@@ -623,7 +623,7 @@ func gnuPGHome(customPath string) string {
+ }
+ 
+ // shortenFingerprint returns the short ID of the given fingerprint.
+-// This is mostly used for compatability reasons, as older versions of GnuPG
++// This is mostly used for compatibility reasons, as older versions of GnuPG
+ // do not always like long IDs.
+ func shortenFingerprint(fingerprint string) string {
+ 	if offset := len(fingerprint) - 16; offset > 0 {
+diff --git a/pgp/keysource_test.go b/pgp/keysource_test.go
+index f820ff032..58693d72d 100644
+--- a/pgp/keysource_test.go
++++ b/pgp/keysource_test.go
+@@ -129,8 +129,11 @@ func TestGnuPGHome_Validate(t *testing.T) {
+ 	})
+ 
+ 	t.Run("wrong permissions", func(t *testing.T) {
+-		// Is created with 0755
+ 		tmpDir := t.TempDir()
++
++		err := os.Chmod(tmpDir, 0o755)
++		assert.NoError(t, err)
++
+ 		assert.Error(t, GnuPGHome(tmpDir).Validate())
+ 	})
+ 
+diff --git a/shamir/shamir_test.go b/shamir/shamir_test.go
+index 7719ed01f..18727a89d 100644
+--- a/shamir/shamir_test.go
++++ b/shamir/shamir_test.go
+@@ -54,7 +54,7 @@ func TestCombine_invalid(t *testing.T) {
+ 		t.Fatalf("should err")
+ 	}
+ 
+-	// Mis-match in length
++	// Mismatch in length
+ 	parts := [][]byte{
+ 		[]byte("foo"),
+ 		[]byte("ba"),
+diff --git a/sops.go b/sops.go
+index ae0ecfc24..827a5ee5b 100644
+--- a/sops.go
++++ b/sops.go
+@@ -70,6 +70,12 @@ const MacMismatch = sopsError("MAC mismatch")
+ // MetadataNotFound occurs when the input file is malformed and doesn't have sops metadata in it
+ const MetadataNotFound = sopsError("sops metadata not found")
+ 
++// MACOnlyEncryptedInitialization is a constant and known sequence of 32 bytes used to initialize
++// MAC which is computed only over values which end up encrypted. That assures that a MAC with the
++// setting enabled is always different from a MAC with this setting disabled.
++// The following numbers are taken from the output of `echo -n sops | sha256sum` (shell) or `hashlib.sha256(b'sops').hexdigest()` (Python).
++var MACOnlyEncryptedInitialization = []byte{0x8a, 0x3f, 0xd2, 0xad, 0x54, 0xce, 0x66, 0x52, 0x7b, 0x10, 0x34, 0xf3, 0xd1, 0x47, 0xbe, 0xb, 0xb, 0x97, 0x5b, 0x3b, 0xf4, 0x4f, 0x72, 0xc6, 0xfd, 0xad, 0xec, 0x81, 0x76, 0xf2, 0x7d, 0x69}
++
+ var log *logrus.Logger
+ 
+ func init() {
+@@ -291,22 +297,21 @@ func (branch TreeBranch) walkBranch(in TreeBranch, path []string, onLeaves func(
+ // is provided (by default it is not), those not matching EncryptedRegex,
+ // if EncryptedRegex is provided (by default it is not) or those matching
+ // UnencryptedRegex, if UnencryptedRegex is provided (by default it is not).
+-// If encryption is successful, it returns the MAC for the encrypted tree.
++// If encryption is successful, it returns the MAC for the encrypted tree
++// (all values if MACOnlyEncrypted is false, or only over values which end
++// up encrypted if MACOnlyEncrypted is true).
+ func (tree Tree) Encrypt(key []byte, cipher Cipher) (string, error) {
+ 	audit.SubmitEvent(audit.EncryptEvent{
+ 		File: tree.FilePath,
+ 	})
+ 	hash := sha512.New()
++	if tree.Metadata.MACOnlyEncrypted {
++		// We initialize with known set of bytes so that a MAC with this setting
++		// enabled is always different from a MAC with this setting disabled.
++		hash.Write(MACOnlyEncryptedInitialization)
++	}
+ 	walk := func(branch TreeBranch) error {
+ 		_, err := branch.walkBranch(branch, make([]string, 0), func(in interface{}, path []string) (interface{}, error) {
+-			// Only add to MAC if not a comment
+-			if _, ok := in.(Comment); !ok {
+-				bytes, err := ToBytes(in)
+-				if err != nil {
+-					return nil, fmt.Errorf("Could not convert %s to bytes: %s", in, err)
+-				}
+-				hash.Write(bytes)
+-			}
+ 			encrypted := true
+ 			if tree.Metadata.UnencryptedSuffix != "" {
+ 				for _, v := range path {
+@@ -344,6 +349,16 @@ func (tree Tree) Encrypt(key []byte, cipher Cipher) (string, error) {
+ 					}
+ 				}
+ 			}
++			if !tree.Metadata.MACOnlyEncrypted || encrypted {
++				// Only add to MAC if not a comment
++				if _, ok := in.(Comment); !ok {
++					bytes, err := ToBytes(in)
++					if err != nil {
++						return nil, fmt.Errorf("Could not convert %s to bytes: %s", in, err)
++					}
++					hash.Write(bytes)
++				}
++			}
+ 			if encrypted {
+ 				var err error
+ 				pathString := strings.Join(path, ":") + ":"
+@@ -371,13 +386,20 @@ func (tree Tree) Encrypt(key []byte, cipher Cipher) (string, error) {
+ // those not ending with EncryptedSuffix, if EncryptedSuffix is provided (by default it is not),
+ // those not matching EncryptedRegex, if EncryptedRegex is provided (by default it is not),
+ // or those matching UnencryptedRegex, if UnencryptedRegex is provided (by default it is not).
+-// If decryption is successful, it returns the MAC for the decrypted tree.
++// If decryption is successful, it returns the MAC for the decrypted tree
++// (all values if MACOnlyEncrypted is false, or only over values which end
++// up decrypted if MACOnlyEncrypted is true).
+ func (tree Tree) Decrypt(key []byte, cipher Cipher) (string, error) {
+ 	log.Debug("Decrypting tree")
+ 	audit.SubmitEvent(audit.DecryptEvent{
+ 		File: tree.FilePath,
+ 	})
+ 	hash := sha512.New()
++	if tree.Metadata.MACOnlyEncrypted {
++		// We initialize with known set of bytes so that a MAC with this setting
++		// enabled is always different from a MAC with this setting disabled.
++		hash.Write(MACOnlyEncryptedInitialization)
++	}
+ 	walk := func(branch TreeBranch) error {
+ 		_, err := branch.walkBranch(branch, make([]string, 0), func(in interface{}, path []string) (interface{}, error) {
+ 			encrypted := true
+@@ -441,13 +463,15 @@ func (tree Tree) Decrypt(key []byte, cipher Cipher) (string, error) {
+ 			} else {
+ 				v = in
+ 			}
+-			// Only add to MAC if not a comment
+-			if _, ok := v.(Comment); !ok {
+-				bytes, err := ToBytes(v)
+-				if err != nil {
+-					return nil, fmt.Errorf("Could not convert %s to bytes: %s", in, err)
++			if !tree.Metadata.MACOnlyEncrypted || encrypted {
++				// Only add to MAC if not a comment
++				if _, ok := v.(Comment); !ok {
++					bytes, err := ToBytes(v)
++					if err != nil {
++						return nil, fmt.Errorf("Could not convert %s to bytes: %s", in, err)
++					}
++					hash.Write(bytes)
+ 				}
+-				hash.Write(bytes)
+ 			}
+ 			return v, nil
+ 		})
+@@ -490,6 +514,7 @@ type Metadata struct {
+ 	UnencryptedRegex          string
+ 	EncryptedRegex            string
+ 	MessageAuthenticationCode string
++	MACOnlyEncrypted          bool
+ 	Version                   string
+ 	KeyGroups                 []KeyGroup
+ 	// ShamirThreshold is the number of key groups required to recover the
+diff --git a/sops_test.go b/sops_test.go
+index 549de80bf..56a1c3da4 100644
+--- a/sops_test.go
++++ b/sops_test.go
+@@ -242,6 +242,90 @@ func TestUnencryptedRegex(t *testing.T) {
+ 	}
+ }
+ 
++func TestMACOnlyEncrypted(t *testing.T) {
++	branches := TreeBranches{
++		TreeBranch{
++			TreeItem{
++				Key:   "foo_encrypted",
++				Value: "bar",
++			},
++			TreeItem{
++				Key: "bar",
++				Value: TreeBranch{
++					TreeItem{
++						Key:   "foo",
++						Value: "bar",
++					},
++				},
++			},
++		},
++	}
++	tree := Tree{Branches: branches, Metadata: Metadata{EncryptedSuffix: "_encrypted", MACOnlyEncrypted: true}}
++	onlyEncrypted := TreeBranches{
++		TreeBranch{
++			TreeItem{
++				Key:   "foo_encrypted",
++				Value: "bar",
++			},
++		},
++	}
++	treeOnlyEncrypted := Tree{Branches: onlyEncrypted, Metadata: Metadata{EncryptedSuffix: "_encrypted", MACOnlyEncrypted: true}}
++	cipher := reverseCipher{}
++	mac, err := tree.Encrypt(bytes.Repeat([]byte("f"), 32), cipher)
++	if err != nil {
++		t.Errorf("Encrypting the tree failed: %s", err)
++	}
++	macOnlyEncrypted, err := treeOnlyEncrypted.Encrypt(bytes.Repeat([]byte("f"), 32), cipher)
++	if err != nil {
++		t.Errorf("Encrypting the treeOnlyEncrypted failed: %s", err)
++	}
++	if mac != macOnlyEncrypted {
++		t.Errorf("MACs don't match:\ngot \t\t%+v,\nexpected \t\t%+v", mac, macOnlyEncrypted)
++	}
++}
++
++func TestMACOnlyEncryptedNoConfusion(t *testing.T) {
++	branches := TreeBranches{
++		TreeBranch{
++			TreeItem{
++				Key:   "foo_encrypted",
++				Value: "bar",
++			},
++			TreeItem{
++				Key: "bar",
++				Value: TreeBranch{
++					TreeItem{
++						Key:   "foo",
++						Value: "bar",
++					},
++				},
++			},
++		},
++	}
++	tree := Tree{Branches: branches, Metadata: Metadata{EncryptedSuffix: "_encrypted", MACOnlyEncrypted: true}}
++	onlyEncrypted := TreeBranches{
++		TreeBranch{
++			TreeItem{
++				Key:   "foo_encrypted",
++				Value: "bar",
++			},
++		},
++	}
++	treeOnlyEncrypted := Tree{Branches: onlyEncrypted, Metadata: Metadata{EncryptedSuffix: "_encrypted"}}
++	cipher := reverseCipher{}
++	mac, err := tree.Encrypt(bytes.Repeat([]byte("f"), 32), cipher)
++	if err != nil {
++		t.Errorf("Encrypting the tree failed: %s", err)
++	}
++	macOnlyEncrypted, err := treeOnlyEncrypted.Encrypt(bytes.Repeat([]byte("f"), 32), cipher)
++	if err != nil {
++		t.Errorf("Encrypting the treeOnlyEncrypted failed: %s", err)
++	}
++	if mac == macOnlyEncrypted {
++		t.Errorf("MACs match but they should not")
++	}
++}
++
+ type MockCipher struct{}
+ 
+ func (m MockCipher) Encrypt(value interface{}, key []byte, path string) (string, error) {
+diff --git a/stores/dotenv/store.go b/stores/dotenv/store.go
+index fad0f3494..db895fcd9 100644
+--- a/stores/dotenv/store.go
++++ b/stores/dotenv/store.go
+@@ -8,6 +8,7 @@ import (
+ 	"strings"
+ 
+ 	"github.com/getsops/sops/v3"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/getsops/sops/v3/stores"
+ )
+ 
+@@ -16,6 +17,11 @@ const SopsPrefix = "sops_"
+ 
+ // Store handles storage of dotenv data
+ type Store struct {
++	config config.DotenvStoreConfig
++}
++
++func NewStore(c *config.DotenvStoreConfig) *Store {
++	return &Store{config: *c}
+ }
+ 
+ // LoadEncryptedFile loads an encrypted file's bytes onto a sops.Tree runtime object
+diff --git a/stores/ini/store.go b/stores/ini/store.go
+index 6485467f1..d703d87cf 100644
+--- a/stores/ini/store.go
++++ b/stores/ini/store.go
+@@ -9,12 +9,18 @@ import (
+ 	"strings"
+ 
+ 	"github.com/getsops/sops/v3"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/getsops/sops/v3/stores"
+ 	"gopkg.in/ini.v1"
+ )
+ 
+ // Store handles storage of ini data.
+ type Store struct {
++	config *config.INIStoreConfig
++}
++
++func NewStore(c *config.INIStoreConfig) *Store {
++	return &Store{config: c}
+ }
+ 
+ func (store Store) encodeTree(branches sops.TreeBranches) ([]byte, error) {
+diff --git a/stores/json/store.go b/stores/json/store.go
+index 16a4b5d05..cbecd8362 100644
+--- a/stores/json/store.go
++++ b/stores/json/store.go
+@@ -6,18 +6,32 @@ import (
+ 	"errors"
+ 	"fmt"
+ 	"io"
++	"strings"
+ 
+ 	"github.com/getsops/sops/v3"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/getsops/sops/v3/stores"
+ )
+ 
+ // Store handles storage of JSON data.
+ type Store struct {
++	config config.JSONStoreConfig
++}
++
++func NewStore(c *config.JSONStoreConfig) *Store {
++	return &Store{config: *c}
+ }
+ 
+ // BinaryStore handles storage of binary data in a JSON envelope.
+ type BinaryStore struct {
+-	store Store
++	store  Store
++	config config.JSONBinaryStoreConfig
++}
++
++func NewBinaryStore(c *config.JSONBinaryStoreConfig) *BinaryStore {
++	return &BinaryStore{config: *c, store: *NewStore(&config.JSONStoreConfig{
++		Indent: c.Indent,
++	})}
+ }
+ 
+ // LoadEncryptedFile loads an encrypted json file onto a sops.Tree object
+@@ -237,7 +251,13 @@ func (store Store) treeBranchFromJSON(in []byte) (sops.TreeBranch, error) {
+ 
+ func (store Store) reindentJSON(in []byte) ([]byte, error) {
+ 	var out bytes.Buffer
+-	err := json.Indent(&out, in, "", "\t")
++	indent := "\t"
++	if store.config.Indent > -1 {
++		indent = strings.Repeat(" ", store.config.Indent)
++	} else if store.config.Indent < -1 {
++		return nil, errors.New("JSON Indentation parameter smaller than -1 is not accepted")
++	}
++	err := json.Indent(&out, in, "", indent)
+ 	return out.Bytes(), err
+ }
+ 
+diff --git a/stores/json/store_test.go b/stores/json/store_test.go
+index 311276d0d..eca6d3e96 100644
+--- a/stores/json/store_test.go
++++ b/stores/json/store_test.go
+@@ -4,6 +4,7 @@ import (
+ 	"testing"
+ 
+ 	"github.com/getsops/sops/v3"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/stretchr/testify/assert"
+ )
+ 
+@@ -312,7 +313,11 @@ func TestEncodeJSONArrayOfObjects(t *testing.T) {
+ 		2
+ 	]
+ }`
+-	store := Store{}
++	store := Store{
++		config: config.JSONStoreConfig{
++			Indent: -1,
++		},
++	}
+ 	out, err := store.EmitPlainFile(tree.Branches)
+ 	assert.Nil(t, err)
+ 	assert.Equal(t, expected, string(out))
+@@ -409,3 +414,129 @@ func TestEmitValueString(t *testing.T) {
+ 	assert.Nil(t, err)
+ 	assert.Equal(t, []byte("\"hello\""), bytes)
+ }
++
++func TestIndentTwoSpaces(t *testing.T) {
++	tree := sops.Tree{
++		Branches: sops.TreeBranches{
++			sops.TreeBranch{
++				sops.TreeItem{
++					Key: "foo",
++					Value: []interface{}{
++						sops.TreeBranch{
++							sops.TreeItem{
++								Key:   "foo",
++								Value: 3,
++							},
++							sops.TreeItem{
++								Key:   "bar",
++								Value: false,
++							},
++						},
++						2,
++					},
++				},
++			},
++		},
++	}
++	expected := `{
++  "foo": [
++    {
++      "foo": 3,
++      "bar": false
++    },
++    2
++  ]
++}`
++	store := Store{
++		config: config.JSONStoreConfig{
++			Indent: 2,
++		},
++	}
++	out, err := store.EmitPlainFile(tree.Branches)
++	assert.Nil(t, err)
++	assert.Equal(t, expected, string(out))
++}
++
++func TestIndentDefault(t *testing.T) {
++	tree := sops.Tree{
++		Branches: sops.TreeBranches{
++			sops.TreeBranch{
++				sops.TreeItem{
++					Key: "foo",
++					Value: []interface{}{
++						sops.TreeBranch{
++							sops.TreeItem{
++								Key:   "foo",
++								Value: 3,
++							},
++							sops.TreeItem{
++								Key:   "bar",
++								Value: false,
++							},
++						},
++						2,
++					},
++				},
++			},
++		},
++	}
++	expected := `{
++	"foo": [
++		{
++			"foo": 3,
++			"bar": false
++		},
++		2
++	]
++}`
++	store := Store{
++		config: config.JSONStoreConfig{
++			Indent: -1,
++		},
++	}
++	out, err := store.EmitPlainFile(tree.Branches)
++	assert.Nil(t, err)
++	assert.Equal(t, expected, string(out))
++}
++
++func TestNoIndent(t *testing.T) {
++	tree := sops.Tree{
++		Branches: sops.TreeBranches{
++			sops.TreeBranch{
++				sops.TreeItem{
++					Key: "foo",
++					Value: []interface{}{
++						sops.TreeBranch{
++							sops.TreeItem{
++								Key:   "foo",
++								Value: 3,
++							},
++							sops.TreeItem{
++								Key:   "bar",
++								Value: false,
++							},
++						},
++						2,
++					},
++				},
++			},
++		},
++	}
++	expected := `{
++"foo": [
++{
++"foo": 3,
++"bar": false
++},
++2
++]
++}`
++	store := Store{
++		config: config.JSONStoreConfig{
++			Indent: 0,
++		},
++	}
++	out, err := store.EmitPlainFile(tree.Branches)
++	assert.Nil(t, err)
++	assert.Equal(t, expected, string(out))
++}
+diff --git a/stores/stores.go b/stores/stores.go
+index 420c115c7..e4b17289d 100644
+--- a/stores/stores.go
++++ b/stores/stores.go
+@@ -51,6 +51,7 @@ type Metadata struct {
+ 	EncryptedSuffix           string      `yaml:"encrypted_suffix,omitempty" json:"encrypted_suffix,omitempty"`
+ 	UnencryptedRegex          string      `yaml:"unencrypted_regex,omitempty" json:"unencrypted_regex,omitempty"`
+ 	EncryptedRegex            string      `yaml:"encrypted_regex,omitempty" json:"encrypted_regex,omitempty"`
++	MACOnlyEncrypted          bool        `yaml:"mac_only_encrypted,omitempty" json:"mac_only_encrypted,omitempty"`
+ 	Version                   string      `yaml:"version" json:"version"`
+ }
+ 
+@@ -114,6 +115,7 @@ func MetadataFromInternal(sopsMetadata sops.Metadata) Metadata {
+ 	m.UnencryptedRegex = sopsMetadata.UnencryptedRegex
+ 	m.EncryptedRegex = sopsMetadata.EncryptedRegex
+ 	m.MessageAuthenticationCode = sopsMetadata.MessageAuthenticationCode
++	m.MACOnlyEncrypted = sopsMetadata.MACOnlyEncrypted
+ 	m.Version = sopsMetadata.Version
+ 	m.ShamirThreshold = sopsMetadata.ShamirThreshold
+ 	if len(sopsMetadata.KeyGroups) == 1 {
+@@ -270,6 +272,7 @@ func (m *Metadata) ToInternal() (sops.Metadata, error) {
+ 		EncryptedSuffix:           m.EncryptedSuffix,
+ 		UnencryptedRegex:          m.UnencryptedRegex,
+ 		EncryptedRegex:            m.EncryptedRegex,
++		MACOnlyEncrypted:          m.MACOnlyEncrypted,
+ 		LastModified:              lastModified,
+ 	}, nil
+ }
+diff --git a/stores/yaml/store.go b/stores/yaml/store.go
+index 29fe2652a..4d036f366 100644
+--- a/stores/yaml/store.go
++++ b/stores/yaml/store.go
+@@ -2,17 +2,26 @@ package yaml //import "github.com/getsops/sops/v3/stores/yaml"
+ 
+ import (
+ 	"bytes"
++	"errors"
+ 	"fmt"
+ 	"io"
+ 	"strings"
+ 
+ 	"github.com/getsops/sops/v3"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/getsops/sops/v3/stores"
+ 	"gopkg.in/yaml.v3"
+ )
+ 
++const IndentDefault = 4
++
+ // Store handles storage of YAML data
+ type Store struct {
++	config config.YAMLStoreConfig
++}
++
++func NewStore(c *config.YAMLStoreConfig) *Store {
++	return &Store{config: *c}
+ }
+ 
+ func (store Store) appendCommentToList(comment string, list []interface{}) []interface{} {
+@@ -318,12 +327,25 @@ func (store *Store) LoadPlainFile(in []byte) (sops.TreeBranches, error) {
+ 	return branches, nil
+ }
+ 
++func (store *Store) getIndentation() (int, error) {
++	if store.config.Indent > 0 {
++		return store.config.Indent, nil
++	} else if store.config.Indent < 0 {
++		return 0, errors.New("YAML Negative indentation not accepted")
++	}
++	return IndentDefault, nil
++}
++
+ // EmitEncryptedFile returns the encrypted bytes of the yaml file corresponding to a
+ // sops.Tree runtime object
+ func (store *Store) EmitEncryptedFile(in sops.Tree) ([]byte, error) {
+ 	var b bytes.Buffer
+ 	e := yaml.NewEncoder(io.Writer(&b))
+-	e.SetIndent(4)
++	indent, err := store.getIndentation()
++	if err != nil {
++		return nil, err
++	}
++	e.SetIndent(indent)
+ 	for _, branch := range in.Branches {
+ 		// Document root
+ 		var doc = yaml.Node{}
+@@ -355,7 +377,11 @@ func (store *Store) EmitEncryptedFile(in sops.Tree) ([]byte, error) {
+ func (store *Store) EmitPlainFile(branches sops.TreeBranches) ([]byte, error) {
+ 	var b bytes.Buffer
+ 	e := yaml.NewEncoder(io.Writer(&b))
+-	e.SetIndent(4)
++	indent, err := store.getIndentation()
++	if err != nil {
++		return nil, err
++	}
++	e.SetIndent(indent)
+ 	for _, branch := range branches {
+ 		// Document root
+ 		var doc = yaml.Node{}
+diff --git a/stores/yaml/store_test.go b/stores/yaml/store_test.go
+index 4851068a3..41b3004d0 100644
+--- a/stores/yaml/store_test.go
++++ b/stores/yaml/store_test.go
+@@ -4,6 +4,7 @@ import (
+ 	"testing"
+ 
+ 	"github.com/getsops/sops/v3"
++	"github.com/getsops/sops/v3/config"
+ 	"github.com/stretchr/testify/assert"
+ )
+ 
+@@ -211,6 +212,32 @@ e:
+     - f
+ `)
+ 
++var INDENT_1_IN = []byte(`## Configuration for prometheus-node-exporter subchart
++##
++prometheus-node-exporter:
++  podLabels:
++    ## Add the 'node-exporter' label to be used by serviceMonitor to match standard common usage in rules and grafana dashboards
++    ##
++
++    jobLabel: node-exporter
++  extraArgs:
++    - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
++    - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
++`)
++
++var INDENT_1_OUT = []byte(`## Configuration for prometheus-node-exporter subchart
++##
++prometheus-node-exporter:
++  podLabels:
++    ## Add the 'node-exporter' label to be used by serviceMonitor to match standard common usage in rules and grafana dashboards
++    ##
++    jobLabel: node-exporter
++  extraArgs:
++    - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
++    - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
++`)
++
++
+ func TestUnmarshalMetadataFromNonSOPSFile(t *testing.T) {
+ 	data := []byte(`hello: 2`)
+ 	_, err := (&Store{}).LoadEncryptedFile(data)
+@@ -340,3 +367,17 @@ func TestComment7(t *testing.T) {
+ 	assert.Equal(t, string(COMMENT_7_OUT), string(bytes))
+ 	assert.Equal(t, COMMENT_7_OUT, bytes)
+ }
++
++func TestIndent1(t *testing.T) {
++	// First iteration: load and store
++	branches, err := (&Store{}).LoadPlainFile(INDENT_1_IN)
++	assert.Nil(t, err)
++	bytes, err := (&Store{
++		config: config.YAMLStoreConfig{
++			Indent: 2,
++		},
++	}).EmitPlainFile(branches)
++	assert.Nil(t, err)
++	assert.Equal(t, string(INDENT_1_OUT), string(bytes))
++	assert.Equal(t, INDENT_1_OUT, bytes)
++}
+\ No newline at end of file
