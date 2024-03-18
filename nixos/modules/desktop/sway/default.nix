@@ -83,7 +83,7 @@ in
                 inherit (config.wayland.windowManager.sway.config) modifier menu;
 
                 swayosd = getExe' pkgs.swayosd "swayosd-client";
-                grimblast = getExe pkgs.grimblast;
+                grimshot = getExe pkgs.sway-contrib.grimshot;
                 nautilus = getExe' pkgs.gnome.nautilus "nautilus";
                 playerctl = getExe pkgs.playerctl;
               in
@@ -96,7 +96,7 @@ in
                 "${modifier}+space" = "exec ${menu}";
                 "${modifier}+Escape" = "mode exit";
 
-                Print = "exec ${grimblast} --notify --freeze copysave area";
+                Print = "exec ${grimshot} --notify savecopy window";
 
                 XF86MonBrightnessUP = "exec ${swayosd} --brightness raise";
                 XF86MonBrightnessDown = "exec ${swayosd} --brightness lower";
@@ -114,7 +114,11 @@ in
                 natural_scroll = "enabled";
                 tap = "enabled";
               };
-              "type:keyboard".xkb_options = "ctrl:nocaps";
+              "type:keyboard" = {
+                xkb_options = "ctrl:nocaps";
+                repeat_delay = "200";
+                repeat_rate = "30";
+              };
             };
             output =
               let
