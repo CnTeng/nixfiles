@@ -143,6 +143,10 @@ in
                   outbound = "direct";
                 }
                 {
+                  rule_set = "geosite-cn";
+                  outbound = "direct";
+                }
+                {
                   process_name = [ "ssh" ];
                   outbound = "direct";
                 }
@@ -170,11 +174,6 @@ in
         }
         // optionalAttrs server.enable serverConfig
         // optionalAttrs client.enable clientConfig;
-    };
-
-    boot.kernel.sysctl = {
-      "net.ipv4.conf.all.forwarding" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
     };
 
     networking.firewall.trustedInterfaces = [ "tun0" ];
