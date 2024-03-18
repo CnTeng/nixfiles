@@ -42,7 +42,6 @@
             nvfetcher
             sops
             terraform-ls
-            nodePackages.bash-language-server
             encrypt-tfstate
           ];
           shellHook = config.pre-commit.installationScript;

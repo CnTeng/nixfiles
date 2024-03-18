@@ -6,22 +6,16 @@
   ...
 }:
 {
-  home-manager.users.${user} = {
-    imports = [ inputs.rx-nvim.homeModules.default ];
+  imports = [ inputs.rx-nvim.nixosModules.default ];
 
-    programs.rx-nvim = {
-      enable = true;
-      extraPackages = with pkgs; [
-        nil
-        nixfmt-rfc-style
-        prettierd
-      ];
-      extraConfig = ''
-        vim.g.gptsupport = true
-        vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"
-        vim.g.gptkey= "${config.sops.secrets."chatgpt/key".path}"
-      '';
-    };
+  programs.rx-nvim = {
+    enable = true;
+    extraPackages = with pkgs; [ prettierd ];
+    extraConfig = ''
+      vim.g.gptsupport = true
+      vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"
+      vim.g.gptkey= "${config.sops.secrets."chatgpt/key".path}"
+    '';
   };
 
   sops.secrets = {
