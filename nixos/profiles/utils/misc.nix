@@ -12,7 +12,7 @@
     home.packages = with pkgs; [
       wget
       tree
-      neofetch
+      fastfetch
       scc
       gzip
       unrar
