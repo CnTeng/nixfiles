@@ -12,7 +12,7 @@ variable "region" {
 
 terraform {
   required_providers {
-    aws = { source = "hashicorp/aws" }
+    aws = { source = "registry.terraform.io/hashicorp/aws" }
   }
 }
 

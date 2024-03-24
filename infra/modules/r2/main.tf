@@ -8,8 +8,8 @@ variable "name" {
 
 terraform {
   required_providers {
-    cloudflare = { source = "cloudflare/cloudflare" }
-    aws        = { source = "hashicorp/aws" }
+    cloudflare = { source = "registry.terraform.io/cloudflare/cloudflare" }
+    aws        = { source = "registry.terraform.io/hashicorp/aws" }
   }
 }
 

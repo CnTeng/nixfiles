@@ -10,6 +10,25 @@
     {
       devShells.default =
         let
+          opentofu = pkgs.opentofu.withPlugins (p: [
+            p.aws
+            p.cloudflare
+            p.external
+            p.hcloud
+            p.null
+            p.sops
+            p.tls
+            p.local
+          ]);
+
+          opentofu-alias = pkgs.writeShellApplication {
+            name = "terraform";
+            runtimeInputs = [ opentofu ];
+            text = ''
+              tofu "$@"
+            '';
+          };
+
           encrypt-tfstate = pkgs.writeShellApplication {
             name = "encrypt-tfstate";
             runtimeInputs = with pkgs; [ sops ];
@@ -27,22 +46,13 @@
         in
         pkgs.mkShell {
           packages = with pkgs; [
-            (terraform.withPlugins (p: [
-              p.aws
-              p.cloudflare
-              p.external
-              p.hcloud
-              p.null
-              p.sops
-              p.tls
-              p.local
-            ]))
             jq
             colmena
             nvfetcher
             sops
-            terraform-ls
             encrypt-tfstate
+            opentofu
+            opentofu-alias
           ];
           shellHook = config.pre-commit.installationScript;
         };

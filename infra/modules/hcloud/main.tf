@@ -12,8 +12,8 @@ variable "region" {
 
 terraform {
   required_providers {
-    hcloud = { source = "hetznercloud/hcloud" }
-    tls    = { source = "hashicorp/tls" }
+    hcloud = { source = "registry.terraform.io/hetznercloud/hcloud" }
+    tls    = { source = "registry.terraform.io/hashicorp/tls" }
   }
 }
 

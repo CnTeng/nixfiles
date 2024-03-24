@@ -12,23 +12,23 @@ variable "private_key" {
 
 terraform {
   required_providers {
-    external = { source = "hashicorp/external" }
-    null     = { source = "hashicorp/null" }
+    external = { source = "registry.terraform.io/hashicorp/external" }
+    null     = { source = "registry.terraform.io/hashicorp/null" }
   }
 }
 
 module "system" {
-  source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
+  source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
   attribute = ".#nixosConfigurations.${var.hostname}.config.system.build.toplevel"
 }
 
 module "disko" {
-  source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
+  source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
   attribute = ".#nixosConfigurations.${var.hostname}.config.system.build.diskoScript"
 }
 
 module "install" {
-  source             = "github.com/nix-community/nixos-anywhere//terraform/install"
+  source             = "github.com/CnTeng/nixos-anywhere//terraform/install?ref=opentofu"
   nixos_system       = module.system.result.out
   nixos_partitioner  = module.disko.result.out
   target_host        = var.host_ip
