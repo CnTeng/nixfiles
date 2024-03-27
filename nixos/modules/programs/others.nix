@@ -46,6 +46,7 @@ in
         ".config/spotify"
 
         ".cache/TelegramDesktop"
+        ".local/share/TelegramDesktop"
 
         ".cache/vlc"
         ".config/vlc"

@@ -116,8 +116,8 @@ in
               };
               "type:keyboard" = {
                 xkb_options = "ctrl:nocaps";
-                repeat_delay = "200";
-                repeat_rate = "30";
+                repeat_delay = "300";
+                repeat_rate = "50";
               };
             };
             output =
@@ -133,6 +133,12 @@ in
                 "Dell Inc. DELL U2518D 3M7K8013ARCL".scale = "1.25";
                 "Dell Inc. DELL U2723QX 843R0P3".scale = "1.75";
               };
+            workspaceOutputAssign = [
+              {
+                workspace = "1";
+                output = "eDP-1";
+              }
+            ];
             modes.exit = {
               l = "exec loginctl lock-session; mode default";
               q = "exec systemctl --user stop sway-session.target; loginctl terminate-session $XDG_SESSION_ID";

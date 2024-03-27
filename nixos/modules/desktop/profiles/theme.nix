@@ -13,14 +13,12 @@ in
   options.desktop'.profiles.theme.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    boot.initrd.verbose = false;
-    boot.consoleLogLevel = 0;
-    boot.kernelParams = [
-      "quiet"
-      "udev.log_level=3"
-    ];
-
-    boot.plymouth.enable = true;
+    # boot.initrd.verbose = false;
+    # boot.consoleLogLevel = 0;
+    # boot.kernelParams = [
+    #   "quiet"
+    #   "udev.log_level=3"
+    # ];
 
     home-manager.users.${user} = {
       home.pointerCursor = {
@@ -46,9 +44,10 @@ in
           package = pkgs.adw-gtk3;
           name = "adw-gtk3-dark";
         };
+        gtk4.extraConfig = {
+          gtk-application-prefer-dark-theme = true;
+        };
       };
-
-      dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
     };
   };
 }

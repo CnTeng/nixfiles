@@ -1,7 +1,6 @@
 {
   inputs,
   config,
-  pkgs,
   user,
   ...
 }:
@@ -10,7 +9,6 @@
 
   programs.rx-nvim = {
     enable = true;
-    extraPackages = with pkgs; [ prettierd ];
     extraConfig = ''
       vim.g.gptsupport = true
       vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"

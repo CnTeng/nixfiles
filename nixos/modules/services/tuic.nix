@@ -143,6 +143,10 @@ in
                   outbound = "direct";
                 }
                 {
+                  rule_set = "geosite-bilibili";
+                  outbound = "direct";
+                }
+                {
                   rule_set = "geosite-cn";
                   outbound = "direct";
                 }
@@ -152,6 +156,12 @@ in
                 }
               ];
               rule_set = [
+                {
+                  tag = "geosite-bilibili";
+                  type = "remote";
+                  format = "binary";
+                  url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-bilibili.srs";
+                }
                 {
                   tag = "geosite-cn";
                   type = "remote";

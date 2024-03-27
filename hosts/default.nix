@@ -39,6 +39,11 @@
           targetHost = null;
         };
 
+        rxtp.deployment = {
+          allowLocalDeployment = true;
+          targetHost = null;
+        };
+
         lssg.deployment = { };
 
         hcax = {

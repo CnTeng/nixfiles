@@ -30,6 +30,7 @@ in
 
     environment.persistence."/persist" = {
       users.${user}.directories = [
+        ".config/dconf"
         ".local/share/keyrings"
         ".local/state/wireplumber"
       ];
