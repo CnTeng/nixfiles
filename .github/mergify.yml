@@ -7,7 +7,7 @@ queue_rules:
   - name: default
     merge_conditions:
       - check-success=Evaluate flake.nix
-      - check-success=nixosConfig rxdell
+      - check-success=nixosConfig rxtp
       - check-success=nixosConfig hcax
       - check-success=nixosConfig lssg
       - check-success=devShell default [x86_64-linux]

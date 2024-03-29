@@ -34,11 +34,6 @@
             ];
           };
 
-        rxdell.deployment = {
-          allowLocalDeployment = true;
-          targetHost = null;
-        };
-
         rxtp.deployment = {
           allowLocalDeployment = true;
           targetHost = null;

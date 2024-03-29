@@ -16,6 +16,7 @@
     others.enable = true;
     qtcreator.enable = true;
     serial.enable = true;
+    sioyek.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
     wezterm.enable = true;

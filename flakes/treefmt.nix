@@ -19,11 +19,7 @@
 
         settings.formatter = {
           nixfmt.excludes = [ "overlays/_sources/*" ];
-          prettier.excludes = [
-            "overlays/_sources/*"
-            "secrets.yaml"
-            "tfstate.yaml"
-          ];
+          prettier.excludes = [ "overlays/_sources/*" ];
         };
       };
     };

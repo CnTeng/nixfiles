@@ -23,11 +23,24 @@ in
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "amdgpu" ];
+    initrd.kernelModules = [
+      "amdgpu"
+      "thunderbolt"
+    ];
     initrd.availableKernelModules = [ "usb_storage" ];
+    kernelModules = [
+      "kvm-amd"
+      "amd-pstate"
+    ];
+    kernelParams = [
+      "initcall_blacklist=acpi_cpufreq_init"
+      "amd_pstate=active"
+    ];
   };
 
   boot.initrd.systemd.enable = true; # Support for luks tpm2
+
+  environment.systemPackages = [ pkgs.sbctl ];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.lanzaboote = {

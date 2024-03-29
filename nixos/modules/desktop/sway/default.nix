@@ -129,7 +129,7 @@ in
               in
               {
                 "*".bg = "${image} fill";
-                eDP-1.scale = "1.25";
+                eDP-1.scale = "1.5";
                 "Dell Inc. DELL U2518D 3M7K8013ARCL".scale = "1.25";
                 "Dell Inc. DELL U2723QX 843R0P3".scale = "1.75";
               };
