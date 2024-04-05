@@ -13,12 +13,14 @@ in
   options.desktop'.profiles.theme.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    # boot.initrd.verbose = false;
-    # boot.consoleLogLevel = 0;
-    # boot.kernelParams = [
-    #   "quiet"
-    #   "udev.log_level=3"
-    # ];
+    boot.initrd.verbose = false;
+    boot.consoleLogLevel = 0;
+    boot.kernelParams = [
+      "quiet"
+      "udev.log_level=3"
+    ];
+
+    boot.plymouth.enable = true;
 
     home-manager.users.${user} = {
       home.pointerCursor = {

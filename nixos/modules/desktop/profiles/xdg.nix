@@ -12,45 +12,32 @@ in
   options.desktop'.profiles.xdg.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    home-manager.users.${user} = {
-      xdg.enable = true;
-      xdg.userDirs = {
-        enable = true;
-        createDirectories = true;
-      };
-    };
+    home-manager.users.${user} =
+      { config, ... }:
+      let
+        onedrive = "${config.home.homeDirectory}/OneDrive";
+      in
+      {
+        xdg.enable = true;
 
-    xdg.mime = {
-      enable = true;
-      defaultApplications = {
-        "application/xhtml+xml" = "firefox.desktop";
-        "x-scheme-handler/ftp" = "firefox.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "text/*" = "nvim-kitty.desktop";
-        "text/html" = "firefox.desktop";
-        "text/xml" = "firefox.desktop";
-        "image/*" = "xviewer.desktop";
-        "x-scheme-handler/terminal" = "kitty.desktop";
-        "application/x-sh" = "kitty-open.desktop";
-        "application/x-shellscript" = [
-          "kitty-open.desktop"
-          "nvim-kitty.desktop"
-        ];
-      };
-    };
+        xdg.userDirs = {
+          enable = true;
+          desktop = null;
+          documents = "${onedrive}/Documents";
+          music = null;
+          publicShare = null;
+          templates = null;
+          pictures = "${onedrive}/Pictures";
+          videos = "${onedrive}/Videos";
+        };
 
-    environment.persistence."/persist" = mkIf config.hardware'.persist.enable {
+        xdg.mimeApps.enable = true;
+      };
+
+    environment.persistence."/persist" = {
       users.${user}.directories = [
-        "Desktop"
-        "Documents"
         "Downloads"
-        "Music"
-        "Pictures"
         "Projects"
-        "Public"
-        "Templates"
-        "Videos"
       ];
     };
   };

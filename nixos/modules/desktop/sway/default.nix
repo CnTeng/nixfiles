@@ -18,7 +18,6 @@ in
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
-      extraOptions = [ "--unsupported-gpu" ];
       extraPackages = with pkgs; [
         xdg-utils
         wl-clipboard
@@ -32,7 +31,6 @@ in
       launcher.enable = true;
       login.enable = true;
       mako.enable = true;
-      opengl.enable = true;
       services.enable = true;
       theme.enable = true;
       utils.enable = true;
@@ -48,7 +46,6 @@ in
         wayland.windowManager.sway = {
           enable = true;
           wrapperFeatures.gtk = true;
-          extraOptions = [ "--unsupported-gpu" ];
           config = {
             fonts = {
               names = [
@@ -108,6 +105,7 @@ in
                 XF86AudioRaiseVolume = "exec ${swayosd} --output-volume raise";
                 XF86AudioLowerVolume = "exec ${swayosd} --output-volume lower";
                 XF86AudioMute = "exec ${swayosd} --output-volume mute-toggle";
+                XF86AudioMicMute = "exec ${swayosd} --iuput-volume mute-toggle";
               };
             input = {
               "type:touchpad" = {

@@ -53,6 +53,22 @@ in
       nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     };
 
+    home-manager.users.${user} = {
+      xdg.mimeApps.defaultApplications = {
+        "text/html" = "firefox.desktop";
+        "text/xml" = "firefox.desktop";
+        "application/x-extension-htm" = [ "firefox.desktop" ];
+        "application/x-extension-html" = [ "firefox.desktop" ];
+        "application/x-extension-shtml" = [ "firefox.desktop" ];
+        "application/x-extension-xht" = [ "firefox.desktop" ];
+        "application/x-extension-xhtml" = [ "firefox.desktop" ];
+        "application/xhtml+xml" = "firefox.desktop";
+        "x-scheme-handler/ftp" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+      };
+    };
+
     environment.persistence."/persist" = {
       users.${user}.directories = [
         ".mozilla"

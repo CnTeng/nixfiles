@@ -12,7 +12,11 @@ in
   options.desktop'.profiles.wireless.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
-    users.users.${user}.extraGroups = [ "networkmanager" ];
+    hardware.brillo.enable = true;
+    users.users.${user}.extraGroups = [
+      "networkmanager"
+      "video"
+    ];
     networking.networkmanager.enable = true;
     environment.persistence."/persist".directories = mkIf config.hardware'.persist.enable [
       "/etc/NetworkManager/system-connections"

@@ -10,7 +10,12 @@
 
         mkPackage = dir: name: pkgs.callPackage ./${dir}/${name} { source = sources.${name}; };
 
-        mkOverride = dir: name: (import ./${dir}/${name} prev);
+        mkOverride =
+          dir: name:
+          (import ./${dir}/${name} {
+            inherit prev;
+            source = sources.${name};
+          });
 
         mkOverlay =
           f: dir:

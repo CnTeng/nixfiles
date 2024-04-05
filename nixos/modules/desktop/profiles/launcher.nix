@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -17,38 +16,33 @@ in
     home-manager.users.${user} =
       { config, ... }:
       {
-        home.packages = [ pkgs.tofi ];
-        xdg.configFile."tofi/config".text = with palette; ''
-          font = RobotoMono Nerd Font
-          font-size = 12
+        programs.fuzzel = {
+          enable = true;
+          settings = {
+            main = {
+              font = "RobotoMono Nerd Font:size=15";
+              icon-theme = "Papirus-Dark";
+              anchor = "top";
+              lines = 5;
+              width = 50;
+            };
+            colors = with palette; {
+              background = removeHashTag dark_0 + "e6";
+              text = removeHashTag light_1 + "ff";
+              match = removeHashTag blue_1 + "ff";
+              selection = removeHashTag dark_1 + "ff";
+              selection-text = removeHashTag light_1 + "ff";
+              selection-match = removeHashTag blue_1 + "ff";
+              border = removeHashTag light_1 + "e6";
+            };
+          };
+        };
 
-          width = 50%
-          height = 50
-          background-color = ${dark_0}
-
-          anchor = top
-          fuzzy-match = true
-
-          horizontal = true
-          prompt-text = " Run: "
-          outline-width = 0
-          border-width = 0
-          min-input-width = 120
-          result-spacing = 15
-          corner-radius = 10
-          margin-top = 30
-        '';
-
-        wayland.windowManager.sway.config.menu = getExe' pkgs.tofi "tofi-drun" + " | xargs swaymsg exec --";
+        wayland.windowManager.sway.config.menu = getExe config.programs.fuzzel.package;
       };
 
     environment.persistence."/persist" = {
-      users.${user}.files = [
-        ".cache/tofi-compgen"
-        ".cache/tofi-drun"
-        ".local/state/tofi-drun-history"
-        ".local/state/tofi-history"
-      ];
+      users.${user}.files = [ ".cache/fuzzel" ];
     };
   };
 }

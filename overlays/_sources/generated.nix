@@ -9,6 +9,19 @@
       sha256 = "sha256-vNHS5n3TqSwpUx2wG26w7rK6jSqrvLANeG2n0vA4iYk=";
     };
   };
+  fuzzel = {
+    pname = "fuzzel";
+    version = "c4704a9551f69aa773f903584fd778571cfbe71b";
+    src = fetchgit {
+      url = "https://codeberg.org/dnkl/fuzzel.git";
+      rev = "c4704a9551f69aa773f903584fd778571cfbe71b";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-S4EHHxkrSV7/lSOv0XWC8AjS9oNOStPGjpfs5aR/mzY=";
+    };
+    date = "2024-03-29";
+  };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
     version = "417eb232e8d037964971ae2690560a7b12e5f0d4";

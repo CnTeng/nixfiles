@@ -12,6 +12,14 @@ in
   options.desktop'.profiles.services.enable = mkEnableOption' { };
 
   config = mkIf cfg.enable {
+    services.onedrive.enable = true;
+
+    systemd.user.services.onedrive-launcher = {
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = mkForce [ "graphical-session.target" ];
+    };
+
     services.pipewire = {
       enable = true;
       pulse.enable = true;
@@ -31,8 +39,10 @@ in
     environment.persistence."/persist" = {
       users.${user}.directories = [
         ".config/dconf"
+        ".config/onedrive"
         ".local/share/keyrings"
         ".local/state/wireplumber"
+        "OneDrive"
       ];
     };
 

@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   user,
   ...
 }:
@@ -18,6 +19,8 @@ in
     sops.age.sshKeyPaths = mkIf cfg.enable [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
     boot.tmp.useTmpfs = cfg.enable;
+
+    environment.systemPackages = [ pkgs.persist ];
 
     environment.persistence."/persist" =
       if cfg.enable then

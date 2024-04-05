@@ -18,8 +18,6 @@ in
   options.programs'.thunderbird.enable = mkEnableOption "thunderbird";
 
   config = mkIf cfg.enable {
-    services'.davmail.enable = true;
-
     home-manager.users.${user} = {
       accounts.email.accounts = {
         Outlook = {

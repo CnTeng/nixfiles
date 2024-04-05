@@ -33,10 +33,7 @@ in
       };
       programs.kitty = {
         enable = true;
-        font = {
-          name = "FiraCode Nerd Font";
-          size = 12;
-        };
+        font.name = "FiraCode Nerd Font";
         theme = "Adwaita dark";
         settings = {
           # term = "xterm-256color";
@@ -47,6 +44,7 @@ in
           symbol_map U+4E00–U+9FFF Sarasa Gothic SC
           modify_font underline_position +3
           modify_font underline_thickness 150%
+          modify_font cell_height 120%
 
           allow_remote_control yes
           listen_on unix:@mykitty

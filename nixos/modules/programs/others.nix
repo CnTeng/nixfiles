@@ -23,6 +23,7 @@ in
         spotify
         tdesktop
         vlc
+        ventoy
       ];
     };
 

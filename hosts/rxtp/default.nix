@@ -6,7 +6,7 @@
   desktop'.sway.enable = true;
 
   programs' = {
-    adb.enable = true;
+    android.enable = true;
     chrome.enable = true;
     evince.enable = true;
     firefox.enable = true;
@@ -22,10 +22,10 @@
     wezterm.enable = true;
     wps.enable = true;
     yubikey.enable = true;
+    nautilus.enable = true;
   };
 
   services' = {
-    onedrive.enable = true;
     restic.enable = true;
     tuic.client.enable = true;
   };
