@@ -26,12 +26,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5a5f93895a072bf4bb977d4d0ebd8e108473480e",
-            "sha256": "sha256-dXOrYGxJtPX92sfT9hZhtAHaREeSzlO33TukbtiU3+E=",
+            "rev": "659b1321f91748e8180bd0ed6fb1f25b5be4bfc0",
+            "sha256": "sha256-JVK8dRqqCrXErjydn4xp2zI7GVJpM0VPtn4eODFQgOc=",
             "type": "git",
             "url": "https://codeberg.org/dnkl/fuzzel.git"
         },
-        "version": "5a5f93895a072bf4bb977d4d0ebd8e108473480e"
+        "version": "659b1321f91748e8180bd0ed6fb1f25b5be4bfc0"
     },
     "ttf-ms-win10": {
         "cargoLocks": null,

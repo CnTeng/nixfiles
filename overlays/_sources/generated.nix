@@ -11,14 +11,14 @@
   };
   fuzzel = {
     pname = "fuzzel";
-    version = "5a5f93895a072bf4bb977d4d0ebd8e108473480e";
+    version = "659b1321f91748e8180bd0ed6fb1f25b5be4bfc0";
     src = fetchgit {
       url = "https://codeberg.org/dnkl/fuzzel.git";
-      rev = "5a5f93895a072bf4bb977d4d0ebd8e108473480e";
+      rev = "659b1321f91748e8180bd0ed6fb1f25b5be4bfc0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-dXOrYGxJtPX92sfT9hZhtAHaREeSzlO33TukbtiU3+E=";
+      sha256 = "sha256-JVK8dRqqCrXErjydn4xp2zI7GVJpM0VPtn4eODFQgOc=";
     };
     date = "2024-04-11";
   };
