@@ -16,7 +16,7 @@
     },
     "fuzzel": {
         "cargoLocks": null,
-        "date": "2024-04-15",
+        "date": "2024-04-17",
         "extract": null,
         "name": "fuzzel",
         "passthru": null,
@@ -26,12 +26,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b1d29eed32fde0a2ab4ae9721f44fcc1a2d3c77d",
-            "sha256": "sha256-OS890yGg+2nqZWQ6c2+miw28cRA0RPXNEDdAZhrYnjE=",
+            "rev": "41909652ed348980f4df6de29ad9bc4e9e6240cd",
+            "sha256": "sha256-+++zowqPze77wN+aSj2c5kyAe4XMJRRnlgE16KbJ56c=",
             "type": "git",
             "url": "https://codeberg.org/dnkl/fuzzel.git"
         },
-        "version": "b1d29eed32fde0a2ab4ae9721f44fcc1a2d3c77d"
+        "version": "41909652ed348980f4df6de29ad9bc4e9e6240cd"
     },
     "ttf-ms-win10": {
         "cargoLocks": null,

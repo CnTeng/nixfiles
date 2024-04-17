@@ -11,16 +11,16 @@
   };
   fuzzel = {
     pname = "fuzzel";
-    version = "b1d29eed32fde0a2ab4ae9721f44fcc1a2d3c77d";
+    version = "41909652ed348980f4df6de29ad9bc4e9e6240cd";
     src = fetchgit {
       url = "https://codeberg.org/dnkl/fuzzel.git";
-      rev = "b1d29eed32fde0a2ab4ae9721f44fcc1a2d3c77d";
+      rev = "41909652ed348980f4df6de29ad9bc4e9e6240cd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-OS890yGg+2nqZWQ6c2+miw28cRA0RPXNEDdAZhrYnjE=";
+      sha256 = "sha256-+++zowqPze77wN+aSj2c5kyAe4XMJRRnlgE16KbJ56c=";
     };
-    date = "2024-04-15";
+    date = "2024-04-17";
   };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
