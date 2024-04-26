@@ -17,6 +17,7 @@
       gzip
       unrar
       unzipNLS
+      kitty.terminfo
     ];
   };
 }

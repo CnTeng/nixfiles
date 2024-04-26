@@ -11,6 +11,7 @@
     evince.enable = true;
     firefox.enable = true;
     kdeconnect.enable = true;
+
     kitty.enable = true;
     obs.enable = true;
     others.enable = true;
