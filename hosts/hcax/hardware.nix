@@ -9,8 +9,8 @@
       bootSize = "1G";
       swapSize = "4G";
     };
-    persist.enable = true;
     remote-unlock.enable = true;
+    stateless.enable = true;
   };
 
   boot.initrd.kernelModules = [ "virtio_gpu" ];

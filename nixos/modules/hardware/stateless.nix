@@ -8,23 +8,24 @@
 }:
 with lib;
 let
-  cfg = config.hardware'.persist;
+  cfg = config.hardware'.stateless;
 in
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.hardware'.persist.enable = mkEnableOption' { };
+  options.hardware'.stateless.enable = mkEnableOption' { };
 
-  config = {
-    sops.age.sshKeyPaths = mkIf cfg.enable [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
+  config =
+    if cfg.enable then
+      {
+        sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
-    boot.tmp.useTmpfs = cfg.enable;
+        boot.tmp.useTmpfs = true;
 
-    environment.systemPackages = [ pkgs.persist ];
+        environment.systemPackages = [ pkgs.persist ];
 
-    environment.persistence."/persist" =
-      if cfg.enable then
-        {
+        environment.persistence."/persist" = {
+          enable = true;
           hideMounts = true;
           directories = [
             "/var/cache"
@@ -40,8 +41,8 @@ in
             ".local/share/nix"
             ".local/state/nix"
           ];
-        }
-      else
-        mkForce { };
-  };
+        };
+      }
+    else
+      { environment.persistence."/persist".enable = false; };
 }

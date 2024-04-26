@@ -1,13 +1,4 @@
-{
-  inputs,
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  inherit (config.hardware') persist;
-in
+{ inputs, pkgs, ... }:
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
@@ -18,7 +9,7 @@ in
       bootSize = "2G";
       swapSize = "32G";
     };
-    persist.enable = true;
+    stateless.enable = true;
   };
 
   boot = {
@@ -48,7 +39,7 @@ in
     pkiBundle = "/etc/secureboot";
   };
 
-  environment.persistence."/persist".directories = lib.mkIf persist.enable [ "/etc/secureboot" ];
+  environment.persistence."/persist".directories = [ "/etc/secureboot" ];
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
