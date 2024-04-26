@@ -1,4 +1,3 @@
-{ ... }:
 {
   boot.kernelModules = [ "tcp_bbr" ];
   boot.kernel.sysctl = {
