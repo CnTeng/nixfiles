@@ -85,6 +85,10 @@ in
               ];
               rules = [
                 {
+                  rule_set = "geosite-cn";
+                  server = "local";
+                }
+                {
                   outbound = "any";
                   server = "local";
                 }
@@ -131,19 +135,11 @@ in
                   outbound = "dns-out";
                 }
                 {
-                  protocol = "dns";
-                  outbound = "dns-out";
-                }
-                {
                   ip_is_private = true;
                   outbound = "direct";
                 }
                 {
-                  rule_set = "geoip-cn";
-                  outbound = "direct";
-                }
-                {
-                  rule_set = "geosite-bilibili";
+                  process_name = [ "ssh" ];
                   outbound = "direct";
                 }
                 {
@@ -151,17 +147,15 @@ in
                   outbound = "direct";
                 }
                 {
-                  process_name = [ "ssh" ];
+                  rule_set = "geoip-cn";
                   outbound = "direct";
+                }
+                {
+                  protocol = "dns";
+                  outbound = "dns-out";
                 }
               ];
               rule_set = [
-                {
-                  tag = "geosite-bilibili";
-                  type = "remote";
-                  format = "binary";
-                  url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-bilibili.srs";
-                }
                 {
                   tag = "geosite-cn";
                   type = "remote";
