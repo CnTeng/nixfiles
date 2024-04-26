@@ -19,6 +19,28 @@ in
 
     home-manager.users.${user} = {
       home.packages = with pkgs; [ android-studio ];
+
+      xdg.configFile."ideavim/ideavimrc".text = ''
+        set relativenumber
+        set number
+        set commentary
+        set showmode
+        set NERDTree
+        set clipboard+=unnamed
+
+        let mapleader = ' '
+
+        nmap <leader>w :<C-u>w<cr>
+        nmap <leader>e :<C-u>NERDTreeToggle<cr>
+
+        nmap <leader>b <Action>(Switcher)
+        map <leader>lf <Action>(ReformatCode)
+
+        nnoremap <c-h> <c-w>h
+        nnoremap <c-j> <c-w>j
+        nnoremap <c-k> <c-w>k
+        nnoremap <c-l> <c-w>l
+      '';
     };
 
     environment.persistence."/persist" = {
@@ -27,6 +49,8 @@ in
         ".cache/Google"
         ".config/Google"
         ".local/share/Google"
+        ".gradle"
+        ".java"
       ];
     };
   };
