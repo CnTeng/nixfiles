@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Symbol fonts required by wps-office";
-    homepage = "https://github.com/BannedPatriot/ttf-wps-fonts";
+    homepage = "https://github.com/dv-anomaly/ttf-wps-fonts";
     license = licenses.unfree;
     platforms = platforms.all;
   };

@@ -14,25 +14,6 @@
         },
         "version": "20240210"
     },
-    "fuzzel": {
-        "cargoLocks": null,
-        "date": "2024-04-20",
-        "extract": null,
-        "name": "fuzzel",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "cfd74f470d0e61a242157f4c09da1d35b0654879",
-            "sha256": "sha256-/dLAL81A61Fia7V736KnwCTz4KNolEuXtldpCXH70V8=",
-            "type": "git",
-            "url": "https://codeberg.org/dnkl/fuzzel.git"
-        },
-        "version": "cfd74f470d0e61a242157f4c09da1d35b0654879"
-    },
     "ttf-ms-win10": {
         "cargoLocks": null,
         "date": "2021-02-10",
@@ -65,7 +46,7 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "BannedPatriot",
+            "owner": "dv-anomaly",
             "repo": "ttf-wps-fonts",
             "rev": "b3e935355afcfb5240bac5a99707ffecc35772a2",
             "sha256": "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=",

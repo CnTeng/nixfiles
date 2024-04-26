@@ -9,19 +9,6 @@
       sha256 = "sha256-vNHS5n3TqSwpUx2wG26w7rK6jSqrvLANeG2n0vA4iYk=";
     };
   };
-  fuzzel = {
-    pname = "fuzzel";
-    version = "cfd74f470d0e61a242157f4c09da1d35b0654879";
-    src = fetchgit {
-      url = "https://codeberg.org/dnkl/fuzzel.git";
-      rev = "cfd74f470d0e61a242157f4c09da1d35b0654879";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-/dLAL81A61Fia7V736KnwCTz4KNolEuXtldpCXH70V8=";
-    };
-    date = "2024-04-20";
-  };
   ttf-ms-win10 = {
     pname = "ttf-ms-win10";
     version = "417eb232e8d037964971ae2690560a7b12e5f0d4";
@@ -38,7 +25,7 @@
     pname = "ttf-wps-fonts";
     version = "b3e935355afcfb5240bac5a99707ffecc35772a2";
     src = fetchFromGitHub {
-      owner = "BannedPatriot";
+      owner = "dv-anomaly";
       repo = "ttf-wps-fonts";
       rev = "b3e935355afcfb5240bac5a99707ffecc35772a2";
       fetchSubmodules = false;

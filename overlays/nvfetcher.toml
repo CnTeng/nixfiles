@@ -8,9 +8,5 @@ src.git = "https://github.com/streetsamurai00mi/ttf-ms-win10"
 fetch.github = "streetsamurai00mi/ttf-ms-win10"
 
 [ttf-wps-fonts]
-src.git = "https://github.com/BannedPatriot/ttf-wps-fonts"
-fetch.github = "BannedPatriot/ttf-wps-fonts"
-
-[fuzzel]
-src.git = "https://codeberg.org/dnkl/fuzzel"
-fetch.git = "https://codeberg.org/dnkl/fuzzel.git"
+src.git = "https://github.com/dv-anomaly/ttf-wps-fonts"
+fetch.github = "dv-anomaly/ttf-wps-fonts"
