@@ -15,34 +15,34 @@ in
 
   options.hardware'.stateless.enable = mkEnableOption' { };
 
-  config =
-    if cfg.enable then
-      {
-        sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
+  config = mkMerge [
+    { environment.persistence."/persist".enable = mkDefault false; }
+    (mkIf cfg.enable {
 
-        boot.tmp.useTmpfs = true;
+      sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
-        environment.systemPackages = [ pkgs.persist ];
+      boot.tmp.useTmpfs = true;
 
-        environment.persistence."/persist" = {
-          enable = true;
-          hideMounts = true;
-          directories = [
-            "/var/cache"
-            "/var/lib"
-            "/var/log"
-          ];
-          files = [ "/etc/machine-id" ];
-          users.${user}.directories = [
-            ".cache/nix"
-            ".cache/pre-commit"
-            ".cache/treefmt"
-            ".local/share/direnv"
-            ".local/share/nix"
-            ".local/state/nix"
-          ];
-        };
-      }
-    else
-      { environment.persistence."/persist".enable = false; };
+      environment.systemPackages = [ pkgs.persist ];
+
+      environment.persistence."/persist" = {
+        enable = true;
+        hideMounts = true;
+        directories = [
+          "/var/cache"
+          "/var/lib"
+          "/var/log"
+        ];
+        files = [ "/etc/machine-id" ];
+        users.${user}.directories = [
+          ".cache/nix"
+          ".cache/pre-commit"
+          ".cache/treefmt"
+          ".local/share/direnv"
+          ".local/share/nix"
+          ".local/state/nix"
+        ];
+      };
+    })
+  ];
 }
