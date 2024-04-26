@@ -23,7 +23,7 @@ in
         spotify
         tdesktop
         vlc
-        ventoy
+        qq
       ];
     };
 
@@ -51,6 +51,8 @@ in
 
         ".cache/vlc"
         ".config/vlc"
+
+        ".config/QQ"
       ];
     };
   };
