@@ -18,9 +18,7 @@ in
       "video"
     ];
     networking.networkmanager.enable = true;
-    environment.persistence."/persist".directories = mkIf config.hardware'.persist.enable [
-      "/etc/NetworkManager/system-connections"
-    ];
+    environment.persistence."/persist".directories = [ "/etc/NetworkManager/system-connections" ];
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;

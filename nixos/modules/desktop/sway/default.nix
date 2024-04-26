@@ -34,7 +34,6 @@ in
       services.enable = true;
       theme.enable = true;
       utils.enable = true;
-      variables.enable = true;
       waybar.enable = true;
       wireless.enable = true;
       xdg.enable = true;
@@ -105,7 +104,7 @@ in
                 XF86AudioRaiseVolume = "exec ${swayosd} --output-volume raise";
                 XF86AudioLowerVolume = "exec ${swayosd} --output-volume lower";
                 XF86AudioMute = "exec ${swayosd} --output-volume mute-toggle";
-                XF86AudioMicMute = "exec ${swayosd} --iuput-volume mute-toggle";
+                XF86AudioMicMute = "exec ${swayosd} --input-volume mute-toggle";
               };
             input = {
               "type:touchpad" = {
