@@ -13,7 +13,12 @@ in
 
   config = mkIf cfg.enable {
     home-manager.users.${user} = {
-      programs.sioyek.enable = true;
+      programs.sioyek = {
+        enable = true;
+        config = {
+          should_launch_new_window = "1";
+        };
+      };
 
       xdg.mimeApps.defaultApplications = {
         "application/pdf" = "sioyek.desktop";
