@@ -10,14 +10,15 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/share/fonts/truetype
-    install -D *.{ttf,TTF} $out/share/fonts/truetype/
+    install -D *.ttf $out/share/fonts/truetype/ 
+    install -D *.ttc $out/share/fonts/
 
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "Symbol fonts required by wps-office";
-    homepage = "https://github.com/dv-anomaly/ttf-wps-fonts";
+    description = "Microsoft Windows 10 TrueType fonts for Linux (pacman packages)";
+    homepage = "https://github.com/streetsamurai00mi/ttf-ms-win10";
     license = licenses.unfree;
     platforms = platforms.all;
   };
