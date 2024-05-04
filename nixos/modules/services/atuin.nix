@@ -1,13 +1,12 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.services'.atuin;
   port = 9222;
 in
 {
-  options.services'.atuin.enable = mkEnableOption' { };
+  options.services'.atuin.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.atuin = {
       enable = true;
       inherit port;

@@ -1,5 +1,4 @@
 { lib, ... }:
-with lib;
 {
   importModule =
     {
@@ -7,12 +6,12 @@ with lib;
       exclude ? [ ],
     }:
     map (n: dir + "/${n}") (
-      subtractLists (
+      lib.subtractLists (
         [
           "default.nix"
           "secrets.yaml"
         ]
         ++ exclude
-      ) (attrNames (builtins.readDir dir))
+      ) (lib.attrNames (builtins.readDir dir))
     );
 }

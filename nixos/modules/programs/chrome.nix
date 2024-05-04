@@ -4,14 +4,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.chrome;
 in
 {
-  options.programs'.chrome.enable = mkEnableOption "Chrome";
+  options.programs'.chrome.enable = lib.mkEnableOption "Chrome";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.google-chrome = {
         enable = true;

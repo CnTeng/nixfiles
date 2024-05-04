@@ -5,15 +5,14 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.kitty;
   inherit (pkgs.vimPlugins) smart-splits-nvim;
 in
 {
-  options.programs'.kitty.enable = mkEnableOption "kitty";
+  options.programs'.kitty.enable = lib.mkEnableOption "kitty";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.variables.TERMINAL = "kitty";
 
     home-manager.users.${user} = {

@@ -4,14 +4,13 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.inputMethod;
 in
 {
-  options.desktop'.profiles.inputMethod.enable = mkEnableOption' { };
+  options.desktop'.profiles.inputMethod.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.xserver.xkb.options = "ctrl:nocaps";
     console.useXkbConfig = true;
 
@@ -59,7 +58,7 @@ in
     systemd.user.services.fcitx5-daemon = {
       description = "Fcitx5 input method editor";
       environment.SKIP_FCITX_USER_PATH = "1";
-      script = getExe' config.i18n.inputMethod.package "fcitx5";
+      script = lib.getExe' config.i18n.inputMethod.package "fcitx5";
       partOf = [ "graphical-session.target" ];
       wantedBy = [ "graphical-session.target" ];
     };

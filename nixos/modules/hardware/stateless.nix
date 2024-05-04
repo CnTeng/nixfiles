@@ -6,18 +6,17 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.hardware'.stateless;
 in
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.hardware'.stateless.enable = mkEnableOption' { };
+  options.hardware'.stateless.enable = lib.mkEnableOption' { };
 
-  config = mkMerge [
-    { environment.persistence."/persist".enable = mkDefault false; }
-    (mkIf cfg.enable {
+  config = lib.mkMerge [
+    { environment.persistence."/persist".enable = lib.mkDefault false; }
+    (lib.mkIf cfg.enable {
 
       sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 

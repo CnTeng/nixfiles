@@ -4,18 +4,17 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.services'.restic;
   inherit (config.networking) hostName;
 in
 {
-  options.services'.restic.enable = mkEnableOption' { };
+  options.services'.restic.enable = lib.mkEnableOption' { };
 
   config =
     let
       mkNtfyScript = status: priority: tag: ''
-        ${getExe pkgs.curl} -u :$(cat $NTFY_TOKEN) \
+        ${lib.getExe pkgs.curl} -u :$(cat $NTFY_TOKEN) \
           -H "Title: Restic Backup" \
           -H "Priority: ${priority}" \
           -H "Tags: floppy_disk,${tag}" \
@@ -24,7 +23,7 @@ in
           https://ntfy.snakepi.xyz/dev
       '';
     in
-    mkIf cfg.enable {
+    lib.mkIf cfg.enable {
       sops.secrets = {
         "restic/rclone".sopsFile = ./secrets.yaml;
         "restic/password".sopsFile = ./secrets.yaml;

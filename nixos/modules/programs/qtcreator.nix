@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.qtcreator;
 in
 {
-  options.programs'.qtcreator.enable = mkEnableOption "Qt Creator";
+  options.programs'.qtcreator.enable = lib.mkEnableOption "Qt Creator";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       home.packages = [ pkgs.qtcreator ];
     };

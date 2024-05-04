@@ -1,9 +1,8 @@
 { lib, ... }:
-with lib;
 {
-  options.desktop'.profiles.palette = mkOption {
+  options.desktop'.profiles.palette = lib.mkOption {
     default = { };
-    type = types.attrs;
+    type = lib.types.attrs;
     visible = false;
   };
 

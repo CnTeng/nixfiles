@@ -1,12 +1,11 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.hardware'.remote-unlock;
 in
 {
-  options.hardware'.remote-unlock.enable = mkEnableOption' { };
+  options.hardware'.remote-unlock.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     boot.initrd.network = {
       enable = true;
       udhcpc.enable = true;

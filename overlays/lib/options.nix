@@ -1,13 +1,12 @@
 { lib, ... }:
-with lib;
 {
   mkEnableOption' =
     {
       default ? false,
     }:
-    mkOption {
+    lib.mkOption {
       inherit default;
-      type = types.bool;
+      type = lib.types.bool;
       visible = false;
     };
 }

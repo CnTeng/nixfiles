@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.firefox;
 in
 {
-  options.programs'.firefox.enable = mkEnableOption "Firefox";
+  options.programs'.firefox.enable = lib.mkEnableOption "Firefox";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
       policies = {

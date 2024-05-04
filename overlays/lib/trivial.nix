@@ -1,7 +1,6 @@
 { lib, ... }:
-with lib;
 rec {
-  removeHashTag = hex: removePrefix "#" hex;
+  removeHashTag = hex: lib.removePrefix "#" hex;
 
   toDec =
     hex:
@@ -9,7 +8,7 @@ rec {
       parseDigit =
         char:
         if char < "a" then
-          toInt char
+          lib.toInt char
         else
           {
             "a" = 10;
@@ -21,15 +20,15 @@ rec {
           }
           .${char};
 
-      chars = stringToCharacters hex;
+      chars = lib.stringToCharacters hex;
       values = map parseDigit chars;
     in
-    toString (foldl (x: y: x * 16 + y) 0 values);
+    toString (lib.foldl (x: y: x * 16 + y) 0 values);
 
   toRgb =
     hex:
     let
       matchHex = builtins.match "([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})";
     in
-    concatStringsSep ", " (map toDec (matchHex (removeHashTag hex)));
+    lib.concatStringsSep ", " (map toDec (matchHex (removeHashTag hex)));
 }

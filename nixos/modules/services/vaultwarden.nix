@@ -1,14 +1,13 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.services'.vaultwarden;
   port = 8222;
   smtpPort = 587;
 in
 {
-  options.services'.vaultwarden.enable = mkEnableOption' { };
+  options.services'.vaultwarden.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
       port
       smtpPort

@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.idle;
 in
 {
-  options.desktop'.profiles.idle.enable = mkEnableOption' { };
+  options.desktop'.profiles.idle.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     security.pam.services.gtklock = { };
 
     home-manager.users.${user} = {
@@ -21,21 +20,21 @@ in
         timeouts = [
           {
             timeout = 240;
-            command = (getExe' pkgs.systemd "loginctl") + " lock-session";
+            command = (lib.getExe' pkgs.systemd "loginctl") + " lock-session";
           }
           {
             timeout = 300;
-            command = (getExe' pkgs.systemd "systemctl") + " suspend";
+            command = (lib.getExe' pkgs.systemd "systemctl") + " suspend";
           }
         ];
         events = [
           {
             event = "lock";
-            command = getExe pkgs.playerctl + " pause";
+            command = lib.getExe pkgs.playerctl + " pause";
           }
           {
             event = "lock";
-            command = getExe pkgs.gtklock + " -d -S";
+            command = lib.getExe pkgs.gtklock + " -d -S";
           }
         ];
       };

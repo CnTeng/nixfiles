@@ -4,14 +4,13 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.serial;
 in
 {
-  options.programs'.serial.enable = mkEnableOption "serial";
+  options.programs'.serial.enable = lib.mkEnableOption "serial";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     boot.kernelModules = [
       "ftdi_sio"
       "pl2303"

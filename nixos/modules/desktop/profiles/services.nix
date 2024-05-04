@@ -4,20 +4,19 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.services;
 in
 {
-  options.desktop'.profiles.services.enable = mkEnableOption' { };
+  options.desktop'.profiles.services.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.onedrive.enable = true;
 
     systemd.user.services.onedrive-launcher = {
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
-      wantedBy = mkForce [ "graphical-session.target" ];
+      wantedBy = lib.mkForce [ "graphical-session.target" ];
     };
 
     services.pipewire = {
@@ -28,6 +27,7 @@ in
     services.gnome.at-spi2-core.enable = true;
     services.gnome.gnome-keyring.enable = true;
 
+    services.dbus.implementation = "broker";
     services.gvfs.enable = true;
 
     # power

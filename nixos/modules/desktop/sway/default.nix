@@ -5,16 +5,15 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.sway;
 in
 {
   imports = [ ../profiles ];
 
-  options.desktop'.sway.enable = mkEnableOption' { };
+  options.desktop'.sway.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -65,7 +64,7 @@ in
             bars = [ ];
             startup = [
               {
-                command = getExe pkgs.autotiling;
+                command = lib.getExe pkgs.autotiling;
                 always = true;
               }
             ];
@@ -73,20 +72,20 @@ in
               inner = 3;
               outer = 3;
             };
-            terminal = getExe pkgs.kitty;
+            terminal = lib.getExe pkgs.kitty;
             keybindings =
               let
                 inherit (config.wayland.windowManager.sway.config) modifier menu;
 
-                swayosd = getExe' pkgs.swayosd "swayosd-client";
-                grimshot = getExe pkgs.sway-contrib.grimshot;
-                nautilus = getExe' pkgs.gnome.nautilus "nautilus";
-                playerctl = getExe pkgs.playerctl;
+                swayosd = lib.getExe' pkgs.swayosd "swayosd-client";
+                grimshot = lib.getExe pkgs.sway-contrib.grimshot;
+                nautilus = lib.getExe' pkgs.gnome.nautilus "nautilus";
+                playerctl = lib.getExe pkgs.playerctl;
               in
               lib.mkOptionDefault {
                 "${modifier}+Shift+q" = "null";
                 "${modifier}+q" = "kill";
-                "${modifier}+p" = "exec ${getExe pkgs.hyprpicker} -a";
+                "${modifier}+p" = "exec ${lib.getExe pkgs.hyprpicker} -a";
                 "${modifier}+d" = "null";
                 "${modifier}+e" = "exec ${nautilus}";
                 "${modifier}+space" = "exec ${menu}";

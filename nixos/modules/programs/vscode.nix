@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.vscode;
 in
 {
-  options.programs'.vscode.enable = mkEnableOption "Visual Studio Code";
+  options.programs'.vscode.enable = lib.mkEnableOption "Visual Studio Code";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.vscode = {
         enable = true;

@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.android;
 in
 {
-  options.programs'.android.enable = mkEnableOption' { };
+  options.programs'.android.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.users.${user}.extraGroups = [ "adbusers" ];
 
     programs.adb.enable = true;

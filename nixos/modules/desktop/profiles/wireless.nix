@@ -4,14 +4,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.wireless;
 in
 {
-  options.desktop'.profiles.wireless.enable = mkEnableOption' { };
+  options.desktop'.profiles.wireless.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hardware.brillo.enable = true;
     users.users.${user}.extraGroups = [
       "networkmanager"

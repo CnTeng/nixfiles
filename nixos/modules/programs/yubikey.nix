@@ -5,7 +5,6 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.yubikey;
   yubikeyPkgs = with pkgs; [
@@ -14,9 +13,9 @@ let
   ];
 in
 {
-  options.programs'.yubikey.enable = mkEnableOption' { };
+  options.programs'.yubikey.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.udev.packages = yubikeyPkgs;
 
     environment.systemPackages = yubikeyPkgs;

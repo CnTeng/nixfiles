@@ -5,7 +5,6 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.waybar;
 
@@ -14,9 +13,9 @@ let
   systemMonitor = "${lib.getExe pkgs.kitty} -e btop";
 in
 {
-  options.desktop'.profiles.waybar.enable = mkEnableOption' { };
+  options.desktop'.profiles.waybar.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.waybar = with palette; {
         enable = true;

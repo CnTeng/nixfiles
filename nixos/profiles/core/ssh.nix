@@ -4,7 +4,6 @@
   user,
   ...
 }:
-with lib;
 let
   mkHostConfig = name: host: port: user': {
     sops.secrets."${name}-ipv4" = {
@@ -39,12 +38,12 @@ let
       name,
       luks ? false,
     }:
-    mkMerge [
+    lib.mkMerge [
       (mkHostConfig name name 22 user)
-      (optionalAttrs luks (mkHostConfig "${name}-luks" name 2222 "root"))
+      (lib.optionalAttrs luks (mkHostConfig "${name}-luks" name 2222 "root"))
     ];
 in
-mkMerge [
+lib.mkMerge [
   {
     home-manager.users.${user} = {
       services.ssh-agent.enable = true;

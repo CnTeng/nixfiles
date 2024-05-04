@@ -1,25 +1,24 @@
 { config, lib, ... }:
-with lib;
 let
   inherit (config.services'.tuic) server client;
   port = 1080;
 in
 {
   options.services'.tuic = {
-    server.enable = mkEnableOption' { };
-    client.enable = mkEnableOption' { };
+    server.enable = lib.mkEnableOption' { };
+    client.enable = lib.mkEnableOption' { };
   };
 
-  config = mkIf (server.enable || client.enable) {
+  config = lib.mkIf (server.enable || client.enable) {
     networking.firewall.allowedUDPPorts = [ port ];
 
     sops.secrets = {
-      cf-dns01-token = mkIf server.enable {
+      cf-dns01-token = lib.mkIf server.enable {
         key = "cf-api-token";
         restartUnits = [ "sing-box.service" ];
       };
 
-      tuic-ip = mkIf client.enable {
+      tuic-ip = lib.mkIf client.enable {
         key = "lssg-ipv4";
         restartUnits = [ "sing-box.service" ];
       };
@@ -176,8 +175,8 @@ in
         {
           log.level = "info";
         }
-        // optionalAttrs server.enable serverConfig
-        // optionalAttrs client.enable clientConfig;
+        // lib.optionalAttrs server.enable serverConfig
+        // lib.optionalAttrs client.enable clientConfig;
     };
 
     networking.firewall.trustedInterfaces = [ "tun0" ];

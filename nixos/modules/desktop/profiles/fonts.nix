@@ -4,14 +4,13 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.fonts;
 in
 {
-  options.desktop'.profiles.fonts.enable = mkEnableOption' { };
+  options.desktop'.profiles.fonts.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
       roboto
       roboto-slab

@@ -4,7 +4,6 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.wezterm;
 
@@ -12,9 +11,9 @@ let
   inherit (lib.generators) mkLuaInline;
 in
 {
-  options.programs'.wezterm.enable = mkEnableOption "wezterm";
+  options.programs'.wezterm.enable = lib.mkEnableOption "wezterm";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.persistence."/persist" = {
       users.${user}.directories = [ ".local/share/wezterm" ];
     };

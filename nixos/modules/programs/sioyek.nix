@@ -4,14 +4,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.sioyek;
 in
 {
-  options.programs'.sioyek.enable = mkEnableOption' { };
+  options.programs'.sioyek.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.sioyek = {
         enable = true;

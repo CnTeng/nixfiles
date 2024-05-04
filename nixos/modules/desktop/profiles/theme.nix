@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.theme;
 in
 {
-  options.desktop'.profiles.theme.enable = mkEnableOption' { };
+  options.desktop'.profiles.theme.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     boot.initrd.verbose = false;
     boot.consoleLogLevel = 0;
     boot.kernelParams = [

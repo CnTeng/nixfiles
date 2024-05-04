@@ -1,12 +1,11 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.services'.caddy;
 in
 {
-  options.services'.caddy.enable = mkEnableOption' { };
+  options.services'.caddy.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
       80
       443

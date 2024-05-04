@@ -4,19 +4,18 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.login;
 in
 {
-  options.desktop'.profiles.login.enable = mkEnableOption' { };
+  options.desktop'.profiles.login.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = true;
       settings.default_session = {
         command =
-          getExe pkgs.greetd.tuigreet
+          lib.getExe pkgs.greetd.tuigreet
           + " --time"
           + " --user-menu"
           + " --asterisks"

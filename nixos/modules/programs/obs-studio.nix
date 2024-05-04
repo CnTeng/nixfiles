@@ -5,14 +5,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.obs;
 in
 {
-  options.programs'.obs.enable = mkEnableOption "OBS Studio";
+  options.programs'.obs.enable = lib.mkEnableOption "OBS Studio";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.obs-studio = {
         enable = true;

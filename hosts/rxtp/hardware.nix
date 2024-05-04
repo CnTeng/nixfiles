@@ -13,7 +13,7 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     initrd.kernelModules = [
       "amdgpu"
       "thunderbolt"

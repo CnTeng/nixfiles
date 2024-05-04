@@ -4,7 +4,6 @@
   lib,
   ...
 }:
-with lib;
 let
   cfg = config.hardware'.disko;
 in
@@ -12,22 +11,22 @@ in
   imports = [ inputs.disko.nixosModules.default ];
 
   options.hardware'.disko = {
-    enable = mkEnableOption' { };
-    device = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption' { };
+    device = lib.mkOption {
+      type = lib.types.str;
       visible = false;
     };
-    bootSize = mkOption {
-      type = types.str;
+    bootSize = lib.mkOption {
+      type = lib.types.str;
       visible = false;
     };
-    swapSize = mkOption {
-      type = types.str;
+    swapSize = lib.mkOption {
+      type = lib.types.str;
       visible = false;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     disko.devices = {
       disk.${cfg.device} = {
         type = "disk";

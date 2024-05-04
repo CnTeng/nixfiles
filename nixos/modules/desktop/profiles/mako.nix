@@ -4,15 +4,14 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.mako;
   inherit (config.desktop'.profiles) palette;
 in
 {
-  options.desktop'.profiles.mako.enable = mkEnableOption' { };
+  options.desktop'.profiles.mako.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} =
       { config, ... }:
       {

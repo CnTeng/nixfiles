@@ -4,14 +4,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.desktop'.profiles.xdg;
 in
 {
-  options.desktop'.profiles.xdg.enable = mkEnableOption' { };
+  options.desktop'.profiles.xdg.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} =
       { config, ... }:
       let

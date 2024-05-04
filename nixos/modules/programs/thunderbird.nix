@@ -4,7 +4,6 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.thunderbird;
 
@@ -15,9 +14,9 @@ let
   realName = "Teng Yufei";
 in
 {
-  options.programs'.thunderbird.enable = mkEnableOption "thunderbird";
+  options.programs'.thunderbird.enable = lib.mkEnableOption "thunderbird";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       accounts.email.accounts = {
         Outlook = {

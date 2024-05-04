@@ -4,14 +4,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.evince;
 in
 {
-  options.programs'.evince.enable = mkEnableOption "Evince";
+  options.programs'.evince.enable = lib.mkEnableOption "Evince";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.evince.enable = true;
 
     environment.persistence."/persist" = {

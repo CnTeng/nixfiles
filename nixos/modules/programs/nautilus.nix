@@ -4,14 +4,13 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.nautilus;
 in
 {
-  options.programs'.nautilus.enable = mkEnableOption' { };
+  options.programs'.nautilus.enable = lib.mkEnableOption' { };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ gnome.nautilus ];
     environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
     environment.pathsToLink = [ "/share/nautilus-python/extensions" ];

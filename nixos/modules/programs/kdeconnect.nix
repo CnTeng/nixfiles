@@ -4,14 +4,13 @@
   user,
   ...
 }:
-with lib;
 let
   cfg = config.programs'.kdeconnect;
 in
 {
-  options.programs'.kdeconnect.enable = mkEnableOption "KDE connect";
+  options.programs'.kdeconnect.enable = lib.mkEnableOption "KDE connect";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking.firewall = {
       allowedTCPPortRanges = [
         {
