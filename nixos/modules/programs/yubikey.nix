@@ -8,8 +8,8 @@
 let
   cfg = config.programs'.yubikey;
   yubikeyPkgs = with pkgs; [
-    yubikey-manager
-    yubioath-flutter
+    # yubikey-manager
+    # yubioath-flutter
   ];
 in
 {
