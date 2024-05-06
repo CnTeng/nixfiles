@@ -1,4 +1,4 @@
-{ prev, ... }:
+prev: _:
 prev.sway-unwrapped.overrideAttrs (oldAttrs: {
   patches = oldAttrs.patches ++ [
     (prev.fetchpatch {

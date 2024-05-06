@@ -1,4 +1,4 @@
-{ prev, ... }:
+prev: _:
 prev.sops.override {
   buildGoModule =
     args:

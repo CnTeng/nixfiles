@@ -1,4 +1,4 @@
-{ prev, ... }:
+prev: _:
 prev.caddy.override {
   buildGoModule =
     args:

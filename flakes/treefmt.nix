@@ -18,8 +18,8 @@
         };
 
         settings.formatter = {
-          nixfmt.excludes = [ "overlays/_sources/*" ];
-          prettier.excludes = [ "overlays/_sources/*" ];
+          nixfmt.excludes = [ "pkgs/_sources/*" ];
+          prettier.excludes = [ "pkgs/_sources/*" ];
         };
       };
     };

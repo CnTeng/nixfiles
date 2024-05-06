@@ -74,7 +74,7 @@
         ./flakes
         ./hosts
         ./nixos
-        ./overlays
+        ./pkgs
       ];
     };
 }

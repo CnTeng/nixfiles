@@ -6,9 +6,8 @@
 }:
 {
   flake = withSystem "x86_64-linux" (
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     let
-      lib = pkgs.lib.extend (self.overlays.lib);
       user = "yufei";
     in
     {
