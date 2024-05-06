@@ -16,12 +16,7 @@
   };
 
   perSystem =
-    {
-      pkgs,
-      lib,
-      system,
-      ...
-    }:
+    { pkgs, system, ... }:
     {
       _module.args = {
         pkgs = import inputs.nixpkgs {
@@ -30,6 +25,7 @@
           overlays = [
             self.overlays.default
             inputs.colmena.overlays.default
+            inputs.rx-nvim.overlays.default
           ];
         };
         lib = pkgs.lib.extend self.overlays.lib;
