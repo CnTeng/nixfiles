@@ -28,6 +28,10 @@
       character = {
         success_symbol = "[>](bold green)";
         error_symbol = "[x](bold red)";
+        vimcmd_symbol = "[n](bold green)";
+        vimcmd_replace_one_symbol = "[r](bold purple)";
+        vimcmd_replace_symbol = "[r](bold purple)";
+        vimcmd_visual_symbol = "[v](bold yellow)";
       };
 
       cmd_duration.format = "[󱐋 $duration]($style) ";
