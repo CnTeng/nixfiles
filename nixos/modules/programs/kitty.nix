@@ -17,10 +17,6 @@ in
 
     home-manager.users.${user} = {
       xdg.configFile = {
-        "kitty/pass_keys.py" = {
-          source = "${smart-splits-nvim}/kitty/pass_keys.py";
-          executable = true;
-        };
         "kitty/neighboring_window.py" = {
           source = "${smart-splits-nvim}/kitty/neighboring_window.py";
           executable = true;
