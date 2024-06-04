@@ -44,15 +44,25 @@ in
           allow_remote_control yes
           listen_on unix:@mykitty
 
-          map ctrl+j kitten pass_keys.py neighboring_window bottom ctrl+j
-          map ctrl+k kitten pass_keys.py neighboring_window top    ctrl+k
-          map ctrl+h kitten pass_keys.py neighboring_window left   ctrl+h
-          map ctrl+l kitten pass_keys.py neighboring_window right  ctrl+l
+          map ctrl+j neighboring_window down
+          map ctrl+k neighboring_window up
+          map ctrl+h neighboring_window left
+          map ctrl+l neighboring_window right
 
-          map alt+j kitten pass_keys.py relative_resize down  3 alt+j
-          map alt+k kitten pass_keys.py relative_resize up    3 alt+k
-          map alt+h kitten pass_keys.py relative_resize left  3 alt+h
-          map alt+l kitten pass_keys.py relative_resize right 3 alt+l
+          map --when-focus-on var:IS_NVIM ctrl+j
+          map --when-focus-on var:IS_NVIM ctrl+k
+          map --when-focus-on var:IS_NVIM ctrl+h
+          map --when-focus-on var:IS_NVIM ctrl+l
+
+          map alt+j kitten relative_resize.py down  3
+          map alt+k kitten relative_resize.py up    3
+          map alt+h kitten relative_resize.py left  3
+          map alt+l kitten relative_resize.py right 3
+
+          map --when-focus-on var:IS_NVIM alt+j
+          map --when-focus-on var:IS_NVIM alt+k
+          map --when-focus-on var:IS_NVIM alt+h
+          map --when-focus-on var:IS_NVIM alt+l
 
           enabled_layouts splits:split_axis=horizontal
         '';
