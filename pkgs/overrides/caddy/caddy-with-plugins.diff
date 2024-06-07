@@ -1,55 +1,54 @@
 diff --git a/cmd/caddy/main.go b/cmd/caddy/main.go
-index 48fa149a..b97db1ca 100644
+index 48fa149a..cf1c77f7 100644
 --- a/cmd/caddy/main.go
 +++ b/cmd/caddy/main.go
-@@ -33,6 +33,7 @@ import (
+@@ -32,6 +32,7 @@ import (
+ 	caddycmd "github.com/caddyserver/caddy/v2/cmd"
  
  	// plug in Caddy modules here
- 	_ "github.com/caddyserver/caddy/v2/modules/standard"
 +	_ "github.com/caddy-dns/cloudflare"
+ 	_ "github.com/caddyserver/caddy/v2/modules/standard"
  )
  
- func main() {
 diff --git a/go.mod b/go.mod
-index 4a2c40c0..a7d9ba9a 100644
+index 8729be44..ec4faf30 100644
 --- a/go.mod
 +++ b/go.mod
-@@ -7,6 +7,7 @@ require (
+@@ -9,6 +9,7 @@ require (
  	github.com/Masterminds/sprig/v3 v3.2.3
- 	github.com/alecthomas/chroma/v2 v2.9.1
+ 	github.com/alecthomas/chroma/v2 v2.13.0
  	github.com/aryann/difflib v0.0.0-20210328193216-ff5ff6dc229b
-+	github.com/caddy-dns/cloudflare v0.0.0-20240206200437-2fa0c8ac916a
- 	github.com/caddyserver/certmagic v0.20.0
++	github.com/caddy-dns/cloudflare v0.0.0-20240405130444-44030f9306f4
+ 	github.com/caddyserver/certmagic v0.21.3
+ 	github.com/caddyserver/zerossl v0.1.3
  	github.com/dustin/go-humanize v1.0.1
- 	github.com/go-chi/chi/v5 v5.0.10
-@@ -55,6 +56,7 @@ require (
+@@ -60,6 +61,7 @@ require (
  	github.com/google/go-tspi v0.3.0 // indirect
- 	github.com/google/pprof v0.0.0-20210720184732-4bb14d4b1be1 // indirect
+ 	github.com/google/pprof v0.0.0-20231212022811-ec68065c825e // indirect
  	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0 // indirect
-+	github.com/libdns/cloudflare v0.1.0 // indirect
- 	github.com/onsi/ginkgo/v2 v2.9.5 // indirect
++	github.com/libdns/cloudflare v0.1.1 // indirect
+ 	github.com/onsi/ginkgo/v2 v2.13.2 // indirect
  	github.com/pmezard/go-difflib v1.0.0 // indirect
  	github.com/quic-go/qpack v0.4.0 // indirect
 diff --git a/go.sum b/go.sum
-index 177d1ae0..a1d91464 100644
+index 351e449c..5a6ac89b 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -61,6 +61,8 @@ github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
+@@ -73,6 +73,8 @@ github.com/aws/smithy-go v1.20.2 h1:tbp628ireGtzcHDDmLT/6ADHidqnwgF57XOXZe6tp4Q=
+ github.com/aws/smithy-go v1.20.2/go.mod h1:krry+ya/rV9RDcV/Q16kpu6ypI4K2czasz0NC3qS14E=
+ github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
  github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
- github.com/bgentry/speakeasy v0.1.0/go.mod h1:+zsyZBPWlz7T6j88CTgSN5bM796AkVf0kBD4zp0CCIs=
- github.com/boltdb/bolt v1.3.1/go.mod h1:clJnj/oiGkjum5o1McbSZDSLxVThjynRyGBgiAx27Ps=
-+github.com/caddy-dns/cloudflare v0.0.0-20240206200437-2fa0c8ac916a h1:4jAOVUkPj/FFqtzaMXTNtP//QOvjsKjz9Pv8pwFVqrs=
-+github.com/caddy-dns/cloudflare v0.0.0-20240206200437-2fa0c8ac916a/go.mod h1:l/IQuRAsmZhN7+qHC6912c9zCfN+lEiN2E4/uW9CfTg=
- github.com/caddyserver/certmagic v0.20.0 h1:bTw7LcEZAh9ucYCRXyCpIrSAGplplI0vGYJ4BpCQ/Fc=
- github.com/caddyserver/certmagic v0.20.0/go.mod h1:N4sXgpICQUskEWpj7zVzvWD41p3NYacrNoZYiRM2jTg=
- github.com/casbin/casbin/v2 v2.1.2/go.mod h1:YcPU1XXisHhLzuxH9coDNf2FbKpjGlbCg3n9yuLkIJQ=
-@@ -344,6 +346,9 @@ github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
- github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
++github.com/caddy-dns/cloudflare v0.0.0-20240405130444-44030f9306f4 h1:Qoyce5QX9p7G5ySk2na3lHOHwp08TyeypR18DSLt3KE=
++github.com/caddy-dns/cloudflare v0.0.0-20240405130444-44030f9306f4/go.mod h1:Hg2SNb9171Ezb+8uoUXvCp2mF+gHgDXxEl6RMvCmBIk=
+ github.com/caddyserver/certmagic v0.21.3 h1:pqRRry3yuB4CWBVq9+cUqu+Y6E2z8TswbhNx1AZeYm0=
+ github.com/caddyserver/certmagic v0.21.3/go.mod h1:Zq6pklO9nVRl3DIFUw9gVUfXKdpc/0qwTUAQMBlfgtI=
+ github.com/caddyserver/zerossl v0.1.3 h1:onS+pxp3M8HnHpN5MMbOMyNjmTheJyWRaZYwn+YTAyA=
+@@ -282,6 +284,8 @@ github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
  github.com/lib/pq v1.10.2/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
  github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
-+github.com/libdns/cloudflare v0.1.0 h1:93WkJaGaiXCe353LHEP36kAWCUw0YjFqwhkBkU2/iic=
-+github.com/libdns/cloudflare v0.1.0/go.mod h1:a44IP6J1YH6nvcNl1PverfJviADgXUnsozR3a7vBKN8=
-+github.com/libdns/libdns v0.2.0/go.mod h1:yQCXzk1lEZmmCPa857bnk4TsOiqYasqpyOEeSObbb40=
- github.com/libdns/libdns v0.2.1 h1:Wu59T7wSHRgtA0cfxC+n1c/e+O3upJGWytknkmFEDis=
- github.com/libdns/libdns v0.2.1/go.mod h1:yQCXzk1lEZmmCPa857bnk4TsOiqYasqpyOEeSObbb40=
- github.com/lightstep/lightstep-tracer-common/golang/gogo v0.0.0-20190605223551-bc2310a04743/go.mod h1:qklhhLq1aX+mtWk9cPHPzaBjWImj5ULL6C7HFJtXQMM=
+ github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
++github.com/libdns/cloudflare v0.1.1 h1:FVPfWwP8zZCqj268LZjmkDleXlHPlFU9KC4OJ3yn054=
++github.com/libdns/cloudflare v0.1.1/go.mod h1:9VK91idpOjg6v7/WbjkEW49bSCxj00ALesIFDhJ8PBU=
+ github.com/libdns/libdns v0.2.2 h1:O6ws7bAfRPaBsgAYt8MDe2HcNBGC29hkZ9MX2eUSX3s=
+ github.com/libdns/libdns v0.2.2/go.mod h1:4Bj9+5CQiNMVGf87wjX4CY3HQJypUHRuLvlsfsZqLWQ=
+ github.com/magiconair/properties v1.8.0/go.mod h1:PppfXfuXeibc/6YijjN8zIbojt8czPbwD3XqdrwzmxQ=
