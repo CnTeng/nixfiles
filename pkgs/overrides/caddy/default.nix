@@ -5,7 +5,7 @@ prev.caddy.override {
     prev.buildGoModule (
       args
       // {
-        vendorHash = "sha256-dnKAwOrQkICkUVsyWJO+o2N4HcImLaL+fPyq8hUd5/8=";
+        vendorHash = "sha256-/Vj8Yn34c81W1KZoCogfG3Z3fzmJnjvubxq3nIqHxm4=";
         patches = [ ./caddy-with-plugins.diff ];
       }
     );
