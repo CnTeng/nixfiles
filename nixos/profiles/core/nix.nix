@@ -15,9 +15,16 @@
       "flakes"
       "nix-command"
     ];
+
     nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
-    substituters = [ "https://cache.garnix.io" ];
-    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+    substituters = [
+      "https://cache.garnix.io"
+      "https://cosmic.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
     trusted-users = [
       "root"
       "@wheel"
