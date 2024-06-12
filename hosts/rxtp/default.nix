@@ -14,7 +14,6 @@
     serial.enable = true;
     sioyek.enable = true;
     thunderbird.enable = true;
-    vscode.enable = true;
     wps.enable = true;
     yubikey.enable = true;
     nautilus.enable = true;
