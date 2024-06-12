@@ -22,6 +22,7 @@ in
         spotify
         tdesktop
         vlc
+        zed-editor
       ];
     };
 
@@ -50,6 +51,8 @@ in
         ".cache/vlc"
         ".config/vlc"
 
+        ".config/zed"
+        ".local/share/zed"
       ];
     };
   };
