@@ -6,7 +6,6 @@
   programs' = {
     android.enable = true;
     chrome.enable = true;
-    evince.enable = true;
     firefox.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
