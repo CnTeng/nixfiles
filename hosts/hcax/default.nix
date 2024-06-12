@@ -1,8 +1,6 @@
 {
   imports = [ ./hardware.nix ];
 
-  system.stateVersion = "23.11";
-
   services' = {
     atuin.enable = true;
     caddy.enable = true;

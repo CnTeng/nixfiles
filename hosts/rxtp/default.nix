@@ -1,8 +1,6 @@
 {
   imports = [ ./hardware.nix ];
 
-  system.stateVersion = "23.11";
-
   desktop'.cosmic.enable = true;
 
   programs' = {

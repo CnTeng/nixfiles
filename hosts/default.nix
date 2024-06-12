@@ -7,15 +7,13 @@
 {
   flake = withSystem "x86_64-linux" (
     { pkgs, lib, ... }:
-    let
-      user = "yufei";
-    in
     {
       colmenaHive = inputs.colmena.lib.makeHive {
         meta = {
           nixpkgs = pkgs;
           specialArgs = {
-            inherit inputs lib user;
+            inherit inputs lib;
+            user = "yufei";
           };
         };
 
@@ -26,7 +24,11 @@
               targetHost = lib.mkDefault name;
               tags = [ name ];
             };
+
+            system.stateVersion = "24.05";
+
             networking.hostName = name;
+
             imports = [
               self.nixosModules.default
               ./${name}
