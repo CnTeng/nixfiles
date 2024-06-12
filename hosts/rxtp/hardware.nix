@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
@@ -13,7 +18,7 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [
       "amdgpu"
       "thunderbolt"
@@ -21,17 +26,18 @@
     initrd.availableKernelModules = [ "usb_storage" ];
     kernelModules = [
       "kvm-amd"
-      "amd-pstate"
+      "acpi_call"
     ];
-    kernelParams = [
-      "initcall_blacklist=acpi_cpufreq_init"
-      "amd_pstate=active"
-    ];
+    kernelParams = [ "amd_pstate=active" ];
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   };
 
   boot.initrd.systemd.enable = true; # Support for luks tpm2
 
-  environment.systemPackages = [ pkgs.sbctl ];
+  environment.systemPackages = [
+    pkgs.sbctl
+    pkgs.vulkan-tools
+  ];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.lanzaboote = {
@@ -47,4 +53,13 @@
   services.fwupd.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  hardware.opengl = {
+    driSupport32Bit = true;
+    extraPackages = [
+      pkgs.amdvlk
+      pkgs.rocmPackages.clr.icd
+    ];
+    extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+  };
 }
