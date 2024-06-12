@@ -9,7 +9,7 @@ let
   cfg = config.programs'.others;
 in
 {
-  options.programs'.others.enable = lib.mkEnableOption "others programs";
+  options.programs'.others.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

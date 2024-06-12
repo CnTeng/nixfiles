@@ -8,7 +8,7 @@ let
   cfg = config.programs'.serial;
 in
 {
-  options.programs'.serial.enable = lib.mkEnableOption "serial";
+  options.programs'.serial.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [

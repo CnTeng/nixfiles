@@ -14,7 +14,7 @@ let
   realName = "Teng Yufei";
 in
 {
-  options.programs'.thunderbird.enable = lib.mkEnableOption "thunderbird";
+  options.programs'.thunderbird.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

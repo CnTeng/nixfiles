@@ -9,7 +9,7 @@ let
   cfg = config.programs'.qtcreator;
 in
 {
-  options.programs'.qtcreator.enable = lib.mkEnableOption "Qt Creator";
+  options.programs'.qtcreator.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

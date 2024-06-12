@@ -9,7 +9,7 @@ let
   cfg = config.programs'.firefox;
 in
 {
-  options.programs'.firefox.enable = lib.mkEnableOption "Firefox";
+  options.programs'.firefox.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     programs.firefox = {

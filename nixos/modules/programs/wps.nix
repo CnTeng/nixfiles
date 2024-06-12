@@ -9,7 +9,7 @@ let
   cfg = config.programs'.wps;
 in
 {
-  options.programs'.wps.enable = lib.mkEnableOption "wps";
+  options.programs'.wps.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [

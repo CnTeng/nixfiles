@@ -8,7 +8,7 @@ let
   cfg = config.programs'.kdeconnect;
 in
 {
-  options.programs'.kdeconnect.enable = lib.mkEnableOption "KDE connect";
+  options.programs'.kdeconnect.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     networking.firewall = {
