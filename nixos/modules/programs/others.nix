@@ -22,7 +22,6 @@ in
         spotify
         tdesktop
         vlc
-        qq
       ];
     };
 
@@ -51,7 +50,6 @@ in
         ".cache/vlc"
         ".config/vlc"
 
-        ".config/QQ"
       ];
     };
   };
