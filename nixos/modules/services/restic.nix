@@ -25,7 +25,6 @@ in
     in
     lib.mkIf cfg.enable {
       sops.secrets = {
-        "restic/rclone".sopsFile = ./secrets.yaml;
         "restic/password".sopsFile = ./secrets.yaml;
         "restic/ntfy".sopsFile = ./secrets.yaml;
 

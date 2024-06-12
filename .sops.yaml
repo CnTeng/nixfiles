@@ -19,14 +19,6 @@ creation_rules:
           - *hcax
           - *lssg
 
-  - path_regex: nixos/profiles/utils/.*
-    key_groups:
-      - age:
-          - *yufei
-          - *rxtp
-          - *hcax
-          - *lssg
-
   - path_regex: nixos/modules/services/.*
     key_groups:
       - age:
