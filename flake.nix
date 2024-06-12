@@ -4,21 +4,18 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    impermanence.url = "github:nix-community/impermanence";
-
     flake-utils.url = "github:numtide/flake-utils";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    treefmt = {
-      url = "github:numtide/treefmt-nix";
+    pre-commit = {
+      url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    colmena = {
-      url = "github:zhaofengli/colmena";
+    treefmt = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager = {
@@ -36,8 +33,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    impermanence.url = "github:nix-community/impermanence";
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    colmena = {
+      url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -50,15 +55,11 @@
       inputs.pre-commit.follows = "pre-commit";
     };
 
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    pre-commit = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
