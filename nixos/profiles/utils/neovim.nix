@@ -1,30 +1,15 @@
-{
-  inputs,
-  config,
-  user,
-  ...
-}:
+{ inputs, user, ... }:
 {
   imports = [ inputs.rx-nvim.nixosModules.default ];
 
-  programs.rx-nvim = {
-    enable = true;
-    extraConfig = ''
-      vim.g.gptsupport = true
-      vim.g.gpthost = "${config.sops.secrets."chatgpt/host".path}"
-      vim.g.gptkey= "${config.sops.secrets."chatgpt/key".path}"
-    '';
-  };
+  programs.rx-nvim.enable = true;
 
-  sops.secrets = {
-    "chatgpt/host" = {
-      owner = user;
-      sopsFile = ./secrets.yaml;
-    };
-
-    "chatgpt/key" = {
-      owner = user;
-      sopsFile = ./secrets.yaml;
-    };
+  environment.persistence."/persist" = {
+    users.${user}.directories = [
+      ".local/share/nvim"
+      ".local/state/nvim"
+      ".cache/nvim"
+      ".config/github-copilot"
+    ];
   };
 }
