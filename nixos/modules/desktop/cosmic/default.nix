@@ -16,7 +16,6 @@ in
     ./idle.nix
     ./input.nix
     ./theme.nix
-    ./xdg.nix
   ];
 
   options.desktop'.cosmic.enable = lib.mkEnableOption' { };
@@ -30,7 +29,6 @@ in
       idle.enable = true;
       input.enable = true;
       theme.enable = true;
-      xdg.enable = true;
     };
 
     environment.systemPackages = with pkgs; [ wl-clipboard ];
@@ -100,7 +98,7 @@ in
               (modifiers: [Super], key: "o"): ToggleOrientation,
               (modifiers: [Super], key: "s"): ToggleStacking,
               (modifiers: [Super], key: "y"): ToggleTiling,
-              (modifiers: [Super], key: "f"): ToggleWindowFloating,
+              (modifiers: [Super], key: "g"): ToggleWindowFloating,
               (modifiers: [Super], key: "x"): SwapWindow,
 
               (modifiers: [Super], key: "m"): Maximize,
@@ -127,8 +125,11 @@ in
           },
           data_control_enabled: true,
       )
-
     '';
+
+    home-manager.users.${user} = {
+      xdg.mimeApps.enable = true;
+    };
 
     environment.persistence."/persist" = {
       directories = [ "/etc/NetworkManager/system-connections" ];

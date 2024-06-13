@@ -44,9 +44,6 @@ in
       "Inbox"
       "Pictures"
       "Projects"
-
-      "OneDrive"
-      ".config/onedrive"
     ];
   };
 }

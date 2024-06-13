@@ -45,10 +45,7 @@ in
         environmentFile = config.sops.templates."restic/environment".path;
         repositoryFile = config.sops.templates."restic/repository".path;
         paths = [ "/persist" ];
-        exclude = [
-          "/persist/home/*/OneDrive"
-          "/persist/home/*/.cache"
-        ];
+        exclude = [ "/persist/home/*/.cache" ];
         timerConfig = {
           OnCalendar = "*-*-* 12:00:00";
           Persistent = true;
