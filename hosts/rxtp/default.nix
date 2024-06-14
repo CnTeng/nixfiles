@@ -16,7 +16,6 @@
     thunderbird.enable = true;
     wps.enable = true;
     yubikey.enable = true;
-    nautilus.enable = true;
   };
 
   services' = {
