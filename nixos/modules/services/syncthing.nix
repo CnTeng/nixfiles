@@ -5,10 +5,10 @@
   ...
 }:
 let
-  inherit (config.services'.syncthing) server client;
-  inherit (config.networking) hostName;
-
+  cfg = config.services'.syncthing;
   port = 8384;
+
+  inherit (config.networking) hostName;
 
   hcax-id = "FZI53MV-7BDLDBF-G7ELO44-JEBK3L2-VJIOYT6-KBTSIHT-BTHULAZ-IEVA5AK";
   rxtp-id = "MP7DEJV-GA6NS5O-PA7GKB4-LFXEVPW-EUHFF3D-EVZPS2F-JNDG2L6-CB7T4QA";
@@ -39,12 +39,9 @@ let
   };
 in
 {
-  options.services'.syncthing = {
-    server.enable = lib.mkEnableOption' { };
-    client.enable = lib.mkEnableOption' { };
-  };
+  options.services'.syncthing.enable = lib.mkEnableOption' { };
 
-  config = lib.mkIf (server.enable || client.enable) {
+  config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ port ];
 
     services.syncthing = {
@@ -73,7 +70,7 @@ in
       dataDir = config.users.users.${user}.home;
     };
 
-    services.caddy.virtualHosts.syncthing = lib.mkIf server.enable {
+    services.caddy.virtualHosts.syncthing = {
       hostName = "sync.snakepi.xyz";
       extraConfig = ''
         import ${config.sops.templates.cf-tls.path}

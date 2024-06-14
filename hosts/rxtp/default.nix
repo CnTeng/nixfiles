@@ -21,7 +21,7 @@
 
   services' = {
     restic.enable = true;
-    syncthing.client.enable = true;
+    syncthing.enable = true;
     tuic.client.enable = true;
   };
 }
