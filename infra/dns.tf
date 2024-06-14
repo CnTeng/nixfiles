@@ -8,8 +8,9 @@ locals {
   web_rec = {
     "@"   = { value = module.hcloud["hcax"].ipv4 }
     atuin = { value = module.hcloud["hcax"].ipv4 }
-    rss   = { value = module.hcloud["hcax"].ipv4 }
     ntfy  = { value = module.hcloud["hcax"].ipv4 }
+    rss   = { value = module.hcloud["hcax"].ipv4 }
+    sync  = { value = module.hcloud["hcax"].ipv4 }
     vault = { value = module.hcloud["hcax"].ipv4 }
     www   = { value = module.hcloud["hcax"].ipv4 }
     tuic  = { value = module.lightsail["lssg"].ipv4, proxied = false }
