@@ -11,7 +11,10 @@
         programs = {
           nixfmt-rfc-style.enable = true;
           prettier.enable = true;
-          terraform.enable = true;
+          terraform = {
+            enable = true;
+            package = pkgs.opentofu;
+          };
         };
 
         settings.formatter = {
