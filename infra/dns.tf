@@ -8,6 +8,7 @@ locals {
   web_rec = {
     "@"   = { value = module.hcloud["hcax"].ipv4 }
     atuin = { value = module.hcloud["hcax"].ipv4 }
+    auth  = { value = module.hcloud["hcax"].ipv4 }
     ldap  = { value = module.hcloud["hcax"].ipv4 }
     ntfy  = { value = module.hcloud["hcax"].ipv4 }
     rss   = { value = module.hcloud["hcax"].ipv4 }

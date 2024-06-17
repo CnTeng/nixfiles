@@ -3,6 +3,7 @@
 
   services' = {
     atuin.enable = true;
+    authelia.enable = true;
     caddy.enable = true;
     fail2ban.enable = true;
     ldap.enable = true;
