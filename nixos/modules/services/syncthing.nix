@@ -42,8 +42,6 @@ in
   options.services'.syncthing.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ port ];
-
     services.syncthing = {
       enable = true;
       cert = config.sops.secrets."syncthing/${hostName}-cert".path;

@@ -1,14 +1,11 @@
 { config, lib, ... }:
 let
   cfg = config.services'.ldap;
-  port = config.services.lldap.settings.http_port;
 in
 {
   options.services'.ldap.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ port ];
-
     services.lldap = {
       enable = true;
       settings = {
@@ -23,14 +20,18 @@ in
 
     };
 
-    services.caddy.virtualHosts.lldap = {
-      hostName = "ldap.snakepi.xyz";
-      extraConfig = ''
-        import ${config.sops.templates.cf-tls.path}
+    services.caddy.virtualHosts.lldap =
+      let
+        port = config.services.lldap.settings.http_port;
+      in
+      {
+        hostName = "ldap.snakepi.xyz";
+        extraConfig = ''
+          import ${config.sops.templates.cf-tls.path}
 
-        reverse_proxy 127.0.0.1:${toString port}
-      '';
-    };
+          reverse_proxy 127.0.0.1:${toString port}
+        '';
+      };
 
     users.users.lldap = {
       group = "lldap";

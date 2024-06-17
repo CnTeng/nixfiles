@@ -12,8 +12,6 @@ in
   options.services'.miniflux.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ port ];
-
     services.miniflux = {
       enable = true;
       config = {

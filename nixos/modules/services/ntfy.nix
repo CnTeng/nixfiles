@@ -7,8 +7,6 @@ in
   options.services'.ntfy.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ port ];
-
     services.ntfy-sh = {
       enable = true;
       settings = {
