@@ -14,12 +14,12 @@ in
 
     sops.secrets = {
       cf-dns01-token = lib.mkIf server.enable {
-        key = "cf-api-token";
+        key = "tokens/cf_cdntls";
         restartUnits = [ "sing-box.service" ];
       };
 
-      tuic-ip = lib.mkIf client.enable {
-        key = "lssg-ipv4";
+      "tuic/ip" = lib.mkIf client.enable {
+        key = "hosts/lssg/ip/ipv4";
         restartUnits = [ "sing-box.service" ];
       };
 
@@ -106,7 +106,7 @@ in
             outbounds = [
               {
                 type = "tuic";
-                server._secret = config.sops.secrets.tuic-ip.path;
+                server._secret = config.sops.secrets."tuic/ip".path;
                 server_port = port;
                 uuid._secret = config.sops.secrets."tuic/uuid".path;
                 password._secret = config.sops.secrets."tuic/pass".path;

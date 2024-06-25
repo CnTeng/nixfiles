@@ -1,37 +1,57 @@
 locals {
-  hosts_ip   = merge(module.hcloud, module.lightsail)
-  hosts_ipv4 = { for host, ip in local.hosts_ip : "${host}-ipv4" => ip.ipv4 }
-  hosts_ipv6 = { for host, ip in local.hosts_ip : "${host}-ipv6" => ip.ipv6 }
-  hosts      = merge(local.hosts_ipv4, local.hosts_ipv6)
+  tokens = { cf_cdntls = cloudflare_api_token.cdntls.value }
+  r2     = module.r2
 
-  r2_endpoints   = { for r2, keys in module.r2 : "${r2}-endpoint" => keys.endpoint }
-  r2_access_keys = { for r2, keys in module.r2 : "${r2}-access-key" => keys.access_key }
-  r2_secret_keys = { for r2, keys in module.r2 : "${r2}-secret-key" => keys.secret_key }
-  r2             = merge(local.r2_endpoints, local.r2_access_keys, local.r2_secret_keys)
+  public_hosts = {
+    for host, outputs in module.host :
+    host => {
+      for name, output in outputs :
+      name => output if !issensitive(output)
+    }
+  }
 
-  tokens = { cf-api-token = cloudflare_api_token.cdntls.value }
+  private_hosts = {
+    for host, outputs in module.host :
+    host => {
+      for name, output in outputs :
+      name => output if issensitive(output)
+    }
+  }
 
-  output = yamlencode(merge(local.hosts, local.r2, local.tokens))
+  public_output = jsonencode({ hosts = local.public_hosts })
+  private_output = yamlencode(merge(
+    { hosts = local.private_hosts },
+    { tokens = local.tokens },
+    { r2 = local.r2 }
+  ))
 }
 
 resource "null_resource" "output" {
   provisioner "local-exec" {
     command = <<-EOF
-    echo "$CONTENT" | sops --config "$CONFIG_FILE" \
-      --input-type yaml \
-      --output-type yaml \
-      --filename-override infra/output.yaml \
-      --encrypt /dev/stdin > "$OUTPUT_FILE"
+mkdir -p "$OUTPUT_DIR"
+
+echo "$PUBLIC_OUTPUT" | jq . >"$OUTPUT_DIR/$PUBLIC_FILE"
+
+echo "$PRIVATE_OUTPUT" | sops --config "$CONFIG_FILE" \
+	--input-type yaml \
+	--output-type yaml \
+	--filename-override "infra/$OUTPUT_DIR/$PRIVATE_FILE" \
+	--encrypt /dev/stdin >"$OUTPUT_DIR/$PRIVATE_FILE"
     EOF
 
     environment = {
-      CONFIG_FILE = "${path.root}/../.sops.yaml"
-      CONTENT     = nonsensitive(local.output)
-      OUTPUT_FILE = "output.yaml"
+      CONFIG_FILE    = "${path.root}/../.sops.yaml"
+      PUBLIC_OUTPUT  = nonsensitive(local.public_output)
+      PRIVATE_OUTPUT = nonsensitive(local.private_output)
+      OUTPUT_DIR     = "outputs"
+      PUBLIC_FILE    = "data.json"
+      PRIVATE_FILE   = "secrets.yaml"
     }
   }
 
   triggers = {
-    content = local.output
+    public_output  = local.public_output
+    private_output = local.private_output
   }
 }

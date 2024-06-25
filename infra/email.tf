@@ -1,5 +1,6 @@
 locals {
   sp_eo_rules = {
+    auth  = "auth@snakepi.eu.org"
     vault = "vault@snakepi.eu.org"
   }
   sp_xyz_rules = {
@@ -29,9 +30,10 @@ resource "cloudflare_email_routing_address" "gmail_jp" {
 
 resource "cloudflare_email_routing_rule" "sp_eo_rules" {
   for_each = local.sp_eo_rules
-  zone_id  = cloudflare_zone.zones["sp_eo"].id
-  name     = "${each.key} email rule"
-  enabled  = true
+
+  zone_id = cloudflare_zone.zones["sp_eo"].id
+  name    = "${each.key} email rule"
+  enabled = true
 
   matcher {
     type  = "literal"
@@ -47,9 +49,10 @@ resource "cloudflare_email_routing_rule" "sp_eo_rules" {
 
 resource "cloudflare_email_routing_rule" "sp_xyz_rules" {
   for_each = local.sp_xyz_rules
-  zone_id  = cloudflare_zone.zones["sp_xyz"].id
-  name     = "${each.key} email rule"
-  enabled  = true
+
+  zone_id = cloudflare_zone.zones["sp_xyz"].id
+  name    = "${each.key} email rule"
+  enabled = true
 
   matcher {
     type  = "literal"

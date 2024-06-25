@@ -28,16 +28,18 @@ in
         "restic/password".sopsFile = ./secrets.yaml;
         "restic/ntfy".sopsFile = ./secrets.yaml;
 
-        backups-endpoint = { };
-        backups-access-key = { };
-        backups-secret-key = { };
+        "restic/endpoint".key = "r2/backups/endpoint";
+        "restic/access-key".key = "r2/backups/access_key";
+        "restic/secret-key".key = "r2/backups/secret_key";
       };
 
-      sops.templates."restic/repository".content = "s3:${config.sops.placeholder.backups-endpoint}/persist/${hostName}";
+      sops.templates."restic/repository".content = "s3:${
+        config.sops.placeholder."restic/endpoint"
+      }/persist/${hostName}";
 
       sops.templates."restic/environment".content = ''
-        AWS_ACCESS_KEY_ID=${config.sops.placeholder.backups-access-key}
-        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder.backups-secret-key}
+        AWS_ACCESS_KEY_ID=${config.sops.placeholder."restic/access-key"}
+        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."restic/secret-key"}
       '';
 
       services.restic.backups.persist = {

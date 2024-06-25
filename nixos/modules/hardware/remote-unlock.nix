@@ -13,13 +13,12 @@ in
 
     boot.initrd.network.ssh = {
       enable = true;
-      port = 2222;
+      # port = 2222;
       shell = "/bin/cryptsetup-askpass";
-      hostKeys = [ "/persist/etc/secrets/initrd/ssh_host_ed25519_key" ];
-    };
-
-    environment.persistence."/persist" = {
-      files = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+      hostKeys = [
+        "/persist/etc/secrets/initrd/ssh_host_ed25519_key"
+        "/persist/etc/secrets/initrd/ssh_host_rsa_key"
+      ];
     };
   };
 }

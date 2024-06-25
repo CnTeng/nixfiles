@@ -14,7 +14,7 @@ in
     services.caddy.enable = true;
 
     sops.secrets.cf-cdntls-token = {
-      key = "cf-api-token";
+      key = "tokens/cf_cdntls";
       owner = config.services.caddy.user;
       restartUnits = [ "caddy.service" ];
     };

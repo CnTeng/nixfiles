@@ -17,6 +17,17 @@ terraform {
   }
 }
 
+locals {
+  firewall_allowed_ports = {
+    tcp = toset([22, 80, 443, 2222])
+    udp = toset([1080])
+  }
+}
+
+resource "tls_private_key" "temp" {
+  algorithm = "ED25519"
+}
+
 resource "hcloud_server" "server" {
   name        = var.hostname
   server_type = var.plan
@@ -28,10 +39,6 @@ resource "hcloud_server" "server" {
     ipv6 = hcloud_primary_ip.ipv6.id
   }
   firewall_ids = [hcloud_firewall.default.id]
-}
-
-resource "tls_private_key" "temp" {
-  algorithm = "ED25519"
 }
 
 resource "hcloud_ssh_key" "temp" {
@@ -55,53 +62,24 @@ resource "hcloud_primary_ip" "ipv6" {
   assignee_type = "server"
 }
 
-
 resource "hcloud_firewall" "default" {
   name = "${var.hostname}-default"
-  rule {
-    direction = "in"
-    protocol  = "tcp"
-    port      = "22"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0"
-    ]
-  }
-  rule {
-    direction = "in"
-    protocol  = "tcp"
-    port      = "80"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0"
-    ]
-  }
-  rule {
-    direction = "in"
-    protocol  = "tcp"
-    port      = "443"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0"
-    ]
-  }
-  rule {
-    direction = "in"
-    protocol  = "tcp"
-    port      = "2222"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0"
-    ]
-  }
-  rule {
-    direction = "in"
-    protocol  = "udp"
-    port      = "1080"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0"
-    ]
+
+  dynamic "rule" {
+    for_each = flatten([
+      for protocol, ports in local.firewall_allowed_ports : [
+        for port in ports : {
+          protocol = protocol
+          port     = tostring(port)
+        }
+      ]
+    ])
+    content {
+      direction  = "in"
+      protocol   = rule.value.protocol
+      port       = rule.value.port
+      source_ips = ["0.0.0.0/0", "::/0"]
+    }
   }
 }
 
@@ -113,6 +91,14 @@ output "ipv6" {
   value = hcloud_primary_ip.ipv6.ip_address
 }
 
+output "ip" {
+  value = {
+    ipv4 = hcloud_primary_ip.ipv4.ip_address
+    ipv6 = hcloud_primary_ip.ipv6.ip_address
+  }
+}
+
 output "temp_private_key" {
-  value = tls_private_key.temp.private_key_openssh
+  value     = tls_private_key.temp.private_key_openssh
+  sensitive = true
 }

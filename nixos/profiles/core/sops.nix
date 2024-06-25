@@ -2,7 +2,7 @@
 {
   imports = [ inputs.sops-nix.nixosModules.default ];
 
-  sops.defaultSopsFile = ../../../infra/output.yaml;
+  sops.defaultSopsFile = ../../../infra/outputs/secrets.yaml;
 
   environment.persistence."/persist" = {
     users.${user}.directories = [ ".config/sops" ];

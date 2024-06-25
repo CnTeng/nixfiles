@@ -13,6 +13,14 @@ variable "region" {
 terraform {
   required_providers {
     aws = { source = "registry.terraform.io/hashicorp/aws" }
+    tls = { source = "registry.terraform.io/hashicorp/tls" }
+  }
+}
+
+locals {
+  firewall_allowed_ports = {
+    tcp = toset([22, 80, 443])
+    udp = toset([1080])
   }
 }
 
@@ -34,40 +42,25 @@ resource "aws_lightsail_static_ip_attachment" "ipv4" {
 
 resource "aws_lightsail_instance_public_ports" "default" {
   instance_name = aws_lightsail_instance.instance.name
-  port_info {
-    protocol          = "tcp"
-    from_port         = 22
-    to_port           = 22
-    cidrs             = ["0.0.0.0/0", ]
-    cidr_list_aliases = []
-    ipv6_cidrs        = ["::/0", ]
-  }
 
-  port_info {
-    protocol          = "tcp"
-    from_port         = 80
-    to_port           = 80
-    cidrs             = ["0.0.0.0/0", ]
-    cidr_list_aliases = []
-    ipv6_cidrs        = ["::/0", ]
-  }
+  dynamic "port_info" {
+    for_each = flatten([
+      for protocol, ports in local.firewall_allowed_ports : [
+        for port in ports : {
+          protocol = protocol
+          port     = port
+        }
+      ]
+    ])
 
-  port_info {
-    protocol          = "tcp"
-    from_port         = 443
-    to_port           = 443
-    cidrs             = ["0.0.0.0/0", ]
-    cidr_list_aliases = []
-    ipv6_cidrs        = ["::/0", ]
-  }
-
-  port_info {
-    protocol          = "udp"
-    from_port         = 1080
-    to_port           = 1080
-    cidrs             = ["0.0.0.0/0", ]
-    cidr_list_aliases = []
-    ipv6_cidrs        = ["::/0", ]
+    content {
+      protocol          = port_info.value.protocol
+      from_port         = port_info.value.port
+      to_port           = port_info.value.port
+      cidrs             = ["0.0.0.0/0"]
+      cidr_list_aliases = []
+      ipv6_cidrs        = ["::/0", ]
+    }
   }
 }
 
@@ -77,4 +70,11 @@ output "ipv4" {
 
 output "ipv6" {
   value = aws_lightsail_instance.instance.ipv6_addresses[0]
+}
+
+output "ip" {
+  value = {
+    ipv4 = aws_lightsail_instance.instance.public_ip_address
+    ipv6 = aws_lightsail_instance.instance.ipv6_addresses[0]
+  }
 }

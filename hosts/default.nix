@@ -13,6 +13,7 @@
           nixpkgs = pkgs;
           specialArgs = {
             inherit inputs lib;
+            data = builtins.fromJSON (builtins.readFile ../infra/outputs/data.json);
             user = "yufei";
           };
         };

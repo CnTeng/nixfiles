@@ -7,6 +7,7 @@ terraform {
     null       = { source = "registry.terraform.io/hashicorp/null" }
     sops       = { source = "registry.terraform.io/carlpett/sops" }
     tls        = { source = "registry.terraform.io/hashicorp/tls" }
+    shell      = { source = "registry.terraform.io/scottwinkler/shell" }
   }
 
   encryption {

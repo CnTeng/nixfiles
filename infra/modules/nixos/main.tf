@@ -6,14 +6,49 @@ variable "host_ip" {
   type = string
 }
 
-variable "private_key" {
-  type = string
+variable "temp_private_key" {
+  type      = string
+  sensitive = true
+}
+
+variable "disk_key" {
+  type      = string
+  sensitive = true
+}
+
+variable "host_key" {
+  type = object({
+    rsa_key = object({
+      public_key  = string
+      private_key = string
+    })
+    ed25519_key = object({
+      public_key  = string
+      private_key = string
+    })
+  })
+  sensitive = true
+}
+
+variable "initrd_host_key" {
+  type = object({
+    rsa_key = object({
+      public_key  = string
+      private_key = string
+    })
+    ed25519_key = object({
+      public_key  = string
+      private_key = string
+    })
+  })
+  sensitive = true
 }
 
 terraform {
   required_providers {
     external = { source = "registry.terraform.io/hashicorp/external" }
     null     = { source = "registry.terraform.io/hashicorp/null" }
+    tls      = { source = "registry.terraform.io/hashicorp/tls" }
   }
 }
 
@@ -32,14 +67,22 @@ module "install" {
   nixos_system       = module.system.result.out
   nixos_partitioner  = module.disko.result.out
   target_host        = var.host_ip
-  ssh_private_key    = nonsensitive(var.private_key) // Show log when running
-  extra_files_script = "${path.module}/decrypt-ssh-keys.sh"
+  ssh_private_key    = var.temp_private_key
+  extra_files_script = "${path.module}/scripts/deploy-host-keys.sh"
   disk_encryption_key_scripts = [{
     path   = "/tmp/disk.key"
-    script = "${path.module}/decrypt-disk-key.sh"
+    script = "${path.module}/scripts/deploy-disk-key.sh"
   }]
   extra_environment = {
-    HOST_NAME = var.hostname
+    DISK_KEY                   = var.disk_key
+    RSA_PUBLIC_KEY             = var.host_key.rsa_key.public_key
+    RSA_PRIVATE_KEY            = var.host_key.rsa_key.private_key
+    ED25519_PUBLIC_KEY         = var.host_key.ed25519_key.public_key
+    ED25519_PRIVATE_KEY        = var.host_key.ed25519_key.private_key
+    INITRD_RSA_PUBLIC_KEY      = var.initrd_host_key.rsa_key.public_key
+    INITRD_RSA_PRIVATE_KEY     = var.initrd_host_key.rsa_key.private_key
+    INITRD_ED25519_PUBLIC_KEY  = var.initrd_host_key.ed25519_key.public_key
+    INITRD_ED25519_PRIVATE_KEY = var.initrd_host_key.ed25519_key.private_key
   }
   build_on_remote = true
 }
