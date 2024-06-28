@@ -5,7 +5,6 @@
   ...
 }:
 {
-  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
   hardware' = {
     disko = {
@@ -14,6 +13,7 @@
       bootSize = "2G";
       swapSize = "32G";
     };
+    secure-boot.enable = true;
     stateless.enable = true;
   };
 
@@ -32,20 +32,10 @@
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   };
 
-  boot.initrd.systemd.enable = true; # Support for luks tpm2
+  boot.initrd.systemd.enable = true;
 
-  environment.systemPackages = [
-    pkgs.sbctl
-    pkgs.vulkan-tools
-  ];
-
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
-
-  environment.persistence."/persist".directories = [ "/etc/secureboot" ];
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
