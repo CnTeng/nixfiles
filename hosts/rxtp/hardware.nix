@@ -52,8 +52,6 @@
 
   services.fwupd.enable = true;
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   hardware.opengl = {
     driSupport32Bit = true;
     extraPackages = [
