@@ -15,7 +15,7 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.NIXOS_DEPLOY_KEY }}
           name: id_ed25519
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           config: ${{ secrets.SSH_CONFIG }}
