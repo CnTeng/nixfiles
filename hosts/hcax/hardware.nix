@@ -9,7 +9,7 @@
       bootSize = "1G";
       swapSize = "4G";
     };
-    remote-unlock.enable = true;
+    initrd-ssh.enable = true;
     stateless.enable = true;
   };
 
@@ -19,12 +19,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  sops.secrets."network/ipv6".key = "hosts/hcax/ip/ipv6";
-
   networking = {
     useDHCP = false;
     useNetworkd = true;
   };
+
+  sops.secrets."network/ipv6".key = "hosts/hcax/ip/ipv6";
 
   sops.templates."network/enp1s0" = {
     content = ''
