@@ -5,7 +5,7 @@ keys:
     - &rxtp age16u2q8xj7fn2kxsuscm87wttvhzgm834s5q2am5weg4xtahfmnpwqvqlnj8
     # - &rxtp age1r8n6czl47683xc6c5xlpg6mze4rxushwwggg8y5rcx6u8mpr6acs6r078w
     - &hcax age1ae8xec0pp7sn0vtr2pjpe3mpqktqcg4xuuhc3p6yp6ep7tr7r32q3u6ckw
-    - &lssg age1acupz46dkd20nqq8mktc8v7chrws6hnvcw2r5hpyd35ajg2gtdhqfx9uf6
+    - &lssg age1upmempprrdem66d9pz2clyvzczjd96mekjh4d4c62v69ja3d398q43ldll
 
 stores:
   yaml:

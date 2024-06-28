@@ -12,9 +12,9 @@ in
 
     nix.settings.trusted-users = [ "nixbuild" ];
 
-    services.openssh.authorizedKeysFiles = [ config.sops.secrets."nixbuild/authorizedKeys".path ];
+    services.openssh.authorizedKeysFiles = [ config.sops.secrets."ssh/nixbuild_key.pub".path ];
 
-    sops.secrets."nixbuild/authorizedKeys" = {
+    sops.secrets."ssh/nixbuild_key.pub" = {
       key = "hosts/${hostName}/nixbuild_key_pair/public_key";
       mode = "0444";
     };
