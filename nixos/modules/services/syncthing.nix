@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  data,
   user,
   ...
 }:
@@ -10,16 +11,14 @@ let
 
   inherit (config.networking) hostName;
 
-  hcax-id = "FZI53MV-7BDLDBF-G7ELO44-JEBK3L2-VJIOYT6-KBTSIHT-BTHULAZ-IEVA5AK";
-  rxtp-id = "MP7DEJV-GA6NS5O-PA7GKB4-LFXEVPW-EUHFF3D-EVZPS2F-JNDG2L6-CB7T4QA";
+  hosts = lib.filterAttrs (n: v: v.syncthing) data.hosts;
 
-  mkFolder = name: {
+  authMode = if config.services'.ldap.enable then "ldap" else "static";
+
+  mkFolder = name: devices: {
     ${name} = {
       path = "~/${name}";
-      devices = [
-        "hcax"
-        "rxtp"
-      ];
+      inherit devices;
       versioning = {
         type = "staggered";
         params = {
@@ -34,9 +33,16 @@ let
     ${name} = {
       inherit id;
       addresses = [ "dynamic" ];
-
     };
   };
+
+  devices = lib.concatMapAttrs (host: hostData: mkDevice host hostData.syncthing_id) hosts;
+  folders = lib.concatMapAttrs (name: devices: mkFolder name devices) {
+    "Archives" = lib.attrNames devices;
+    "Documents" = lib.attrNames devices;
+    "Pictures" = lib.attrNames devices;
+  };
+
 in
 {
   options.services'.syncthing.enable = lib.mkEnableOption' { };
@@ -44,8 +50,8 @@ in
   config = lib.mkIf cfg.enable {
     services.syncthing = {
       enable = true;
-      cert = config.sops.secrets."syncthing/${hostName}-cert".path;
-      key = config.sops.secrets."syncthing/${hostName}-key".path;
+      cert = config.sops.secrets."syncthing/cert".path;
+      key = config.sops.secrets."syncthing/key".path;
 
       settings = {
         options = {
@@ -54,12 +60,18 @@ in
         };
 
         gui = {
-          inherit user;
-          password = "$2a$10$Bdt741gaItR89NwvIzxhz.liuqP9GheCPIMAICBUtOU7m5aaMIB5u";
+          inherit authMode;
         };
 
-        devices = mkDevice "hcax" hcax-id // mkDevice "rxtp" rxtp-id;
-        folders = mkFolder "Archives" // mkFolder "Documents" // mkFolder "Pictures";
+        ldap = {
+          address = "localhost:3890";
+          bindDN = "cn=%s,ou=people,dc=snakepi,dc=xyz";
+          transport = "nontls";
+          searchBaseDN = "ou=people,dc=snakepi,dc=xyz";
+          searchFilter = "(&(uid=%s)(memberof=cn=lldap_syncthing,ou=groups,dc=snakepi,dc=xyz))";
+        };
+
+        inherit devices folders;
       };
 
       guiAddress = "127.0.0.1:${toString port}";
@@ -80,15 +92,15 @@ in
     };
 
     sops.secrets = {
-      "syncthing/${hostName}-cert" = {
+      "syncthing/cert" = {
+        key = "hosts/${hostName}/syncthing_key_pair/cert";
         owner = user;
-        sopsFile = ./secrets.yaml;
         restartUnits = [ "syncthing.service" ];
       };
 
-      "syncthing/${hostName}-key" = {
+      "syncthing/key" = {
+        key = "hosts/${hostName}/syncthing_key_pair/key";
         owner = user;
-        sopsFile = ./secrets.yaml;
         restartUnits = [ "syncthing.service" ];
       };
     };
