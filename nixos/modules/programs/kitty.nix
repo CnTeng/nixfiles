@@ -26,23 +26,67 @@ in
           executable = true;
         };
       };
+
       programs.kitty = {
         enable = true;
         font.name = "FiraCode Nerd Font";
         theme = "Adwaita dark";
-        settings = {
-          # term = "xterm-256color";
-          tab_fade = "1 1 1";
-          tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{title}";
+        settings =
+          let
+            mkTabTitle =
+              indicator:
+              ''"${indicator} {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{sup.index}{title}  "'';
+          in
+          {
+            tab_bar_style = "separator";
+            tab_separator = ''""'';
+            tab_title_max_length = "18";
+            tab_activity_symbol = ''"●"'';
+            tab_title_template = mkTabTitle " ";
+            active_tab_title_template = mkTabTitle "▎";
+
+            enabled_layouts = "splits, stack";
+
+            allow_remote_control = "yes";
+            listen_on = "unix:@mykitty";
+          };
+        keybindings = {
+          "kitty_mod+enter" = "launch --location=split";
+          "kitty_mod+q" = "close_window";
+
+          "kitty_mod+j" = "neighboring_window down";
+          "kitty_mod+k" = "neighboring_window up";
+          "kitty_mod+h" = "neighboring_window left";
+          "kitty_mod+l" = "neighboring_window right";
+
+          "ctrl+alt+j" = "move_window down";
+          "ctrl+alt+k" = "move_window up";
+          "ctrl+alt+h" = "move_window left";
+          "ctrl+alt+l" = "move_window right";
+
+          "kitty_mod+w" = "focus_visible_window";
+
+          "ctrl+alt+s" = "toggle_layout stack";
+          "ctrl+alt+v" = "layout_action rotate";
+
+          "kitty_mod+1" = "goto_tab 1";
+          "kitty_mod+2" = "goto_tab 2";
+          "kitty_mod+3" = "goto_tab 3";
+          "kitty_mod+4" = "goto_tab 4";
+          "kitty_mod+5" = "goto_tab 5";
+          "kitty_mod+6" = "goto_tab 6";
+          "kitty_mod+7" = "goto_tab 7";
+          "kitty_mod+8" = "goto_tab 8";
+          "kitty_mod+9" = "goto_tab 9";
+          "kitty_mod+0" = "goto_tab 10";
         };
         extraConfig = ''
-          symbol_map U+4E00–U+9FFF Sarasa Gothic SC
+          symbol_map U+4E00–U+9FFF Noto Sans Mono CJK SC
+
           modify_font underline_position +3
           modify_font underline_thickness 150%
-          modify_font cell_height 120%
 
-          allow_remote_control yes
-          listen_on unix:@mykitty
+          modify_font cell_height 120%
 
           map ctrl+j neighboring_window down
           map ctrl+k neighboring_window up
@@ -63,8 +107,6 @@ in
           map --when-focus-on var:IS_NVIM alt+k
           map --when-focus-on var:IS_NVIM alt+h
           map --when-focus-on var:IS_NVIM alt+l
-
-          enabled_layouts splits:split_axis=horizontal
         '';
       };
     };

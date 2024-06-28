@@ -1,6 +1,7 @@
 { pkgs, user, ... }:
 {
   programs.direnv.enable = true;
+  programs.screen.enable = true;
 
   environment.enableAllTerminfo = true;
 
