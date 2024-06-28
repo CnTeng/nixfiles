@@ -1,11 +1,5 @@
+{ config, pkgs, ... }:
 {
-  inputs,
-  config,
-  pkgs,
-  ...
-}:
-{
-
   hardware' = {
     disko = {
       enable = true;
@@ -19,10 +13,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd.kernelModules = [
-      "amdgpu"
-      "thunderbolt"
-    ];
+    initrd.kernelModules = [ "thunderbolt" ];
     initrd.availableKernelModules = [ "usb_storage" ];
     kernelModules = [
       "kvm-amd"
@@ -40,14 +31,11 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
-  services.fwupd.enable = true;
-
-  hardware.opengl = {
-    driSupport32Bit = true;
-    extraPackages = [
-      pkgs.amdvlk
-      pkgs.rocmPackages.clr.icd
-    ];
-    extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+  hardware.amdgpu = {
+    initrd.enable = true;
+    opencl.enable = true;
+    amdvlk.enable = true;
   };
+
+  services.fwupd.enable = true;
 }
