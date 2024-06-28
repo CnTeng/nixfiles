@@ -13,11 +13,15 @@ provider "aws" {
 }
 
 provider "hcloud" {
-  token = local.secrets.hcloud.hcloud_token
+  token = local.secrets.hcloud_token
 }
 
 provider "cloudflare" {
   api_token = local.secrets.cloudflare.api_token
+}
+
+provider "github" {
+  token = local.secrets.github_token
 }
 
 provider "aws" {

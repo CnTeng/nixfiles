@@ -1,6 +1,7 @@
 locals {
   tokens = { cf_cdntls = cloudflare_api_token.cdntls.value }
   r2     = module.r2
+  github = { nixos_deploy_key_pub = tls_private_key.nixos_deploy_key.public_key_openssh }
 
   public_hosts = {
     for host, outputs in module.host :
@@ -20,24 +21,25 @@ locals {
 
   public_output = jsonencode({ hosts = local.public_hosts })
   private_output = yamlencode(merge(
-    { hosts = local.private_hosts },
     { tokens = local.tokens },
-    { r2 = local.r2 }
+    { r2 = local.r2 },
+    { github = local.github },
+    { hosts = local.private_hosts },
   ))
 }
 
 resource "null_resource" "output" {
   provisioner "local-exec" {
     command = <<-EOF
-mkdir -p "$OUTPUT_DIR"
+    mkdir -p "$OUTPUT_DIR"
 
-echo "$PUBLIC_OUTPUT" | jq . >"$OUTPUT_DIR/$PUBLIC_FILE"
+    echo "$PUBLIC_OUTPUT" | jq . >"$OUTPUT_DIR/$PUBLIC_FILE"
 
-echo "$PRIVATE_OUTPUT" | sops --config "$CONFIG_FILE" \
-	--input-type yaml \
-	--output-type yaml \
-	--filename-override "infra/$OUTPUT_DIR/$PRIVATE_FILE" \
-	--encrypt /dev/stdin >"$OUTPUT_DIR/$PRIVATE_FILE"
+    echo "$PRIVATE_OUTPUT" | sops --config "$CONFIG_FILE" \
+      --input-type yaml \
+      --output-type yaml \
+      --filename-override "infra/$OUTPUT_DIR/$PRIVATE_FILE" \
+      --encrypt /dev/stdin >"$OUTPUT_DIR/$PRIVATE_FILE"
     EOF
 
     environment = {

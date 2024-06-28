@@ -90,7 +90,7 @@ module "nixos" {
   hostname         = each.key
   host_ip          = module.host[each.key].ip.ipv4
   temp_private_key = local.temp_private_keys[each.key]
-  disk_key         = local.secrets.disk_keys[each.key]
+  disk_key         = local.secrets.disk_key
   host_key = {
     rsa_key     = module.host[each.key].host_rsa_key
     ed25519_key = module.host[each.key].host_ed25519_key

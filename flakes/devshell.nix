@@ -19,6 +19,7 @@
             p.aws
             p.cloudflare
             p.external
+            p.github
             p.hcloud
             p.local
             p.null
