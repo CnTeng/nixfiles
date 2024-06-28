@@ -16,6 +16,8 @@ in
   options.programs'.yubikey.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
+    services.pcscd.enable = true;
+
     services.udev.packages = yubikeyPkgs;
 
     environment.systemPackages = yubikeyPkgs;
