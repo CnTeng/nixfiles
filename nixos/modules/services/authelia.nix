@@ -11,12 +11,15 @@ in
       secrets = {
         jwtSecretFile = config.sops.secrets."authelia/jwt_secret".path;
         storageEncryptionKeyFile = config.sops.secrets."authelia/encryption_key".path;
+        oidcHmacSecretFile = config.sops.secrets."authelia/hmac_secret".path;
+        oidcIssuerPrivateKeyFile = config.sops.secrets."authelia/issuer_private_key".path;
       };
       settings = {
         theme = "auto";
         session = {
           domain = "auth.snakepi.xyz";
         };
+        default_2fa_method = "webauthn";
         storage.local.path = "/var/lib/authelia-default/db.sqlite3";
         authentication_backend = {
           password_reset.disable = true;
@@ -46,15 +49,15 @@ in
           identifier = "snakepi.eu.org";
         };
 
-        access_control = {
-          default_policy = "two_factor";
-        };
+        access_control.default_policy = "one_factor";
+
       };
       environmentVariables = {
         AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."authelia/smtp_password".path;
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
           config.sops.secrets."authelia/ldap_password".path;
       };
+
     };
 
     services.caddy.virtualHosts.auth =
@@ -82,6 +85,11 @@ in
       };
 
       "authelia/hmac_secret" = {
+        owner = "authelia-default";
+        sopsFile = ./secrets.yaml;
+      };
+
+      "authelia/issuer_private_key" = {
         owner = "authelia-default";
         sopsFile = ./secrets.yaml;
       };

@@ -12,10 +12,11 @@ resource "shell_script" "generate_syncthing_config" {
 }
 
 output "syncthing" {
-  value = {
-    enable    = var.syncthing
-    device_id = one(shell_script.generate_syncthing_config[*].output.device_id)
-  }
+  value = var.syncthing
+}
+
+output "syncthing_id" {
+  value = one(shell_script.generate_syncthing_config[*].output.device_id)
 }
 
 output "syncthing_key_pair" {

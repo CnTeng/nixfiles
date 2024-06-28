@@ -2,6 +2,10 @@ variable "name" {
   type = string
 }
 
+variable "system" {
+  type = string
+}
+
 variable "type" {
   type = string
 
@@ -16,6 +20,10 @@ variable "ip" {
     ipv4 = optional(string)
     ipv6 = optional(string)
   })
+}
+
+output "system" {
+  value = var.system
 }
 
 output "type" {

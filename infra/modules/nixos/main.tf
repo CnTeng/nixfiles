@@ -30,7 +30,7 @@ variable "host_key" {
   sensitive = true
 }
 
-variable "initrd_host_key" {
+variable "initrd_key" {
   type = object({
     rsa_key = object({
       public_key  = string
@@ -75,14 +75,14 @@ module "install" {
   }]
   extra_environment = {
     DISK_KEY                   = var.disk_key
-    RSA_PUBLIC_KEY             = var.host_key.rsa_key.public_key
-    RSA_PRIVATE_KEY            = var.host_key.rsa_key.private_key
-    ED25519_PUBLIC_KEY         = var.host_key.ed25519_key.public_key
-    ED25519_PRIVATE_KEY        = var.host_key.ed25519_key.private_key
-    INITRD_RSA_PUBLIC_KEY      = var.initrd_host_key.rsa_key.public_key
-    INITRD_RSA_PRIVATE_KEY     = var.initrd_host_key.rsa_key.private_key
-    INITRD_ED25519_PUBLIC_KEY  = var.initrd_host_key.ed25519_key.public_key
-    INITRD_ED25519_PRIVATE_KEY = var.initrd_host_key.ed25519_key.private_key
+    HOST_RSA_PUBLIC_KEY        = var.host_key.rsa_key.public_key
+    HOST_RSA_PRIVATE_KEY       = var.host_key.rsa_key.private_key
+    HOST_ED25519_PUBLIC_KEY    = var.host_key.ed25519_key.public_key
+    HOST_ED25519_PRIVATE_KEY   = var.host_key.ed25519_key.private_key
+    INITRD_RSA_PUBLIC_KEY      = var.initrd_key.rsa_key.public_key
+    INITRD_RSA_PRIVATE_KEY     = var.initrd_key.rsa_key.private_key
+    INITRD_ED25519_PUBLIC_KEY  = var.initrd_key.ed25519_key.public_key
+    INITRD_ED25519_PRIVATE_KEY = var.initrd_key.ed25519_key.private_key
   }
   build_on_remote = true
 }

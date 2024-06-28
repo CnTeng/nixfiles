@@ -3,10 +3,12 @@ locals {
     hcax = {
       plan       = "cax21"
       region     = "fsn1-dc14"
+      system     = "aarch64-linux"
       type       = "remote"
       openssh    = true
       initrd_ssh = true
       syncthing  = true
+      nixbuild   = true
     }
   }
 
@@ -14,26 +16,32 @@ locals {
     lssg = {
       plan       = "nano_3_0"
       region     = "ap-southeast-1a"
+      system     = "x86_64-linux"
       type       = "remote"
       openssh    = true
       initrd_ssh = false
       syncthing  = false
+      nixbuild   = false
     }
   }
 
   local = {
     rxtp = {
+      system     = "x86_64-linux"
       type       = "local"
       openssh    = true
       initrd_ssh = false
       syncthing  = true
+      nixbuild   = false
     }
 
     rxop = {
+      system     = "x86_64-linux"
       type       = "local"
       openssh    = false
       initrd_ssh = false
       syncthing  = true
+      nixbuild   = false
     }
   }
 
@@ -65,12 +73,13 @@ module "host" {
   for_each = local.hosts
 
   name       = each.key
+  system     = each.value.system
   type       = each.value.type
   ip         = lookup(local.hosts_ip, each.key, null)
   openssh    = each.value.openssh
   initrd_ssh = each.value.initrd_ssh
   syncthing  = each.value.syncthing
-  cf_zone_id = cloudflare_zone.zones["sp_xyz"].id
+  nixbuild   = each.value.nixbuild
 }
 
 module "nixos" {
@@ -86,8 +95,8 @@ module "nixos" {
     rsa_key     = module.host[each.key].host_rsa_key
     ed25519_key = module.host[each.key].host_ed25519_key
   }
-  initrd_host_key = {
-    rsa_key     = module.host[each.key].initrd_host_rsa_key
-    ed25519_key = module.host[each.key].initrd_host_ed25519_key
+  initrd_key = {
+    rsa_key     = module.host[each.key].initrd_rsa_key
+    ed25519_key = module.host[each.key].initrd_ed25519_key
   }
 }

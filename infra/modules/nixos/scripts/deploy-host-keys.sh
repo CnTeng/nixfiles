@@ -20,7 +20,7 @@ deploy_ssh_key() {
 	chmod 600 "$private_key_path"
 }
 
-deploy_ssh_key "$RSA_PUBLIC_KEY" "$RSA_PRIVATE_KEY" rsa persist/etc/ssh
-deploy_ssh_key "$ED25519_PUBLIC_KEY" "$ED25519_PRIVATE_KEY" ed25519 persist/etc/ssh
+deploy_ssh_key "$HOST_RSA_PUBLIC_KEY" "$HOST_RSA_PRIVATE_KEY" rsa persist/etc/ssh
+deploy_ssh_key "$HOST_ED25519_PUBLIC_KEY" "$HOST_ED25519_PRIVATE_KEY" ed25519 persist/etc/ssh
 deploy_ssh_key "$INITRD_RSA_PUBLIC_KEY" "$INITRD_RSA_PRIVATE_KEY" rsa persist/etc/secrets/initrd
 deploy_ssh_key "$INITRD_ED25519_PUBLIC_KEY" "$INITRD_ED25519_PRIVATE_KEY" ed25519 persist/etc/secrets/initrd

@@ -3,41 +3,41 @@
     "hcax": {
       "age_public_key": "age1ae8xec0pp7sn0vtr2pjpe3mpqktqcg4xuuhc3p6yp6ep7tr7r32q3u6ckw",
       "initrd_ssh": true,
+      "nixbuild": true,
       "openssh": true,
-      "syncthing": {
-        "device_id": "QE2554T-BCOPQGU-PJLBMOI-SUMJ5FI-YB6NHDC-WGG6Z3U-QAPND6Q-QYPALAK",
-        "enable": true
-      },
+      "syncthing": true,
+      "syncthing_id": "QE2554T-BCOPQGU-PJLBMOI-SUMJ5FI-YB6NHDC-WGG6Z3U-QAPND6Q-QYPALAK",
+      "system": "aarch64-linux",
       "type": "remote"
     },
     "lssg": {
       "age_public_key": "age1upmempprrdem66d9pz2clyvzczjd96mekjh4d4c62v69ja3d398q43ldll",
       "initrd_ssh": false,
+      "nixbuild": false,
       "openssh": true,
-      "syncthing": {
-        "device_id": null,
-        "enable": false
-      },
+      "syncthing": false,
+      "syncthing_id": null,
+      "system": "x86_64-linux",
       "type": "remote"
     },
     "rxop": {
       "age_public_key": null,
       "initrd_ssh": false,
+      "nixbuild": false,
       "openssh": false,
-      "syncthing": {
-        "device_id": "45UYC4O-QAEWX6P-5EVUQWZ-LBWD6SR-5PMQV43-MJ52VMC-IFQ3TKD-U6LRRAM",
-        "enable": true
-      },
+      "syncthing": true,
+      "syncthing_id": "45UYC4O-QAEWX6P-5EVUQWZ-LBWD6SR-5PMQV43-MJ52VMC-IFQ3TKD-U6LRRAM",
+      "system": "x86_64-linux",
       "type": "local"
     },
     "rxtp": {
       "age_public_key": "age1r8n6czl47683xc6c5xlpg6mze4rxushwwggg8y5rcx6u8mpr6acs6r078w",
       "initrd_ssh": false,
+      "nixbuild": false,
       "openssh": true,
-      "syncthing": {
-        "device_id": "PPLEKSK-OLN7AFC-YKPWLDL-JKRFRKL-4YMXMD5-CG6RUM4-4JH5O6G-QNK4OAF",
-        "enable": true
-      },
+      "syncthing": true,
+      "syncthing_id": "PPLEKSK-OLN7AFC-YKPWLDL-JKRFRKL-4YMXMD5-CG6RUM4-4JH5O6G-QNK4OAF",
+      "system": "x86_64-linux",
       "type": "local"
     }
   }
