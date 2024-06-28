@@ -7,24 +7,37 @@
 {
   flake = withSystem "x86_64-linux" (
     { pkgs, lib, ... }:
+    let
+      data = builtins.fromJSON (builtins.readFile ../infra/outputs/data.json);
+      user = "yufei";
+    in
     {
       colmenaHive = inputs.colmena.lib.makeHive {
         meta = {
           nixpkgs = pkgs;
           specialArgs = {
-            inherit inputs lib;
-            data = builtins.fromJSON (builtins.readFile ../infra/outputs/data.json);
-            user = "yufei";
+            inherit
+              inputs
+              lib
+              data
+              user
+              ;
           };
         };
 
         defaults =
-          { lib, name, ... }:
+          { name, ... }:
+          let
+            hostData = data.hosts.${name};
+          in
           {
             deployment = {
-              targetHost = lib.mkDefault name;
-              tags = [ name ];
+              allowLocalDeployment = hostData.type == "local";
+              tags = [ hostData.type ];
+              targetHost = if hostData.type == "local" then null else name;
             };
+
+            nixpkgs.system = hostData.system;
 
             system.stateVersion = "24.05";
 
@@ -36,17 +49,11 @@
             ];
           };
 
-        rxtp.deployment = {
-          allowLocalDeployment = true;
-          targetHost = null;
-        };
+        rxtp = { };
 
-        lssg.deployment = { };
+        lssg = { };
 
-        hcax = {
-          deployment.buildOnTarget = true;
-          nixpkgs.system = "aarch64-linux";
-        };
+        hcax.deployment.buildOnTarget = true;
       };
 
       nixosConfigurations = self.colmenaHive.nodes;
