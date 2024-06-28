@@ -13,7 +13,6 @@ in
   imports = [
     inputs.nixos-cosmic.nixosModules.default
     ./fonts.nix
-    ./idle.nix
     ./input.nix
     ./theme.nix
   ];
@@ -26,7 +25,7 @@ in
 
     cosmic.profiles = {
       fonts.enable = true;
-      idle.enable = true;
+      # idle.enable = true;
       input.enable = true;
       theme.enable = true;
     };
@@ -129,6 +128,13 @@ in
 
     home-manager.users.${user} = {
       xdg.mimeApps.enable = true;
+
+      systemd.user.targets.tray = {
+        Unit = {
+          Description = "Home Manager System Tray";
+          Requires = [ "graphical-session-pre.target" ];
+        };
+      };
     };
 
     environment.persistence."/persist" = {
