@@ -11,11 +11,11 @@ let
   hosts = lib.filterAttrs (n: v: n != hostName && v.nixbuild) data.hosts;
 
   machineSecrets = lib.concatMapAttrs (host: _: {
-    "nixbuild/${host}_private_key".key = "hosts/${host}/nixbuild_key_pair/private_key";
+    "nixbuild/${host}_private_key".key = "hosts/${host}/nixbuild_key";
   }) hosts;
 
   mkBuildMachine = host: hostData: {
-    hostName = host;
+    hostName = "${host}.snakepi.xyz";
     protocol = "ssh-ng";
     inherit (hostData) system;
     sshUser = "nixbuild";

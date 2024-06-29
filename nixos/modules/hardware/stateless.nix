@@ -17,10 +17,9 @@ in
   config = lib.mkMerge [
     { environment.persistence."/persist".enable = lib.mkDefault false; }
     (lib.mkIf cfg.enable {
-
-      sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
-
       boot.tmp.useTmpfs = true;
+
+      sops.age.keyFile = lib.mkForce "/persist/var/lib/sops-nix/key";
 
       environment.systemPackages = [ pkgs.persist ];
 

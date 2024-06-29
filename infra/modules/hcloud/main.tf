@@ -83,18 +83,10 @@ resource "hcloud_firewall" "default" {
   }
 }
 
-output "ipv4" {
-  value = hcloud_primary_ip.ipv4.ip_address
-}
-
-output "ipv6" {
-  value = hcloud_primary_ip.ipv6.ip_address
-}
-
 output "ip" {
   value = {
     ipv4 = hcloud_primary_ip.ipv4.ip_address
-    ipv6 = hcloud_primary_ip.ipv6.ip_address
+    ipv6 = cidrhost("${hcloud_primary_ip.ipv6.ip_address}/64", 1)
   }
 }
 

@@ -16,12 +16,8 @@
         meta = {
           nixpkgs = pkgs;
           specialArgs = {
-            inherit
-              inputs
-              lib
-              data
-              user
-              ;
+            inherit inputs lib;
+            inherit data user;
           };
         };
 

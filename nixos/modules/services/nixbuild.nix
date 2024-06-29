@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  data,
+  ...
+}:
 let
   cfg = config.services'.nixbuild;
 
@@ -9,14 +14,8 @@ in
 
   config = lib.mkIf cfg.enable {
     users.users.nixbuild.isNormalUser = true;
+    users.users.nixbuild.openssh.authorizedKeys.keys = [ data.hosts.${hostName}.nixbuild_key_pub ];
 
     nix.settings.trusted-users = [ "nixbuild" ];
-
-    services.openssh.authorizedKeysFiles = [ config.sops.secrets."ssh/nixbuild_key.pub".path ];
-
-    sops.secrets."ssh/nixbuild_key.pub" = {
-      key = "hosts/${hostName}/nixbuild_key_pair/public_key";
-      mode = "0444";
-    };
   };
 }

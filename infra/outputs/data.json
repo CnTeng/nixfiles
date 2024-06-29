@@ -1,9 +1,18 @@
 {
+  "github": {
+    "deploy_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMRLKADrpGSsMXXy/5Obv6A77oHB3jMdvYSB2NBKXP4X\n"
+  },
   "hosts": {
     "hcax": {
-      "age_public_key": "age1ae8xec0pp7sn0vtr2pjpe3mpqktqcg4xuuhc3p6yp6ep7tr7r32q3u6ckw",
+      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0HAfeuFT6UUJXcIpWsytkOA45A1ZYOnMOMgd/oRheb",
+      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDJeOD98ariPjFibBpe16zIz0DILaZYJuGj005saGlNP3f3HdxX2oVDmswgnsFSIv77clB2j1Zyh8PxieM1JHQJkDhk9REYFc91axuvoJVTtyeXPENoEzPJ4tmcmbbrbfQap+8Q68/sQLK7FmMMO7q2EKPM2A/lWa8FHrfBVwi8PcRmA8rQoo9mRNhpMISSEAKm0J1oTIaN5vhXERXQ24IQRQRdaKyuNq/bf57b+YX8aq0NRP+idpA3PpkB8VxvopHya7hqxbSRbBbq/iJY3lV3TJqWWYfQky/YS0qZtXIompf6/EpMOmI0nYqGkBGRJQswqkZwyK17e0TUNKm9H1ceLthuAgZdSXj6sPEPhUAriJ4wBON3RhoG8X3C6DYgPt0h6jyIi+hSE2FxZ3/VSknD8YFKwDZ3jmSKS0k7W6cf5q+NPMEr+NdYPjZuEzocftMcsNQM2J9I/IRvsIjQRxKr5YfBuBYUzHO71O5clUAMJagQB2bR0HgCRnq4dXvrwR8oEEAfGi1vu2Mk6zd4jKNOsAHKhQNosQat+B+c8lNdDxBXhdNYIlvhVB+6MKmJfWhfn4ovvmXP4KWBZU+4knkZtOCy1ST3Z7abBwUmyvgR8Bz5HBOziUt2tHEjQ03wDFANwZDoRiYsJk0EZ5ZDCSlofuNlQcZ2RYUYuUBgA1cs7w==",
+      "initrd_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB98YvTnJCiDAYJH9QTYK/8T+iq4OnNI5qqWatQS9xmX",
+      "initrd_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5vZ0KxMRk4wf4U6U49T3mSPrfGrZudPHDvgEcT8c4ncQWUo3THwfUV0MOZ3jK4GSWsQ6Kw3kWwjDH9uk9P2THQCMNOVw2mTAlJrM2POjc3RrrNNlNfTcjow1T3mMQHnwgJgJ5JIqfRu6bwNqQJ+KfHhOUPUZtwATNY2R5+6X5zyj8gzCExA6rz+5sOxAlVkz1YpVuAoBcf+e6awIPc/vAHtnPDYnd3bsanlQ3nepeKH3jJKdPmlQuXW3JN/xsjTVWnPNZj+h02HOa5nNR7sa7fkSYKEDFcP9sSU4AqmxT+JtZWRLWuu3paATfRJTrCNoG3zQDWyPzRiFBW9vmkh6FrSVtXXdU5MkR9wabrS1Rvp2ikmA1KjVExJKWyIy0RewIzipOaMGbAZiU42LI3AG6UxRr8xeLbyR3b94+SWvrwDvZzafzvVaOAjePPzCKsg/kh1hOafDSKjrSgJWmN2ktuidUT3lNbxCXiTPShpL93b5NzNRWtsRRM5MOPisxgaY7dVdJ/ATEdMvSuVvYxsCxUAwRj3IF8Ox1z1mDZLvntCKfaeoHmtg9XCm/9Lplx2PTq0F3QRF9CY4tkwSGK+fxgzR0upkVB6ruogzKRVUSHnjDuU7/3oKead4eP0QKj0tvFm/DlZfwvIFg7YPREGnw0Usc7dJgoVcZ/YxuvUSqzw==",
       "initrd_ssh": true,
+      "ipv4": "49.13.138.228",
+      "ipv6": "2a01:4f8:c17:366b::1",
       "nixbuild": true,
+      "nixbuild_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcFSSWnVpLOYjt8qsfPd7VVcKrqW9BpbTMlOMx2bepj",
       "openssh": true,
       "syncthing": true,
       "syncthing_id": "QE2554T-BCOPQGU-PJLBMOI-SUMJ5FI-YB6NHDC-WGG6Z3U-QAPND6Q-QYPALAK",
@@ -11,9 +20,15 @@
       "type": "remote"
     },
     "lssg": {
-      "age_public_key": "age1upmempprrdem66d9pz2clyvzczjd96mekjh4d4c62v69ja3d398q43ldll",
+      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKJG4i3PYmzp9HKlaEZj5JWznMZNkkHSZZVLutwwNwx+",
+      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+c345Zw+ygmCFZsVe/u2wMmyMZftaTB5HsybaaqY7wUweYgEE8Fxt7WkBFQzRQ56t10RBMpwJGgAPRLGLj9pHCeCMwQV83LX2kAGQ0x1oLn4xz3WZLy3x7UfMXOWVh93NT2RWwXxuEtWEeGNH+SFrjP8KouJ7a5tk+oweu50ynFiiKJo6KiP4+0os5TPxdEdQUT4uhBcMUalE9oqy8lnuMh/ezaPCoRpVA6TCbDa1KC3yv3Z0fy4bCzn4l2jH+JcEw++2OaCaNbBxTd6G5DoGvb4zi187dL7Lbm1I0jLzIJC1wrxgepIa0a0zDK/0VxEBugNqxjghWMVrRZJav5iUNQwz0dUGz52fKTryBdmeelk04SYEnQBOhf9O5zPsXQEc2i8zXovJZG10GjVCQ1hNJIkoGYC6T7avL03gAlHYy3HL6ntyZ2jd4CAGaRPGJt6cJpARA1NYiPbrOBmZsP7uicuMoLpasl+dIQ6U6dLkzX1EWuWaOdbBbDDfrlDhyWlNyWgaUahTRpJ7YCPIpnBd/qJu/PJg+suOAaAgkiHIXiOATr1Mo8Bom4lM7kQE/AO8MnJjkJicrTghrXf7e1/DzVMbPTZAy8e4IwbDr/Cf4tqI3flVFA3A4pTiyR5PpKlijhH/0w34uu9Qegi1sGhoAvfpafvH51wOBQFwfN9BNQ==",
+      "initrd_ed25519_key_pub": null,
+      "initrd_rsa_key_pub": null,
       "initrd_ssh": false,
+      "ipv4": "47.128.208.166",
+      "ipv6": "2406:da18:661:6c00:3c9e:70a7:75a8:6bcb",
       "nixbuild": false,
+      "nixbuild_key_pub": null,
       "openssh": true,
       "syncthing": false,
       "syncthing_id": null,
@@ -21,19 +36,31 @@
       "type": "remote"
     },
     "rxop": {
-      "age_public_key": null,
+      "host_ed25519_key_pub": null,
+      "host_rsa_key_pub": null,
+      "initrd_ed25519_key_pub": null,
+      "initrd_rsa_key_pub": null,
       "initrd_ssh": false,
+      "ipv4": null,
+      "ipv6": null,
       "nixbuild": false,
+      "nixbuild_key_pub": null,
       "openssh": false,
       "syncthing": true,
       "syncthing_id": "45UYC4O-QAEWX6P-5EVUQWZ-LBWD6SR-5PMQV43-MJ52VMC-IFQ3TKD-U6LRRAM",
-      "system": "x86_64-linux",
+      "system": "aarch64-linux",
       "type": "local"
     },
     "rxtp": {
-      "age_public_key": "age1r8n6czl47683xc6c5xlpg6mze4rxushwwggg8y5rcx6u8mpr6acs6r078w",
+      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII+bdfzUfavJst9KAT9viruo7zrrQTepJz3Ob5uEwxEm",
+      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWSOGxzvc5Wp7cYbIUpmomr5MF/c7NvDBfOX3ofzUcKnMj2ZhWVDrDpHqGIT4FzjW2dUOWUL/CWaxVl5EA6L36pjD0WueoFjXWWd9Ovabj1Sfm+d0Bb10IUjJB9+d9npNzPJrMIfbjnrtkZk4ntkbRDHhAEUzT4Nz7EmAceaaMmSrfjuRI3XNvJXZ/mo6wnUZ379j0X+BRJtE0+Almilw4Ul1+RgO8DpyowBSGmnBUPa3LDs0YibbVCmFNt5IQOXORwFg1CzKucP5JWUZ+ZxcsMLshDrsRgBLcoNWacq/tV1IeWsG1eW0iIagTuMSI7bfX6sEdwEHgkQaywAmeX0QJRa46TMsdIKS1k1v9Ul3fWvuP9oPwaDdnpWeGBEDwA/Nvgz9IY7lPxNKq2ZZgJjCqK3///TabAAflQci9cbhPjGAnlTh+vzbcs5sWYshOTsjI5fCmfbwsd8q6WWWQJmwRyLsMLUeurcvW4MFizqP+fp+ieuMFiujzawMnVnhGiuB40kD+KIN9Y83pXBGnC5Y4I/n03Q8u6eWCsWj7Qbup0tw6QVuGld0FniU7QPoSWDAkJhlmZjdag994N9e03bIRLwRkmPP0+Zsb/87aEDAFFBqJ/vurHPkAv8z6MhhZxftxZ4EQQJxMgVqfqo1ZuBjfYTRuE9QRpJnHL65ARvBVYw==",
+      "initrd_ed25519_key_pub": null,
+      "initrd_rsa_key_pub": null,
       "initrd_ssh": false,
+      "ipv4": null,
+      "ipv6": null,
       "nixbuild": false,
+      "nixbuild_key_pub": null,
       "openssh": true,
       "syncthing": true,
       "syncthing_id": "PPLEKSK-OLN7AFC-YKPWLDL-JKRFRKL-4YMXMD5-CG6RUM4-4JH5O6G-QNK4OAF",

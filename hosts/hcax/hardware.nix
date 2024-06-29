@@ -1,4 +1,12 @@
-{ config, modulesPath, ... }:
+{
+  config,
+  modulesPath,
+  data,
+  ...
+}:
+let
+  inherit (config.networking) hostName;
+in
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
@@ -22,24 +30,21 @@
   networking = {
     useDHCP = false;
     useNetworkd = true;
+    interfaces.enp1s0 = {
+      useDHCP = true;
+      ipv6.addresses = [
+        {
+          address = data.hosts.${hostName}.ipv6;
+          prefixLength = 64;
+        }
+      ];
+      ipv6.routes = [
+        {
+          address = "::";
+          prefixLength = 0;
+          via = "fe80::1";
+        }
+      ];
+    };
   };
-
-  sops.secrets."network/ipv6".key = "hosts/hcax/ip/ipv6";
-
-  sops.templates."network/enp1s0" = {
-    content = ''
-      [Match]
-      Name=enp1s0
-
-      [Network]
-      DHCP=ipv4
-      Address=${config.sops.placeholder."network/ipv6"}/64
-
-      [Route]
-      Gateway=fe80::1
-    '';
-    owner = "systemd-network";
-  };
-  environment.etc."systemd/network/40-enp1s0.network".source =
-    config.sops.templates."network/enp1s0".path;
 }

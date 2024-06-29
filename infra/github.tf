@@ -19,7 +19,7 @@ resource "github_actions_secret" "ssh_config" {
   %{for host, data in module.host~}
   %{if data.type == "remote"~}
   Host ${host}
-    HostName ${module.host[host].ip.ipv4}
+    HostName ${module.host[host].ipv4}
   %{endif~}
   %{endfor}
   EOF 
@@ -31,8 +31,8 @@ resource "github_actions_secret" "ssh_known_hosts" {
   plaintext_value = <<-EOF
   %{for host, data in module.host~}
   %{if data.type == "remote"~}
-  ${module.host[host].ip.ipv4} ${module.host[host].host_rsa_key.public_key}
-  ${module.host[host].ip.ipv4} ${module.host[host].host_ed25519_key.public_key}
+  ${module.host[host].ipv4} ${module.host[host].host_rsa_key_pub}
+  ${module.host[host].ipv4} ${module.host[host].host_ed25519_key_pub}
   %{endif~}
   %{endfor}
   EOF 
@@ -46,10 +46,10 @@ resource "github_actions_secret" "ntfy_token" {
 
 resource "github_user_ssh_key" "ybk5_key" {
   title = "YubiKey 5 NFC"
-  key   = local.secrets.git_keys.id_ed25519_sk_rk_ybk5_pub
+  key   = local.secrets.git_public_keys.id_ed25519_sk_rk_ybk5_pub
 }
 
 resource "github_user_ssh_key" "ybk5c_key" {
   title = "YubiKey 5C NFC"
-  key   = local.secrets.git_keys.id_ed25519_sk_rk_ybk5c_pub
+  key   = local.secrets.git_public_keys.id_ed25519_sk_rk_ybk5c_pub
 }

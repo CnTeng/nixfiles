@@ -16,31 +16,8 @@ variable "disk_key" {
   sensitive = true
 }
 
-variable "host_key" {
-  type = object({
-    rsa_key = object({
-      public_key  = string
-      private_key = string
-    })
-    ed25519_key = object({
-      public_key  = string
-      private_key = string
-    })
-  })
-  sensitive = true
-}
-
-variable "initrd_key" {
-  type = object({
-    rsa_key = object({
-      public_key  = string
-      private_key = string
-    })
-    ed25519_key = object({
-      public_key  = string
-      private_key = string
-    })
-  })
+variable "age_private_key" {
+  type      = string
   sensitive = true
 }
 
@@ -74,15 +51,8 @@ module "install" {
     script = "${path.module}/scripts/deploy-disk-key.sh"
   }]
   extra_environment = {
-    DISK_KEY                   = var.disk_key
-    HOST_RSA_PUBLIC_KEY        = var.host_key.rsa_key.public_key
-    HOST_RSA_PRIVATE_KEY       = var.host_key.rsa_key.private_key
-    HOST_ED25519_PUBLIC_KEY    = var.host_key.ed25519_key.public_key
-    HOST_ED25519_PRIVATE_KEY   = var.host_key.ed25519_key.private_key
-    INITRD_RSA_PUBLIC_KEY      = var.initrd_key.rsa_key.public_key
-    INITRD_RSA_PRIVATE_KEY     = var.initrd_key.rsa_key.private_key
-    INITRD_ED25519_PUBLIC_KEY  = var.initrd_key.ed25519_key.public_key
-    INITRD_ED25519_PRIVATE_KEY = var.initrd_key.ed25519_key.private_key
+    DISK_KEY        = var.disk_key
+    AGE_PRIVATE_KEY = var.age_private_key
   }
   build_on_remote = true
 }

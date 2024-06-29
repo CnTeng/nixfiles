@@ -18,11 +18,6 @@ in
         restartUnits = [ "sing-box.service" ];
       };
 
-      "tuic/ip" = lib.mkIf client.enable {
-        key = "hosts/lssg/ip/ipv4";
-        restartUnits = [ "sing-box.service" ];
-      };
-
       "tuic/uuid" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
@@ -106,7 +101,7 @@ in
             outbounds = [
               {
                 type = "tuic";
-                server._secret = config.sops.secrets."tuic/ip".path;
+                server = "lssg.snakepi.xyz";
                 server_port = port;
                 uuid._secret = config.sops.secrets."tuic/uuid".path;
                 password._secret = config.sops.secrets."tuic/pass".path;

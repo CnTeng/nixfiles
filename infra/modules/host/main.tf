@@ -30,7 +30,10 @@ output "type" {
   value = var.type
 }
 
-output "ip" {
-  value     = var.ip
-  sensitive = true
+output "ipv4" {
+  value = try(var.ip.ipv4, null)
+}
+
+output "ipv6" {
+  value = try(var.ip.ipv6, null)
 }

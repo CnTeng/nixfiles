@@ -36,7 +36,7 @@ locals {
     }
 
     rxop = {
-      system     = "x86_64-linux"
+      system     = "aarch64-linux"
       type       = "local"
       openssh    = false
       initrd_ssh = false
@@ -72,6 +72,7 @@ module "host" {
   source   = "./modules/host"
   for_each = local.hosts
 
+  zone_id    = cloudflare_zone.zones["sp_xyz"].id
   name       = each.key
   system     = each.value.system
   type       = each.value.type
@@ -88,15 +89,8 @@ module "nixos" {
   for_each   = local.hcloud
 
   hostname         = each.key
-  host_ip          = module.host[each.key].ip.ipv4
+  host_ip          = module.host[each.key].ipv4
   temp_private_key = local.temp_private_keys[each.key]
   disk_key         = local.secrets.disk_key
-  host_key = {
-    rsa_key     = module.host[each.key].host_rsa_key
-    ed25519_key = module.host[each.key].host_ed25519_key
-  }
-  initrd_key = {
-    rsa_key     = module.host[each.key].initrd_rsa_key
-    ed25519_key = module.host[each.key].initrd_ed25519_key
-  }
+  age_private_key  = local.secrets.age_private_keys[each.key]
 }

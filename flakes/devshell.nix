@@ -13,7 +13,7 @@
           colmena
           nvfetcher
           sops
-          ssh-to-age
+          age
           syncthing
           (opentofu.withPlugins (p: [
             p.aws

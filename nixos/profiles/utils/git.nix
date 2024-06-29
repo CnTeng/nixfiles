@@ -1,51 +1,61 @@
-{ user, ... }:
+{ config, user, ... }:
+let
+  userEmail = "rxsnakepi@gmail.com";
+in
 {
-  home-manager.users.${user} =
-    { config, ... }:
-    {
-      programs.git = {
-        enable = true;
-        userName = "CnTeng";
-        userEmail = "rxsnakepi@gmail.com";
-        signing = {
-          key = "/home/yufei/.ssh/id_ed25519_yufei";
-          signByDefault = true;
-        };
-        extraConfig = {
-          gpg = {
-            format = "ssh";
-            ssh.allowedSignersFile = builtins.toFile "allowed_signers" ''
-              ${config.programs.git.userEmail} ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMS5DHfxuhsH2yg1woBz1xTsRLDy+eZXgkGxYXJlYi91 yufei
-            '';
-          };
-        };
+  programs.git.enable = true;
 
-        lfs.enable = true;
-
-        delta = {
-          enable = true;
-          options = {
-            dark = true;
-            line-numbers = true;
-          };
+  home-manager.users.${user} = {
+    programs.git = {
+      enable = true;
+      userName = "CnTeng";
+      inherit userEmail;
+      signing = {
+        key = "~/.ssh/id_ed25519";
+        signByDefault = true;
+      };
+      extraConfig = {
+        gpg = {
+          format = "ssh";
+          ssh.allowedSignersFile = config.sops.templates.allowed_signers.path;
         };
       };
 
-      programs.lazygit = {
-        enable = true;
-        settings = {
-          gui.nerdFontsVersion = "3";
-        };
-      };
+      lfs.enable = true;
 
-      programs.ssh.matchBlocks."github.com" = {
-        hostname = "ssh.github.com";
-        port = 443;
-        user = "git";
-        identityFile = [
-          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
-          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
-        ];
+      delta = {
+        enable = true;
+        options = {
+          dark = true;
+          line-numbers = true;
+        };
       };
     };
+
+    programs.lazygit = {
+      enable = true;
+      settings = {
+        gui.nerdFontsVersion = "3";
+      };
+    };
+
+    programs.ssh.matchBlocks."github.com" = {
+      hostname = "ssh.github.com";
+      port = 443;
+      user = "git";
+      identityFile = [
+        "~/.ssh/id_ed25519_sk_rk_ybk5@git"
+        "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
+      ];
+    };
+  };
+
+  sops.secrets.signing_key_pub = {
+    owner = user;
+    sopsFile = ./secrets.yaml;
+  };
+
+  sops.templates.allowed_signers.content = ''
+    ${userEmail} ${config.sops.placeholder.signing_key_pub} 
+  '';
 }
