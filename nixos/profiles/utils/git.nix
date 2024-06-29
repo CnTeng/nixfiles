@@ -55,7 +55,10 @@ in
     sopsFile = ./secrets.yaml;
   };
 
-  sops.templates.allowed_signers.content = ''
-    ${userEmail} ${config.sops.placeholder.signing_key_pub} 
-  '';
+  sops.templates.allowed_signers = {
+    owner = user;
+    content = ''
+      ${userEmail} ${config.sops.placeholder.signing_key_pub} 
+    '';
+  };
 }

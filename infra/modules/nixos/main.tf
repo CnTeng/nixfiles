@@ -45,7 +45,7 @@ module "install" {
   nixos_partitioner  = module.disko.result.out
   target_host        = var.host_ip
   ssh_private_key    = var.temp_private_key
-  extra_files_script = "${path.module}/scripts/deploy-host-keys.sh"
+  extra_files_script = "${path.module}/scripts/deploy-age-key.sh"
   disk_encryption_key_scripts = [{
     path   = "/tmp/disk.key"
     script = "${path.module}/scripts/deploy-disk-key.sh"
