@@ -8,7 +8,7 @@
   flake = withSystem "x86_64-linux" (
     { pkgs, lib, ... }:
     let
-      data = builtins.fromJSON (builtins.readFile ../infra/outputs/data.json);
+      data = lib.importJSON ../infra/outputs/data.json;
       user = "yufei";
     in
     {
