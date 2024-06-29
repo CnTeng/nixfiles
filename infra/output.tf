@@ -1,7 +1,7 @@
 locals {
   tokens = { cf_cdntls = cloudflare_api_token.cdntls.value }
   r2     = module.r2
-  github = { deploy_key_pub = tls_private_key.nixos_deploy_key.public_key_openssh }
+  github = { deploy_key_pub = trimspace(tls_private_key.nixos_deploy_key.public_key_openssh) }
 
   public_hosts = {
     for host, outputs in module.host :

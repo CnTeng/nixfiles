@@ -1,6 +1,6 @@
 {
   "github": {
-    "deploy_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMRLKADrpGSsMXXy/5Obv6A77oHB3jMdvYSB2NBKXP4X\n"
+    "deploy_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMRLKADrpGSsMXXy/5Obv6A77oHB3jMdvYSB2NBKXP4X"
   },
   "hosts": {
     "hcax": {
