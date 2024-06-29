@@ -25,7 +25,6 @@ in
 
     cosmic.profiles = {
       fonts.enable = true;
-      # idle.enable = true;
       input.enable = true;
       theme.enable = true;
     };

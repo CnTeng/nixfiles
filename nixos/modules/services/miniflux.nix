@@ -10,7 +10,6 @@ in
     services.miniflux = {
       enable = true;
       config = {
-        CREATE_ADMIN = lib.mkForce "";
         LISTEN_ADDR = "localhost:${toString port}";
         BASE_URL = "https://rss.snakepi.xyz";
         WEBAUTHN = "1";

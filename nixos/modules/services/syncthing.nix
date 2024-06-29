@@ -54,10 +54,7 @@ in
       key = config.sops.secrets."syncthing/key".path;
 
       settings = {
-        options = {
-          localAnnounceEnabled = false;
-          urAccepted = -1;
-        };
+        options.urAccepted = -1;
 
         gui = {
           inherit authMode;
