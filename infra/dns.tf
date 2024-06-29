@@ -15,7 +15,6 @@ locals {
     sync  = { value = module.host["hcax"].ipv4 }
     vault = { value = module.host["hcax"].ipv4 }
     www   = { value = module.host["hcax"].ipv4 }
-    tuic  = { value = module.host["lssg"].ipv4, proxied = false }
   }
 }
 

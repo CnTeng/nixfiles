@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   inherit (config.services'.tuic) server client;
+  inherit (config.networking) hostName;
   port = 1080;
 in
 {
@@ -48,9 +49,9 @@ in
                 congestion_control = "bbr";
                 tls = {
                   enabled = true;
-                  server_name = "tuic.snakepi.xyz";
+                  server_name = "${hostName}.snakepi.xyz";
                   acme = {
-                    domain = "tuic.snakepi.xyz";
+                    domain = "${hostName}.snakepi.xyz";
                     email = "rxsnakepi@gmail.com";
                     dns01_challenge = {
                       provider = "cloudflare";
@@ -109,7 +110,7 @@ in
                 network = "tcp";
                 tls = {
                   enabled = true;
-                  server_name = "tuic.snakepi.xyz";
+                  server_name = "lssg.snakepi.xyz";
                 };
                 tag = "proxy";
               }
