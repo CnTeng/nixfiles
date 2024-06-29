@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   data,
   lib,
@@ -30,6 +31,10 @@ let
   buildMachines = lib.mapAttrsToList mkBuildMachine hosts;
 in
 {
+  nix.channel.enable = false;
+
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+
   nix.settings = {
     auto-allocate-uids = true;
     auto-optimise-store = true;
@@ -42,6 +47,7 @@ in
       "nix-command"
     ];
 
+    nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
     substituters = [
       "https://cache.garnix.io"
       "https://cosmic.cachix.org"
