@@ -1,55 +1,20 @@
-<h1 align = "center">❄️nixfiles</h1>
+# ❄️ nixfiles
 
-<p align = "center">This is my NixOS/home-manager config files.</p>
+[![Nix][nix-shield]][nix-url]
+[![Opentofu][opentofu-shield]][opentofu-url]
 
-<p align = "center">
-  <a href = "https://nixos.org">
-    <img src = "https://img.shields.io/static/v1?style=for-the-badge&logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=8aadf4"/>
-  </a>
-</p>
+A highly customized NixOS configuration.
 
 ## ✨ Features
 
-- **Multiple** NixOS configurations, including laptop, server
-- Deployment secrets using **agenix**
-- Full wayland environment using **Hyprland**, **waybar**
-- Mixed GPU and **Nvidia** GPU using offload
-- Powerful editor using my personal **neovim** configurations **[RX-Nvim](https://github.com/CnTeng/RX-Nvim)**
-- Flexible **home-manager** configurations in each module
-- Every module using **Catppuccin** as colorscheme
-- **Self-hosted** services such as **bitwarden**, **miniflux**
-
-## 🗄 Structure
-
-- `flake.nix`: Entrypoint for hosts and home configurations.
-- `assets`: Some images for example wallpaper
-- `hosts`: NixOS configurations
-  - `laptop`: Dell laptop - 16GB RAM, i7 9570h, GTX1650 | Hyprland
-  - `server`: Tencent VPS - 4GB RAM, 2 vCPUs | Server
-- `modules`: All configurations of one package add into one module
-- `overlays`: Patches and overrides for some packages
-- `pkgs`: Some custom packages
-- `secrets`: Confidential information and secret keys
-
-## 🛠 Installation
-
-Clone this repository
-
-```shell
-git clone https://github.com/CnTeng/nixfiles.git
-```
-
-For laptop
-
-```shell
-sudo nixos-rebuild switch --flake .#laptop
-```
-
-For server
-
-```shell
-sudo nixos-rebuild switch --flake .#server
-```
+- Structure configuration using [flake-parts](https://flake.parts/)
+- Secret provisioning with [sops-nix](https://github.com/Mic92/sops-nix)
+- Disk partitioning with [disko](https://github.com/nix-community/disko)
+- Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote)
+- Remote deployment with [colmena](https://github.com/zhaofengli/colmena)
+- Desktop environment with [cosmic](https://github.com/lilyinstarlight/nixos-cosmic)
+- Custom neovim configuration with [rx-nvim](https://github.com/CnTeng/rx-nvim)
+- Infrastructure configuration with [opentofu](https://opentofu.org)
 
 ## ⭐ Credits
 
@@ -57,3 +22,10 @@ sudo nixos-rebuild switch --flake .#server
 
 - [nix-config](https://github.com/Misterio77/nix-config/tree/main)
 - [nixos-config](https://github.com/MatthiasBenaets/nixos-config)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[nix-shield]: https://img.shields.io/badge/NixOS-%235277C3?style=for-the-badge&logo=nixos&logoColor=white
+[nix-url]: https://nixos.org
+[opentofu-shield]: https://img.shields.io/badge/Opentofu-%23FFDA18?style=for-the-badge&logo=opentofu&logoColor=white
+[opentofu-url]: https://opentofu.org
