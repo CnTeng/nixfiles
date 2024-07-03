@@ -27,6 +27,7 @@
             p.sops
             p.tls
           ]))
+          config.treefmt.build.wrapper
         ];
 
         shellHook = config.pre-commit.installationScript;
