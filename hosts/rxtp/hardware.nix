@@ -31,11 +31,7 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
-  hardware.amdgpu = {
-    initrd.enable = true;
-    opencl.enable = true;
-    amdvlk.enable = true;
-  };
+  hardware.amdgpu.initrd.enable = true;
 
   services.fwupd.enable = true;
 }
