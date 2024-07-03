@@ -20,7 +20,9 @@
 
   services' = {
     restic.enable = true;
+    postgresql.enable = true;
     syncthing.enable = true;
     tuic.client.enable = true;
   };
+
 }
