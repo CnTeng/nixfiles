@@ -1,16 +1,17 @@
 { pkgs, user, ... }:
 {
-  programs.direnv.enable = true;
-  programs.screen.enable = true;
+  documentation.dev.enable = true;
+  environment.systemPackages = [
+    pkgs.man-pages
+    pkgs.man-pages-posix
+  ];
 
   environment.enableAllTerminfo = true;
 
-  environment.persistence."/persist" = {
-    users.${user}.directories = [ ".local/share/zoxide" ];
-  };
+  programs.direnv.enable = true;
+  programs.screen.enable = true;
 
   home-manager.users.${user} = {
-    programs.zoxide.enable = true;
     programs.fastfetch.enable = true;
     programs.ripgrep.enable = true;
     programs.fd.enable = true;
@@ -20,7 +21,6 @@
       tree
       lrzsz
       scc
-      gzip
       unrar
       unzipNLS
     ];
