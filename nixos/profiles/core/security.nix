@@ -23,10 +23,12 @@
 
   security.pam.u2f = {
     enable = true;
-    cue = true;
-    origin = "pam://nixos";
-    appId = "pam://nixos";
-    authFile = config.sops.secrets.yubikey.path;
+    settings = {
+      authfile = config.sops.secrets.yubikey.path;
+      appid = "pam://nixos";
+      origin = "pam://nixos";
+      cue = true;
+    };
   };
 
   security.sudo.extraConfig = ''

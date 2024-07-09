@@ -1,19 +1,4 @@
 {
-    "fcitx5-pinyin-zhwiki": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "fcitx5-pinyin-zhwiki",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-uRpKPq+/xJ8akKB8ol/JRF79VfDIQ8L4SxLDXzpfPxg=",
-            "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20240509.dict"
-        },
-        "version": "20240509"
-    },
     "ttf-ms-win10": {
         "cargoLocks": null,
         "date": "2021-02-10",

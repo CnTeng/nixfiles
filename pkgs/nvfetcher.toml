@@ -1,8 +1,3 @@
-[fcitx5-pinyin-zhwiki]
-src.archpkg = "fcitx5-pinyin-zhwiki"
-src.prefix = "0.2.5."
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-$ver.dict"
-
 [ttf-ms-win10]
 src.git = "https://github.com/streetsamurai00mi/ttf-ms-win10"
 fetch.github = "streetsamurai00mi/ttf-ms-win10"

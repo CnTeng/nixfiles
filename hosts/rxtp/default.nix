@@ -24,5 +24,4 @@
     syncthing.enable = true;
     tuic.client.enable = true;
   };
-
 }
