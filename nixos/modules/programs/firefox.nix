@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -42,7 +41,6 @@ in
       preferences = {
         "media.ffmpeg.vaapi.enabled" = true;
       };
-      nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     };
 
     home-manager.users.${user} = {
