@@ -20,7 +20,7 @@ let
     inherit (hostData) system;
     sshUser = "nixbuild";
     sshKey = config.sops.secrets."nixbuild/${host}_private_key".path;
-    maxJobs = 5;
+    maxJobs = 8;
     supportedFeatures = [
       "big-parallel"
       "kvm"
