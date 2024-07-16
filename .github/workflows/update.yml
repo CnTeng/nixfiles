@@ -51,20 +51,25 @@ jobs:
             --build-dir pkgs/_sources \
             --config pkgs/nvfetcher.toml \
             --changelog pr_body.txt
-          echo "GIT_COMMIT_MESSAGE=$(cat pr_body.txt)" >> $GITHUB_ENV
+          {
+            echo "GIT_COMMIT_MESSAGE<<EOF"
+            cat pr_body.txt
+            echo "EOF"
+          } >>"$GITHUB_ENV"
           rm -f pr_body.txt
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "bump: overlays sources"
-          branch: bump_overlays_sources
+          commit-message: "bump: pkgs sources"
+          branch: bump_pkgs_sources
           delete-branch: true
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-          title: "bump: overlays sources"
+          title: "bump: pkgs sources"
           labels: merge-queue
           body: |
             Automated changes by GitHub Action.
 
             ```
             ${{ env.GIT_COMMIT_MESSAGE }}
+            ```
