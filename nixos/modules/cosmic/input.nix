@@ -14,9 +14,11 @@ in
     services.xserver.xkb.options = "ctrl:nocaps";
     console.useXkbConfig = true;
 
-    environment.pathsToLink = [ "/share/fcitx5" ];
+    i18n.inputMethod = {
+      enable = false;
+      type = "fcitx5";
+    };
 
-    i18n.inputMethod.enabled = "fcitx5";
     i18n.inputMethod.fcitx5 = {
       plasma6Support = true;
       addons = with pkgs; [
@@ -41,9 +43,9 @@ in
         };
         addons = {
           classicui.globalSection = {
-            Font = ''"Sarasa UI SC 11"'';
-            MenuFont = ''"Sarasa UI SC 11"'';
-            TrayFont = ''"Sarasa UI SC 11"'';
+            Font = ''"Noto Sans Mono CJK SC 11"'';
+            MenuFont = ''"Noto Sans Mono CJK SC 11"'';
+            TrayFont = ''"Noto Sans Mono CJK SC 11"'';
             UseDarkTheme = "True";
             EnableFractionalScale = "False";
           };
@@ -56,12 +58,5 @@ in
       ignoreUserConfig = true;
     };
 
-    systemd.user.services.fcitx5-daemon = {
-      description = "Fcitx5 input method editor";
-      environment.SKIP_FCITX_USER_PATH = "1";
-      script = lib.getExe' config.i18n.inputMethod.package "fcitx5";
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-    };
   };
 }
