@@ -12,8 +12,6 @@ in
   options.cosmic.profiles.theme.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    boot.plymouth.enable = true;
-
     home-manager.users.${user} = {
       qt = {
         enable = true;
