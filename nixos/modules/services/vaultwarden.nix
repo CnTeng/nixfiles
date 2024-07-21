@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.services'.vaultwarden;
 in
@@ -29,7 +24,6 @@ in
         SMTP_USERNAME = "jstengyufei";
       };
       environmentFile = config.sops.secrets.vaultwarden.path;
-      webVaultPackage = (pkgs.vaultwarden.webvault.override { python3 = pkgs.python311; });
     };
 
     services.caddy.virtualHosts.vault =
