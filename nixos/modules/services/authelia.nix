@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services'.authelia;
+  port = 9091;
 in
 {
   options.services'.authelia.enable = lib.mkEnableOption' { };
@@ -50,28 +51,23 @@ in
         };
 
         access_control.default_policy = "one_factor";
-
       };
+
       environmentVariables = {
         AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."authelia/smtp_password".path;
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
           config.sops.secrets."authelia/ldap_password".path;
       };
-
     };
 
-    services.caddy.virtualHosts.auth =
-      let
-        inherit (config.services.authelia.instances.default.settings.server) port;
-      in
-      {
-        hostName = "auth.snakepi.xyz";
-        extraConfig = ''
-          import ${config.sops.templates.cf-tls.path}
+    services.caddy.virtualHosts.auth = {
+      hostName = "auth.snakepi.xyz";
+      extraConfig = ''
+        import ${config.sops.templates.cf-tls.path}
 
-          reverse_proxy 127.0.0.1:${toString port}
-        '';
-      };
+        reverse_proxy 127.0.0.1:${toString port}
+      '';
+    };
 
     sops.secrets = {
       "authelia/jwt_secret" = {
