@@ -40,7 +40,7 @@ resource "aws_lightsail_static_ip_attachment" "ipv4" {
   instance_name  = aws_lightsail_instance.instance.id
 }
 
-resource "aws_lightsail_instance_public_ports" "default" {
+resource "aws_lightsail_instance_public_ports" "main" {
   instance_name = aws_lightsail_instance.instance.name
 
   dynamic "port_info" {

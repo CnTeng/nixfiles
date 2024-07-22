@@ -1,28 +1,15 @@
 locals {
-  zones = {
-    sp_xyz = { zone = "snakepi.xyz" }
-    sp_eo  = { zone = "snakepi.eu.org" }
-    ms_eo  = { zone = "mrsnake.eu.org" }
-  }
-
   web_rec = {
-    "@"   = { value = module.host["hcax"].ipv4 }
-    atuin = { value = module.host["hcax"].ipv4 }
-    auth  = { value = module.host["hcax"].ipv4 }
-    ldap  = { value = module.host["hcax"].ipv4 }
-    ntfy  = { value = module.host["hcax"].ipv4 }
-    rss   = { value = module.host["hcax"].ipv4 }
-    sync  = { value = module.host["hcax"].ipv4 }
-    vault = { value = module.host["hcax"].ipv4 }
-    www   = { value = module.host["hcax"].ipv4 }
+    "@"   = { value = module.host["hcde"].ipv4 }
+    atuin = { value = module.host["hcde"].ipv4 }
+    auth  = { value = module.host["hcde"].ipv4 }
+    ldap  = { value = module.host["hcde"].ipv4 }
+    ntfy  = { value = module.host["hcde"].ipv4 }
+    rss   = { value = module.host["hcde"].ipv4 }
+    sync  = { value = module.host["hcde"].ipv4 }
+    vault = { value = module.host["hcde"].ipv4 }
+    www   = { value = module.host["hcde"].ipv4 }
   }
-}
-
-resource "cloudflare_zone" "zones" {
-  for_each = local.zones
-
-  account_id = local.secrets.cloudflare.account_id
-  zone       = each.value.zone
 }
 
 resource "cloudflare_record" "web_rec" {

@@ -17,11 +17,11 @@ in
         PUSH_ENABLED = true;
 
         SMTP_HOST = "smtp.gmail.com";
-        SMTP_FROM = "vault@snakepi.eu.org";
+        SMTP_FROM = "noreply@snakepi.xyz";
         SMTP_FROM_NAME = "Vaultwarden";
         SMTP_SECURITY = "starttls";
         SMTP_PORT = 587;
-        SMTP_USERNAME = "jstengyufei";
+        SMTP_USERNAME = "istengyf";
       };
       environmentFile = config.sops.secrets.vaultwarden.path;
     };

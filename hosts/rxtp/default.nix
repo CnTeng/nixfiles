@@ -1,5 +1,8 @@
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./disko.nix
+    ./hardware.nix
+  ];
 
   desktop'.cosmic.enable = true;
 

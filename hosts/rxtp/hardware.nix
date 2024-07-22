@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 {
   hardware' = {
-    disko = {
-      enable = true;
-      device = "nvme0n1";
-      bootSize = "2G";
-      swapSize = "32G";
-    };
     secure-boot.enable = true;
     stateless.enable = true;
   };

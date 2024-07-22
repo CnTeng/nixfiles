@@ -2,8 +2,10 @@
 
 set -euo pipefail
 
-mkdir -p var/lib/sops-nix
-echo "$AGE_PRIVATE_KEY" >./var/lib/sops-nix/key
+SOPS_NIX=persist/var/lib/sops-nix
 
-chmod 700 ./var/lib/sops-nix
-chmod 600 ./var/lib/sops-nix/key
+mkdir -p "$SOPS_NIX"
+echo "$AGE_PRIVATE_KEY" >"$SOPS_NIX/key"
+
+chmod 700 "$SOPS_NIX"
+chmod 600 "$SOPS_NIX/key"

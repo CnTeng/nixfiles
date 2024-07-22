@@ -1,47 +1,43 @@
 locals {
   hcloud = {
-    hcax = {
-      plan       = "cax21"
-      region     = "fsn1-dc14"
-      system     = "aarch64-linux"
-      type       = "remote"
-      openssh    = true
-      initrd_ssh = true
-      syncthing  = true
-      nixbuild   = true
+    hcde = {
+      plan      = "cax11"
+      region    = "fsn1-dc14"
+      system    = "aarch64-linux"
+      type      = "remote"
+      openssh   = true
+      syncthing = true
+      nixbuild  = true
     }
   }
 
   lightsail = {
     lssg = {
-      plan       = "nano_3_0"
-      region     = "ap-southeast-1a"
-      system     = "x86_64-linux"
-      type       = "remote"
-      openssh    = true
-      initrd_ssh = false
-      syncthing  = false
-      nixbuild   = false
+      plan      = "nano_3_0"
+      region    = "ap-southeast-1a"
+      system    = "x86_64-linux"
+      type      = "remote"
+      openssh   = true
+      syncthing = false
+      nixbuild  = false
     }
   }
 
   local = {
     rxtp = {
-      system     = "x86_64-linux"
-      type       = "local"
-      openssh    = true
-      initrd_ssh = false
-      syncthing  = true
-      nixbuild   = false
+      system    = "x86_64-linux"
+      type      = "local"
+      openssh   = true
+      syncthing = true
+      nixbuild  = false
     }
 
     rxop = {
-      system     = "aarch64-linux"
-      type       = "local"
-      openssh    = false
-      initrd_ssh = false
-      syncthing  = true
-      nixbuild   = false
+      system    = "aarch64-linux"
+      type      = "local"
+      openssh   = false
+      syncthing = true
+      nixbuild  = false
     }
   }
 
@@ -72,15 +68,14 @@ module "host" {
   source   = "./modules/host"
   for_each = local.hosts
 
-  zone_id    = cloudflare_zone.zones["sp_xyz"].id
-  name       = each.key
-  system     = each.value.system
-  type       = each.value.type
-  ip         = lookup(local.hosts_ip, each.key, null)
-  openssh    = each.value.openssh
-  initrd_ssh = each.value.initrd_ssh
-  syncthing  = each.value.syncthing
-  nixbuild   = each.value.nixbuild
+  zone_id   = cloudflare_zone.zones["sp_xyz"].id
+  name      = each.key
+  system    = each.value.system
+  type      = each.value.type
+  ip        = lookup(local.hosts_ip, each.key, null)
+  openssh   = each.value.openssh
+  syncthing = each.value.syncthing
+  nixbuild  = each.value.nixbuild
 }
 
 module "nixos" {
@@ -91,6 +86,5 @@ module "nixos" {
   hostname         = each.key
   host_ip          = module.host[each.key].ipv4
   temp_private_key = local.temp_private_keys[each.key]
-  disk_key         = local.secrets.disk_key
   age_private_key  = local.secrets.age_private_keys[each.key]
 }

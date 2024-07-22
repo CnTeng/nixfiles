@@ -1,67 +1,39 @@
 locals {
-  sp_eo_rules = {
-    auth  = "auth@snakepi.eu.org"
-    vault = "vault@snakepi.eu.org"
-  }
-  sp_xyz_rules = {
-    me = "me@snakepi.xyz"
+  rules = {
+    noreply = { from = "noreply@snakepi.xyz", to = "istengyf@gmail.com" }
+    main    = { from = "me@snakepi.xyz", to = "rxsnakepi@gmail.com" }
   }
 }
 
-resource "cloudflare_email_routing_settings" "sp_eo" {
-  zone_id = cloudflare_zone.zones["sp_eo"].id
-  enabled = "true"
-}
-
-resource "cloudflare_email_routing_settings" "sp_xyz" {
+resource "cloudflare_email_routing_settings" "main" {
   zone_id = cloudflare_zone.zones["sp_xyz"].id
   enabled = "true"
 }
 
-resource "cloudflare_email_routing_address" "gmail_hk" {
+resource "cloudflare_email_routing_address" "main" {
   account_id = local.secrets.cloudflare.account_id
-  email      = "jstengyufei@gmail.com"
+  email      = "rxsnakepi@gmail.com"
 }
 
-resource "cloudflare_email_routing_address" "gmail_jp" {
+resource "cloudflare_email_routing_address" "noreply" {
   account_id = local.secrets.cloudflare.account_id
   email      = "istengyf@gmail.com"
 }
 
-resource "cloudflare_email_routing_rule" "sp_eo_rules" {
-  for_each = local.sp_eo_rules
-
-  zone_id = cloudflare_zone.zones["sp_eo"].id
-  name    = "${each.key} email rule"
-  enabled = true
-
-  matcher {
-    type  = "literal"
-    field = "to"
-    value = each.value
-  }
-
-  action {
-    type  = "forward"
-    value = ["jstengyufei@gmail.com"]
-  }
-}
-
-resource "cloudflare_email_routing_rule" "sp_xyz_rules" {
-  for_each = local.sp_xyz_rules
-
-  zone_id = cloudflare_zone.zones["sp_xyz"].id
-  name    = "${each.key} email rule"
-  enabled = true
+resource "cloudflare_email_routing_rule" "rules" {
+  for_each = local.rules
+  zone_id  = cloudflare_zone.zones["sp_xyz"].id
+  name     = "${each.key} email rule"
+  enabled  = true
 
   matcher {
     type  = "literal"
     field = "to"
-    value = each.value
+    value = each.value.from
   }
 
   action {
     type  = "forward"
-    value = ["istengyf@gmail.com"]
+    value = [each.value.to]
   }
 }

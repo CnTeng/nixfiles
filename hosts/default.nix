@@ -49,7 +49,7 @@
 
         lssg = { };
 
-        hcax.deployment.buildOnTarget = true;
+        hcde.deployment.buildOnTarget = true;
       };
 
       nixosConfigurations = self.colmenaHive.nodes;

@@ -38,7 +38,7 @@ resource "hcloud_server" "server" {
     ipv4 = hcloud_primary_ip.ipv4.id
     ipv6 = hcloud_primary_ip.ipv6.id
   }
-  firewall_ids = [hcloud_firewall.default.id]
+  firewall_ids = [hcloud_firewall.main.id]
 }
 
 resource "hcloud_ssh_key" "temp" {
@@ -62,8 +62,8 @@ resource "hcloud_primary_ip" "ipv6" {
   assignee_type = "server"
 }
 
-resource "hcloud_firewall" "default" {
-  name = "${var.hostname}-default"
+resource "hcloud_firewall" "main" {
+  name = "${var.hostname}-main"
 
   dynamic "rule" {
     for_each = flatten([

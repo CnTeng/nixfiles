@@ -45,9 +45,9 @@ in
         notifier.smtp = {
           host = "smtp.gmail.com";
           port = 587;
-          username = "jstengyufei";
-          sender = "Authelia <auth@snakepi.eu.org>";
-          identifier = "snakepi.eu.org";
+          username = "istengyf";
+          sender = "Authelia <noreply@snakepi.xyz>";
+          identifier = "snakepi.xyz";
         };
 
         access_control.default_policy = "one_factor";

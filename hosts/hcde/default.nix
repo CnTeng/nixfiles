@@ -1,5 +1,8 @@
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./disko.nix
+    ./hardware.nix
+  ];
 
   services' = {
     atuin.enable = true;

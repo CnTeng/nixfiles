@@ -10,16 +10,7 @@ in
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
-  hardware' = {
-    disko = {
-      enable = true;
-      device = "sda";
-      bootSize = "1G";
-      swapSize = "4G";
-    };
-    initrd-ssh.enable = true;
-    stateless.enable = true;
-  };
+  hardware'.stateless.enable = true;
 
   boot.initrd.kernelModules = [ "virtio_gpu" ];
   boot.kernelParams = [ "console=tty" ];

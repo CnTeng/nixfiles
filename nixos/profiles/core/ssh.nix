@@ -19,19 +19,13 @@ let
 
   knownHosts = lib.concatMapAttrs (
     host: hostData:
-    lib.mergeAttrsList (
-      [
-        (mkPublicKey host "rsa" hostData.host_rsa_key_pub)
-        (mkPublicKey host "ed25519" hostData.host_ed25519_key_pub)
-      ]
-      ++ lib.optionals hostData.initrd_ssh [
-        (mkPublicKey host "initrd-rsa" hostData.host_rsa_key_pub)
-        (mkPublicKey host "initrd-ed25519" hostData.host_ed25519_key_pub)
-      ]
-    )
+    lib.mergeAttrsList [
+      (mkPublicKey host "rsa" hostData.host_rsa_key_pub)
+      (mkPublicKey host "ed25519" hostData.host_ed25519_key_pub)
+    ]
   ) hosts;
 
-  matchBlocks = lib.concatMapAttrs (host: hostData: {
+  matchBlocks = lib.concatMapAttrs (host: _: {
     ${host} = {
       hostname = "${host}.snakepi.xyz";
       inherit user;

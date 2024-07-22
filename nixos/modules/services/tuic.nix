@@ -67,8 +67,8 @@ in
             dns = {
               servers = [
                 {
-                  tag = "cloudflare";
-                  address = "https://1.1.1.1/dns-query";
+                  tag = "google";
+                  address = "https://8.8.8.8/dns-query";
                   address_resolver = "local";
                   detour = "proxy";
                 }
