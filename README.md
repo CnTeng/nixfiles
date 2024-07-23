@@ -11,7 +11,6 @@ A highly customized NixOS configuration.
 - Secret provisioning with [sops-nix](https://github.com/Mic92/sops-nix)
 - Disk partitioning with [disko](https://github.com/nix-community/disko)
 - Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote)
-- Remote deployment with [colmena](https://github.com/zhaofengli/colmena)
 - Desktop environment with [cosmic](https://github.com/lilyinstarlight/nixos-cosmic)
 - Custom neovim configuration with [rx-nvim](https://github.com/CnTeng/rx-nvim)
 - Infrastructure configuration with [opentofu](https://opentofu.org)

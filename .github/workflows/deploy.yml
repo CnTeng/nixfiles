@@ -28,7 +28,7 @@ jobs:
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Deploy remote hosts
-        run: nix develop --command colmena apply
+        run: make remote
       - name: Notify success
         if: success()
         run: |

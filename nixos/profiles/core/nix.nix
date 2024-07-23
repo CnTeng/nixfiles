@@ -14,26 +14,12 @@ let
     "nixbuild/${host}_private_key".key = "hosts/${host}/nixbuild_key";
   }) hosts;
 
-  mkBuildMachine = host: hostData: {
-    hostName = "${host}.snakepi.xyz";
-    protocol = "ssh-ng";
-    inherit (hostData) system;
-    sshUser = "nixbuild";
-    sshKey = config.sops.secrets."nixbuild/${host}_private_key".path;
-    maxJobs = 8;
-    supportedFeatures = [
-      "big-parallel"
-      "kvm"
-      "nixos-test"
-    ];
-  };
-
-  buildMachines = lib.mapAttrsToList mkBuildMachine hosts;
+  buildMachines = lib.mkBuildMachines (
+    host: config.sops.secrets."nixbuild/${host}_private_key".path
+  ) hosts;
 in
 {
   nix.channel.enable = false;
-
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   nix.settings = {
     auto-allocate-uids = true;

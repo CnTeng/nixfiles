@@ -4,10 +4,14 @@ let
 
   helper = callLibs ./helper.nix;
   options = callLibs ./options.nix;
-  trivial = callLibs ./trivial.nix;
 in
 {
-  inherit (helper) importModule;
+  inherit (helper)
+    importModule
+    mkKnownHosts
+    mkMatchBlocks
+    mkBuildMachines
+    ;
+
   inherit (options) mkEnableOption';
-  inherit (trivial) removeHashTag;
 }

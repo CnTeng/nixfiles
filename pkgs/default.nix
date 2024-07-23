@@ -24,11 +24,10 @@
           config.allowUnfree = true;
           overlays = [
             self.overlays.default
-            inputs.colmena.overlays.default
             inputs.rx-nvim.overlays.default
           ];
         };
-        lib = pkgs.lib.extend self.overlays.lib;
+        lib = inputs.nixpkgs.lib.extend self.overlays.lib;
       };
 
       legacyPackages = pkgs;

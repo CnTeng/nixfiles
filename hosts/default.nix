@@ -1,58 +1,41 @@
+{ inputs, withSystem, ... }:
 {
-  self,
-  inputs,
-  withSystem,
-  ...
-}:
-{
-  flake = withSystem "x86_64-linux" (
-    { pkgs, lib, ... }:
+  flake =
+    { lib, config, ... }:
     let
       data = lib.importJSON ../infra/outputs/data.json;
       user = "yufei";
+
+      mkNixosSystem =
+        host:
+        let
+          inherit (data.hosts.${host}) system;
+        in
+        withSystem system (
+          { pkgs, lib, ... }:
+          lib.nixosSystem {
+            pkgs = pkgs;
+            specialArgs = {
+              inherit inputs data user;
+            };
+            modules = [
+              {
+                networking.hostName = host;
+                nixpkgs.hostPlatform = system;
+
+                system.stateVersion = "24.05";
+              }
+              config.nixosModules.default
+              ./${host}
+            ];
+          }
+        );
     in
     {
-      colmenaHive = inputs.colmena.lib.makeHive {
-        meta = {
-          nixpkgs = pkgs;
-          specialArgs = {
-            inherit inputs lib;
-            inherit data user;
-          };
-        };
-
-        defaults =
-          { name, ... }:
-          let
-            hostData = data.hosts.${name};
-          in
-          {
-            deployment = {
-              allowLocalDeployment = hostData.type == "local";
-              tags = [ hostData.type ];
-              targetHost = if hostData.type == "local" then null else name;
-            };
-
-            nixpkgs.system = hostData.system;
-
-            system.stateVersion = "24.05";
-
-            networking.hostName = name;
-
-            imports = [
-              self.nixosModules.default
-              ./${name}
-            ];
-          };
-
-        rxtp = { };
-
-        lssg = { };
-
-        hcde.deployment.buildOnTarget = true;
+      nixosConfigurations = {
+        rxtp = mkNixosSystem "rxtp";
+        hcde = mkNixosSystem "hcde";
+        lssg = mkNixosSystem "lssg";
       };
-
-      nixosConfigurations = self.colmenaHive.nodes;
-    }
-  );
+    };
 }

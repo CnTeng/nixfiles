@@ -2,6 +2,6 @@
   flake.nixosModules.default =
     { lib, ... }:
     {
-      imports = lib.importModule { dir = ./.; };
+      imports = lib.importModule ./.;
     };
 }

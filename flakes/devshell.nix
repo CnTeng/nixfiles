@@ -5,7 +5,6 @@
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           jq
-          colmena
           nvfetcher
           sops
           age
