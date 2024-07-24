@@ -1,4 +1,10 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  data,
+  ...
+}:
 let
   inherit (config.services'.tuic) server client;
   inherit (config.networking) hostName;
@@ -102,7 +108,7 @@ in
             outbounds = [
               {
                 type = "tuic";
-                server = "lssg.snakepi.xyz";
+                server = data.hosts.lssg.ipv4;
                 server_port = port;
                 uuid._secret = config.sops.secrets."tuic/uuid".path;
                 password._secret = config.sops.secrets."tuic/pass".path;
@@ -152,16 +158,16 @@ in
               ];
               rule_set = [
                 {
+                  type = "local";
                   tag = "geosite-cn";
-                  type = "remote";
                   format = "binary";
-                  url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs";
+                  path = "${pkgs.sing-geosite}/share/sing-box/rule-set/geosite-cn.srs";
                 }
                 {
+                  type = "local";
                   tag = "geoip-cn";
-                  type = "remote";
                   format = "binary";
-                  url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs";
+                  path = "${pkgs.sing-geoip}/share/sing-box/rule-set/geoip-cn.srs";
                 }
               ];
               auto_detect_interface = true;
