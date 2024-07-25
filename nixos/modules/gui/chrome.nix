@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.programs'.chrome;
+  cfg = config.gui'.chrome;
 in
 {
-  options.programs'.chrome.enable = lib.mkEnableOption' { };
+  options.gui'.chrome.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

@@ -6,14 +6,14 @@
   ...
 }:
 let
-  cfg = config.programs'.yubikey;
+  cfg = config.gui'.yubikey;
   yubikeyPkgs = with pkgs; [
     yubikey-manager
     yubioath-flutter
   ];
 in
 {
-  options.programs'.yubikey.enable = lib.mkEnableOption' { };
+  options.gui'.yubikey.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     services.pcscd.enable = true;

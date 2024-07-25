@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.programs'.wps;
+  cfg = config.gui'.wps;
 in
 {
-  options.programs'.wps.enable = lib.mkEnableOption' { };
+  options.gui'.wps.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [

@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.programs'.android;
+  cfg = config.gui'.android;
 in
 {
-  options.programs'.android.enable = lib.mkEnableOption' { };
+  options.gui'.android.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     users.users.${user}.extraGroups = [ "adbusers" ];

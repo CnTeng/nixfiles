@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.programs'.firefox;
+  cfg = config.gui'.firefox;
 in
 {
-  options.programs'.firefox.enable = lib.mkEnableOption' { };
+  options.gui'.firefox.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     programs.firefox = {

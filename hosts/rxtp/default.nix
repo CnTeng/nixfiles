@@ -6,7 +6,7 @@
 
   desktop'.cosmic.enable = true;
 
-  programs' = {
+  gui' = {
     android.enable = true;
     chrome.enable = true;
     firefox.enable = true;

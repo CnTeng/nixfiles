@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.programs'.serial;
+  cfg = config.gui'.serial;
 in
 {
-  options.programs'.serial.enable = lib.mkEnableOption' { };
+  options.gui'.serial.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [

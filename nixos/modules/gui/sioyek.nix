@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.programs'.sioyek;
+  cfg = config.gui'.sioyek;
 in
 {
-  options.programs'.sioyek.enable = lib.mkEnableOption' { };
+  options.gui'.sioyek.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

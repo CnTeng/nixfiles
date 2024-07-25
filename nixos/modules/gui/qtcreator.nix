@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.programs'.qtcreator;
+  cfg = config.gui'.qtcreator;
 in
 {
-  options.programs'.qtcreator.enable = lib.mkEnableOption' { };
+  options.gui'.qtcreator.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

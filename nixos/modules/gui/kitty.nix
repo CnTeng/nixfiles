@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.programs'.kitty;
+  cfg = config.gui'.kitty;
   inherit (pkgs.vimPlugins) smart-splits-nvim;
 in
 {
-  options.programs'.kitty.enable = lib.mkEnableOption "kitty";
+  options.gui'.kitty.enable = lib.mkEnableOption "kitty";
 
   config = lib.mkIf cfg.enable {
     environment.variables.TERMINAL = "kitty";

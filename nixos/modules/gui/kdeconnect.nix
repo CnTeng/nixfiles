@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.programs'.kdeconnect;
+  cfg = config.gui'.kdeconnect;
 in
 {
-  options.programs'.kdeconnect.enable = lib.mkEnableOption' { };
+  options.gui'.kdeconnect.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     networking.firewall = {

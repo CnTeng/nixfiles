@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.programs'.mpv;
+  cfg = config.gui'.mpv;
 in
 {
-  options.programs'.mpv.enable = lib.mkEnableOption' { };
+  options.gui'.mpv.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
