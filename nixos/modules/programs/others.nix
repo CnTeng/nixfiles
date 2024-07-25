@@ -17,7 +17,6 @@ in
         calibre
         foliate
         element-desktop
-        inkscape
         spotify
         tdesktop
         zed-editor
@@ -33,10 +32,6 @@ in
         ".local/share/com.github.johnfactotum.Foliate"
 
         ".config/Element"
-
-        ".cache/inkscape"
-        ".cache/inkscape-extension-manager"
-        ".config/inkscape"
 
         ".cache/spotify"
         ".config/spotify"
