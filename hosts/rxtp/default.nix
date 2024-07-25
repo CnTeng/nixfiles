@@ -12,6 +12,7 @@
     firefox.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
+    mpv.enable = true;
     others.enable = true;
     qtcreator.enable = true;
     serial.enable = true;

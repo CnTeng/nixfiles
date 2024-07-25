@@ -20,7 +20,6 @@ in
         inkscape
         spotify
         tdesktop
-        vlc
         zed-editor
       ];
     };
@@ -44,9 +43,6 @@ in
 
         ".cache/TelegramDesktop"
         ".local/share/TelegramDesktop"
-
-        ".cache/vlc"
-        ".config/vlc"
 
         ".config/zed"
         ".local/share/zed"
