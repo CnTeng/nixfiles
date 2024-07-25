@@ -15,7 +15,6 @@ in
     home-manager.users.${user} = {
       home.packages = with pkgs; [
         calibre
-        drawio
         foliate
         element-desktop
         inkscape
@@ -30,8 +29,6 @@ in
       users.${user}.directories = [
         ".cache/calibre"
         ".config/calibre"
-
-        ".config/draw.io"
 
         ".cache/com.github.johnfactotum.Foliate"
         ".local/share/com.github.johnfactotum.Foliate"
