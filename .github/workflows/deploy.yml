@@ -28,7 +28,7 @@ jobs:
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Deploy remote hosts
-        run: make remote NIXOS-REBUILD="nix run nixpkgs#nixos-rebuild --"
+        run: make remote REBUILD="nix run nixpkgs#nixos-rebuild --"
       - name: Notify success
         if: success()
         run: |

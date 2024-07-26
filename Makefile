@@ -1,21 +1,22 @@
-HOSTNAME ?= $(shell hostname)
-MODE ?= switch
-NIXOS-REBUILD ?= nixos-rebuild
-REBUILD = ${NIXOS-REBUILD} ${MODE} --flake .\#
+HOSTNAME = $(shell hostname)
+
+REBUILD := nixos-rebuild
+MODE := switch
+FLAGS = $(MODE) --flake .\#
+REMOTE_FLAGS = $(FLAGS)$@ --fast --target-host root@$@
+
+all: local
 
 local:
-	sudo ${REBUILD}${HOSTNAME}
+	sudo $(REBUILD) $(FLAGS)$(HOSTNAME)
 
 remote: hcde lssg
 
-rxtp:
-	sudo ${REBUILD}$@
-
 hcde:
-	${REBUILD}$@ --target-host root@$@ --build-host root@$@ --fast
+	$(REBUILD) $(REMOTE_FLAGS) --build-host root@$@
 
 lssg:
-	${REBUILD}$@ --target-host root@$@ --fast
+	$(REBUILD) $(REMOTE_FLAGS)
 
 updatekeys:
 	fd 'secrets.yaml' --exec sops updatekeys --yes
