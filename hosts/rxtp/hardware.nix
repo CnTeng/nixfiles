@@ -2,6 +2,7 @@
 {
   hardware' = {
     secure-boot.enable = true;
+    serial.enable = true;
     stateless.enable = true;
   };
 

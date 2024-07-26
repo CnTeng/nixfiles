@@ -15,7 +15,6 @@
     mpv.enable = true;
     others.enable = true;
     qtcreator.enable = true;
-    serial.enable = true;
     sioyek.enable = true;
     thunderbird.enable = true;
     wps.enable = true;
