@@ -32,7 +32,7 @@ jobs:
             ```
           pr-labels: merge-queue
 
-  update-nvfetcher:
+  update-sources:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
