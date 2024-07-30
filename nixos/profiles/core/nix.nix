@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   data,
   lib,
@@ -33,7 +32,6 @@ in
       "nix-command"
     ];
 
-    nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
     substituters = [
       "https://cache.garnix.io"
       "https://cosmic.cachix.org"

@@ -15,6 +15,7 @@ in
     ./fonts.nix
     ./input.nix
     ./theme.nix
+    ./xdg.nix
   ];
 
   options.desktop'.cosmic.enable = lib.mkEnableOption' { };
@@ -27,6 +28,7 @@ in
       fonts.enable = true;
       input.enable = true;
       theme.enable = true;
+      xdg.enable = true;
     };
 
     environment.systemPackages = with pkgs; [ wl-clipboard ];
