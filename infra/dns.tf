@@ -6,7 +6,6 @@ locals {
     ldap  = { value = module.host["hcde"].ipv4 }
     ntfy  = { value = module.host["hcde"].ipv4 }
     rss   = { value = module.host["hcde"].ipv4 }
-    sync  = { value = module.host["hcde"].ipv4 }
     vault = { value = module.host["hcde"].ipv4 }
     www   = { value = module.host["hcde"].ipv4 }
   }

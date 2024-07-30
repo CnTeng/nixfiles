@@ -8,7 +8,6 @@
           nvfetcher
           sops
           age
-          syncthing
           (opentofu.withPlugins (p: [
             p.aws
             p.cloudflare

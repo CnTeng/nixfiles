@@ -14,7 +14,6 @@
     miniflux.enable = true;
     ntfy.enable = true;
     restic.enable = true;
-    syncthing.enable = true;
     tuic.server.enable = true;
     vaultwarden.enable = true;
   };

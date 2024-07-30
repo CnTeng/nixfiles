@@ -11,8 +11,6 @@
       "nixbuild": true,
       "nixbuild_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPiXuIK5OSbdOHQ/DHbXlsqzVgoyMQo4Th/mvlu899Z/",
       "openssh": true,
-      "syncthing": true,
-      "syncthing_id": "H4AUV7W-TNUOUBY-6V2XSHC-DG26ACL-HAFSBPG-F542CFH-OBUSV6F-ZZOK3QH",
       "system": "aarch64-linux",
       "type": "remote"
     },
@@ -24,8 +22,6 @@
       "nixbuild": false,
       "nixbuild_key_pub": null,
       "openssh": true,
-      "syncthing": false,
-      "syncthing_id": null,
       "system": "x86_64-linux",
       "type": "remote"
     },
@@ -37,8 +33,6 @@
       "nixbuild": false,
       "nixbuild_key_pub": null,
       "openssh": false,
-      "syncthing": true,
-      "syncthing_id": "45UYC4O-QAEWX6P-5EVUQWZ-LBWD6SR-5PMQV43-MJ52VMC-IFQ3TKD-U6LRRAM",
       "system": "aarch64-linux",
       "type": "local"
     },
@@ -50,8 +44,6 @@
       "nixbuild": false,
       "nixbuild_key_pub": null,
       "openssh": true,
-      "syncthing": true,
-      "syncthing_id": "PPLEKSK-OLN7AFC-YKPWLDL-JKRFRKL-4YMXMD5-CG6RUM4-4JH5O6G-QNK4OAF",
       "system": "x86_64-linux",
       "type": "local"
     }

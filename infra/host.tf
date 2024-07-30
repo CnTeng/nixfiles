@@ -1,43 +1,39 @@
 locals {
   hcloud = {
     hcde = {
-      plan      = "cax11"
-      region    = "fsn1-dc14"
-      system    = "aarch64-linux"
-      type      = "remote"
-      openssh   = true
-      syncthing = true
-      nixbuild  = true
+      plan     = "cax11"
+      region   = "fsn1-dc14"
+      system   = "aarch64-linux"
+      type     = "remote"
+      openssh  = true
+      nixbuild = true
     }
   }
 
   lightsail = {
     lssg = {
-      plan      = "nano_3_0"
-      region    = "ap-southeast-1a"
-      system    = "x86_64-linux"
-      type      = "remote"
-      openssh   = true
-      syncthing = false
-      nixbuild  = false
+      plan     = "nano_3_0"
+      region   = "ap-southeast-1a"
+      system   = "x86_64-linux"
+      type     = "remote"
+      openssh  = true
+      nixbuild = false
     }
   }
 
   local = {
     rxtp = {
-      system    = "x86_64-linux"
-      type      = "local"
-      openssh   = true
-      syncthing = true
-      nixbuild  = false
+      system   = "x86_64-linux"
+      type     = "local"
+      openssh  = true
+      nixbuild = false
     }
 
     rxop = {
-      system    = "aarch64-linux"
-      type      = "local"
-      openssh   = false
-      syncthing = true
-      nixbuild  = false
+      system   = "aarch64-linux"
+      type     = "local"
+      openssh  = false
+      nixbuild = false
     }
   }
 
@@ -68,14 +64,13 @@ module "host" {
   source   = "./modules/host"
   for_each = local.hosts
 
-  zone_id   = cloudflare_zone.zones["sp_xyz"].id
-  name      = each.key
-  system    = each.value.system
-  type      = each.value.type
-  ip        = lookup(local.hosts_ip, each.key, null)
-  openssh   = each.value.openssh
-  syncthing = each.value.syncthing
-  nixbuild  = each.value.nixbuild
+  zone_id  = cloudflare_zone.zones["sp_xyz"].id
+  name     = each.key
+  system   = each.value.system
+  type     = each.value.type
+  ip       = lookup(local.hosts_ip, each.key, null)
+  openssh  = each.value.openssh
+  nixbuild = each.value.nixbuild
 }
 
 module "nixos" {
