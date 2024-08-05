@@ -15,7 +15,10 @@ in
   boot.initrd.kernelModules = [ "virtio_gpu" ];
   boot.kernelParams = [ "console=tty" ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    bootCounting.enable = true;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
