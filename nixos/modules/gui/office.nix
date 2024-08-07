@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.gui'.wps;
+  cfg = config.gui'.office;
 in
 {
-  options.gui'.wps.enable = lib.mkEnableOption' { };
+  options.gui'.office.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
@@ -18,7 +18,10 @@ in
     ];
 
     home-manager.users.${user} = {
-      home.packages = [ pkgs.wpsoffice-cn ];
+      home.packages = with pkgs; [
+        wpsoffice-cn
+        libreoffice-fresh
+      ];
     };
 
     environment.persistence."/persist" = {

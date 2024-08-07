@@ -13,11 +13,11 @@
     kdeconnect.enable = true;
     kitty.enable = true;
     mpv.enable = true;
+    office.enable = true;
     others.enable = true;
     qtcreator.enable = true;
     sioyek.enable = true;
     thunderbird.enable = true;
-    wps.enable = true;
     yubikey.enable = true;
   };
 
