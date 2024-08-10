@@ -1,15 +1,15 @@
 { user, ... }:
 {
-  programs.bash.blesh.enable = true;
-
-  home-manager.users.${user} = {
-    programs.bash.enable = true;
-  };
+  home-manager.users.${user} =
+    { config, ... }:
+    {
+      programs.bash = {
+        enable = true;
+        historyFile = "${config.xdg.dataHome}/bash/bash_history";
+      };
+    };
 
   environment.persistence."/persist" = {
-    users.${user} = {
-      files = [ ".bash_history" ];
-      directories = [ ".cache/blesh" ];
-    };
+    users.${user}.directories = [ ".local/share/bash" ];
   };
 }
