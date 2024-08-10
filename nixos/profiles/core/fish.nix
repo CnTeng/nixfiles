@@ -9,10 +9,7 @@
     '';
   };
 
-  environment.systemPackages = with pkgs.fishPlugins; [
-    fzf-fish
-    autopair
-  ];
+  environment.systemPackages = [ pkgs.fishPlugins.autopair ];
 
   users.users.${user}.shell = pkgs.fish;
 
