@@ -29,6 +29,7 @@
               settings = {
                 allowDiscards = true;
                 bypassWorkqueues = true;
+                crypttabExtraOpts = [ "tpm2-device=auto" ];
               };
               content = {
                 type = "btrfs";
