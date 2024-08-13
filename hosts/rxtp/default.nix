@@ -6,6 +6,10 @@
 
   desktop'.cosmic.enable = true;
 
+  cli' = {
+    go.enable = true;
+  };
+
   gui' = {
     android.enable = true;
     chrome.enable = true;
