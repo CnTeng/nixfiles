@@ -16,7 +16,7 @@ in
       home.packages = with pkgs; [
         calibre
         foliate
-        element-desktop
+        # element-desktop
         spotify
         tdesktop
         zed-editor
