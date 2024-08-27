@@ -555,11 +555,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724760307,
-        "narHash": "sha256-kJaFzSDRupC0k9XIQ3b8zIUGqdDCZVDLCO0ndJiKE2k=",
+        "lastModified": 1724792782,
+        "narHash": "sha256-W5gW/l0mS6ApO4Qb920ucn5Rd0eQHhJXsbWyt/xAwI4=",
         "owner": "CnTeng",
         "repo": "rx-nvim",
-        "rev": "629c394e55664f0a13cd6eed5dd1354bbfff2a45",
+        "rev": "4580df4e1a5416041e18ed03b8b4eb5382ba9c28",
         "type": "github"
       },
       "original": {
