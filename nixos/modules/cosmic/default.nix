@@ -33,7 +33,15 @@ in
 
     environment.systemPackages = with pkgs; [ wl-clipboard ];
 
-    environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = "1";
+    environment.sessionVariables = {
+      COSMIC_DATA_CONTROL_ENABLED = "1";
+      NIXOS_OZONE_WL = "1";
+    };
+
+    users.users.${user}.extraGroups = [
+      "networkmanager"
+      "adm"
+    ];
 
     home-manager.users.${user} = {
       xdg.mimeApps.enable = true;
