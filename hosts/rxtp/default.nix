@@ -7,6 +7,7 @@
   desktop'.cosmic.enable = true;
 
   cli' = {
+    flutter.enable = true;
     go.enable = true;
   };
 
