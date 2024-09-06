@@ -23,6 +23,7 @@
       scc
       unrar
       unzipNLS
+      gdu
     ];
   };
 }
