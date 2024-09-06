@@ -80,7 +80,6 @@ in
           "kitty_mod+s" = "toggle_layout stack";
 
           "ctrl+w>o" = "layout_action rotate";
-          "ctrl+o" = "layout_action rotate";
 
           "ctrl+w>1" = "goto_tab 1";
           "ctrl+w>2" = "goto_tab 2";
@@ -92,6 +91,11 @@ in
           "ctrl+w>8" = "goto_tab 8";
           "ctrl+w>9" = "goto_tab 9";
           "ctrl+w>0" = "goto_tab 10";
+
+          "alt+j" = "kitten relative_resize.py down  3";
+          "alt+k" = "kitten relative_resize.py up    3";
+          "alt+h" = "kitten relative_resize.py left  3";
+          "alt+l" = "kitten relative_resize.py right 3";
         };
         extraConfig = ''
           symbol_map U+4E00–U+9FFF Noto Sans Mono CJK SC
@@ -99,16 +103,6 @@ in
           modify_font underline_position +3
           modify_font underline_thickness 150%
           modify_font cell_height 120%
-
-          map --new-mode resize ctrl+w>r
-
-          map --mode resize j kitten relative_resize.py down  3
-          map --mode resize k kitten relative_resize.py up    3
-          map --mode resize h kitten relative_resize.py left  3
-          map --mode resize l kitten relative_resize.py right 3
-
-          map --mode resize esc pop_keyboard_mode
-          map --mode resize ctrl+[ pop_keyboard_mode
 
           map --when-focus-on var:IS_NVIM ctrl+q
 
@@ -118,6 +112,11 @@ in
           map --when-focus-on var:IS_NVIM ctrl+l
 
           map --when-focus-on var:IS_NVIM ctrl+w
+
+          map --when-focus-on var:IS_NVIM alt+j
+          map --when-focus-on var:IS_NVIM alt+k
+          map --when-focus-on var:IS_NVIM alt+h
+          map --when-focus-on var:IS_NVIM alt+l
         '';
       };
     };
