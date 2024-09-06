@@ -12,28 +12,27 @@ in
 
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
+      noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      (nerdfonts.override {
-        fonts = [
-          "Noto"
-          "FiraCode"
-        ];
-      })
+      fira-code-nerdfont
     ];
 
     fonts.fontconfig.defaultFonts = {
       monospace = [
-        "NotoMono Nerd Font"
+        "Noto Sans Mono"
         "Noto Sans Mono CJK SC"
+        "FiraCode Nerd Font"
       ];
       sansSerif = [
-        "NotoSans Nerd Font"
+        "Noto Sans"
         "Noto Sans CJK SC"
+        "FiraCode Nerd Font"
       ];
       serif = [
-        "NotoSerif Nerd Font"
+        "Noto Serif"
         "Noto Serif CJK SC"
+        "FiraCode Nerd Font"
       ];
     };
 
