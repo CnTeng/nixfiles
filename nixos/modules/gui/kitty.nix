@@ -35,7 +35,7 @@ in
       programs.kitty = {
         enable = true;
         font.name = "FiraCode Nerd Font";
-        theme = "Adwaita dark";
+        themeFile = "adwaita_dark";
         settings =
           let
             mkTabTitle =
@@ -56,9 +56,8 @@ in
             listen_on = "unix:@mykitty";
           };
         keybindings = {
-          "ctrl+enter" = "launch --location=split";
-          "ctrl+q" = "close_window";
-          "ctrl+w>q" = "close_window";
+          "kitty_mod+enter" = "launch --location=split";
+          "kitty_mod+q" = "close_window";
 
           "ctrl+j" = "neighboring_window down";
           "ctrl+k" = "neighboring_window up";
@@ -103,8 +102,6 @@ in
           modify_font underline_position +3
           modify_font underline_thickness 150%
           modify_font cell_height 120%
-
-          map --when-focus-on var:IS_NVIM ctrl+q
 
           map --when-focus-on var:IS_NVIM ctrl+j
           map --when-focus-on var:IS_NVIM ctrl+k
