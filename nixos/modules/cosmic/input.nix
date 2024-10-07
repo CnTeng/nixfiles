@@ -24,7 +24,6 @@ in
       plasma6Support = true;
       addons = with pkgs; [
         qt6Packages.fcitx5-chinese-addons
-        fcitx5-pinyin-moegirl
         fcitx5-pinyin-zhwiki
       ];
     };
@@ -33,6 +32,7 @@ in
       users.${user}.directories = [
         ".config/fcitx"
         ".config/fcitx5"
+        ".local/share/fcitx5"
       ];
     };
   };
