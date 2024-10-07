@@ -54,7 +54,7 @@ in
       };
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       directories = [ "/etc/NetworkManager/system-connections" ];
       users.${user}.directories = [
         ".config/dconf"

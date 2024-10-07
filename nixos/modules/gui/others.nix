@@ -23,7 +23,7 @@ in
       ];
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".cache/calibre"
         ".config/calibre"

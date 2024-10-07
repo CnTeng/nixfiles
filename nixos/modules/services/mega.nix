@@ -28,7 +28,7 @@ in
       };
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [ ".megaCmd" ];
     };
   };

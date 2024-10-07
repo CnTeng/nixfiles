@@ -31,7 +31,7 @@ in
       };
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         "Archives"
         "Documents"
@@ -40,7 +40,5 @@ in
         "Projects"
       ];
     };
-
   };
-
 }

@@ -188,21 +188,6 @@
         "type": "github"
       }
     },
-    "impermanence": {
-      "locked": {
-        "lastModified": 1727649413,
-        "narHash": "sha256-FA53of86DjFdeQzRDVtvgWF9o52rWK70VHGx0Y8fElQ=",
-        "owner": "nix-community",
-        "repo": "impermanence",
-        "rev": "d0b38e550039a72aff896ee65b0918e975e6d48e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "impermanence",
-        "type": "github"
-      }
-    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -431,17 +416,32 @@
         "type": "github"
       }
     },
+    "preservation": {
+      "locked": {
+        "lastModified": 1725460242,
+        "narHash": "sha256-9n9Ygta1MCfpbF9D88tG2B4EL5nuSz4eIOAofGSlxoE=",
+        "owner": "WilliButz",
+        "repo": "preservation",
+        "rev": "02e731a820d05107bc648460f8630d0d80a5ffd4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WilliButz",
+        "repo": "preservation",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
         "nix-index-database": "nix-index-database",
         "nixos-cosmic": "nixos-cosmic",
         "nixpkgs": "nixpkgs_2",
         "pre-commit": "pre-commit",
+        "preservation": "preservation",
         "rx-nvim": "rx-nvim",
         "sops-nix": "sops-nix",
         "treefmt": "treefmt"

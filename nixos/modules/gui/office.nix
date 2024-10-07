@@ -24,7 +24,7 @@ in
       ];
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".config/Kingsoft"
         ".local/share/Kingsoft"

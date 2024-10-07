@@ -18,10 +18,9 @@ in
       };
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".config/google-chrome"
-        ".cache/chromium"
         ".cache/google-chrome"
       ];
     };

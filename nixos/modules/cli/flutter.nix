@@ -11,7 +11,7 @@ in
   options.cli'.flutter.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user} = {
         files = [ ".flutter" ];
         directories = [

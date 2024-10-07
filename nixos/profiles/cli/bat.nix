@@ -8,7 +8,7 @@
     };
   };
 
-  environment.persistence."/persist" = {
+  preservation.preserveAt."/persist" = {
     users.${user}.directories = [ ".cache/bat" ];
   };
 }
