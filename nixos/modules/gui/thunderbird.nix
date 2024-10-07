@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -12,10 +11,7 @@ in
   options.gui'.thunderbird.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    programs.thunderbird = {
-      enable = true;
-      package = pkgs.thunderbird-128;
-    };
+    programs.thunderbird.enable = true;
 
     environment.persistence."/persist" = {
       users.${user}.directories = [
