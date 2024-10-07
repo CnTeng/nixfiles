@@ -32,7 +32,7 @@ in
       };
     };
 
-    preservation.preserveAt."/persist" = {
+    environment.persistence."/persist" = {
       users.${user}.directories = [ ".config/kdeconnect" ];
     };
   };

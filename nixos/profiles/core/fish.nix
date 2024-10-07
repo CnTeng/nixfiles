@@ -16,7 +16,7 @@
     programs.fish.enable = true;
   };
 
-  preservation.preserveAt."/persist" = {
+  environment.persistence."/persist" = {
     users.${user}.directories = [ ".local/share/fish" ];
   };
 }

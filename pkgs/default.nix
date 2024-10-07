@@ -22,7 +22,10 @@
         pkgs = import inputs.nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ self.overlays.default ];
+          overlays = [
+            self.overlays.default
+            inputs.rx-nvim.overlays.default
+          ];
         };
         lib = inputs.nixpkgs.lib.extend self.overlays.lib;
       };

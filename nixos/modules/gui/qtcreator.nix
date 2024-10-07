@@ -16,14 +16,13 @@ in
       home.packages = [ pkgs.qtcreator ];
     };
 
-    preservation.preserveAt."/persist" = {
+    environment.persistence."/persist" = {
       users.${user} = {
         files = [ ".config/QtProject.conf" ];
         directories = [
           ".config/clangd"
-          ".cache/clangd"
-
           ".config/QtProject"
+          ".cache/clangd"
           ".cache/QtProject"
         ];
       };

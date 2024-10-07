@@ -27,7 +27,7 @@ in
     };
   };
 
-  preservation.preserveAt."/persist" = {
+  environment.persistence."/persist" = {
     users.${user}.directories = [ ".ssh" ];
   };
 }

@@ -11,7 +11,7 @@
     gnupg.sshKeyPaths = [ ];
   };
 
-  preservation.preserveAt."/persist" = {
+  environment.persistence."/persist" = {
     users.${user}.directories = [ ".config/sops" ];
   };
 }

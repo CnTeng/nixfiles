@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.thunderbird.enable = true;
 
-    preservation.preserveAt."/persist" = {
+    environment.persistence."/persist" = {
       users.${user}.directories = [
         ".thunderbird"
         ".cache/thunderbird"

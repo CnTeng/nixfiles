@@ -24,7 +24,7 @@ in
 
     programs.yubikey-touch-detector.enable = true;
 
-    preservation.preserveAt."/persist" = {
+    environment.persistence."/persist" = {
       users.${user}.directories = [
         ".config/Yubico"
         ".local/share/com.yubico.authenticator"

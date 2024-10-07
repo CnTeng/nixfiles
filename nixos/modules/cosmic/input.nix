@@ -28,7 +28,7 @@ in
       ];
     };
 
-    preservation.preserveAt."/persist" = {
+    environment.persistence."/persist" = {
       users.${user}.directories = [
         ".config/fcitx"
         ".config/fcitx5"

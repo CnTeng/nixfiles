@@ -12,7 +12,7 @@
     };
   };
 
-  preservation.preserveAt."/persist" = {
+  environment.persistence."/persist" = {
     users.${user}.directories = [ ".local/share/atuin" ];
   };
 }

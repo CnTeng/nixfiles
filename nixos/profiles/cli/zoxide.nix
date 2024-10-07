@@ -4,7 +4,7 @@
     programs.zoxide.enable = true;
   };
 
-  preservation.preserveAt."/persist" = {
+  environment.persistence."/persist" = {
     users.${user}.directories = [ ".local/share/zoxide" ];
   };
 }

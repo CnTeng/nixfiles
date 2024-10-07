@@ -59,7 +59,7 @@ in
       };
     };
 
-    preservation.preserveAt."/persist" = {
+    environment.persistence."/persist" = {
       users.${user}.directories = [
         ".mozilla"
         ".cache/mozilla"
