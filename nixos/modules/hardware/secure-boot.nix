@@ -23,6 +23,8 @@ in
       pkiBundle = "/etc/secureboot";
     };
 
-    environment.persistence."/persist".directories = [ "/etc/secureboot" ];
+    environment.persistence."/persist" = {
+      directories = [ "/etc/secureboot" ];
+    };
   };
 }

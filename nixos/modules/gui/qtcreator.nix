@@ -21,8 +21,9 @@ in
         files = [ ".config/QtProject.conf" ];
         directories = [
           ".config/clangd"
-          ".config/QtProject"
           ".cache/clangd"
+
+          ".config/QtProject"
           ".cache/QtProject"
         ];
       };
