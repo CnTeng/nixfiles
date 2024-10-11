@@ -1,5 +1,6 @@
-prev: _:
-prev.caddy.override {
+{ prev }:
+
+prev.override (prev: {
   buildGoModule =
     args:
     prev.buildGoModule (
@@ -9,4 +10,4 @@ prev.caddy.override {
         patches = [ ./caddy-with-plugins.diff ];
       }
     );
-}
+})

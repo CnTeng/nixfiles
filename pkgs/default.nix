@@ -1,19 +1,15 @@
 { inputs, self, ... }:
 {
-  flake.overlays = {
-    lib = import ./lib;
-
-    default =
-      final: prev:
-      let
-        sources = final.callPackage ./_sources/generated.nix { };
-
-        mkPackage = n: final.callPackage ./packages/${n} { source = sources.${n}; };
-        mkOverride = n: (import ./overrides/${n} prev sources.${n});
-        mkOverlay = f: dir: with builtins; mapAttrs (n: _: f n) (readDir dir);
-      in
-      (mkOverlay mkPackage ./packages) // (mkOverlay mkOverride ./overrides);
-  };
+  flake =
+    { lib, ... }:
+    {
+      overlays.default =
+        final: prev:
+        lib.packagesFromDirectoryRecursive {
+          callPackage = lib.callPackageWith (prev.pkgs // { prev = prev; });
+          directory = ./.;
+        };
+    };
 
   perSystem =
     { pkgs, system, ... }:
@@ -24,7 +20,6 @@
           config.allowUnfree = true;
           overlays = [ self.overlays.default ];
         };
-        lib = inputs.nixpkgs.lib.extend self.overlays.lib;
       };
 
       legacyPackages = pkgs;

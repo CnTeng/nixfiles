@@ -5,7 +5,6 @@
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           jq
-          nvfetcher
           sops
           age
           (opentofu.withPlugins (p: [

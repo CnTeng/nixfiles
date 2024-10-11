@@ -13,8 +13,6 @@
         taplo.enable = true;
         terraform.enable = true;
       };
-
-      settings.global.excludes = [ "pkgs/_sources/*" ];
     };
   };
 }

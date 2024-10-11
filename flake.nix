@@ -66,6 +66,7 @@
       imports = [
         ./flakes
         ./hosts
+        ./lib
         ./nixos
         ./pkgs
       ];
