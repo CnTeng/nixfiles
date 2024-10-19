@@ -14,7 +14,10 @@ in
     home-manager.users.${user} = {
       programs.google-chrome = {
         enable = true;
-        commandLineArgs = [ "--enable-wayland-ime" ];
+        commandLineArgs = [
+          "--enable-wayland-ime"
+          "--wayland-text-input-version=3"
+        ];
       };
     };
 
