@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       home.packages = with pkgs; [
-        calibre
+        # calibre
         foliate
         # element-desktop
         spotify
