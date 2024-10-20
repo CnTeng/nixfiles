@@ -24,6 +24,7 @@
     sioyek.enable = true;
     thunderbird.enable = true;
     yubikey.enable = true;
+    zed.enable = true;
   };
 
   services' = {

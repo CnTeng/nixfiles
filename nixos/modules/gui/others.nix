@@ -19,7 +19,6 @@ in
         # element-desktop
         spotify
         tdesktop
-        zed-editor
       ];
     };
 
@@ -38,9 +37,6 @@ in
 
         ".cache/TelegramDesktop"
         ".local/share/TelegramDesktop"
-
-        ".config/zed"
-        ".local/share/zed"
       ];
     };
   };
