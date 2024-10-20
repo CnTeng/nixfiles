@@ -99,8 +99,10 @@ in
               {
                 type = "tun";
                 interface_name = "tun0";
-                inet4_address = "172.19.0.1/30";
-                inet6_address = "fdfe:dcba:9876::1/126";
+                address = [
+                  "172.19.0.1/30"
+                  "fdfe:dcba:9876::1/126"
+                ];
                 auto_route = true;
                 strict_route = false;
               }
