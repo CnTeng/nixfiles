@@ -40,10 +40,7 @@ in
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
     ];
-    trusted-users = [
-      "root"
-      "@wheel"
-    ];
+    trusted-users = [ "@wheel" ];
     use-cgroups = true;
     use-xdg-base-directories = true;
   };
