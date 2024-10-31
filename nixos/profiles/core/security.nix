@@ -5,6 +5,7 @@
     mode = "0444";
   };
 
+  security.pam.rssh.enable = true;
   security.pam.u2f = {
     enable = true;
     settings = {
@@ -14,4 +15,6 @@
       cue = true;
     };
   };
+
+  security.pam.services.sudo.rssh = true;
 }
