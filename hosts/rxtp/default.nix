@@ -9,6 +9,7 @@
   cli' = {
     flutter.enable = true;
     go.enable = true;
+    podman.enable = true;
   };
 
   gui' = {
