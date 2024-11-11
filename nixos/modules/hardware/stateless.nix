@@ -23,10 +23,6 @@ in
 
       environment.systemPackages = [ pkgs.persist ];
 
-      systemd.suppressedSystemUnits = [
-        "systemd-machine-id-commit.service"
-      ];
-
       environment.persistence."/persist" = {
         enable = true;
         hideMounts = true;
