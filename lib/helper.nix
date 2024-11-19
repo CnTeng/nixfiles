@@ -65,4 +65,6 @@ rec {
       };
     in
     lib.mapAttrsToList mkBuildMachine hosts;
+
+  removeHashTag = hex: lib.removePrefix "#" hex;
 }

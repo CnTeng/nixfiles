@@ -14,6 +14,7 @@
         mkKnownHosts
         mkMatchBlocks
         mkBuildMachines
+        removeHashTag
         ;
 
       inherit (options) mkEnableOption';

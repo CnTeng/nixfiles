@@ -4,7 +4,13 @@
     ./hardware.nix
   ];
 
-  desktop'.cosmic.enable = true;
+  desktop' = {
+    niri.enable = true;
+    fonts.enable = true;
+    input.enable = true;
+    theme.enable = true;
+    xdg.enable = true;
+  };
 
   cli' = {
     flutter.enable = true;
