@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "ttf-wps-fonts";
-  version = "0-unstable-2024-06-10";
+  version = "0-unstable-2024-10-29";
 
   src = fetchFromGitHub {
-    owner = "ferion11";
+    owner = "dv-anomaly";
     repo = "ttf-wps-fonts";
-    rev = "f4131f029934a76ea90336c8ee4929c5c78588f4";
-    sha256 = "sha256-LB7/VHTB3tPOqXoq0kaCw7VmaE4ZRSbwDvzhxPMsz+k=";
+    rev = "8c980c24289cb08e03f72915970ce1bd6767e45a";
+    sha256 = "sha256-x+grMnpEGLkrGVud0XXE8Wh6KT5DoqE6OHR+TS6TagI=";
   };
 
   installPhase = ''
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Symbol fonts required by wps-office";
-    homepage = "https://github.com/ferion11/ttf-wps-fonts";
+    homepage = "https://github.com/dv-anomaly/ttf-wps-fonts";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ CnTeng ];
     platforms = lib.platforms.all;
