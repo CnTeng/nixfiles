@@ -32,14 +32,8 @@ in
       "nix-command"
     ];
 
-    substituters = [
-      "https://cache.garnix.io"
-      "https://cosmic.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-    ];
+    substituters = [ "https://cache.garnix.io" ];
+    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
     trusted-users = [ "@wheel" ];
     use-cgroups = true;
     use-xdg-base-directories = true;
