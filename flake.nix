@@ -47,8 +47,6 @@
       inputs.pre-commit.follows = "pre-commit";
     };
 
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
