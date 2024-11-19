@@ -14,15 +14,11 @@ let
   };
 in
 {
-  imports = [ ./waybar.nix ];
-
   options.desktop'.niri.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     services.xserver.enable = true;
     services.xserver.displayManager.gdm.enable = true;
-
-    niri.profiles.waybar.enable = true;
 
     programs.niri.enable = true;
 
@@ -66,6 +62,8 @@ in
     programs.file-roller.enable = true;
 
     home-manager.users.${user} = {
+      imports = [ ./waybar.nix ];
+
       services.blueman-applet.enable = true;
       services.network-manager-applet.enable = true;
 
@@ -167,6 +165,7 @@ in
       };
 
       systemd.user.services = {
+        waybar.Unit.After = [ "graphical-session.target" ];
         blueman-applet.Unit.After = [ "graphical-session.target" ];
         network-manager-applet.Unit.After = [ "graphical-session.target" ];
         udiskie.Unit.After = [ "graphical-session.target" ];
