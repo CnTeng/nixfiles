@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   hardware' = {
     secure-boot.enable = true;
@@ -7,7 +7,6 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [ "thunderbolt" ];
     initrd.availableKernelModules = [ "usb_storage" ];
     kernelModules = [
@@ -27,6 +26,7 @@
   hardware.enableRedistributableFirmware = true;
 
   hardware.amdgpu.initrd.enable = true;
+  hardware.amdgpu.amdvlk.enable = true;
 
   services.fwupd.enable = true;
 }
