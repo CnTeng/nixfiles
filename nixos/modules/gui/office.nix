@@ -17,7 +17,7 @@ in
     home-manager.users.${user} = {
       home.packages = with pkgs; [
         wpsoffice-cn
-        libreoffice-fresh
+        # libreoffice-fresh
       ];
     };
 
