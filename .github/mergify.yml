@@ -1,10 +1,8 @@
-defaults:
-  actions:
-    queue:
-      method: rebase
-
 queue_rules:
   - name: default
+    queue_conditions:
+      - base=main
+      - label~=merge-queue|dependencies
     merge_conditions:
       - check-success=Evaluate flake.nix
       - check-success=nixosConfig rxtp
@@ -12,12 +10,10 @@ queue_rules:
       - check-success=nixosConfig lssg
       - check-success=devShell default [x86_64-linux]
       - check-success=devShell default [aarch64-linux]
+    merge_method: rebase
 
 pull_request_rules:
-  - name: merge using the merge queue
-    conditions:
-      - base=main
-      - label~=merge-queue|dependencies
+  - name: refactored queue action rule
+    conditions: []
     actions:
       queue:
-        method: rebase
