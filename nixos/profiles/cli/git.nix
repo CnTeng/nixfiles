@@ -39,14 +39,25 @@ in
       };
     };
 
-    programs.ssh.matchBlocks."github.com" = {
-      hostname = "ssh.github.com";
-      port = 443;
-      user = "git";
-      identityFile = [
-        "~/.ssh/id_ed25519_sk_rk_ybk5@git"
-        "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
-      ];
+    programs.ssh = {
+      matchBlocks."github.com" = {
+        hostname = "ssh.github.com";
+        port = 443;
+        user = "git";
+        identityFile = [
+          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
+          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
+        ];
+      };
+
+      matchBlocks."codeberg" = {
+        hostname = "codeberg.org";
+        user = "git";
+        identityFile = [
+          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
+          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
+        ];
+      };
     };
   };
 
