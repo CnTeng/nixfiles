@@ -15,7 +15,7 @@ in
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      fira-code-nerdfont
+      nerd-fonts.fira-code
     ];
 
     fonts.fontconfig.defaultFonts = {

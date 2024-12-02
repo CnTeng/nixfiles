@@ -26,7 +26,7 @@ let
             networking.hostName = host;
             nixpkgs.hostPlatform = system;
 
-            system.stateVersion = "24.05";
+            system.stateVersion = "24.11";
           }
           self.nixosModules.default
           ./${host}

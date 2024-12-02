@@ -13,6 +13,7 @@
     ldap.enable = true;
     miniflux.enable = true;
     ntfy.enable = true;
+    postgresql.enable = true;
     restic.enable = true;
     tuic.server.enable = true;
     vaultwarden.enable = true;

@@ -2,6 +2,7 @@
   config,
   data,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -51,4 +52,6 @@ in
   };
 
   sops.secrets = machineSecrets;
+
+  environment.systemPackages = [ pkgs.nixos-rebuild-ng ];
 }
