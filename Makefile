@@ -1,8 +1,7 @@
-HOSTNAME = $(shell hostname)
-
-REBUILD := nixos-rebuild
-MODE := switch
-FLAGS = $(MODE) --flake .\#
+HOSTNAME     = $(shell hostname)
+REBUILD     := nixos-rebuild
+MODE        := switch
+FLAGS        = $(MODE) --flake .\#
 REMOTE_FLAGS = $(FLAGS)$@ --fast --target-host root@$@
 
 all: local
