@@ -26,7 +26,6 @@
   hardware.enableRedistributableFirmware = true;
 
   hardware.amdgpu.initrd.enable = true;
-  hardware.amdgpu.amdvlk.enable = true;
 
   services.fwupd.enable = true;
 }
