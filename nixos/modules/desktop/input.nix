@@ -21,11 +21,11 @@ in
     };
 
     i18n.inputMethod.fcitx5 = {
-      plasma6Support = true;
       addons = with pkgs; [
-        qt6Packages.fcitx5-chinese-addons
+        kdePackages.fcitx5-chinese-addons
         fcitx5-pinyin-zhwiki
       ];
+      plasma6Support = true;
     };
 
     environment.persistence."/persist" = {

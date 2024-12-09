@@ -9,19 +9,35 @@ let
   cfg = config.desktop'.niri;
   palette = import ./palette.nix;
   wallpaper = pkgs.fetchurl {
-    url = "https://w.wallhaven.cc/full/l8/wallhaven-l8dgv2.jpg";
-    sha256 = "sha256-dHTiXhzyju9yPVCixe7VMOG9T9FyQG/Hm79zhe0P4wk=";
+    url = "https://w.wallhaven.cc/full/5g/wallhaven-5gx2q5.png";
+    sha256 = "sha256-2gpyEJ9GkTCnVMYbreKXB6QJTVvKc2Up8LHoPCHJ9Os=";
   };
 in
 {
   options.desktop'.niri.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    services.xserver.enable = true;
-    services.xserver.displayManager.gdm.enable = true;
+    users.users.${user}.extraGroups = [
+      "networkmanager"
+      "video"
+    ];
 
+    services.xserver.displayManager.gdm.enable = true;
     programs.niri.enable = true;
 
+    networking.networkmanager.enable = true;
+    programs.nm-applet.enable = true;
+
+    hardware.bluetooth.enable = true;
+    services.blueman.enable = true;
+
+    services.dbus.implementation = "broker";
+    services.gvfs.enable = true;
+    services.gnome.at-spi2-core.enable = true;
+
+    security.pam.services.gtklock = { };
+
+    programs.file-roller.enable = true;
     environment.systemPackages = with pkgs; [
       nautilus
       wl-clipboard
@@ -43,54 +59,41 @@ in
       };
     };
 
-    hardware.brillo.enable = true;
-    hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
-    networking.networkmanager.enable = true;
-
-    users.users.${user}.extraGroups = [
-      "networkmanager"
-      "video"
-    ];
-
-    services.dbus.implementation = "broker";
-    services.gvfs.enable = true;
-    services.gnome.at-spi2-core.enable = true;
-
-    security.pam.services.gtklock = { };
-
-    programs.file-roller.enable = true;
-
     home-manager.users.${user} = {
-      imports = [ ./waybar.nix ];
+      imports = [
+        (import ./niri.nix { inherit palette; })
+        (import ./waybar.nix { inherit palette; })
+      ];
 
       services.blueman-applet.enable = true;
-      services.network-manager-applet.enable = true;
-
-      services.udiskie.enable = true;
       services.playerctld.enable = true;
-      services.swayosd.enable = true;
-
-      xsession.preferStatusNotifierItems = true;
 
       programs.fuzzel = {
         enable = true;
         settings = {
           main = {
             font = "Noto Sans Mono:size=13";
+            dpi-aware = "no";
             icon-theme = "Papirus-Dark";
             anchor = "top";
+            y-margin = 8;
             lines = 5;
             width = 50;
+            horizontal-pad = 24;
           };
           colors = {
-            background = lib.removeHashTag palette.dark_0 + "e6";
-            text = lib.removeHashTag palette.light_1 + "ff";
-            match = lib.removeHashTag palette.blue_1 + "ff";
-            selection = lib.removeHashTag palette.dark_1 + "ff";
-            selection-text = lib.removeHashTag palette.light_1 + "ff";
-            selection-match = lib.removeHashTag palette.blue_1 + "ff";
-            border = lib.removeHashTag palette.light_1 + "e6";
+            background = lib.removeHashTag palette.dialog_bg_color + "ff";
+            text = lib.removeHashTag palette.dialog_fg_color + "ff";
+            prompt = lib.removeHashTag palette.dialog_fg_color + "ff";
+            input = lib.removeHashTag palette.dialog_fg_color + "ff";
+            match = lib.removeHashTag palette.accent_color + "ff";
+            selection = lib.removeHashTag palette.selected_bg_color + "ff";
+            selection-text = lib.removeHashTag palette.selected_fg_color + "ff";
+            selection-match = lib.removeHashTag palette.accent_color + "ff";
+          };
+          border = {
+            width = 0;
+            radius = 16;
           };
         };
       };
@@ -99,41 +102,98 @@ in
         enable = true;
         settings = {
           main = {
-            title-font = "Noto Sans Mono:size=12";
-            summary-font = "Noto Sans Mono:size=12";
-            dpi-aware = true;
-            border-radius = 10;
             min-width = 500;
             max-width = 500;
-            max-icon-size = 128;
+            max-height = 200;
+            edge-margin-vertical = 8;
+            edge-margin-horizontal = 8;
+            icon-theme = "Papirus-Dark";
+            max-icon-size = 96;
+
+            background = lib.removeHashTag palette.dialog_bg_color + "ff";
+            border-radius = 16;
+            border-size = 0;
+
+            title-font = "Noto Sans Mono:size=10";
+            title-format = "<b>%a%A</b>";
+            summary-font = "Noto Sans Mono:size=10";
+            summary-format = "%s\n";
+            body-font = "Noto Sans Mono:size=10";
+
+            max-timeout = 15;
             default-timeout = 15;
+            idle-timeout = 15;
+          };
+          low = {
+            background = lib.removeHashTag palette.dialog_bg_color + "ff";
+            title-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+            summary-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+            body-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+          };
+          critical = {
+            background = lib.removeHashTag palette.error_bg_color + "ff";
           };
         };
       };
 
-      services.swayidle = {
-        enable = true;
-        timeouts = [
-          {
-            timeout = 240;
-            command = (lib.getExe' pkgs.systemd "loginctl") + " lock-session";
-          }
-          {
-            timeout = 300;
-            command = (lib.getExe' pkgs.systemd "systemctl") + " suspend";
-          }
-        ];
-        events = [
-          {
-            event = "lock";
-            command = lib.getExe pkgs.playerctl + " pause";
-          }
-          {
-            event = "lock";
-            command = lib.getExe pkgs.gtklock + " -d -S";
-          }
-        ];
+      systemd.user.services.gtklock = {
+        Unit = {
+          ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+        };
+        Service = {
+          Type = "forking";
+          ExecStartPre = "${lib.getExe config.programs.niri.package} msg action do-screen-transition --delay-ms 1000";
+          ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
+        };
       };
+
+      xdg.configFile."gtklock/config.ini".source = (pkgs.formats.ini { }).generate "config.ini" {
+        main = {
+          modules = lib.concatStringsSep ";" [
+            "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
+            "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
+          ];
+          background = wallpaper;
+          follow-focus = true;
+          start-hidden = true;
+        };
+        powerbar.show-labels = true;
+      };
+
+      services.swayidle =
+        let
+          systemctl = lib.getExe' config.systemd.package "systemctl";
+          loginctl = lib.getExe' config.systemd.package "loginctl";
+        in
+        {
+          enable = true;
+          timeouts = [
+            {
+              timeout = 600;
+              command = "${loginctl} lock-session";
+            }
+            {
+              timeout = 900;
+              command = "${systemctl} suspend";
+            }
+          ];
+          events = [
+            {
+              event = "lock";
+              command = "${systemctl} --user start gtklock";
+            }
+            {
+              event = "unlock";
+              command = "${systemctl} --user stop gtklock";
+            }
+            {
+              event = "before-sleep";
+              command = "${systemctl} --user start gtklock";
+            }
+          ];
+        };
 
       systemd.user.services.xwayland-satellite = {
         Unit = {
@@ -144,16 +204,13 @@ in
         Service = {
           Type = "notify";
           NotifyAccess = "all";
-          ExecStart = lib.getExe pkgs.xwayland-satellite + " :1";
+          ExecStart = "${lib.getExe pkgs.xwayland-satellite} :1";
           StandardOutput = "journal";
         };
         Install.WantedBy = [ "graphical-session.target" ];
       };
 
       systemd.user.services.swaybg = {
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
         Unit = {
           PartOf = [ "graphical-session.target" ];
           After = [ "graphical-session.target" ];
@@ -162,14 +219,12 @@ in
           ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper} -m fill";
           Restart = "on-failure";
         };
+        Install.WantedBy = [ "graphical-session.target" ];
       };
 
       systemd.user.services = {
         waybar.Unit.After = [ "graphical-session.target" ];
         blueman-applet.Unit.After = [ "graphical-session.target" ];
-        network-manager-applet.Unit.After = [ "graphical-session.target" ];
-        udiskie.Unit.After = [ "graphical-session.target" ];
-        swayidle.Unit.After = [ "graphical-session.target" ];
         fnott.Unit.After = [ "graphical-session.target" ];
       };
 
@@ -179,8 +234,6 @@ in
           Requires = [ "graphical-session.target" ];
         };
       };
-
-      xdg.configFile."niri/config.kdl".source = ./niri.kdl;
     };
   };
 }

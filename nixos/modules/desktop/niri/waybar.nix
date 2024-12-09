@@ -1,11 +1,5 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-let
-  palette = import ./palette.nix;
-in
+{ palette }:
+{ lib, pkgs, ... }:
 {
   programs.waybar = {
     enable = true;
@@ -16,40 +10,27 @@ in
         position = "top";
         modules-left = [
           "niri/workspaces"
+          "wlr/taskbar"
         ];
         modules-center = [ "clock" ];
         modules-right = [
           "tray"
-          "mpris"
           "idle_inhibitor"
-          "backlight"
           "memory"
+          "backlight"
           "pulseaudio"
           "battery"
         ];
 
         "niri/workspaces" = { };
+        "wlr/taskbar" = {
+          icon-size = 15;
+          on-click = "activate";
+          on-click-middle = "close";
+        };
         tray = {
           icon-size = 15;
           spacing = 10;
-        };
-        mpris = {
-          format = "{player_icon} {status_icon}{title}";
-          title-len = 10;
-          player-icons = {
-            firefox = " ";
-            spotify = " ";
-            chromium = " ";
-          };
-          status-icons = {
-            playing = " ";
-            paused = " ";
-            stopped = " ";
-          };
-          tooltip-format = ''
-            {title}
-            {artist}  {album}
-            {position} {length}'';
         };
 
         idle_inhibitor = {
@@ -60,22 +41,22 @@ in
           };
         };
 
+        memory = {
+          format = " {percentage}%";
+          on-click = lib.getExe pkgs.resources;
+        };
+
         backlight = {
           format = "{icon}{percent}%";
           format-icons = " ";
-          on-scroll-up = "${lib.getExe pkgs.brillo} -u 300000 -A 5";
-          on-scroll-down = "${lib.getExe pkgs.brillo} -u 300000 -U 5";
-        };
-
-        memory = {
-          format = " {percentage}%";
-          on-click = "${lib.getExe pkgs.kitty} -e btop";
+          on-scroll-up = "${lib.getExe pkgs.brightnessctl} set +1%";
+          on-scroll-down = "${lib.getExe pkgs.brightnessctl} set 1%-";
         };
 
         pulseaudio = {
           format = "{icon}{volume}%";
-          format-bluetooth = "󰂰 {volume}%";
-          format-muted = " ";
+          format-bluetooth = " {volume}%";
+          format-muted = " -%";
           format-source = " {volume}%";
           format-source-muted = " ";
           format-icons = {
@@ -84,16 +65,12 @@ in
               " "
               " "
             ];
-            headphone = "󰋋 ";
-            hdmi = " ";
-            headset = "󰋎 ";
-            hands-free = "󰋎 ";
-            portable = " ";
-            phone = " ";
-            car = " ";
+            headphone = " ";
+            headset = " ";
+            hands-free = " ";
           };
-          on-click = "${lib.getExe pkgs.pamixer} -t";
-          on-click-right = lib.getExe pkgs.pavucontrol;
+          on-click = "${lib.getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-right = lib.getExe pkgs.pwvucontrol;
           tooltip-format = "{icon}{desc} {volume}%";
         };
 
@@ -117,28 +94,19 @@ in
         };
 
         clock = {
-          format = " {:%b %d %R}";
-          format-alt = " {:%A %B %d %Y}";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
-          calendar = {
-            mode-mon-col = 3;
-            weeks-pos = "right";
-            on-scroll = 1;
-            format = {
-              months = "<span color='${palette.red_1}'><b>{}</b></span>";
-              days = "<span color='${palette.light_1}'><b>{}</b></span>";
-              weeks = "<span color='${palette.blue_1}'><b>W{}</b></span>";
-              weekdays = "<span color='${palette.yellow_1}'><b>{}</b></span>";
-              today = "<span color='${palette.red_1}'><b><u>{}</u></b></span>";
-            };
+          format = "{:%a %b %d %R}";
+          calendar.format = {
+            months = "<span color='${palette.error_color}'>{}</span>";
+            days = "<span color='${palette.accent_fg_color}'>{}</span>";
+            weeks = "<span color='${palette.success_color}'>W{}</span>";
+            weekdays = "<span color='${palette.warning_color}'>{}</span>";
+            today = "<span color='${palette.accent_color}'><u>{}</u></span>";
           };
           actions = {
-            on-click-right = "mode";
             on-scroll-up = "shift_up";
             on-scroll-down = "shift_down";
           };
+          tooltip-format = "{calendar}";
         };
       }
     ];
@@ -148,7 +116,14 @@ in
         font-weight: bold;
         font-size: 14px;
       }
+
+      window#waybar {
+        background: alpha(@theme_base_color, 0.9);
+        color: @theme_text_color;
+      }
+
       #workspaces,
+      #taskbar button,
       #mode,
       #clock,
       #tray,
@@ -161,21 +136,23 @@ in
       #battery {
         padding: 0 6px;
       }
+
       #workspaces button {
         padding: 3px 6px;
       }
       #workspaces button.focused,
       #workspaces button.active {
-        color: ${palette.blue_1};
+        color: ${palette.accent_color};
       }
+
       #battery.warning {
-        color: @warning_color;
+        color: ${palette.warning_color};
       }
       #battery.critical {
-        color: @error_color;
+        color: ${palette.error_color};
       }
       #battery.charging {
-        color: @success_color;
+        color: ${palette.success_color};
       }
     '';
   };
