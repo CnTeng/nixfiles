@@ -16,7 +16,6 @@ in
       home.packages = with pkgs; [
         calibre
         foliate
-        element-desktop
         spotify
         tdesktop
       ];
@@ -29,8 +28,6 @@ in
 
         ".cache/com.github.johnfactotum.Foliate"
         ".local/share/com.github.johnfactotum.Foliate"
-
-        ".config/Element"
 
         ".cache/spotify"
         ".config/spotify"

@@ -15,10 +15,7 @@ in
     fonts.packages = [ pkgs.ttf-wps-fonts ];
 
     home-manager.users.${user} = {
-      home.packages = with pkgs; [
-        wpsoffice-cn
-        # libreoffice-fresh
-      ];
+      home.packages = [ pkgs.wpsoffice-cn ];
     };
 
     environment.persistence."/persist" = {
