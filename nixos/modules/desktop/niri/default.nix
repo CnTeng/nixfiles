@@ -151,6 +151,7 @@ in
             Type = "forking";
             ExecStartPre = "${lib.getExe pkgs.niri} msg action do-screen-transition --delay-ms 1000";
             ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
+            ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 3";
           };
         };
 
@@ -227,13 +228,12 @@ in
           network-manager-applet.Unit.After = [ "graphical-session.target" ];
           blueman-applet.Unit.After = [ "graphical-session.target" ];
           fnott.Unit.After = [ "graphical-session.target" ];
+          swayidle.Unit.After = [ "graphical-session.target" ];
         };
 
-        systemd.user.targets.tray = {
-          Unit = {
-            Description = "Home Manager System Tray";
-            Requires = [ "graphical-session.target" ];
-          };
+        systemd.user.targets.tray.Unit = {
+          Description = "Home Manager System Tray";
+          Requires = [ "graphical-session.target" ];
         };
       };
   };
