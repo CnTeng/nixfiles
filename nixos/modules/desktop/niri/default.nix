@@ -17,16 +17,14 @@ in
   options.desktop'.niri.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    users.users.${user}.extraGroups = [
-      "networkmanager"
-      "video"
-    ];
-
     services.xserver.displayManager.gdm.enable = true;
     programs.niri.enable = true;
 
     networking.networkmanager.enable = true;
-    programs.nm-applet.enable = true;
+    users.users.${user}.extraGroups = [
+      "networkmanager"
+      "video"
+    ];
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
@@ -65,6 +63,8 @@ in
         (import ./waybar.nix { inherit palette; })
       ];
 
+      xsession.preferStatusNotifierItems = true;
+      services.network-manager-applet.enable = true;
       services.blueman-applet.enable = true;
       services.playerctld.enable = true;
 
@@ -224,6 +224,7 @@ in
 
       systemd.user.services = {
         waybar.Unit.After = [ "graphical-session.target" ];
+        network-manager-applet.Unit.After = [ "graphical-session.target" ];
         blueman-applet.Unit.After = [ "graphical-session.target" ];
         fnott.Unit.After = [ "graphical-session.target" ];
       };
