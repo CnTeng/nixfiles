@@ -8,6 +8,10 @@
 let
   cfg = config.desktop'.niri;
   palette = import ./palette.nix;
+
+  systemctl = lib.getExe' config.systemd.package "systemctl";
+  loginctl = lib.getExe' config.systemd.package "loginctl";
+
   wallpaper = pkgs.fetchurl {
     url = "https://w.wallhaven.cc/full/5g/wallhaven-5gx2q5.png";
     sha256 = "sha256-2gpyEJ9GkTCnVMYbreKXB6QJTVvKc2Up8LHoPCHJ9Os=";
@@ -47,127 +51,123 @@ in
 
     environment.persistence."/persist" = {
       directories = [ "/etc/NetworkManager/system-connections" ];
-      users.${user} = {
-        files = [ ".cache/fuzzel" ];
-        directories = [
-          ".config/dconf"
-          ".local/share/keyrings"
-          ".local/state/wireplumber"
-        ];
-      };
+      users.${user}.directories = [
+        ".cache/fuzzel"
+        ".config/dconf"
+        ".local/share/keyrings"
+        ".local/state/wireplumber"
+      ];
     };
 
-    home-manager.users.${user} = {
-      imports = [
-        (import ./niri.nix { inherit palette; })
-        (import ./waybar.nix { inherit palette; })
-      ];
+    home-manager.users.${user} =
+      { config, ... }:
+      {
+        imports = [
+          (import ./niri.nix { inherit palette; })
+          (import ./waybar.nix { inherit palette; })
+        ];
 
-      xsession.preferStatusNotifierItems = true;
-      services.network-manager-applet.enable = true;
-      services.blueman-applet.enable = true;
-      services.playerctld.enable = true;
+        xsession.preferStatusNotifierItems = true;
+        services.network-manager-applet.enable = true;
+        services.blueman-applet.enable = true;
+        services.playerctld.enable = true;
 
-      programs.fuzzel = {
-        enable = true;
-        settings = {
+        programs.fuzzel = {
+          enable = true;
+          settings = {
+            main = {
+              font = "Noto Sans Mono:size=13";
+              dpi-aware = "no";
+              icon-theme = "Papirus-Dark";
+              anchor = "top";
+              y-margin = 8;
+              lines = 5;
+              width = 50;
+              horizontal-pad = 24;
+              cache = "${config.xdg.cacheHome}/fuzzel/cache";
+            };
+            colors = {
+              background = lib.removeHashTag palette.dialog_bg_color + "ff";
+              text = lib.removeHashTag palette.dialog_fg_color + "ff";
+              prompt = lib.removeHashTag palette.dialog_fg_color + "ff";
+              input = lib.removeHashTag palette.dialog_fg_color + "ff";
+              match = lib.removeHashTag palette.accent_color + "ff";
+              selection = lib.removeHashTag palette.selected_bg_color + "ff";
+              selection-text = lib.removeHashTag palette.selected_fg_color + "ff";
+              selection-match = lib.removeHashTag palette.accent_color + "ff";
+            };
+            border = {
+              width = 0;
+              radius = 16;
+            };
+          };
+        };
+
+        services.fnott = {
+          enable = true;
+          settings = {
+            main = {
+              min-width = 500;
+              max-width = 500;
+              max-height = 200;
+              edge-margin-vertical = 8;
+              edge-margin-horizontal = 8;
+              icon-theme = "Papirus-Dark";
+              max-icon-size = 96;
+
+              background = lib.removeHashTag palette.dialog_bg_color + "ff";
+              border-radius = 16;
+              border-size = 0;
+
+              title-font = "Noto Sans Mono:size=10";
+              title-format = "<b>%a%A</b>";
+              summary-font = "Noto Sans Mono:size=10";
+              summary-format = "%s\n";
+              body-font = "Noto Sans Mono:size=10";
+
+              max-timeout = 15;
+              default-timeout = 15;
+              idle-timeout = 15;
+            };
+            low = {
+              background = lib.removeHashTag palette.dialog_bg_color + "ff";
+              title-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+              summary-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+              body-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+            };
+            critical = {
+              background = lib.removeHashTag palette.error_bg_color + "ff";
+            };
+          };
+        };
+
+        systemd.user.services.gtklock = {
+          Unit = {
+            ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+            PartOf = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
+          };
+          Service = {
+            Type = "forking";
+            ExecStartPre = "${lib.getExe pkgs.niri} msg action do-screen-transition --delay-ms 1000";
+            ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
+          };
+        };
+
+        xdg.configFile."gtklock/config.ini".source = (pkgs.formats.ini { }).generate "config.ini" {
           main = {
-            font = "Noto Sans Mono:size=13";
-            dpi-aware = "no";
-            icon-theme = "Papirus-Dark";
-            anchor = "top";
-            y-margin = 8;
-            lines = 5;
-            width = 50;
-            horizontal-pad = 24;
+            modules = lib.concatStringsSep ";" [
+              "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
+              "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
+            ];
+            background = wallpaper;
+            follow-focus = true;
+            start-hidden = true;
           };
-          colors = {
-            background = lib.removeHashTag palette.dialog_bg_color + "ff";
-            text = lib.removeHashTag palette.dialog_fg_color + "ff";
-            prompt = lib.removeHashTag palette.dialog_fg_color + "ff";
-            input = lib.removeHashTag palette.dialog_fg_color + "ff";
-            match = lib.removeHashTag palette.accent_color + "ff";
-            selection = lib.removeHashTag palette.selected_bg_color + "ff";
-            selection-text = lib.removeHashTag palette.selected_fg_color + "ff";
-            selection-match = lib.removeHashTag palette.accent_color + "ff";
-          };
-          border = {
-            width = 0;
-            radius = 16;
-          };
+          powerbar.show-labels = true;
         };
-      };
 
-      services.fnott = {
-        enable = true;
-        settings = {
-          main = {
-            min-width = 500;
-            max-width = 500;
-            max-height = 200;
-            edge-margin-vertical = 8;
-            edge-margin-horizontal = 8;
-            icon-theme = "Papirus-Dark";
-            max-icon-size = 96;
-
-            background = lib.removeHashTag palette.dialog_bg_color + "ff";
-            border-radius = 16;
-            border-size = 0;
-
-            title-font = "Noto Sans Mono:size=10";
-            title-format = "<b>%a%A</b>";
-            summary-font = "Noto Sans Mono:size=10";
-            summary-format = "%s\n";
-            body-font = "Noto Sans Mono:size=10";
-
-            max-timeout = 15;
-            default-timeout = 15;
-            idle-timeout = 15;
-          };
-          low = {
-            background = lib.removeHashTag palette.dialog_bg_color + "ff";
-            title-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-            summary-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-            body-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-          };
-          critical = {
-            background = lib.removeHashTag palette.error_bg_color + "ff";
-          };
-        };
-      };
-
-      systemd.user.services.gtklock = {
-        Unit = {
-          ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-        };
-        Service = {
-          Type = "forking";
-          ExecStartPre = "${lib.getExe config.programs.niri.package} msg action do-screen-transition --delay-ms 1000";
-          ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
-        };
-      };
-
-      xdg.configFile."gtklock/config.ini".source = (pkgs.formats.ini { }).generate "config.ini" {
-        main = {
-          modules = lib.concatStringsSep ";" [
-            "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
-            "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
-          ];
-          background = wallpaper;
-          follow-focus = true;
-          start-hidden = true;
-        };
-        powerbar.show-labels = true;
-      };
-
-      services.swayidle =
-        let
-          systemctl = lib.getExe' config.systemd.package "systemctl";
-          loginctl = lib.getExe' config.systemd.package "loginctl";
-        in
-        {
+        services.swayidle = {
           enable = true;
           timeouts = [
             {
@@ -195,46 +195,46 @@ in
           ];
         };
 
-      systemd.user.services.xwayland-satellite = {
-        Unit = {
-          Description = "Xwayland outside your Wayland";
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
+        systemd.user.services.xwayland-satellite = {
+          Unit = {
+            Description = "Xwayland outside your Wayland";
+            PartOf = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
+          };
+          Service = {
+            Type = "notify";
+            NotifyAccess = "all";
+            ExecStart = "${lib.getExe pkgs.xwayland-satellite} :1";
+            StandardOutput = "journal";
+          };
+          Install.WantedBy = [ "graphical-session.target" ];
         };
-        Service = {
-          Type = "notify";
-          NotifyAccess = "all";
-          ExecStart = "${lib.getExe pkgs.xwayland-satellite} :1";
-          StandardOutput = "journal";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
 
-      systemd.user.services.swaybg = {
-        Unit = {
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
+        systemd.user.services.swaybg = {
+          Unit = {
+            PartOf = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
+          };
+          Service = {
+            ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper} -m fill";
+            Restart = "on-failure";
+          };
+          Install.WantedBy = [ "graphical-session.target" ];
         };
-        Service = {
-          ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper} -m fill";
-          Restart = "on-failure";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
 
-      systemd.user.services = {
-        waybar.Unit.After = [ "graphical-session.target" ];
-        network-manager-applet.Unit.After = [ "graphical-session.target" ];
-        blueman-applet.Unit.After = [ "graphical-session.target" ];
-        fnott.Unit.After = [ "graphical-session.target" ];
-      };
+        systemd.user.services = {
+          waybar.Unit.After = [ "graphical-session.target" ];
+          network-manager-applet.Unit.After = [ "graphical-session.target" ];
+          blueman-applet.Unit.After = [ "graphical-session.target" ];
+          fnott.Unit.After = [ "graphical-session.target" ];
+        };
 
-      systemd.user.targets.tray = {
-        Unit = {
-          Description = "Home Manager System Tray";
-          Requires = [ "graphical-session.target" ];
+        systemd.user.targets.tray = {
+          Unit = {
+            Description = "Home Manager System Tray";
+            Requires = [ "graphical-session.target" ];
+          };
         };
       };
-    };
   };
 }
