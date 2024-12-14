@@ -1,4 +1,3 @@
-{ config, ... }:
 {
   hardware' = {
     secure-boot.enable = true;
@@ -9,12 +8,8 @@
   boot = {
     initrd.kernelModules = [ "thunderbolt" ];
     initrd.availableKernelModules = [ "usb_storage" ];
-    kernelModules = [
-      "kvm-amd"
-      "acpi_call"
-    ];
+    kernelModules = [ "kvm-amd" ];
     kernelParams = [ "amd_pstate=active" ];
-    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   };
 
   boot.initrd.systemd.enable = true;
