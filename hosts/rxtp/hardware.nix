@@ -23,4 +23,5 @@
   hardware.amdgpu.initrd.enable = true;
 
   services.fwupd.enable = true;
+  services.tlp.enable = true;
 }
