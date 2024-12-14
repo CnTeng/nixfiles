@@ -21,17 +21,7 @@ in
   options.desktop'.niri.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    services.greetd = {
-      enable = true;
-      settings.default_session.command = lib.concatStringsSep " " [
-        (lib.getExe pkgs.greetd.tuigreet)
-        "--time"
-        "--user-menu"
-        "--asterisks"
-        "--cmd niri-session"
-      ];
-    };
-
+    services.xserver.displayManager.gdm.enable = true;
     programs.niri.enable = true;
 
     users.users.${user}.extraGroups = [
