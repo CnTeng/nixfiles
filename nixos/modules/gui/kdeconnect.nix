@@ -30,6 +30,11 @@ in
         enable = true;
         indicator = true;
       };
+
+      systemd.user.services = {
+        kdeconnect.Unit.After = [ "graphical-session.target" ];
+        kdeconnect-indicator.Unit.After = [ "graphical-session.target" ];
+      };
     };
 
     environment.persistence."/persist" = {
