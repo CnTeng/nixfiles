@@ -157,10 +157,7 @@ in
 
         xdg.configFile."gtklock/config.ini".source = (pkgs.formats.ini { }).generate "config.ini" {
           main = {
-            modules = lib.concatStringsSep ";" [
-              "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
-              "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
-            ];
+            modules = "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so";
             background = wallpaper;
             follow-focus = true;
             start-hidden = true;
