@@ -16,13 +16,13 @@
     programs.fd.enable = true;
 
     home.packages = with pkgs; [
-      wget
-      tree
+      gdu
       lrzsz
       scc
+      tree
       unrar
       unzipNLS
-      gdu
+      wget
     ];
   };
 }
