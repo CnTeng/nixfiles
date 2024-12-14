@@ -24,11 +24,14 @@ in
     services.xserver.displayManager.gdm.enable = true;
     programs.niri.enable = true;
 
-    networking.networkmanager.enable = true;
     users.users.${user}.extraGroups = [
       "networkmanager"
       "video"
     ];
+
+    networking.networkmanager.enable = true;
+    programs.nm-applet.enable = true;
+    systemd.user.services.nm-applet.after = [ "graphical-session.target" ];
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
@@ -36,6 +39,7 @@ in
     services.dbus.implementation = "broker";
     services.gvfs.enable = true;
     services.gnome.at-spi2-core.enable = true;
+    services.playerctld.enable = true;
 
     security.pam.services.gtklock = { };
 
@@ -66,11 +70,6 @@ in
           (import ./niri.nix { inherit palette; })
           (import ./waybar.nix { inherit palette; })
         ];
-
-        xsession.preferStatusNotifierItems = true;
-        services.network-manager-applet.enable = true;
-        services.blueman-applet.enable = true;
-        services.playerctld.enable = true;
 
         programs.fuzzel = {
           enable = true;
@@ -210,6 +209,7 @@ in
 
         systemd.user.services.swaybg = {
           Unit = {
+            Description = "Wallpaper tool for Wayland compositors";
             PartOf = [ "graphical-session.target" ];
             After = [ "graphical-session.target" ];
           };
@@ -222,8 +222,6 @@ in
 
         systemd.user.services = {
           waybar.Unit.After = [ "graphical-session.target" ];
-          network-manager-applet.Unit.After = [ "graphical-session.target" ];
-          blueman-applet.Unit.After = [ "graphical-session.target" ];
           fnott.Unit.After = [ "graphical-session.target" ];
           swayidle.Unit.After = [ "graphical-session.target" ];
         };

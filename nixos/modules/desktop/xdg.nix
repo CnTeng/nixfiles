@@ -28,6 +28,8 @@ in
           XDG_PROJECTS_DIR = "${home}/Projects";
         };
       };
+
+      xdg.mimeApps.enable = true;
     };
 
     environment.persistence."/persist" = {

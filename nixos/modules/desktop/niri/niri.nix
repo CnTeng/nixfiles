@@ -20,7 +20,7 @@ let
       *"Suspend") systemctl suspend ;;
       *"Reboot") systemctl reboot ;;
       *"Shutdown") systemctl poweroff ;;
-      *"Log out") niri msg quit ;;
+      *"Log out") niri msg action quit ;;
       esac
     '';
   };
