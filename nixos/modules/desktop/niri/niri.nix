@@ -25,7 +25,6 @@ let
     '';
   };
 in
-
 {
   xdg.configFile."niri/config.kdl".text = ''
     hotkey-overlay { skip-at-startup; }
@@ -71,10 +70,11 @@ in
     binds {
       Mod+Shift+Slash { show-hotkey-overlay; }
 
+      Mod+Escape { spawn "${lib.getExe powerMenu}"; }
       Mod+Return { spawn "kitty"; }
       Mod+Space  { spawn "fuzzel"; }
-      Mod+Escape { spawn "${lib.getExe powerMenu}"; }
-      Mod+Alt+L  { spawn "loginctl" "lock-session"; }
+      Mod+E      { spawn "nautilus"; }
+
 
       XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
       XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
