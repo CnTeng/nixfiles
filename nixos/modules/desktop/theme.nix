@@ -29,7 +29,7 @@ in
 
         gtk = {
           enable = true;
-          font.name = "NotoSans Nerd Font";
+          font.name = "Noto Sans";
           iconTheme = {
             package = pkgs.papirus-icon-theme;
             name = "Papirus-Dark";
