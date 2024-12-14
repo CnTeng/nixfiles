@@ -12,8 +12,8 @@ variable "region" {
 
 terraform {
   required_providers {
-    aws = { source = "registry.terraform.io/hashicorp/aws" }
-    tls = { source = "registry.terraform.io/hashicorp/tls" }
+    aws = { source = "hashicorp/aws" }
+    tls = { source = "hashicorp/tls" }
   }
 }
 

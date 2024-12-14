@@ -18,24 +18,27 @@ variable "age_private_key" {
 
 terraform {
   required_providers {
-    external = { source = "registry.terraform.io/hashicorp/external" }
-    null     = { source = "registry.terraform.io/hashicorp/null" }
-    tls      = { source = "registry.terraform.io/hashicorp/tls" }
+    external = { source = "hashicorp/external" }
+    null     = { source = "hashicorp/null" }
+    tls      = { source = "hashicorp/tls" }
   }
 }
 
 module "system" {
-  source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
+  # source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
+  source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
   attribute = ".#nixosConfigurations.${var.hostname}.config.system.build.toplevel"
 }
 
 module "disko" {
-  source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
+  # source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
+  source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
   attribute = ".#nixosConfigurations.${var.hostname}.config.system.build.diskoScript"
 }
 
 module "install" {
-  source             = "github.com/CnTeng/nixos-anywhere//terraform/install?ref=opentofu"
+  # source             = "github.com/CnTeng/nixos-anywhere//terraform/install?ref=opentofu"
+  source             = "github.com/nix-community/nixos-anywhere//terraform/install"
   nixos_system       = module.system.result.out
   nixos_partitioner  = module.disko.result.out
   target_host        = var.host_ip
