@@ -25,19 +25,16 @@ terraform {
 }
 
 module "system" {
-  # source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
   source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
   attribute = ".#nixosConfigurations.${var.hostname}.config.system.build.toplevel"
 }
 
 module "disko" {
-  # source    = "github.com/CnTeng/nixos-anywhere//terraform/nix-build?ref=opentofu"
   source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
   attribute = ".#nixosConfigurations.${var.hostname}.config.system.build.diskoScript"
 }
 
 module "install" {
-  # source             = "github.com/CnTeng/nixos-anywhere//terraform/install?ref=opentofu"
   source             = "github.com/nix-community/nixos-anywhere//terraform/install"
   nixos_system       = module.system.result.out
   nixos_partitioner  = module.disko.result.out
