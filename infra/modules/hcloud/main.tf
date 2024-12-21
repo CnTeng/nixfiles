@@ -19,8 +19,7 @@ terraform {
 
 locals {
   firewall_allowed_ports = {
-    tcp = toset([22, 80, 443])
-    udp = toset([1080])
+    tcp = toset([22, 80, 443, 1080])
   }
 }
 

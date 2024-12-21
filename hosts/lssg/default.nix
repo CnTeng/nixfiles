@@ -3,6 +3,6 @@
 
   services' = {
     fail2ban.enable = true;
-    tuic.server.enable = true;
+    trojan.server.enable = true;
   };
 }

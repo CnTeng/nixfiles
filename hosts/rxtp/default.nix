@@ -38,6 +38,6 @@
     mega.enable = true;
     restic.enable = true;
     postgresql.enable = true;
-    tuic.client.enable = true;
+    trojan.client.enable = true;
   };
 }

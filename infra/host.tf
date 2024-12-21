@@ -73,13 +73,13 @@ module "host" {
   nixbuild = each.value.nixbuild
 }
 
-module "nixos" {
-  source     = "./modules/nixos"
-  depends_on = [null_resource.output]
-  for_each   = local.hcloud
-
-  hostname         = each.key
-  host_ip          = module.host[each.key].ipv4
-  temp_private_key = local.temp_private_keys[each.key]
-  age_private_key  = local.secrets.age_private_keys[each.key]
-}
+# module "nixos" {
+#   source     = "./modules/nixos"
+#   depends_on = [null_resource.output]
+#   for_each   = local.hcloud
+#
+#   hostname         = each.key
+#   host_ip          = module.host[each.key].ipv4
+#   temp_private_key = local.temp_private_keys[each.key]
+#   age_private_key  = local.secrets.age_private_keys[each.key]
+# }

@@ -15,7 +15,7 @@
     ntfy.enable = true;
     postgresql.enable = true;
     restic.enable = true;
-    tuic.server.enable = true;
+    trojan.server.enable = true;
     vaultwarden.enable = true;
   };
 }

@@ -6,18 +6,18 @@
   ...
 }:
 let
-  inherit (config.services'.tuic) server client;
+  inherit (config.services'.trojan) server client;
   inherit (config.networking) hostName;
   port = 1080;
 in
 {
-  options.services'.tuic = {
+  options.services'.trojan = {
     server.enable = lib.mkEnableOption' { };
     client.enable = lib.mkEnableOption' { };
   };
 
   config = lib.mkIf (server.enable || client.enable) {
-    networking.firewall.allowedUDPPorts = [ port ];
+    networking.firewall.allowedTCPPorts = [ port ];
 
     sops.secrets = {
       cf-dns01-token = lib.mkIf server.enable {
@@ -43,16 +43,15 @@ in
           serverConfig = {
             inbounds = [
               {
-                type = "tuic";
+                type = "trojan";
                 listen = "::";
                 listen_port = port;
                 users = [
                   {
-                    uuid._secret = config.sops.secrets."tuic/uuid".path;
+                    name._secret = config.sops.secrets."tuic/uuid".path;
                     password._secret = config.sops.secrets."tuic/pass".path;
                   }
                 ];
-                congestion_control = "bbr";
                 tls = {
                   enabled = true;
                   server_name = "${hostName}.snakepi.xyz";
@@ -65,6 +64,7 @@ in
                     };
                   };
                 };
+                multiplex.enabled = true;
               }
             ];
           };
@@ -109,17 +109,20 @@ in
             ];
             outbounds = [
               {
-                type = "tuic";
+                type = "trojan";
                 server = data.hosts.lssg.ipv4;
                 server_port = port;
-                uuid._secret = config.sops.secrets."tuic/uuid".path;
                 password._secret = config.sops.secrets."tuic/pass".path;
-                congestion_control = "bbr";
                 network = "tcp";
                 tls = {
                   enabled = true;
                   server_name = "lssg.snakepi.xyz";
+                  utls = {
+                    enabled = true;
+                    fingerprint = "firefox";
+                  };
                 };
+                multiplex.enabled = true;
                 tag = "proxy";
               }
               {
@@ -177,7 +180,7 @@ in
           };
         in
         {
-          log.level = "info";
+          log.level = "error";
         }
         // lib.optionalAttrs server.enable serverConfig
         // lib.optionalAttrs client.enable clientConfig;
