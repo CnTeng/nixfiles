@@ -25,12 +25,12 @@ in
         restartUnits = [ "sing-box.service" ];
       };
 
-      "tuic/uuid" = {
+      "trojan/name" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
       };
 
-      "tuic/pass" = {
+      "trojan/pass" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
       };
@@ -48,8 +48,8 @@ in
                 listen_port = port;
                 users = [
                   {
-                    name._secret = config.sops.secrets."tuic/uuid".path;
-                    password._secret = config.sops.secrets."tuic/pass".path;
+                    name._secret = config.sops.secrets."trojan/name".path;
+                    password._secret = config.sops.secrets."trojan/pass".path;
                   }
                 ];
                 tls = {
@@ -112,15 +112,11 @@ in
                 type = "trojan";
                 server = data.hosts.lssg.ipv4;
                 server_port = port;
-                password._secret = config.sops.secrets."tuic/pass".path;
-                network = "tcp";
+                password._secret = config.sops.secrets."trojan/pass".path;
                 tls = {
                   enabled = true;
                   server_name = "lssg.snakepi.xyz";
-                  utls = {
-                    enabled = true;
-                    fingerprint = "firefox";
-                  };
+                  utls.enabled = true;
                 };
                 multiplex.enabled = true;
                 tag = "proxy";
