@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services'.caddy;
 in
@@ -11,7 +16,13 @@ in
       443
     ];
 
-    services.caddy.enable = true;
+    services.caddy = {
+      enable = true;
+      package = pkgs.caddy.withPlugins {
+        plugins = [ "github.com/caddy-dns/cloudflare@v0.0.0-20240703190432-89f16b99c18e" ];
+        hash = "sha256-WGV/Ve7hbVry5ugSmTYWDihoC9i+D3Ct15UKgdpYc9U=";
+      };
+    };
 
     sops.secrets.cf-cdntls-token = {
       key = "tokens/cf_cdntls";
