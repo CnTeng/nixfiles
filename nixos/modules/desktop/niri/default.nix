@@ -32,6 +32,7 @@ in
     networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;
     systemd.user.services.nm-applet.after = [ "graphical-session.target" ];
+    systemd.services.NetworkManager.wantedBy = [ "multi-user.target" ];
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
