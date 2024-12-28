@@ -7,10 +7,10 @@
 }:
 let
   cfg = config.gui'.kitty;
-  inherit (pkgs.vimPlugins) smart-splits-nvim kitty-scrollback-nvim;
+  inherit (pkgs.vimPlugins) smart-splits-nvim;
 in
 {
-  options.gui'.kitty.enable = lib.mkEnableOption "kitty";
+  options.gui'.kitty.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     environment.variables.TERMINAL = "kitty";
@@ -23,11 +23,6 @@ in
         };
         "kitty/relative_resize.py" = {
           source = "${smart-splits-nvim}/kitty/relative_resize.py";
-          executable = true;
-        };
-
-        "kitty/kitty_scrollback_nvim.py" = {
-          source = "${kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py";
           executable = true;
         };
       };
@@ -59,18 +54,17 @@ in
           "kitty_mod+enter" = "launch --location=split";
           "kitty_mod+q" = "close_window";
 
-          "ctrl+j" = "neighboring_window down";
-          "ctrl+k" = "neighboring_window up";
-          "ctrl+h" = "neighboring_window left";
-          "ctrl+l" = "neighboring_window right";
+          "kitty_mod+j" = "neighboring_window down";
+          "kitty_mod+k" = "neighboring_window up";
+          "kitty_mod+h" = "neighboring_window left";
+          "kitty_mod+l" = "neighboring_window right";
 
           "ctrl+w>j" = "move_window down";
           "ctrl+w>k" = "move_window up";
           "ctrl+w>h" = "move_window left";
           "ctrl+w>l" = "move_window right";
 
-          "kitty_mod+h" = "kitten kitty_scrollback_nvim.py";
-          "kitty_mod+g" = "kitten kitty_scrollback_nvim.py --config ksb_builtin_last_cmd_output";
+          "kitty_mod+[" = "show_scrollback";
 
           "ctrl+w>u" = "scroll_page_up";
           "ctrl+w>d" = "scroll_page_down";
@@ -102,11 +96,6 @@ in
           modify_font underline_position +3
           modify_font underline_thickness 150%
           modify_font cell_height 120%
-
-          map --when-focus-on var:IS_NVIM ctrl+j
-          map --when-focus-on var:IS_NVIM ctrl+k
-          map --when-focus-on var:IS_NVIM ctrl+h
-          map --when-focus-on var:IS_NVIM ctrl+l
 
           map --when-focus-on var:IS_NVIM ctrl+w
 
