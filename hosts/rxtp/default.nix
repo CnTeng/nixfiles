@@ -27,7 +27,7 @@
     mpv.enable = true;
     office.enable = true;
     others.enable = true;
-    # qtcreator.enable = true;
+    qtcreator.enable = true;
     sioyek.enable = true;
     thunderbird.enable = true;
     yubikey.enable = true;
