@@ -67,6 +67,11 @@ in
       draw-border-with-background false
     }
 
+    window-rule {
+      match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+      open-floating true
+    }
+
     binds {
       Mod+Shift+Slash { show-hotkey-overlay; }
 
@@ -194,6 +199,9 @@ in
 
       Mod+Shift+Minus { set-window-height "-10%"; }
       Mod+Shift+Equal { set-window-height "+10%"; }
+
+      Mod+V       { toggle-window-floating; }
+      Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
       Print      { screenshot; }
       Ctrl+Print { screenshot-screen; }
