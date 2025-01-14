@@ -76,7 +76,7 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       Mod+Escape { spawn "${lib.getExe powerMenu}"; }
-      Mod+Return { spawn "kitty"; }
+      Mod+Return { spawn "kitty" "--single-instance"; }
       Mod+Space  { spawn "fuzzel"; }
       Mod+E      { spawn "nautilus"; }
 

@@ -31,25 +31,16 @@ in
         enable = true;
         font.name = "FiraCode Nerd Font";
         themeFile = "adwaita_dark";
-        settings =
-          let
-            mkTabTitle =
-              indicator:
-              ''"${indicator} {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{sup.index}{title}  "'';
-          in
-          {
-            tab_bar_style = "separator";
-            tab_separator = ''""'';
-            tab_title_max_length = "18";
-            tab_activity_symbol = ''"●"'';
-            tab_title_template = mkTabTitle " ";
-            active_tab_title_template = mkTabTitle "▎";
+        settings = {
+          tab_bar_style = "powerline";
+          tab_powerline_style = "round";
+          tab_title_max_length = "18";
 
-            enabled_layouts = "splits, stack";
+          enabled_layouts = "splits, stack";
 
-            allow_remote_control = "yes";
-            listen_on = "unix:@mykitty";
-          };
+          allow_remote_control = "yes";
+          listen_on = "unix:@mykitty";
+        };
         keybindings = {
           "kitty_mod+enter" = "launch --location=split";
           "kitty_mod+q" = "close_window";
@@ -84,6 +75,8 @@ in
           "ctrl+w>8" = "goto_tab 8";
           "ctrl+w>9" = "goto_tab 9";
           "ctrl+w>0" = "goto_tab 10";
+
+          "alt+w" = "select_tab";
 
           "alt+j" = "kitten relative_resize.py down  3";
           "alt+k" = "kitten relative_resize.py up    3";
