@@ -58,15 +58,6 @@ in
           "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
         ];
       };
-
-      matchBlocks."gitea" = {
-        hostname = "git.snakepi.xyz";
-        user = "git";
-        identityFile = [
-          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
-          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
-        ];
-      };
     };
   };
 

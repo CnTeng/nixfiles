@@ -3,7 +3,6 @@ locals {
     "@"   = { content = module.host["hcde"].ipv4 }
     atuin = { content = module.host["hcde"].ipv4 }
     auth  = { content = module.host["hcde"].ipv4 }
-    git   = { content = module.host["hcde"].ipv4, proxied = false }
     ldap  = { content = module.host["hcde"].ipv4 }
     ntfy  = { content = module.host["hcde"].ipv4 }
     rss   = { content = module.host["hcde"].ipv4 }
