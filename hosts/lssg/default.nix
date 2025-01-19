@@ -3,6 +3,6 @@
 
   services' = {
     fail2ban.enable = true;
-    trojan.server.enable = true;
+    trojan.enableServer = true;
   };
 }

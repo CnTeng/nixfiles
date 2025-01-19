@@ -6,21 +6,21 @@
   ...
 }:
 let
-  inherit (config.services'.trojan) server client;
+  cfg = config.services'.trojan;
   inherit (config.networking) hostName;
   port = 1080;
 in
 {
   options.services'.trojan = {
-    server.enable = lib.mkEnableOption' { };
-    client.enable = lib.mkEnableOption' { };
+    enableServer = lib.mkEnableOption' { };
+    enableClient = lib.mkEnableOption' { };
   };
 
-  config = lib.mkIf (server.enable || client.enable) {
+  config = lib.mkIf (cfg.enableServer || cfg.enableClient) {
     networking.firewall.allowedTCPPorts = [ port ];
 
     sops.secrets = {
-      cf-dns01-token = lib.mkIf server.enable {
+      cf-dns01-token = lib.mkIf cfg.enableServer {
         key = "tokens/cf_cdntls";
         restartUnits = [ "sing-box.service" ];
       };
@@ -178,8 +178,8 @@ in
         {
           log.level = "error";
         }
-        // lib.optionalAttrs server.enable serverConfig
-        // lib.optionalAttrs client.enable clientConfig;
+        // lib.optionalAttrs cfg.enableServer serverConfig
+        // lib.optionalAttrs cfg.enableClient clientConfig;
     };
 
     networking.firewall.trustedInterfaces = [ "tun0" ];
