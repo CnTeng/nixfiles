@@ -66,6 +66,7 @@ in
 
       systemd.services = {
         restic-backups-persist = {
+          environment.NTFY_TOKEN = config.sops.secrets."restic/ntfy".path;
           onSuccess = [ "restic-ntfy-success.service" ];
           onFailure = [ "restic-ntfy-failure.service" ];
         };
