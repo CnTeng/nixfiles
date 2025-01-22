@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
@@ -19,16 +20,20 @@ jobs:
           name: id_ed25519
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           config: ${{ secrets.SSH_CONFIG }}
+
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
             extra-substituters = https://cache.garnix.io
             extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: Deploy remote hosts
         run: make remote REBUILD="nix run nixpkgs#nixos-rebuild --"
+
       - name: Notify success
         if: success()
         run: |
@@ -39,6 +44,7 @@ jobs:
             -H "Icon: https://avatars.githubusercontent.com/u/487568?s=200&v=4" \
             -d "Deploy success." \
             https://ntfy.snakepi.xyz/dev
+
       - name: Notify failure
         if: failure()
         run: |

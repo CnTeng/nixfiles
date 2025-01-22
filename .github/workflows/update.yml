@@ -10,15 +10,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
             extra-substituters = https://cache.garnix.io
             extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+
       - name: Use nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
-      - name: Flake update
+
+      - name: Update flake
         uses: DeterminateSystems/update-flake-lock@main
         with:
           commit-msg: "bump: flake inputs"
