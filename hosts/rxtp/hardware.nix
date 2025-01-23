@@ -9,7 +9,10 @@
     initrd.kernelModules = [ "thunderbolt" ];
     initrd.availableKernelModules = [ "usb_storage" ];
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [ "amd_pstate=active" ];
+    kernelParams = [
+      "amd_pstate=active"
+      "amdgpu.dcdebugmask=0x10"
+    ];
   };
 
   boot.initrd.systemd.enable = true;
