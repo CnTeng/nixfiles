@@ -8,7 +8,7 @@ let
       OPTIONS=(
         " Lock"
         " Suspend"
-        " Reboot"
+        " Reboot"
         " Shutdown"
         " Log out"
       )
