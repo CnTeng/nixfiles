@@ -13,7 +13,7 @@ let
         " Log out"
       )
 
-      CHOICE=$(printf '%s\n' "''${OPTIONS[@]}" | fuzzel --dmenu -l 5)
+      CHOICE=$(printf '%s\n' "''${OPTIONS[@]}" | fuzzel --dmenu --cache /dev/null)
 
       case $CHOICE in
       *"Lock") loginctl lock-session ;;
