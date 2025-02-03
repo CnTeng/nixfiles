@@ -22,6 +22,8 @@ in
         SMTP_SECURITY = "starttls";
         SMTP_PORT = 587;
         SMTP_USERNAME = "istengyf";
+
+        EXPERIMENTAL_CLIENT_FEATURE_FLAGS = "fido2-vault-credentials,ssh-key-vault-item,ssh-agent";
       };
       environmentFile = config.sops.secrets.vaultwarden.path;
     };
