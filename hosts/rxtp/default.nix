@@ -22,6 +22,7 @@
     android.enable = true;
     chrome.enable = true;
     firefox.enable = true;
+    ghostty.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
     mpv.enable = true;
