@@ -9,7 +9,7 @@ let
         " Lock"
         " Suspend"
         " Reboot"
-        " Shutdown"
+        " Power off"
         " Log out"
       )
 
@@ -19,7 +19,7 @@ let
       *"Lock") loginctl lock-session ;;
       *"Suspend") systemctl suspend ;;
       *"Reboot") systemctl reboot ;;
-      *"Shutdown") systemctl poweroff ;;
+      *"Power off") systemctl poweroff ;;
       *"Log out") niri msg action quit ;;
       esac
     '';
