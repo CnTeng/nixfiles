@@ -219,11 +219,6 @@ in
           };
           Install.WantedBy = [ "graphical-session.target" ];
         };
-
-        systemd.user.targets.tray.Unit = {
-          Description = "Home Manager System Tray";
-          Requires = [ "graphical-session.target" ];
-        };
       };
   };
 }
