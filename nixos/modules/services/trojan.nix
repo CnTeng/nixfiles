@@ -74,9 +74,7 @@ in
               servers = [
                 {
                   tag = "google";
-                  address = "https://8.8.8.8/dns-query";
-                  address_resolver = "local";
-                  detour = "proxy";
+                  address = "tls://8.8.8.8";
                 }
                 {
                   tag = "local";
@@ -125,36 +123,30 @@ in
                 type = "direct";
                 tag = "direct";
               }
-              {
-                type = "dns";
-                tag = "dns-out";
-              }
             ];
             route = {
               rules = [
                 {
-                  port = [ 53 ];
-                  outbound = "dns-out";
+                  action = "sniff";
+                }
+                {
+                  protocol = "dns";
+                  action = "hijack-dns";
                 }
                 {
                   ip_is_private = true;
                   outbound = "direct";
                 }
                 {
-                  process_name = [ "ssh" ];
+                  port = 22;
                   outbound = "direct";
                 }
                 {
-                  rule_set = "geosite-cn";
+                  rule_set = [
+                    "geoip-cn"
+                    "geosite-cn"
+                  ];
                   outbound = "direct";
-                }
-                {
-                  rule_set = "geoip-cn";
-                  outbound = "direct";
-                }
-                {
-                  protocol = "dns";
-                  outbound = "dns-out";
                 }
               ];
               rule_set = [
