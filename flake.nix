@@ -6,8 +6,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    pre-commit = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -44,7 +44,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.treefmt.follows = "treefmt";
-      inputs.pre-commit.follows = "pre-commit";
+      inputs.pre-commit.follows = "git-hooks-nix";
     };
 
     nix-index-database = {
