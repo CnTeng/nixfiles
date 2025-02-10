@@ -43,8 +43,8 @@
       url = "github:CnTeng/rx-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.git-hooks-nix.follows = "git-hooks-nix";
       inputs.treefmt.follows = "treefmt";
-      inputs.pre-commit.follows = "git-hooks-nix";
     };
 
     nix-index-database = {

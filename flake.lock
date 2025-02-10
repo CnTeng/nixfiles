@@ -345,22 +345,22 @@
         "flake-parts": [
           "flake-parts"
         ],
+        "git-hooks-nix": [
+          "git-hooks-nix"
+        ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "pre-commit": [
-          "git-hooks-nix"
         ],
         "treefmt": [
           "treefmt"
         ]
       },
       "locked": {
-        "lastModified": 1739119336,
-        "narHash": "sha256-lSMt+w7C3n2+tatObNh7ujo2nK96pmR167nQTlo+2D4=",
+        "lastModified": 1739201671,
+        "narHash": "sha256-L7qxdBBLlDZwiqi0T5+8AlavxLTYRR1WRTdmj7rGzvU=",
         "owner": "CnTeng",
         "repo": "rx-nvim",
-        "rev": "029b3c58a354cb7a6a59682247a3e3459f31becb",
+        "rev": "8b9a4bf07c74ac5f1b703a71e67dfe5f0213c466",
         "type": "github"
       },
       "original": {
