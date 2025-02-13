@@ -68,7 +68,7 @@ in
     }
 
     window-rule {
-      match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+      match app-id=r#"firefox$"# title="^(Picture-in-Picture|Library)$"
       open-floating true
     }
 
