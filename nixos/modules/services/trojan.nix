@@ -81,6 +81,10 @@ in
                   address = "223.5.5.5";
                   detour = "direct";
                 }
+                {
+                  tag = "remote";
+                  address = "fakeip";
+                }
               ];
               rules = [
                 {
@@ -91,7 +95,21 @@ in
                   outbound = "any";
                   server = "local";
                 }
+                {
+                  query_type = [
+                    "A"
+                    "AAAA"
+                  ];
+                  server = "remote";
+                }
               ];
+              fakeip = {
+                enabled = true;
+                inet4_range = "198.18.0.0/15";
+                inet6_range = "fc00::/18";
+              };
+              strategy = "ipv4_only";
+              independent_cache = true;
             };
             inbounds = [
               {
