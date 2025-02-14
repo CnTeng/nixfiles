@@ -9,6 +9,7 @@
         inline_height = 30;
         sync.records = true;
       };
+      daemon.enable = true;
     };
   };
 
