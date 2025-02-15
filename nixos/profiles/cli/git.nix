@@ -1,7 +1,4 @@
-{ config, user, ... }:
-let
-  userEmail = "rxsnakepi@gmail.com";
-in
+{ user, ... }:
 {
   programs.git.enable = true;
 
@@ -9,16 +6,14 @@ in
     programs.git = {
       enable = true;
       userName = "CnTeng";
-      inherit userEmail;
+      userEmail = "rxsnakepi@gmail.com";
       signing = {
         key = "~/.ssh/id_ed25519_sk_rk_ybk5@sign";
+        format = "ssh";
         signByDefault = true;
       };
       extraConfig = {
-        gpg = {
-          format = "ssh";
-          ssh.allowedSignersFile = config.sops.templates.allowed_signers.path;
-        };
+        gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       };
 
       lfs.enable = true;
@@ -59,17 +54,5 @@ in
         ];
       };
     };
-  };
-
-  sops.secrets.signing_key_pub = {
-    owner = user;
-    sopsFile = ./secrets.yaml;
-  };
-
-  sops.templates.allowed_signers = {
-    owner = user;
-    content = ''
-      ${userEmail} ${config.sops.placeholder.signing_key_pub} 
-    '';
   };
 }
