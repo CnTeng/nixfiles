@@ -31,6 +31,7 @@
     qtcreator.enable = true;
     sioyek.enable = true;
     thunderbird.enable = true;
+    wireshark.enable = true;
     yubikey.enable = true;
     zed.enable = true;
   };
