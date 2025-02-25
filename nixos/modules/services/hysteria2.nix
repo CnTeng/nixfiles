@@ -6,18 +6,18 @@
   ...
 }:
 let
-  cfg = config.services'.trojan;
+  cfg = config.services'.hysteria2;
   inherit (config.networking) hostName;
-  port = 1080;
+  port = 2333;
 in
 {
-  options.services'.trojan = {
+  options.services'.hysteria2 = {
     enableServer = lib.mkEnableOption' { };
     enableClient = lib.mkEnableOption' { };
   };
 
   config = lib.mkIf (cfg.enableServer || cfg.enableClient) {
-    networking.firewall.allowedTCPPorts = [ port ];
+    networking.firewall.allowedUDPPorts = [ port ];
 
     sops.secrets = {
       cf-dns01-token = lib.mkIf cfg.enableServer {
@@ -25,12 +25,12 @@ in
         restartUnits = [ "sing-box.service" ];
       };
 
-      "trojan/name" = {
+      "hysteria2/name" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
       };
 
-      "trojan/pass" = {
+      "hysteria2/pass" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
       };
@@ -43,13 +43,15 @@ in
           serverConfig = {
             inbounds = [
               {
-                type = "trojan";
+                type = "hysteria2";
                 listen = "::";
                 listen_port = port;
+                up_mbps = 100;
+                down_mbps = 100;
                 users = [
                   {
-                    name._secret = config.sops.secrets."trojan/name".path;
-                    password._secret = config.sops.secrets."trojan/pass".path;
+                    name._secret = config.sops.secrets."hysteria2/name".path;
+                    password._secret = config.sops.secrets."hysteria2/pass".path;
                   }
                 ];
                 tls = {
@@ -64,7 +66,6 @@ in
                     };
                   };
                 };
-                multiplex.enabled = true;
               }
             ];
           };
@@ -125,16 +126,16 @@ in
             ];
             outbounds = [
               {
-                type = "trojan";
+                type = "hysteria2";
                 server = data.hosts.lssg.ipv4;
                 server_port = port;
-                password._secret = config.sops.secrets."trojan/pass".path;
+                up_mbps = 100;
+                down_mbps = 100;
+                password._secret = config.sops.secrets."hysteria2/pass".path;
                 tls = {
                   enabled = true;
                   server_name = "lssg.snakepi.xyz";
-                  utls.enabled = true;
                 };
-                multiplex.enabled = true;
                 tag = "proxy";
               }
               {
@@ -186,7 +187,7 @@ in
           };
         in
         {
-          log.level = "error";
+          log.level = "info";
         }
         // lib.optionalAttrs cfg.enableServer serverConfig
         // lib.optionalAttrs cfg.enableClient clientConfig;

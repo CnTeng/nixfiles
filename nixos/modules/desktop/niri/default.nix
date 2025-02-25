@@ -204,6 +204,7 @@ in
             ExecStart = "${lib.getExe pkgs.xwayland-satellite} :1";
             StandardOutput = "journal";
           };
+          Environment.RUST_LOG = "error";
           Install.WantedBy = [ "graphical-session.target" ];
         };
 

@@ -19,7 +19,7 @@
   };
 
   gui' = {
-    android.enable = true;
+    # android.enable = true;
     chrome.enable = true;
     firefox.enable = true;
     ghostty.enable = true;
@@ -28,7 +28,7 @@
     mpv.enable = true;
     office.enable = true;
     others.enable = true;
-    qtcreator.enable = true;
+    # qtcreator.enable = true;
     sioyek.enable = true;
     thunderbird.enable = true;
     wireshark.enable = true;
@@ -37,9 +37,9 @@
   };
 
   services' = {
+    hysteria2.enableClient = true;
     mega.enable = true;
     restic.enable = true;
     postgresql.enable = true;
-    trojan.enableClient = true;
   };
 }

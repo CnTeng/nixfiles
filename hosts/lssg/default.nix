@@ -3,6 +3,6 @@
 
   services' = {
     fail2ban.enable = true;
-    trojan.enableServer = true;
+    hysteria2.enableServer = true;
   };
 }
