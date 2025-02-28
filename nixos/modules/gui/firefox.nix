@@ -43,30 +43,6 @@ in
       };
     };
 
-    home-manager.users.${user} = {
-      xdg.mimeApps.defaultApplications = {
-        "text/html" = "firefox.desktop";
-        "text/xml" = "firefox.desktop";
-
-        "application/xml" = "firefox.desktop";
-        "application/xhtml+xml" = "firefox.desktop";
-        "application/xhtml_xml" = "firefox.desktop";
-        "application/rdf+xml" = "firefox.desktop";
-        "application/rss+xml" = "firefox.desktop";
-
-        "application/x-extension-htm" = "firefox.desktop";
-        "application/x-extension-html" = "firefox.desktop";
-        "application/x-extension-shtml" = "firefox.desktop";
-        "application/x-extension-xht" = "firefox.desktop";
-        "application/x-extension-xhtml" = "firefox.desktop";
-
-        "x-scheme-handler/about" = "firefox.desktop";
-        "x-scheme-handler/ftp" = "firefox.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-      };
-    };
-
     environment.persistence."/persist" = {
       users.${user}.directories = [
         ".mozilla"
