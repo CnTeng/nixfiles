@@ -37,9 +37,9 @@
   };
 
   services' = {
-    hysteria2.enableClient = true;
     mega.enable = true;
     restic.enable = true;
     postgresql.enable = true;
+    trojan.enableClient = true;
   };
 }
