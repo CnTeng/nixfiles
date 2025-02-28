@@ -7,8 +7,47 @@
 }:
 let
   cfg = config.services'.trojan;
-  inherit (config.networking) hostName;
   port = 10808;
+
+  mkInbound = host: {
+    type = "trojan";
+    listen = "::";
+    listen_port = port;
+    users = [
+      {
+        name._secret = config.sops.secrets."trojan/name".path;
+        password._secret = config.sops.secrets."trojan/pass".path;
+      }
+    ];
+    tls = {
+      enabled = true;
+      server_name = "${host}.snakepi.xyz";
+      acme = {
+        domain = "${host}.snakepi.xyz";
+        email = "rxsnakepi@gmail.com";
+        dns01_challenge = {
+          provider = "cloudflare";
+          api_token._secret = config.sops.secrets.cf-dns01-token.path;
+        };
+      };
+    };
+    multiplex.enabled = true;
+  };
+
+  mkOutbound = host: {
+    type = "trojan";
+    server = data.hosts.${host}.ipv4;
+    server_port = port;
+    password._secret = config.sops.secrets."trojan/pass".path;
+    tls = {
+      enabled = true;
+      server_name = "${host}.snakepi.xyz";
+      utls.enabled = true;
+    };
+    multiplex.enabled = true;
+    tag = host;
+  };
+
 in
 {
   options.services'.trojan = {
@@ -42,30 +81,7 @@ in
         let
           serverConfig = {
             inbounds = [
-              {
-                type = "trojan";
-                listen = "::";
-                listen_port = port;
-                users = [
-                  {
-                    name._secret = config.sops.secrets."trojan/name".path;
-                    password._secret = config.sops.secrets."trojan/pass".path;
-                  }
-                ];
-                tls = {
-                  enabled = true;
-                  server_name = "${hostName}.snakepi.xyz";
-                  acme = {
-                    domain = "${hostName}.snakepi.xyz";
-                    email = "rxsnakepi@gmail.com";
-                    dns01_challenge = {
-                      provider = "cloudflare";
-                      api_token._secret = config.sops.secrets.cf-dns01-token.path;
-                    };
-                  };
-                };
-                multiplex.enabled = true;
-              }
+              (mkInbound config.networking.hostName)
             ];
           };
 
@@ -125,18 +141,27 @@ in
             ];
             outbounds = [
               {
-                type = "trojan";
-                server = data.hosts.lssg.ipv4;
-                server_port = port;
-                password._secret = config.sops.secrets."trojan/pass".path;
-                tls = {
-                  enabled = true;
-                  server_name = "lssg.snakepi.xyz";
-                  utls.enabled = true;
-                };
-                multiplex.enabled = true;
-                tag = "proxy";
+                type = "selector";
+                outbounds = [
+                  "lssg"
+                  "hcde"
+                  "auto"
+                ];
+                default = "lssg";
+                interrupt_exist_connections = false;
+                tag = "select";
               }
+              {
+                type = "urltest";
+                outbounds = [
+                  "lssg"
+                  "hcde"
+                ];
+                interrupt_exist_connections = false;
+                tag = "auto";
+              }
+              (mkOutbound "lssg")
+              (mkOutbound "hcde")
               {
                 type = "direct";
                 tag = "direct";
@@ -182,6 +207,16 @@ in
                 }
               ];
               auto_detect_interface = true;
+            };
+            experimental = {
+              cache_file = {
+                enabled = true;
+                store_fakeip = true;
+              };
+              clash_api = {
+                external_controller = "127.0.0.1:9090";
+                external_ui = pkgs.metacubexd;
+              };
             };
           };
         in
