@@ -146,6 +146,7 @@ in
                   "lssg"
                   "hcde"
                   "auto"
+                  "direct"
                 ];
                 default = "lssg";
                 interrupt_exist_connections = false;
