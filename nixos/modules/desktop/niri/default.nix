@@ -43,11 +43,18 @@ in
 
     security.pam.services.gtklock = { };
 
-    programs.file-roller.enable = true;
     environment.systemPackages = with pkgs; [
-      nautilus
       wl-clipboard
+      nautilus
+      eog
     ];
+    programs.nautilus-open-any-terminal = {
+      enable = true;
+      terminal = "kitty";
+    };
+
+    programs.file-roller.enable = true;
+    services.gnome.sushi.enable = true;
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
