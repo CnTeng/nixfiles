@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   cfg = config.services'.miniflux;
-  port = 6222;
 in
 {
   options.services'.miniflux.enable = lib.mkEnableOption' { };
@@ -10,7 +9,7 @@ in
     services.miniflux = {
       enable = true;
       config = {
-        LISTEN_ADDR = "localhost:${toString port}";
+        LISTEN_ADDR = "/run/miniflux/miniflux.sock";
         BASE_URL = "https://rss.snakepi.xyz";
         WEBAUTHN = "1";
         OAUTH2_PROVIDER = "oidc";
@@ -23,11 +22,13 @@ in
       adminCredentialsFile = config.sops.secrets."miniflux/admin_credentials".path;
     };
 
+    systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
+
     services.authelia.instances.default = {
       settings.identity_providers.oidc.clients = [
         {
-          id = "miniflux";
-          secret = "$pbkdf2-sha512$310000$0F8wxRB4Tv03RSnpPEAnHA$fJxCTbGhUSxG894JORm4xwL2SgLe0slP9GX9CBGhM/.DyROSUJHj0.xGUuBGVU4Xq0Dv8n65ft/8oXQ4kzrtww";
+          client_id = "miniflux";
+          client_secret = "$pbkdf2-sha512$310000$0F8wxRB4Tv03RSnpPEAnHA$fJxCTbGhUSxG894JORm4xwL2SgLe0slP9GX9CBGhM/.DyROSUJHj0.xGUuBGVU4Xq0Dv8n65ft/8oXQ4kzrtww";
           redirect_uris = [ "https://rss.snakepi.xyz/oauth2/oidc/callback" ];
           authorization_policy = "two_factor";
           scopes = [
@@ -42,9 +43,11 @@ in
     services.caddy.virtualHosts.rss = {
       hostName = "rss.snakepi.xyz";
       extraConfig = ''
-        import ${config.sops.templates.cf-tls.path}
+        tls {
+          dns cloudflare {$CF_API_TOKEN}
+        }
 
-        reverse_proxy 127.0.0.1:${toString port}
+        reverse_proxy "unix/${config.services.miniflux.config.LISTEN_ADDR}"
       '';
     };
 

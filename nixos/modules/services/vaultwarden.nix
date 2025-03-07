@@ -35,7 +35,9 @@ in
       {
         hostName = "vault.snakepi.xyz";
         extraConfig = ''
-          import ${config.sops.templates.cf-tls.path}
+          tls {
+            dns cloudflare {$CF_API_TOKEN}
+          }
 
           header / {
             Strict-Transport-Security "max-age=31536000;"

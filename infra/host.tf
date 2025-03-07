@@ -28,13 +28,6 @@ locals {
       openssh  = true
       nixbuild = false
     }
-
-    rxop = {
-      system   = "aarch64-linux"
-      type     = "local"
-      openssh  = false
-      nixbuild = false
-    }
   }
 
   hosts             = merge(local.hcloud, local.lightsail, local.local)

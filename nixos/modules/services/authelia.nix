@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   cfg = config.services'.authelia;
-  port = 9091;
 in
 {
   options.services'.authelia.enable = lib.mkEnableOption' { };
@@ -16,6 +15,7 @@ in
         oidcIssuerPrivateKeyFile = config.sops.secrets."authelia/issuer_private_key".path;
       };
       settings = {
+        server.address = "unix:///run/authelia-default/authelia.sock?umask=0111";
         theme = "auto";
         session = {
           domain = "auth.snakepi.xyz";
@@ -26,7 +26,7 @@ in
           password_reset.disable = true;
           ldap = {
             implementation = "custom";
-            url = "ldap://localhost:3890";
+            address = "ldap://localhost:3890";
             timeout = "5s";
             start_tls = false;
             base_dn = "dc=snakepi,dc=xyz";
@@ -43,8 +43,7 @@ in
         };
 
         notifier.smtp = {
-          host = "smtp.gmail.com";
-          port = 587;
+          address = "submission://smtp.gmail.com:587";
           username = "istengyf";
           sender = "Authelia <noreply@snakepi.xyz>";
           identifier = "snakepi.xyz";
@@ -60,12 +59,16 @@ in
       };
     };
 
+    systemd.services.authelia-default.serviceConfig.RuntimeDirectory = "authelia-default";
+
     services.caddy.virtualHosts.auth = {
       hostName = "auth.snakepi.xyz";
       extraConfig = ''
-        import ${config.sops.templates.cf-tls.path}
+        tls {
+          dns cloudflare {$CF_API_TOKEN}
+        }
 
-        reverse_proxy 127.0.0.1:${toString port}
+        reverse_proxy "unix//run/authelia-default/authelia.sock"
       '';
     };
 

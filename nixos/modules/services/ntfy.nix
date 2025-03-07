@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   cfg = config.services'.ntfy;
-  port = 7222;
 in
 {
   options.services'.ntfy.enable = lib.mkEnableOption' { };
@@ -11,17 +10,30 @@ in
       enable = true;
       settings = {
         base-url = "https://ntfy.snakepi.xyz";
-        listen-http = ":${toString port}";
+        listen-http = "";
+        listen-unix = "/run/ntfy-sh/ntfy.sock";
+        listen-unix-mode = 511;
         behind-proxy = true;
       };
     };
 
+    systemd.services.ntfy-sh.serviceConfig.RuntimeDirectory = "ntfy-sh";
+
     services.caddy.virtualHosts.ntfy = {
       hostName = "ntfy.snakepi.xyz";
       extraConfig = ''
-        import ${config.sops.templates.cf-tls.path}
+        tls {
+          dns cloudflare {$CF_API_TOKEN}
+        }
 
-        reverse_proxy 127.0.0.1:${toString port}
+        reverse_proxy "unix/${config.services.ntfy-sh.settings.listen-unix}"
+
+        @httpget {
+            protocol http
+            method GET
+            path_regexp ^/([-_a-z0-9]{0,64}$|docs/|static/)
+        }
+        redir @httpget https://{host}{uri}
       '';
     };
   };

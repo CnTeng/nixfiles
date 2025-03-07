@@ -22,20 +22,17 @@ in
         plugins = [ "github.com/caddy-dns/cloudflare@v0.0.0-20240703190432-89f16b99c18e" ];
         hash = "sha256-jCcSzenewQiW897GFHF9WAcVkGaS/oUu63crJu7AyyQ=";
       };
+      environmentFile = config.sops.templates.caddy.path;
     };
 
-    sops.secrets.cf-cdntls-token = {
-      key = "tokens/cf_cdntls";
+    sops.secrets.cf-api-token = {
+      key = "tokens/cf_api";
       owner = config.services.caddy.user;
       restartUnits = [ "caddy.service" ];
     };
 
-    sops.templates.cf-tls = {
-      content = ''
-        tls {
-          dns cloudflare ${config.sops.placeholder.cf-cdntls-token}
-        }
-      '';
+    sops.templates.caddy = {
+      content = "CF_API_TOKEN=${config.sops.placeholder.cf-api-token}";
       owner = config.services.caddy.user;
     };
   };

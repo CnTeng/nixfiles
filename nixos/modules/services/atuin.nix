@@ -11,17 +11,15 @@ in
       openRegistration = true;
     };
 
-    services.caddy.virtualHosts.atuin =
-      let
-        inherit (config.services.atuin) port;
-      in
-      {
-        hostName = "atuin.snakepi.xyz";
-        extraConfig = ''
-          import ${config.sops.templates.cf-tls.path}
+    services.caddy.virtualHosts.atuin = {
+      hostName = "atuin.snakepi.xyz";
+      extraConfig = ''
+        tls {
+          dns cloudflare {$CF_API_TOKEN}
+        }
 
-          reverse_proxy 127.0.0.1:${toString port}
-        '';
-      };
+        reverse_proxy 127.0.0.1:${toString config.services.atuin.port}
+      '';
+    };
   };
 }

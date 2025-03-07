@@ -27,7 +27,9 @@ in
       {
         hostName = "ldap.snakepi.xyz";
         extraConfig = ''
-          import ${config.sops.templates.cf-tls.path}
+          tls {
+            dns cloudflare {$CF_API_TOKEN}
+          }
 
           reverse_proxy 127.0.0.1:${toString port}
         '';

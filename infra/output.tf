@@ -1,5 +1,5 @@
 locals {
-  tokens = { cf_cdntls = cloudflare_api_token.cdntls.value }
+  tokens = { cf_api = cloudflare_api_token.cdntls.value }
   r2     = module.r2
   github = { deploy_key_pub = trimspace(tls_private_key.nixos_deploy_key.public_key_openssh) }
 

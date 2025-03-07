@@ -60,7 +60,7 @@ in
 
     sops.secrets = {
       cf-dns01-token = lib.mkIf cfg.enableServer {
-        key = "tokens/cf_cdntls";
+        key = "tokens/cf_api";
         restartUnits = [ "sing-box.service" ];
       };
 

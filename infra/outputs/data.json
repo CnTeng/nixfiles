@@ -25,17 +25,6 @@
       "system": "x86_64-linux",
       "type": "remote"
     },
-    "rxop": {
-      "host_ed25519_key_pub": null,
-      "host_rsa_key_pub": null,
-      "ipv4": null,
-      "ipv6": null,
-      "nixbuild": false,
-      "nixbuild_key_pub": null,
-      "openssh": false,
-      "system": "aarch64-linux",
-      "type": "local"
-    },
     "rxtp": {
       "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII+bdfzUfavJst9KAT9viruo7zrrQTepJz3Ob5uEwxEm",
       "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWSOGxzvc5Wp7cYbIUpmomr5MF/c7NvDBfOX3ofzUcKnMj2ZhWVDrDpHqGIT4FzjW2dUOWUL/CWaxVl5EA6L36pjD0WueoFjXWWd9Ovabj1Sfm+d0Bb10IUjJB9+d9npNzPJrMIfbjnrtkZk4ntkbRDHhAEUzT4Nz7EmAceaaMmSrfjuRI3XNvJXZ/mo6wnUZ379j0X+BRJtE0+Almilw4Ul1+RgO8DpyowBSGmnBUPa3LDs0YibbVCmFNt5IQOXORwFg1CzKucP5JWUZ+ZxcsMLshDrsRgBLcoNWacq/tV1IeWsG1eW0iIagTuMSI7bfX6sEdwEHgkQaywAmeX0QJRa46TMsdIKS1k1v9Ul3fWvuP9oPwaDdnpWeGBEDwA/Nvgz9IY7lPxNKq2ZZgJjCqK3///TabAAflQci9cbhPjGAnlTh+vzbcs5sWYshOTsjI5fCmfbwsd8q6WWWQJmwRyLsMLUeurcvW4MFizqP+fp+ieuMFiujzawMnVnhGiuB40kD+KIN9Y83pXBGnC5Y4I/n03Q8u6eWCsWj7Qbup0tw6QVuGld0FniU7QPoSWDAkJhlmZjdag994N9e03bIRLwRkmPP0+Zsb/87aEDAFFBqJ/vurHPkAv8z6MhhZxftxZ4EQQJxMgVqfqo1ZuBjfYTRuE9QRpJnHL65ARvBVYw==",
