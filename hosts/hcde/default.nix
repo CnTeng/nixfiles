@@ -14,6 +14,7 @@
     miniflux.enable = true;
     ntfy.enable = true;
     postgresql.enable = true;
+    privatebin.enable = true;
     restic.enable = true;
     trojan.enableServer = true;
     vaultwarden.enable = true;
