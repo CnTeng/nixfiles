@@ -69,6 +69,7 @@ in
 
     window-rule {
       match app-id=r#"firefox$"# title="^(Picture-in-Picture|Library)$"
+      match app-id=r#"^nz\.co\.mega\.$"#
       open-floating true
     }
 
@@ -79,7 +80,6 @@ in
       Mod+Return { spawn "kitty"; }
       Mod+Space  { spawn "fuzzel"; }
       Mod+E      { spawn "nautilus"; }
-
 
       XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
       XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }

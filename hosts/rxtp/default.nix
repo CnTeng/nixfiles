@@ -25,6 +25,7 @@
     ghostty.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
+    megasync.enable = true;
     mpv.enable = true;
     office.enable = true;
     others.enable = true;
@@ -37,7 +38,6 @@
   };
 
   services' = {
-    mega.enable = true;
     restic.enable = true;
     postgresql.enable = true;
     trojan.enableClient = true;
