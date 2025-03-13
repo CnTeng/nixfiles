@@ -25,15 +25,11 @@ in
         }
       ];
     };
+
     home-manager.users.${user} = {
       services.kdeconnect = {
         enable = true;
         indicator = true;
-      };
-
-      systemd.user.services = {
-        kdeconnect.Unit.After = [ "graphical-session.target" ];
-        kdeconnect-indicator.Unit.After = [ "graphical-session.target" ];
       };
     };
 
