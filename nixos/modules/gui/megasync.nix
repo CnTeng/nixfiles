@@ -19,8 +19,8 @@ in
         Service = {
           Environment = [
             "DO_NOT_UNSET_XDG_SESSION_TYPE=1"
-            "DO_NOT_UNSET_QT_QPA_PLATFORMTHEME=1"
             "USE_MEGASYNC_AS_REGULAR_WINDOW=1"
+            "QT_STYLE_OVERRIDE="
           ];
           ExecStartPre = "${lib.getExe' pkgs.coreutils "sleep"} 3";
         };
