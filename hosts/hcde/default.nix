@@ -10,7 +10,6 @@
     nixbuild.enable = true;
     caddy.enable = true;
     fail2ban.enable = true;
-    kavita.enable = true;
     ldap.enable = true;
     miniflux.enable = true;
     ntfy.enable = true;
