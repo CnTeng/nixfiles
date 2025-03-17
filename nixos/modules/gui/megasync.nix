@@ -13,12 +13,14 @@ in
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
-      services.megasync.enable = true;
+      services.megasync = {
+        enable = true;
+        forceWayland = true;
+      };
 
       systemd.user.services.megasync = {
         Service = {
           Environment = [
-            "DO_NOT_UNSET_XDG_SESSION_TYPE=1"
             "USE_MEGASYNC_AS_REGULAR_WINDOW=1"
             "QT_STYLE_OVERRIDE="
           ];
