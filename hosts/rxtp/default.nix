@@ -27,6 +27,7 @@
     kitty.enable = true;
     megasync.enable = true;
     mpv.enable = true;
+    obs-studio.enable = true;
     office.enable = true;
     others.enable = true;
     qtcreator.enable = true;
