@@ -20,6 +20,7 @@
 
   gui' = {
     # android.enable = true;
+    anki.enable = true;
     chrome.enable = true;
     firefox.enable = true;
     ghostty.enable = true;

@@ -1,6 +1,7 @@
 locals {
   web_rec = {
     "@"   = { content = module.host["hcde"].ipv4 }
+    anki  = { content = module.host["hcde"].ipv4 }
     atuin = { content = module.host["hcde"].ipv4 }
     auth  = { content = module.host["hcde"].ipv4 }
     ldap  = { content = module.host["hcde"].ipv4 }

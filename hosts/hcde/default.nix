@@ -5,6 +5,7 @@
   ];
 
   services' = {
+    anki-sync.enable = true;
     atuin.enable = true;
     authelia.enable = true;
     nixbuild.enable = true;
