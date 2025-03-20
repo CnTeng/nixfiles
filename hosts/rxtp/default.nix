@@ -37,6 +37,7 @@
     wireshark.enable = true;
     yubikey.enable = true;
     zed.enable = true;
+    zotero.enable = true;
   };
 
   services' = {
