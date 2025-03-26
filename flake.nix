@@ -62,11 +62,52 @@
       ];
 
       imports = [
-        ./flakes
+        inputs.git-hooks-nix.flakeModule
+        inputs.treefmt.flakeModule
         ./hosts
         ./lib
         ./nixos
         ./pkgs
       ];
+
+      perSystem =
+        { config, pkgs, ... }:
+        {
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              jq
+              sops
+              age
+              (opentofu.withPlugins (p: [
+                p.aws
+                p.cloudflare
+                p.external
+                p.github
+                p.hcloud
+                p.local
+                p.null
+                p.shell
+                p.sops
+                p.tls
+              ]))
+              config.treefmt.build.wrapper
+            ];
+
+            shellHook = config.pre-commit.installationScript;
+          };
+
+          pre-commit.settings.hooks = {
+            commitizen.enable = true;
+            treefmt.enable = true;
+          };
+
+          treefmt.programs = {
+            nixfmt.enable = true;
+            prettier.enable = true;
+            shfmt.enable = true;
+            taplo.enable = true;
+            terraform.enable = true;
+          };
+        };
     };
 }
