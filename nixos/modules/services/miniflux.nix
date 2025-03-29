@@ -44,7 +44,7 @@ in
       hostName = "rss.snakepi.xyz";
       extraConfig = ''
         tls {
-          dns cloudflare {$CF_API_TOKEN}
+          dns cloudflare {env.CF_API_TOKEN}
         }
 
         reverse_proxy "unix/${config.services.miniflux.config.LISTEN_ADDR}"

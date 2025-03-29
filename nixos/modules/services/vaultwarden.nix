@@ -36,7 +36,7 @@ in
         hostName = "vault.snakepi.xyz";
         extraConfig = ''
           tls {
-            dns cloudflare {$CF_API_TOKEN}
+            dns cloudflare {env.CF_API_TOKEN}
           }
 
           header / {

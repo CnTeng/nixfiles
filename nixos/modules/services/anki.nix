@@ -26,7 +26,7 @@ in
       hostName = "anki.snakepi.xyz";
       extraConfig = ''
         tls {
-          dns cloudflare {$CF_API_TOKEN}
+          dns cloudflare {env.CF_API_TOKEN}
         }
 
         reverse_proxy 127.0.0.1:${toString config.services.anki-sync-server.port}

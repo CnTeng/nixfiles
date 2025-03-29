@@ -23,7 +23,7 @@ in
       hostName = "pb.snakepi.xyz";
       extraConfig = ''
         tls {
-          dns cloudflare {$CF_API_TOKEN}
+          dns cloudflare {env.CF_API_TOKEN}
         }
 
         root * ${config.services.privatebin.package}
