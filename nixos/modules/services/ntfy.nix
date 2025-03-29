@@ -23,7 +23,7 @@ in
       hostName = "ntfy.snakepi.xyz";
       extraConfig = ''
         tls {
-          dns cloudflare {$CF_API_TOKEN}
+          dns cloudflare {env.CF_API_TOKEN}
         }
 
         reverse_proxy "unix/${config.services.ntfy-sh.settings.listen-unix}"
