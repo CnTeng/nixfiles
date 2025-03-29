@@ -1,5 +1,5 @@
 locals {
-  web_rec = {
+  dns_rec = {
     "@"   = { content = module.host["hcde"].ipv4 }
     anki  = { content = module.host["hcde"].ipv4 }
     atuin = { content = module.host["hcde"].ipv4 }
@@ -13,12 +13,13 @@ locals {
   }
 }
 
-resource "cloudflare_record" "web_rec" {
-  for_each = local.web_rec
+resource "cloudflare_dns_record" "dns_rec" {
+  for_each = local.dns_rec
 
   zone_id = cloudflare_zone.zones["sp_xyz"].id
   name    = each.key
-  content = each.value.content
+  ttl     = 1
   type    = "A"
+  content = each.value.content
   proxied = lookup(each.value, "proxied", true)
 }

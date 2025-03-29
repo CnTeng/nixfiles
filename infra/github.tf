@@ -53,3 +53,9 @@ resource "github_user_ssh_key" "ybk5c_key" {
   title = "YubiKey 5C NFC"
   key   = local.secrets.git_public_keys.id_ed25519_sk_rk_ybk5c_pub
 }
+
+locals {
+  github_output = {
+    deploy_key_pub = trimspace(tls_private_key.nixos_deploy_key.public_key_openssh)
+  }
+}

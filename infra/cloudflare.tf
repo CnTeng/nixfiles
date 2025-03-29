@@ -8,23 +8,42 @@ locals {
 
 resource "cloudflare_zone" "zones" {
   for_each = local.zones
-
-  account_id = local.secrets.cloudflare.account_id
-  zone       = each.value.zone
+  account = {
+    id = local.secrets.cloudflare.account_id
+  }
+  name = each.value.zone
 }
 
-data "cloudflare_api_token_permission_groups" "all" {}
+data "cloudflare_api_token_permission_groups_list" "all" {}
+
+locals {
+  cf_api_permissions = {
+    for x in data.cloudflare_api_token_permission_groups_list.all.result :
+    x.name => x.id if contains([
+      "Zone Read",
+      "DNS Write",
+      "Workers R2 Storage Bucket Item Write",
+    ], x.name)
+  }
+}
 
 resource "cloudflare_api_token" "cdntls" {
-  name = "cdntls"
-
-  policy {
+  name   = "cdntls"
+  status = "active"
+  policies = [{
+    effect = "allow"
     permission_groups = [
-      data.cloudflare_api_token_permission_groups.all.zone["DNS Write"],
-      data.cloudflare_api_token_permission_groups.all.zone["Zone Read"],
+      { id = local.cf_api_permissions["DNS Write"] },
+      { id = local.cf_api_permissions["Zone Read"] },
     ]
     resources = {
       "com.cloudflare.api.account.zone.*" = "*"
     }
+  }]
+}
+
+locals {
+  tokens_output = {
+    cf_tls_token = cloudflare_api_token.cdntls.value
   }
 }

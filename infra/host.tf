@@ -76,3 +76,21 @@ module "host" {
 #   temp_private_key = local.temp_private_keys[each.key]
 #   age_private_key  = local.secrets.age_private_keys[each.key]
 # }
+
+locals {
+  public_hosts_output = {
+    for host, outputs in module.host :
+    host => {
+      for name, output in outputs :
+      name => output if !issensitive(output)
+    }
+  }
+
+  private_hosts_output = {
+    for host, outputs in module.host :
+    host => {
+      for name, output in outputs :
+      name => output if issensitive(output)
+    }
+  }
+}

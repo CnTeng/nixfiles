@@ -26,7 +26,7 @@ in
     };
 
     sops.secrets.cf-api-token = {
-      key = "tokens/cf_api";
+      key = "tokens/cf_tls_token";
       owner = config.services.caddy.user;
       restartUnits = [ "caddy.service" ];
     };

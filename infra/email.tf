@@ -7,7 +7,6 @@ locals {
 
 resource "cloudflare_email_routing_settings" "main" {
   zone_id = cloudflare_zone.zones["sp_xyz"].id
-  enabled = "true"
 }
 
 resource "cloudflare_email_routing_address" "main" {
@@ -26,14 +25,14 @@ resource "cloudflare_email_routing_rule" "rules" {
   name     = "${each.key} email rule"
   enabled  = true
 
-  matcher {
+  matchers = [{
     type  = "literal"
     field = "to"
     value = each.value.from
-  }
+  }]
 
-  action {
+  actions = [{
     type  = "forward"
     value = [each.value.to]
-  }
+  }]
 }

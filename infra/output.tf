@@ -1,32 +1,12 @@
 locals {
-  tokens = { cf_api = cloudflare_api_token.cdntls.value }
-  r2     = module.r2
-  github = { deploy_key_pub = trimspace(tls_private_key.nixos_deploy_key.public_key_openssh) }
-
-  public_hosts = {
-    for host, outputs in module.host :
-    host => {
-      for name, output in outputs :
-      name => output if !issensitive(output)
-    }
-  }
-
-  private_hosts = {
-    for host, outputs in module.host :
-    host => {
-      for name, output in outputs :
-      name => output if issensitive(output)
-    }
-  }
-
   public_output = jsonencode(merge(
-    { github = local.github },
-    { hosts = local.public_hosts },
+    { github = local.github_output },
+    { hosts = local.public_hosts_output },
   ))
   private_output = yamlencode(merge(
-    { tokens = local.tokens },
-    { r2 = local.r2 },
-    { hosts = local.private_hosts },
+    { tokens = local.tokens_output },
+    { r2 = local.r2_output },
+    { hosts = local.private_hosts_output },
   ))
 }
 

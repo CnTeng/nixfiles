@@ -1,14 +1,29 @@
 locals {
-  rxr2 = {
+  r2 = {
     backups = {}
   }
 }
 
-module "r2" {
-  source    = "./modules/r2"
-  providers = { aws = aws.r2 }
-  for_each  = local.rxr2
+resource "cloudflare_api_token" "r2_token" {
+  name   = "r2_backups"
+  status = "active"
+  policies = [{
+    effect = "allow"
+    permission_groups = [
+      { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
+    ]
+    resources = {
+      "com.cloudflare.edge.r2.bucket.${local.secrets.cloudflare.account_id}_default_backups" = "*"
+    }
+  }]
+}
 
-  account_id = local.secrets.cloudflare.account_id
-  name       = each.key
+locals {
+  r2_output = {
+    backups = {
+      endpoint   = "https://${local.secrets.cloudflare.account_id}.r2.cloudflarestorage.com/backups"
+      access_key = cloudflare_api_token.r2_token.id
+      secret_key = sha256(cloudflare_api_token.r2_token.value)
+    }
+  }
 }
