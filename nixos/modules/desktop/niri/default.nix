@@ -78,6 +78,8 @@ in
           (import ./waybar.nix { inherit palette; })
         ];
 
+        services.poweralertd.enable = true;
+
         programs.fuzzel = {
           enable = true;
           settings = {
