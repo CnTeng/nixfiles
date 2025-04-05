@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   hardware' = {
     secure-boot.enable = true;
@@ -6,13 +7,14 @@
   };
 
   boot = {
-    initrd.kernelModules = [ "thunderbolt" ];
-    initrd.availableKernelModules = [ "usb_storage" ];
-    kernelModules = [ "kvm-amd" ];
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "amd_pstate=active"
       "amdgpu.dcdebugmask=0x10"
     ];
+    kernelModules = [ "kvm-amd" ];
+    initrd.availableKernelModules = [ "usb_storage" ];
+    initrd.kernelModules = [ "thunderbolt" ];
   };
 
   boot.initrd.systemd.enable = true;
