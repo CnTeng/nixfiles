@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   hardware' = {
     secure-boot.enable = true;
@@ -7,7 +6,6 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "amd_pstate=active"
       "amdgpu.dcdebugmask=0x10"
