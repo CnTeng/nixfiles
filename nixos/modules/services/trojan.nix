@@ -15,8 +15,8 @@ let
     listen_port = port;
     users = [
       {
-        name._secret = config.sops.secrets."trojan/name".path;
-        password._secret = config.sops.secrets."trojan/pass".path;
+        name._secret = config.sops.secrets."proxy/username".path;
+        password._secret = config.sops.secrets."proxy/password".path;
       }
     ];
     tls = {
@@ -38,7 +38,7 @@ let
     type = "trojan";
     server = data.hosts.${host}.ipv4;
     server_port = port;
-    password._secret = config.sops.secrets."trojan/pass".path;
+    password._secret = config.sops.secrets."proxy/password".path;
     tls = {
       enabled = true;
       server_name = "${host}.snakepi.xyz";
@@ -64,12 +64,12 @@ in
         restartUnits = [ "sing-box.service" ];
       };
 
-      "trojan/name" = {
+      "proxy/username" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
       };
 
-      "trojan/pass" = {
+      "proxy/password" = {
         sopsFile = ./secrets.yaml;
         restartUnits = [ "sing-box.service" ];
       };
@@ -137,6 +137,18 @@ in
                 ];
                 auto_route = true;
                 strict_route = false;
+              }
+              {
+                type = "mixed";
+                listen = "0.0.0.0";
+                listen_port = port;
+                sniff = true;
+                users = [
+                  {
+                    username._secret = config.sops.secrets."proxy/username".path;
+                    password._secret = config.sops.secrets."proxy/password".path;
+                  }
+                ];
               }
             ];
             outbounds = [
