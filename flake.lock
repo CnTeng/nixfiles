@@ -320,6 +320,7 @@
         "nixpkgs": "nixpkgs",
         "rx-nvim": "rx-nvim",
         "sops-nix": "sops-nix",
+        "todoist-cli": "todoist-cli",
         "treefmt": "treefmt"
       }
     },
@@ -360,11 +361,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744099881,
-        "narHash": "sha256-swn4/ID7Xu5iHslSu3h2wA5RB+pAYiSFgL8ZpMHtIwE=",
+        "lastModified": 1744162805,
+        "narHash": "sha256-mQXXfIEwkrqXcFiGyWg+gCdhwSNVOIH5Yp7xw5czlgo=",
         "owner": "CnTeng",
         "repo": "rx-nvim",
-        "rev": "dcff5a8dd8106ed5736c8159856a93da9880fcb2",
+        "rev": "0287a7cd2c514c2fadfe3ece8be82a11885953f1",
         "type": "github"
       },
       "original": {
@@ -390,6 +391,35 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "todoist-cli": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "git-hooks-nix": [
+          "git-hooks-nix"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt": [
+          "treefmt"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744211950,
+        "narHash": "sha256-NudRo5Y6jRmtjIZA5b94c0Q+23tWecmzGED3C6rzcDI=",
+        "owner": "CnTeng",
+        "repo": "todoist-cli",
+        "rev": "fd7d51c6f6fa7ef9c866a068579555b53c401599",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CnTeng",
+        "repo": "todoist-cli",
         "type": "github"
       }
     },

@@ -16,6 +16,7 @@
     flutter.enable = true;
     go.enable = true;
     podman.enable = true;
+    todoist.enable = true;
   };
 
   gui' = {
