@@ -21,6 +21,8 @@ in
             dark = "Adwaita Pastel Dark";
           };
 
+          features.edit_prediction_provider = "copilot";
+
           buffer_font_family = "FiraCode Nerd Font";
           buffer_font_fallbacks = [ "Noto Sans CJK SC" ];
           buffer_font_size = 14;
@@ -69,23 +71,73 @@ in
         };
         userKeymaps = [
           {
-            context = "Workspace";
+            context = "!Terminal";
             bindings = {
-              ctrl-h = "workspace::ActivatePaneLeft";
-              ctrl-l = "workspace::ActivatePaneRight";
-              ctrl-k = "workspace::ActivatePaneUp";
-              ctrl-j = "workspace::ActivatePaneDown";
+              "ctrl-[" = [
+                "workspace::SendKeystrokes"
+                "escape"
+              ];
             };
           }
+
           {
-            context = "Editor && vim_mode == normal";
+            context = "Workspace || Dock || Terminal || (Editor && vim_mode == normal)";
             bindings = {
               ctrl-h = "workspace::ActivatePaneLeft";
               ctrl-l = "workspace::ActivatePaneRight";
               ctrl-k = "workspace::ActivatePaneUp";
               ctrl-j = "workspace::ActivatePaneDown";
 
+              ctrl-q = "pane::CloseActiveItem";
+
+              "ctrl-\\" = "workspace::ToggleBottomDock";
+              "space e" = "workspace::ToggleLeftDock";
+              "space a a" = "workspace::ToggleRightDock";
+            };
+          }
+
+          {
+            context = "ProjectPanel && not_editing";
+            bindings = {
+              a = "project_panel::NewFile";
+              d = "project_panel::Delete";
+              l = "project_panel::OpenPermanent";
+              p = "project_panel::Paste";
+              r = "project_panel::Rename";
+              x = "project_panel::Cut";
+              y = "project_panel::Copy";
+            };
+          }
+
+          {
+            context = "VimControl && !menu";
+            bindings = {
+              # lsp
+              "g r" = "editor::FindAllReferences";
+
+              "space l a" = "editor::ToggleCodeActions";
               "space l f" = "editor::Format";
+              "space l r" = "editor::Rename";
+            };
+          }
+
+          {
+            context = "vim_mode == normal && !menu";
+            bindings = {
+              # Buffer
+              shift-h = "pane::ActivatePreviousItem";
+              shift-l = "pane::ActivateNextItem";
+
+              # Finder
+              "space f f" = "file_finder::Toggle";
+              "space f w" = "pane::DeploySearch";
+            };
+          }
+
+          {
+            context = "Editor && edit_prediction";
+            bindings = {
+              ctrl-j = "editor::AcceptEditPrediction";
             };
           }
         ];
