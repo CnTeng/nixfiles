@@ -71,8 +71,8 @@ in
         };
         userKeymaps = [
           {
-            context = "!Terminal";
             bindings = {
+              ctrl-q = null;
               "ctrl-[" = [
                 "workspace::SendKeystrokes"
                 "escape"
@@ -81,7 +81,7 @@ in
           }
 
           {
-            context = "Workspace || Dock || Terminal || (Editor && vim_mode == normal)";
+            context = "EmptyPane || SharedScreen || Dock || Terminal || (Editor && vim_mode == normal)";
             bindings = {
               ctrl-h = "workspace::ActivatePaneLeft";
               ctrl-l = "workspace::ActivatePaneRight";
@@ -97,8 +97,19 @@ in
           }
 
           {
+            context = "Terminal";
+            bindings = {
+              "ctrl-[" = null;
+              "space e" = null;
+              "space a a" = null;
+            };
+          }
+
+          {
             context = "ProjectPanel && not_editing";
             bindings = {
+              ctrl-q = "workspace::ToggleLeftDock";
+
               a = "project_panel::NewFile";
               d = "project_panel::Delete";
               l = "project_panel::OpenPermanent";
@@ -112,9 +123,7 @@ in
           {
             context = "VimControl && !menu";
             bindings = {
-              # lsp
-              "g r" = "editor::FindAllReferences";
-
+              # Lsp
               "space l a" = "editor::ToggleCodeActions";
               "space l f" = "editor::Format";
               "space l r" = "editor::Rename";
@@ -127,10 +136,25 @@ in
               # Buffer
               shift-h = "pane::ActivatePreviousItem";
               shift-l = "pane::ActivateNextItem";
+              "space b" = "tab_switcher::Toggle";
 
               # Finder
               "space f f" = "file_finder::Toggle";
               "space f w" = "pane::DeploySearch";
+
+              # Lsp
+              "g r" = "editor::FindAllReferences";
+              "space l d" = "diagnostics::Deploy";
+              "space l o" = "outline::Toggle";
+              "space c s" = "editor::SwitchSourceHeader";
+            };
+          }
+
+          {
+            context = "vim_mode == visual && !menu";
+            bindings = {
+              shift-j = "editor::MoveLineDown";
+              shift-k = "editor::MoveLineUp";
             };
           }
 
