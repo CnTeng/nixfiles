@@ -11,8 +11,10 @@
       "amdgpu.dcdebugmask=0x10"
     ];
     kernelModules = [ "kvm-amd" ];
-    initrd.availableKernelModules = [ "usb_storage" ];
-    initrd.kernelModules = [ "thunderbolt" ];
+    initrd.availableKernelModules = [
+      "thunderbolt"
+      "usb_storage"
+    ];
   };
 
   boot.initrd.systemd.enable = true;

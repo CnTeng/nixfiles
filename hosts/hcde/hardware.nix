@@ -12,10 +12,7 @@ in
 
   hardware'.stateless.enable = true;
 
-  boot = {
-    kernelParams = [ "console=tty" ];
-    initrd.kernelModules = [ "virtio_gpu" ];
-  };
+  boot.kernelParams = [ "console=tty" ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
