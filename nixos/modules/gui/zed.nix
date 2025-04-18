@@ -50,6 +50,8 @@ in
             };
           };
 
+          tab_size = 2;
+
           lsp = {
             clangd.binary = {
               path = "clangd";
@@ -81,13 +83,12 @@ in
           }
 
           {
-            context = "EmptyPane || SharedScreen || Dock || Terminal || (Editor && vim_mode == normal)";
+            context = "EmptyPane || SharedScreen || (Dock > !Pane) || (Editor && vim_mode == normal)";
             bindings = {
               ctrl-h = "workspace::ActivatePaneLeft";
               ctrl-l = "workspace::ActivatePaneRight";
               ctrl-k = "workspace::ActivatePaneUp";
               ctrl-j = "workspace::ActivatePaneDown";
-
               ctrl-q = "pane::CloseActiveItem";
 
               "ctrl-\\" = "workspace::ToggleBottomDock";
@@ -99,9 +100,11 @@ in
           {
             context = "Terminal";
             bindings = {
-              "ctrl-[" = null;
-              "space e" = null;
-              "space a a" = null;
+              ctrl-h = "workspace::ActivatePaneLeft";
+              ctrl-l = "workspace::ActivatePaneRight";
+              ctrl-k = "workspace::ActivatePaneUp";
+              ctrl-j = "workspace::ActivatePaneDown";
+              ctrl-q = "pane::CloseActiveItem";
             };
           }
 
