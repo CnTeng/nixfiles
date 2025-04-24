@@ -72,10 +72,6 @@ in
     services.caddy.virtualHosts.auth = {
       hostName = "auth.snakepi.xyz";
       extraConfig = ''
-        tls {
-          dns cloudflare {env.CF_API_TOKEN}
-        }
-
         reverse_proxy "unix//run/authelia-default/authelia.sock"
       '';
     };
