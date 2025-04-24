@@ -19,9 +19,12 @@ in
     services.caddy = {
       enable = true;
       package = pkgs.caddy.withPlugins {
-        plugins = [ "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de" ];
-        hash = "sha256-YYpsf8HMONR1teMiSymo2y+HrKoxuJMKIea5/NEykGc=";
+        plugins = [ "github.com/caddy-dns/cloudflare@v0.0.0-20250420134112-006ebb07b349" ];
+        hash = "sha256-aCGKKorzRVJzerqy/MjOqaBfV90ULuRiEPL00wYCrhM=";
       };
+      globalConfig = ''
+        dns cloudflare {env.CF_API_TOKEN}
+      '';
       environmentFile = config.sops.templates.caddy.path;
     };
 

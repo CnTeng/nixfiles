@@ -22,10 +22,6 @@ in
     services.caddy.virtualHosts.privatebin = {
       hostName = "pb.snakepi.xyz";
       extraConfig = ''
-        tls {
-          dns cloudflare {env.CF_API_TOKEN}
-        }
-
         root * ${config.services.privatebin.package}
         encode gzip
 

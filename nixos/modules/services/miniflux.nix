@@ -43,10 +43,6 @@ in
     services.caddy.virtualHosts.rss = {
       hostName = "rss.snakepi.xyz";
       extraConfig = ''
-        tls {
-          dns cloudflare {env.CF_API_TOKEN}
-        }
-
         reverse_proxy "unix/${config.services.miniflux.config.LISTEN_ADDR}"
       '';
     };

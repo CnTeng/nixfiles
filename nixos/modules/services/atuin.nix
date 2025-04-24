@@ -14,10 +14,6 @@ in
     services.caddy.virtualHosts.atuin = {
       hostName = "atuin.snakepi.xyz";
       extraConfig = ''
-        tls {
-          dns cloudflare {env.CF_API_TOKEN}
-        }
-
         reverse_proxy 127.0.0.1:${toString config.services.atuin.port}
       '';
     };

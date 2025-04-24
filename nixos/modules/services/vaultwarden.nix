@@ -35,10 +35,6 @@ in
       {
         hostName = "vault.snakepi.xyz";
         extraConfig = ''
-          tls {
-            dns cloudflare {env.CF_API_TOKEN}
-          }
-
           header / {
             Strict-Transport-Security "max-age=31536000;"
             X-XSS-Protection "0"

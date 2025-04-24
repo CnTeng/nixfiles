@@ -25,10 +25,6 @@ in
     services.caddy.virtualHosts.anki-sync = {
       hostName = "anki.snakepi.xyz";
       extraConfig = ''
-        tls {
-          dns cloudflare {env.CF_API_TOKEN}
-        }
-
         reverse_proxy 127.0.0.1:${toString config.services.anki-sync-server.port}
       '';
     };
