@@ -30,7 +30,7 @@ in
 
         gtk = {
           enable = true;
-          font.name = "Noto Sans";
+          font.name = "Adwaita Sans";
           iconTheme = {
             package = pkgs.papirus-icon-theme;
             name = "Papirus-Dark";

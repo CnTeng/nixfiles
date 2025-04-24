@@ -26,7 +26,7 @@ in
           buffer_font_family = "FiraCode Nerd Font";
           buffer_font_fallbacks = [ "Noto Sans CJK SC" ];
           buffer_font_size = 14;
-          ui_font_family = "Noto Sans Mono";
+          ui_font_family = "Adwaita Sans";
           ui_font_fallbacks = [
             "Noto Sans CJK SC"
             "FiraCode Nerd Font"
@@ -34,7 +34,6 @@ in
 
           vim_mode = true;
 
-          auto_signature_help = true;
           inlay_hints.enabled = true;
           diagnostics.inline.enabled = true;
 

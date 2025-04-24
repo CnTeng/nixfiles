@@ -84,7 +84,7 @@ in
           enable = true;
           settings = {
             main = {
-              font = "Noto Sans Mono:size=13";
+              font = "Adwaita Mono:size=13";
               dpi-aware = "no";
               icon-theme = "Papirus-Dark";
               anchor = "top";
@@ -127,11 +127,11 @@ in
               border-radius = 16;
               border-size = 0;
 
-              title-font = "Noto Sans Mono:size=10";
+              title-font = "Adwaita Mono:size=10";
               title-format = "<b>%a%A</b>";
-              summary-font = "Noto Sans Mono:size=10";
+              summary-font = "Adwaita Mono:size=10";
               summary-format = "%s\n";
-              body-font = "Noto Sans Mono:size=10";
+              body-font = "Adwaita Mono:size=10";
 
               max-timeout = 15;
               default-timeout = 15;
