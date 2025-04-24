@@ -29,6 +29,8 @@ in
   xdg.configFile."niri/config.kdl".text = ''
     hotkey-overlay { skip-at-startup; }
 
+    spawn-at-startup "xwayland-satellite"
+
     environment { DISPLAY ":1"; }
 
     prefer-no-csd
@@ -53,7 +55,7 @@ in
     layout {
       gaps 8
       default-column-width { proportion 1.0; }
-      focus-ring { 
+      focus-ring {
         width 2
         active-color "${palette.accent_color}"
         inactive-color "${palette.window_bg_color}"

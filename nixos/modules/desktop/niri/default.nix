@@ -201,21 +201,6 @@ in
           ];
         };
 
-        systemd.user.services.xwayland-satellite = {
-          Unit = {
-            Description = "Xwayland outside your Wayland";
-            PartOf = [ "graphical-session.target" ];
-            After = [ "graphical-session.target" ];
-          };
-          Service = {
-            Type = "notify";
-            NotifyAccess = "all";
-            ExecStart = "${lib.getExe pkgs.xwayland-satellite} :1";
-            Environment = "RUST_LOG=error";
-          };
-          Install.WantedBy = [ "graphical-session.target" ];
-        };
-
         systemd.user.services.swaybg = {
           Unit = {
             Description = "Wallpaper tool for Wayland compositors";
