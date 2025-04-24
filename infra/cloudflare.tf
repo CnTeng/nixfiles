@@ -14,6 +14,14 @@ resource "cloudflare_zone" "zones" {
   name = each.value.zone
 }
 
+# resource "cloudflare_zone_setting" "rocket_loader" {
+#   for_each = cloudflare_zone.zones
+#
+#   zone_id    = each.value.id
+#   setting_id = "rocket_loader"
+#   value      = "off"
+# }
+
 data "cloudflare_api_token_permission_groups_list" "all" {}
 
 locals {
