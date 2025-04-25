@@ -44,6 +44,7 @@ in
     security.pam.services.gtklock = { };
 
     environment.systemPackages = with pkgs; [
+      xwayland-satellite
       wl-clipboard
       nautilus
       eog

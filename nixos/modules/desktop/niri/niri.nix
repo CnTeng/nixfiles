@@ -29,7 +29,7 @@ in
   xdg.configFile."niri/config.kdl".text = ''
     hotkey-overlay { skip-at-startup; }
 
-    spawn-at-startup "xwayland-satellite"
+    spawn-at-startup "xwayland-satellite" ":1"
 
     environment { DISPLAY ":1"; }
 
