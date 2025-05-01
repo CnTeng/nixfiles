@@ -39,5 +39,6 @@ in
     rxtp = mkNixosSystem "rxtp";
     hcde = mkNixosSystem "hcde";
     lssg = mkNixosSystem "lssg";
+    rxrk = mkNixosSystem "rxrk";
   };
 }

@@ -18,6 +18,11 @@ locals {
   }
 
   local = {
+    rxrk = {
+      system = "aarch64-linux"
+      type   = "local"
+    }
+
     rxtp = {
       system = "x86_64-linux"
       type   = "local"
