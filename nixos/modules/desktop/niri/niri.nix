@@ -27,6 +27,10 @@ let
 in
 {
   xdg.configFile."niri/config.kdl".text = ''
+    debug {
+      render-drm-device "/dev/dri/card1"
+    }
+
     hotkey-overlay { skip-at-startup; }
 
     spawn-at-startup "xwayland-satellite" ":1"
