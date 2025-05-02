@@ -21,8 +21,21 @@ jobs:
       - name: Use nix cache
         uses: DeterminateSystems/flakehub-cache-action@main
 
+      - name: Compare nixpkgs version
+        id: compare
+        run: |
+          current_fp=$(nix flake metadata nixpkgs --json | jq -r .fingerprint)
+          latest_fp=$(nix flake metadata github:NixOS/nixpkgs/nixos-unstable --json | jq -r .fingerprint)
+
+          if [ "$current_fp" = "$latest_fp" ]; then
+            echo "should_upgrade=false" >>"$GITHUB_OUTPUT"
+          else
+            echo "should_upgrade=true" >>"$GITHUB_OUTPUT"
+          fi
+
       - name: Update flake
         uses: DeterminateSystems/update-flake-lock@main
+        if: steps.compare.outputs.should_upgrade == 'true'
         with:
           commit-msg: "bump: flake inputs"
           branch: bump_flake_inputs
