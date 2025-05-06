@@ -12,9 +12,6 @@ in
   options.desktop'.input.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    services.xserver.xkb.options = "ctrl:nocaps";
-    console.useXkbConfig = true;
-
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
