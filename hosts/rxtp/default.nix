@@ -43,7 +43,6 @@
 
   services' = {
     restic.enable = true;
-    postgresql.enable = true;
     trojan.enableClient = true;
   };
 }
