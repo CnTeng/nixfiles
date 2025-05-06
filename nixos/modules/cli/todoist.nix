@@ -9,7 +9,6 @@ let
   cfg = config.cli'.todoist;
 in
 {
-
   options.cli'.todoist.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
@@ -20,21 +19,13 @@ in
     home-manager.users.${user} = {
       programs.todoist-cli = {
         enable = true;
-        apiTokenFile = config.sops.secrets."todoist/api-token".path;
-        wsTokenFile = config.sops.secrets."todoist/ws-token".path;
+        apiTokenFile = config.sops.secrets."todoist/token".path;
       };
     };
 
-    sops.secrets = {
-      "todoist/api-token" = {
-        owner = user;
-        sopsFile = ./secrets.yaml;
-      };
-
-      "todoist/ws-token" = {
-        owner = user;
-        sopsFile = ./secrets.yaml;
-      };
+    sops.secrets."todoist/token" = {
+      owner = user;
+      sopsFile = ./secrets.yaml;
     };
 
     environment.persistence."/persist" = {
