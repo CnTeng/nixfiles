@@ -22,7 +22,7 @@
   gui' = {
     # android.enable = true;
     anki.enable = true;
-    chrome.enable = true;
+    chromium.enable = true;
     firefox.enable = true;
     ghostty.enable = true;
     kdeconnect.enable = true;
@@ -43,7 +43,6 @@
 
   services' = {
     restic.enable = true;
-    postgresql.enable = true;
     trojan.enableClient = true;
   };
 }
