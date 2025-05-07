@@ -47,24 +47,5 @@ rec {
     in
     lib.concatMapAttrs (mkMatchBlock user) hosts;
 
-  mkBuildMachines =
-    mkSshKey: hosts:
-    let
-      mkBuildMachine = host: hostData: {
-        hostName = hostData.ipv4;
-        protocol = "ssh-ng";
-        inherit (hostData) system;
-        sshUser = "nixbuild";
-        sshKey = mkSshKey host;
-        maxJobs = 5;
-        supportedFeatures = [
-          "big-parallel"
-          "kvm"
-          "nixos-test"
-        ];
-      };
-    in
-    lib.mapAttrsToList mkBuildMachine hosts;
-
   removeHashTag = hex: lib.removePrefix "#" hex;
 }

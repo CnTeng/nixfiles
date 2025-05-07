@@ -1,32 +1,29 @@
 locals {
   hcloud = {
     hcde = {
-      plan     = "cax11"
-      region   = "fsn1-dc14"
-      system   = "aarch64-linux"
-      type     = "remote"
-      openssh  = true
-      nixbuild = true
+      plan    = "cax11"
+      region  = "fsn1-dc14"
+      system  = "aarch64-linux"
+      type    = "remote"
+      openssh = true
     }
   }
 
   lightsail = {
     lssg = {
-      plan     = "nano_3_0"
-      region   = "ap-southeast-1a"
-      system   = "x86_64-linux"
-      type     = "remote"
-      openssh  = true
-      nixbuild = false
+      plan    = "nano_3_0"
+      region  = "ap-southeast-1a"
+      system  = "x86_64-linux"
+      type    = "remote"
+      openssh = true
     }
   }
 
   local = {
     rxtp = {
-      system   = "x86_64-linux"
-      type     = "local"
-      openssh  = true
-      nixbuild = false
+      system  = "x86_64-linux"
+      type    = "local"
+      openssh = true
     }
   }
 
@@ -57,13 +54,12 @@ module "host" {
   source   = "./modules/host"
   for_each = local.hosts
 
-  zone_id  = cloudflare_zone.zones["sp_xyz"].id
-  name     = each.key
-  system   = each.value.system
-  type     = each.value.type
-  ip       = lookup(local.hosts_ip, each.key, null)
-  openssh  = each.value.openssh
-  nixbuild = each.value.nixbuild
+  zone_id = cloudflare_zone.zones["sp_xyz"].id
+  name    = each.key
+  system  = each.value.system
+  type    = each.value.type
+  ip      = lookup(local.hosts_ip, each.key, null)
+  openssh = each.value.openssh
 }
 
 # module "nixos" {

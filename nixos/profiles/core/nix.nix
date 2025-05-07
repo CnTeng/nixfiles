@@ -1,23 +1,4 @@
-{
-  config,
-  data,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  inherit (config.networking) hostName;
-
-  hosts = lib.filterAttrs (n: v: n != hostName && v.nixbuild) data.hosts;
-
-  machineSecrets = lib.concatMapAttrs (host: _: {
-    "nixbuild/${host}_private_key".key = "hosts/${host}/nixbuild_key";
-  }) hosts;
-
-  buildMachines = lib.mkBuildMachines (
-    host: config.sops.secrets."nixbuild/${host}_private_key".path
-  ) hosts;
-in
+{ pkgs, ... }:
 {
   nix.channel.enable = false;
 
@@ -40,18 +21,11 @@ in
     use-xdg-base-directories = true;
   };
 
-  nix = {
-    inherit buildMachines;
-    distributedBuilds = true;
-  };
-
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
-
-  sops.secrets = machineSecrets;
 
   environment.systemPackages = [ pkgs.nixos-rebuild-ng ];
 }
