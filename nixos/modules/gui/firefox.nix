@@ -38,9 +38,6 @@ in
         SearchSuggestEnabled = true;
         ShowHomeButton = false;
       };
-      preferences = {
-        "media.ffmpeg.vaapi.enabled" = true;
-      };
     };
 
     environment.persistence."/persist" = {
