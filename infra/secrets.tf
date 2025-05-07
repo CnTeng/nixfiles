@@ -23,3 +23,7 @@ provider "cloudflare" {
 provider "github" {
   token = local.secrets.github_token
 }
+
+provider "tailscale" {
+  api_key = local.secrets.tailscale_token
+}

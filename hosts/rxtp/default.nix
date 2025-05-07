@@ -43,6 +43,7 @@
 
   services' = {
     restic.enable = true;
+    tailscale.enable = true;
     trojan.enableClient = true;
   };
 }

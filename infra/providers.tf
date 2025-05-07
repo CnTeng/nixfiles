@@ -8,6 +8,7 @@ terraform {
     null       = { source = "hashicorp/null" }
     shell      = { source = "scottwinkler/shell" }
     sops       = { source = "carlpett/sops" }
+    tailscale  = { source = "tailscale/tailscale" }
     tls        = { source = "hashicorp/tls" }
   }
 

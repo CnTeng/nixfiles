@@ -96,6 +96,7 @@
                 p.null
                 p.shell
                 p.sops
+                p.tailscale
                 p.tls
               ]))
               config.treefmt.build.wrapper
