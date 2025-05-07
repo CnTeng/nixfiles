@@ -12,7 +12,12 @@ in
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
-      programs.chromium.enable = true;
+      programs.chromium = {
+        enable = true;
+        commandLineArgs = [
+          "--enable-features=TouchpadOverscrollHistoryNavigation"
+        ];
+      };
 
       xdg.mimeApps.defaultApplications = {
         "text/html" = "chromium-browser.desktop";
