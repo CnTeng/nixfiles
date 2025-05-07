@@ -19,7 +19,9 @@ in
     home-manager.users.${user} = {
       programs.todoist-cli = {
         enable = true;
-        apiTokenFile = config.sops.secrets."todoist/token".path;
+        settings = {
+          daemon.api_token_file = config.sops.secrets."todoist/token".path;
+        };
       };
     };
 
