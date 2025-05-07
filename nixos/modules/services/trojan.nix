@@ -141,10 +141,6 @@ in
                 ];
                 auto_route = true;
                 strict_route = false;
-                route_exclude_address = [
-                  "100.64.0.0/10"
-                  "fd7a:115c:a1e0::/48"
-                ];
                 exclude_interface = [ "tailscale0" ];
               }
               {
