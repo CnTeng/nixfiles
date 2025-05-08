@@ -17,8 +17,11 @@ hcde:
 lssg:
 	$(REBUILD) $(REMOTE_FLAGS)
 
-updatekeys:
+update-keys:
 	fd 'secrets.yaml' --exec sops updatekeys --yes
+
+rotate-keys:
+	fd 'secrets.yaml' --exec sops rotate -i
 
 clean:
 	sudo nix-collect-garbage -d && nix-collect-garbage -d

@@ -1,7 +1,6 @@
 keys:
   age:
-    - &yufei age1m9azc8t9pr8580e035dlcrpu5cqvt4q3fvshmkd4ym54sfpxrdwq2qjtpn
-
+    - &self ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMS5DHfxuhsH2yg1woBz1xTsRLDy+eZXgkGxYXJlYi91 yufei
     - &rxtp age1u0uu98n3q520ztc2m4f9wws332nu8ktszd403df7k434thumje9qezn99v
     - &hcde age1yaz2866jancllpnn6p9c0pxmw4cehuv9s54ljmdnp55xld6h75hqcxzhvr
     - &lssg age1xh5ummespnq3t0ddt4wcfugk4ghdvmtrwce739uavv8rdmsshp2q4qm39x
@@ -14,7 +13,7 @@ creation_rules:
   - path_regex: nixos/*
     key_groups:
       - age:
-          - *yufei
+          - *self
           - *rxtp
           - *hcde
           - *lssg
@@ -22,7 +21,7 @@ creation_rules:
   - path_regex: infra/.*
     key_groups:
       - age:
-          - *yufei
+          - *self
           - *rxtp
           - *hcde
           - *lssg
