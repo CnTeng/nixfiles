@@ -5,8 +5,8 @@
 HOSTNAME			:= $(shell hostname)
 REBUILD     	:= nixos-rebuild
 MODE        	?= switch
-FLAGS       	:= $(MODE) --flake .\#
-REMOTE_FLAGS	:= $(FLAGS)$@ --fast --target-host root@$@
+FLAGS       	?= $(MODE) --flake .\#
+REMOTE_FLAGS	?= $(FLAGS)$@ --fast --target-host root@$@
 INSTALL_FLAGS	:= --flake .\#$(HOSTNAME) \
 								 --target-host root@$(HOSTNAME) \
 								 --extra-files "$(EXTRA_FILES)"
