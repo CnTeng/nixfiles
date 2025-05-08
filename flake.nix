@@ -89,12 +89,10 @@
               (opentofu.withPlugins (p: [
                 p.aws
                 p.cloudflare
-                p.external
                 p.github
                 p.hcloud
                 p.local
                 p.null
-                p.shell
                 p.sops
                 p.tailscale
                 p.tls
