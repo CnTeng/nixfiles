@@ -1,21 +1,5 @@
+{ user, ... }:
 {
-  config,
-  lib,
-  data,
-  user,
-  ...
-}:
-let
-  inherit (config.networking) hostName;
-
-  hosts = lib.filterAttrs (n: v: n != hostName && v.type == "remote") data.hosts;
-
-  knownHosts = lib.mkKnownHosts hosts;
-  matchBlocks = lib.mkMatchBlocks user hosts;
-in
-{
-  programs.ssh.knownHosts = knownHosts;
-
   home-manager.users.${user} = {
     services.ssh-agent.enable = true;
 
@@ -24,7 +8,15 @@ in
       forwardAgent = true;
       addKeysToAgent = "yes";
       includes = [ "config.d/*.conf" ];
-      inherit matchBlocks;
+      matchBlocks = {
+        "*.snakepi.xyz" = {
+          inherit user;
+          identityFile = [
+            "~/.ssh/id_ed25519_sk_rk_ybk5@nixos"
+            "~/.ssh/id_ed25519_sk_rk_ybk5c@nixos"
+          ];
+        };
+      };
     };
   };
 

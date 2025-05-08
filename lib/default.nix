@@ -11,9 +11,6 @@
     {
       inherit (helper)
         importModule
-        mkKnownHosts
-        mkMatchBlocks
-        mkBuildMachines
         removeHashTag
         ;
 

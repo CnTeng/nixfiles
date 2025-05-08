@@ -1,29 +1,26 @@
 locals {
   hcloud = {
     hcde = {
-      plan    = "cax11"
-      region  = "fsn1-dc14"
-      system  = "aarch64-linux"
-      type    = "remote"
-      openssh = true
+      plan   = "cax11"
+      region = "fsn1-dc14"
+      system = "aarch64-linux"
+      type   = "remote"
     }
   }
 
   lightsail = {
     lssg = {
-      plan    = "nano_3_0"
-      region  = "ap-southeast-1a"
-      system  = "x86_64-linux"
-      type    = "remote"
-      openssh = true
+      plan   = "nano_3_0"
+      region = "ap-southeast-1a"
+      system = "x86_64-linux"
+      type   = "remote"
     }
   }
 
   local = {
     rxtp = {
-      system  = "x86_64-linux"
-      type    = "local"
-      openssh = true
+      system = "x86_64-linux"
+      type   = "local"
     }
   }
 
@@ -59,7 +56,6 @@ module "host" {
   system  = each.value.system
   type    = each.value.type
   ip      = lookup(local.hosts_ip, each.key, null)
-  openssh = each.value.openssh
 }
 
 # module "nixos" {
