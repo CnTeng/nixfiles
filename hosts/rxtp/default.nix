@@ -14,7 +14,10 @@
 
   cli' = {
     flutter.enable = true;
-    go.enable = true;
+    neovim = {
+      enable = true;
+      withExtraPackages = true;
+    };
     podman.enable = true;
     todoist.enable = true;
   };

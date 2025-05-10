@@ -4,6 +4,8 @@
     ./hardware.nix
   ];
 
+  cli'.neovim.enable = true;
+
   services' = {
     anki-sync.enable = true;
     atuin.enable = true;

@@ -4,6 +4,11 @@
     ./hardware.nix
   ];
 
+  cli'.neovim = {
+    enable = true;
+    withExtraPackages = true;
+  };
+
   desktop' = {
     niri.enable = true;
     fonts.enable = true;
