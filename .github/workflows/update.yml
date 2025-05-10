@@ -21,24 +21,45 @@ jobs:
       - name: Use nix cache
         uses: DeterminateSystems/flakehub-cache-action@main
 
-      - name: Compare nixpkgs version
-        id: compare
+      - name: Check flake inputs
+        id: check
         run: |
-          current_rev=$(nix flake metadata --json | jq -r .locks.nodes.nixpkgs.locked.rev)
-          latest_rev=$(nix flake metadata github:NixOS/nixpkgs/nixos-unstable --json | jq -r .revision)
+          declare -A inputs=(
+            ["nixpkgs"]="github:NixOS/nixpkgs/nixos-unstable"
+            ["rx-nvim"]="github:CnTeng/rx-nvim"
+          )
 
-          echo "Current revision: $current_rev"
-          echo "Latest revision: $latest_rev"
+          check_flake_input() {
+            local flake_name=$1
+            local flake_url=$2
 
-          if [ "$current_rev" = "$latest_rev" ]; then
-            echo "upgrade=false" >>"$GITHUB_OUTPUT"
-          else
-            echo "upgrade=true" >>"$GITHUB_OUTPUT"
-          fi
+            local current_rev
+            local latest_rev
 
-      - name: Update flake
+            current_rev=$(nix flake metadata --json | jq -r ".locks.nodes[\"${flake_name}\"].locked.rev")
+            latest_rev=$(nix flake metadata "${flake_url}" --json | jq -r '.revision')
+
+            echo "${flake_name}:"
+            echo "  current: $current_rev"
+            echo "  latest: $latest_rev"
+
+            [[ "$current_rev" != "$latest_rev" ]]
+          }
+
+          upgrade=false
+          for flake_name in "${!inputs[@]}"; do
+            flake_url=${inputs[$flake_name]}
+            if check_flake_input "$flake_name" "$flake_url"; then
+              upgrade=true
+              break
+            fi
+          done
+
+          echo "upgrade=$upgrade" >>"$GITHUB_OUTPUT"
+
+      - name: Update flake inputs
         uses: DeterminateSystems/update-flake-lock@main
-        if: steps.compare.outputs.upgrade == 'true'
+        if: steps.check.outputs.upgrade == 'true'
         with:
           commit-msg: "bump: flake inputs"
           branch: bump_flake_inputs
