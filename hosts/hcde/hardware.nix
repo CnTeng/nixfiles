@@ -12,8 +12,6 @@ in
 
   hardware'.stateless.enable = true;
 
-  boot.kernelParams = [ "console=tty" ];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

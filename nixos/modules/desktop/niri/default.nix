@@ -23,13 +23,17 @@ in
   config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = true;
-      settings.default_session.command = lib.concatStringsSep " " [
-        (lib.getExe pkgs.greetd.tuigreet)
-        "--time"
-        "--user-menu"
-        "--asterisks"
-        "--cmd niri-session"
-      ];
+      vt = 7;
+      settings = {
+        default_session.command = lib.concatStringsSep " " [
+          (lib.getExe pkgs.greetd.tuigreet)
+          "--time"
+          "--remember"
+          "--user-menu"
+          "--asterisks"
+          "--cmd niri-session"
+        ];
+      };
     };
 
     programs.niri.enable = true;

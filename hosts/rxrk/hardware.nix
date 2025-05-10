@@ -11,7 +11,6 @@
       "rootwait"
       "earlycon"
       "consoleblank=0"
-      "console=tty1"
     ];
     initrd.availableKernelModules = [
       "sdhci_acpi"
