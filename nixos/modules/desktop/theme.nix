@@ -41,6 +41,12 @@ in
           };
           gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
         };
+
+        dconf.settings = {
+          "org/gnome/desktop/interface" = {
+            color-scheme = "prefer-dark";
+          };
+        };
       };
   };
 }
