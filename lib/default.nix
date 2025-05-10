@@ -9,11 +9,7 @@
       options = callLibs ./options.nix;
     in
     {
-      inherit (helper)
-        importModule
-        removeHashTag
-        ;
-
+      inherit (helper) importModule removeHashTag;
       inherit (options) mkEnableOption';
     };
 
