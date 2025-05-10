@@ -38,7 +38,7 @@ in
           ".cache/nvim"
           ".config/github-copilot"
         ]
-        ++ (lib.optionalAttrs cfg.withExtraPackages [
+        ++ (lib.optionals cfg.withExtraPackages [
           ".local/share/go"
         ]);
     };
