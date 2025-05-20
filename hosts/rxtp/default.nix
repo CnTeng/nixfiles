@@ -19,7 +19,6 @@
       withExtraPackages = true;
     };
     podman.enable = true;
-    todoist.enable = true;
   };
 
   gui' = {
