@@ -51,6 +51,14 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    todoist-cli = {
+      url = "github:CnTeng/todoist-cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.git-hooks-nix.follows = "git-hooks-nix";
+      inputs.treefmt.follows = "treefmt";
+    };
   };
 
   outputs =
