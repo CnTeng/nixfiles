@@ -13,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [
-      inputs.todoist-cli.homeManagerModules.default
+      inputs.todoist-cli.homeModules.default
     ];
 
     home-manager.users.${user} = {

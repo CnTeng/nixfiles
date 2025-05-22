@@ -409,11 +409,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746971289,
-        "narHash": "sha256-ZkyozXGLYbAh+jyu+yeuKduSTN0bLcCL3FsrCGl5VoM=",
+        "lastModified": 1747883103,
+        "narHash": "sha256-oQNiX14Vj4MD7ZPqfxyL5QCml752Uiibnd8UTOT+6Zk=",
         "owner": "CnTeng",
         "repo": "todoist-cli",
-        "rev": "063038764c7fbea5284fea02db6b2d80a7014053",
+        "rev": "4d601d49a9cf04a22b9dd5b912eac0b52ba8963e",
         "type": "github"
       },
       "original": {
