@@ -10,8 +10,8 @@ locals {
 
   lightsail = {
     lssg = {
-      plan   = "nano_3_0"
-      region = "ap-southeast-1a"
+      plan   = "micro_3_0"
+      region = "ap-southeast-1c"
       system = "x86_64-linux"
       type   = "remote"
     }
