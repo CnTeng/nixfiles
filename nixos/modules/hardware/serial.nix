@@ -11,11 +11,6 @@ in
   options.hardware'.serial.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
-    boot.kernelModules = [
-      "ftdi_sio"
-      "pl2303"
-    ];
-
     environment.systemPackages = [ pkgs.usbutils ];
 
     services.udev.extraRules = ''
