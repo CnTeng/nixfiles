@@ -25,6 +25,7 @@
   gui' = {
     # android.enable = true;
     anki.enable = true;
+    clion.enable = true;
     chromium.enable = true;
     firefox.enable = true;
     ghostty.enable = true;
