@@ -29,9 +29,8 @@ locals {
     }
   }
 
-  hosts             = merge(local.hcloud, local.lightsail, local.local)
-  hosts_ip          = { for host, outputs in merge(module.hcloud, module.lightsail) : host => outputs.ip }
-  temp_private_keys = { for host, outputs in module.hcloud : host => outputs.temp_private_key }
+  hosts    = merge(local.hcloud, local.lightsail, local.local)
+  hosts_ip = { for host, outputs in merge(module.hcloud, module.lightsail) : host => outputs.ip }
 }
 
 module "hcloud" {
