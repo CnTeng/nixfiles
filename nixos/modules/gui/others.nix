@@ -15,7 +15,6 @@ in
     home-manager.users.${user} = {
       home.packages = with pkgs; [
         calibre
-        foliate
         spotify
         tdesktop
       ];
@@ -25,9 +24,6 @@ in
       users.${user}.directories = [
         ".cache/calibre"
         ".config/calibre"
-
-        ".cache/com.github.johnfactotum.Foliate"
-        ".local/share/com.github.johnfactotum.Foliate"
 
         ".cache/spotify"
         ".config/spotify"

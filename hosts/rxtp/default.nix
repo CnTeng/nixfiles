@@ -26,6 +26,7 @@
     anki.enable = true;
     chromium.enable = true;
     firefox.enable = true;
+    foliate.enable = true;
     ghostty.enable = true;
     jetbrains.clion.enable = true;
     kdeconnect.enable = true;
