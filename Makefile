@@ -9,7 +9,7 @@ HOSTADDR	:= $(HOSTNAME)
 REBUILD     	:= nixos-rebuild
 MODE        	?= switch
 LOCAL_FLAGS		?= $(MODE) --flake .\#
-REMOTE_FLAGS	?= $(FLAGS)$@ --target-host root@$@
+REMOTE_FLAGS	?= $(LOCAL_FLAGS)$@ --target-host root@$@
 
 .PHONY: local
 local:
