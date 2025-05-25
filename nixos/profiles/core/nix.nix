@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   nix.channel.enable = false;
 
@@ -27,5 +26,5 @@
     options = "--delete-older-than 7d";
   };
 
-  environment.systemPackages = [ pkgs.nixos-rebuild-ng ];
+  system.rebuild.enableNg = true;
 }
