@@ -86,6 +86,7 @@
               jq
               sops
               age
+              nixos-anywhere
               (opentofu.withPlugins (p: [
                 p.aws
                 p.cloudflare

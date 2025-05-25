@@ -6,13 +6,7 @@ HOSTNAME			:= $(shell hostname)
 REBUILD     	:= nixos-rebuild
 MODE        	?= switch
 FLAGS       	?= $(MODE) --flake .\#
-REMOTE_FLAGS	?= $(FLAGS)$@ --fast --target-host root@$@
-INSTALL_FLAGS	:= --flake .\#$(HOSTNAME) \
-								 --target-host root@$(HOSTNAME) \
-								 --extra-files "$(EXTRA_FILES)"
-EXTRA_FLAGS		:=
-
-all: local
+REMOTE_FLAGS	?= $(FLAGS)$@ --target-host root@$@
 
 local:
 	sudo $(REBUILD) $(FLAGS)$(HOSTNAME)
@@ -20,13 +14,19 @@ local:
 remote: hcde lssg
 
 hcde:
-	$(REBUILD) $(REMOTE_FLAGS) --build-host root@$@ $(EXTRA_FLAGS)
+	$(REBUILD) $(REMOTE_FLAGS) --build-host root@$@
 
 lssg:
-	$(REBUILD) $(REMOTE_FLAGS) $(EXTRA_FLAGS)
+	$(REBUILD) $(REMOTE_FLAGS)
+
+IP						:= $(HOSTNAME)
+INSTALL_FLAGS	:= --flake .\#$(HOSTNAME) \
+								 --target-host root@$(IP) \
+								 --extra-files "$(EXTRA_FILES)"
+EXTRA_FLAGS		:=
 
 install:
-	nix run github:nix-community/nixos-anywhere -- $(INSTALL_FLAGS) $(EXTRA_FLAGS)
+	nixos-anywhere $(INSTALL_FLAGS) $(EXTRA_FLAGS)
 
 generate-key:
 	@set -e
