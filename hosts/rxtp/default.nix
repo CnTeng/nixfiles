@@ -23,12 +23,11 @@
   };
 
   gui' = {
-    # android.enable = true;
     anki.enable = true;
-    clion.enable = true;
     chromium.enable = true;
     firefox.enable = true;
     ghostty.enable = true;
+    jetbrains.clion.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
     megasync.enable = true;
