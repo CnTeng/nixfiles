@@ -12,18 +12,18 @@ provider "aws" {
   secret_key = local.secrets.aws.secret_key
 }
 
-provider "hcloud" {
-  token = local.secrets.hcloud_token
+provider "cloudflare" {
+  api_token = local.secrets.cloudflare.token
 }
 
-provider "cloudflare" {
-  api_token = local.secrets.cloudflare.api_token
+provider "hcloud" {
+  token = local.secrets.hcloud.token
 }
 
 provider "github" {
-  token = local.secrets.github_token
+  token = local.secrets.github.token
 }
 
 provider "tailscale" {
-  api_key = local.secrets.tailscale_token
+  api_key = local.secrets.tailscale.token
 }

@@ -8,11 +8,13 @@ resource "tls_private_key" "host_ed25519_key" {
 }
 
 output "host_rsa_key_pub" {
-  value = trimspace(tls_private_key.host_rsa_key.public_key_openssh)
+  value     = trimspace(tls_private_key.host_rsa_key.public_key_openssh)
+  sensitive = true
 }
 
 output "host_ed25519_key_pub" {
-  value = trimspace(tls_private_key.host_ed25519_key.public_key_openssh)
+  value     = trimspace(tls_private_key.host_ed25519_key.public_key_openssh)
+  sensitive = true
 }
 
 output "host_rsa_key" {

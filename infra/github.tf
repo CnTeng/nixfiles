@@ -41,17 +41,7 @@ resource "github_actions_secret" "ssh_known_hosts" {
 resource "github_actions_secret" "ntfy_token" {
   repository      = "nixfiles"
   secret_name     = "NTFY_TOKEN"
-  plaintext_value = local.secrets.ntfy_token
-}
-
-resource "github_user_ssh_key" "ybk5_key" {
-  title = "YubiKey 5 NFC"
-  key   = local.secrets.git_public_keys.id_ed25519_sk_rk_ybk5_pub
-}
-
-resource "github_user_ssh_key" "ybk5c_key" {
-  title = "YubiKey 5C NFC"
-  key   = local.secrets.git_public_keys.id_ed25519_sk_rk_ybk5c_pub
+  plaintext_value = local.secrets.ntfy.token
 }
 
 locals {

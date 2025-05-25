@@ -4,32 +4,24 @@
   },
   "hosts": {
     "hcde": {
-      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDKi8rizOI5bhQB7j/lB3m/qjpPe/v+vAIVYHntSNOw",
-      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCzuOB3TYj6LLdhJbWaVPyKOc7c9rztLOpGYjWWZCPNZvVCRJ+R/oAj2IKY/HRDzf4IpoJeeEoXd41b2hPtwYQSG9TJaVZixKrVVaIkxQLZlz8KjMVHIVwAYBmQbmTJvbn3LQ7Kpuhs7EIrCxZRoq2eO0SzlGnSs/7s8V+wgBYPm/ivXa1/VEB7vrqp83PEItb4Efks5lfD8MYNLv6WWLpmQfG8sq7m3tNa0NaB6dXFCDUo16oyLyaubcYO/R6aEyU7ocBP41C/FT//9zy784J6h4nlhoADH9YXoiobqY/Rmt1WKInfZQYQWr9YKYtxxULVfZSJrzrEDwIyUSO9TYgVjMnbbYjncUgd08S+KmuFFNsliXclt1QZzfpDKImccLO9jLSxiKNcCyTwQseKa7uT0IT1JuR6go/oUTgT1csdWKVMAMflolaDASOtqGc6woYlusBnRwjUZrJBqzRJgSmp/edzi1Eoo7A1n5PcXXB8DNvRc2ZasodbMYHZujF4COjUfNsbYlpTL6hX1UBwPD6NLMYDiALSERevQdI+wPUjwZQPMt25XsJVS+u3R0px9cWYPVisXUTJbW5UM7raBCfbY/hLdBNC+nbVIp6A4Gq3QDgKDd/YjrcnHT1vnIxNHAgG03HPpJ5CPx7OcZty5RF3COOyOhxvCQ667bj7mExHhw==",
       "ipv4": "188.245.57.225",
       "ipv6": "2a01:4f8:c010:9f3f::1",
       "system": "aarch64-linux",
       "type": "remote"
     },
     "lssg": {
-      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKJG4i3PYmzp9HKlaEZj5JWznMZNkkHSZZVLutwwNwx+",
-      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+c345Zw+ygmCFZsVe/u2wMmyMZftaTB5HsybaaqY7wUweYgEE8Fxt7WkBFQzRQ56t10RBMpwJGgAPRLGLj9pHCeCMwQV83LX2kAGQ0x1oLn4xz3WZLy3x7UfMXOWVh93NT2RWwXxuEtWEeGNH+SFrjP8KouJ7a5tk+oweu50ynFiiKJo6KiP4+0os5TPxdEdQUT4uhBcMUalE9oqy8lnuMh/ezaPCoRpVA6TCbDa1KC3yv3Z0fy4bCzn4l2jH+JcEw++2OaCaNbBxTd6G5DoGvb4zi187dL7Lbm1I0jLzIJC1wrxgepIa0a0zDK/0VxEBugNqxjghWMVrRZJav5iUNQwz0dUGz52fKTryBdmeelk04SYEnQBOhf9O5zPsXQEc2i8zXovJZG10GjVCQ1hNJIkoGYC6T7avL03gAlHYy3HL6ntyZ2jd4CAGaRPGJt6cJpARA1NYiPbrOBmZsP7uicuMoLpasl+dIQ6U6dLkzX1EWuWaOdbBbDDfrlDhyWlNyWgaUahTRpJ7YCPIpnBd/qJu/PJg+suOAaAgkiHIXiOATr1Mo8Bom4lM7kQE/AO8MnJjkJicrTghrXf7e1/DzVMbPTZAy8e4IwbDr/Cf4tqI3flVFA3A4pTiyR5PpKlijhH/0w34uu9Qegi1sGhoAvfpafvH51wOBQFwfN9BNQ==",
       "ipv4": "52.76.117.48",
       "ipv6": "2406:da18:661:6c02:70ff:5749:3d2d:d794",
       "system": "x86_64-linux",
       "type": "remote"
     },
     "rxrk": {
-      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINFvw9lW2wQgobmAc20Bo4CptHEwH6HFlHBmAfdIkzKb",
-      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCsN/6kLonPYGosKKUMhJF8kjI0xgBSJqaNKWPXzfb9tSaoljxSMqWgdxeFOw6YY+doVmQPQeI50ySP7+7k/z4eHsiOH1ablU7gdT9mKaslZEt+OU/XuHzC1jwhiUUFZWPLoHAGCHlLwU22lu/jaY6Asm+1bP9+RY7cXfJ8JZy4uYNiWsjdrAambjd13dBtdKhrFPNSjiDWrPEviHYDBhEB8Yd58IH26o+N+26AHt3tcNWHIzHxYBEikCtCb1yiegSr5rQ3Brr/5eakMqxcsCjKnWurHyHGFaFTF8rOwe8hqq0yPTOcxEKgRsETfsDnpJ7cf+1V5rt/oihkpjSlqlcPVIhNHEBDPPJU5sjux7xHn5vse4lg2sP+sXsFhio0oAuiwQ0iVBQOSeLUaiUDUUc+rqEpM+QXq64heLpxZqRTfH+c4Mb3DUMGdkKyn4btUw/rNtM74giE9FYwJLMA0Y+VvSJx7bnZBzlAday5p8msdGW70fjw1BbNLXBZSrZCdWWFcJKRVaOyMichjF9PP8xLTLAY1xAu/n+BnQQpGl8asbCMY9uw7EN2BjVxacqzqBT+SbImS92qCXIAsfUVIJaGiEANHNZh+DGAwSQ7rYYNy4yNZpf3ikt3Ulz2d8vfXTxTN6iDrMiKK31QCmwqJDl8nnFaOoIRJtSPWmB+6T4yFw==",
       "ipv4": null,
       "ipv6": null,
       "system": "aarch64-linux",
       "type": "local"
     },
     "rxtp": {
-      "host_ed25519_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII+bdfzUfavJst9KAT9viruo7zrrQTepJz3Ob5uEwxEm",
-      "host_rsa_key_pub": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWSOGxzvc5Wp7cYbIUpmomr5MF/c7NvDBfOX3ofzUcKnMj2ZhWVDrDpHqGIT4FzjW2dUOWUL/CWaxVl5EA6L36pjD0WueoFjXWWd9Ovabj1Sfm+d0Bb10IUjJB9+d9npNzPJrMIfbjnrtkZk4ntkbRDHhAEUzT4Nz7EmAceaaMmSrfjuRI3XNvJXZ/mo6wnUZ379j0X+BRJtE0+Almilw4Ul1+RgO8DpyowBSGmnBUPa3LDs0YibbVCmFNt5IQOXORwFg1CzKucP5JWUZ+ZxcsMLshDrsRgBLcoNWacq/tV1IeWsG1eW0iIagTuMSI7bfX6sEdwEHgkQaywAmeX0QJRa46TMsdIKS1k1v9Ul3fWvuP9oPwaDdnpWeGBEDwA/Nvgz9IY7lPxNKq2ZZgJjCqK3///TabAAflQci9cbhPjGAnlTh+vzbcs5sWYshOTsjI5fCmfbwsd8q6WWWQJmwRyLsMLUeurcvW4MFizqP+fp+ieuMFiujzawMnVnhGiuB40kD+KIN9Y83pXBGnC5Y4I/n03Q8u6eWCsWj7Qbup0tw6QVuGld0FniU7QPoSWDAkJhlmZjdag994N9e03bIRLwRkmPP0+Zsb/87aEDAFFBqJ/vurHPkAv8z6MhhZxftxZ4EQQJxMgVqfqo1ZuBjfYTRuE9QRpJnHL65ARvBVYw==",
       "ipv4": null,
       "ipv6": null,
       "system": "x86_64-linux",
