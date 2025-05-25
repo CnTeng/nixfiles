@@ -39,6 +39,7 @@ let
     server = data.hosts.${host}.ipv4;
     server_port = port;
     password._secret = config.sops.secrets."proxy/password".path;
+    network = "tcp";
     tls = {
       enabled = true;
       server_name = "${host}.snakepi.xyz";
@@ -129,7 +130,6 @@ in
                 inet6_range = "fc00::/18";
               };
               strategy = "ipv4_only";
-              independent_cache = true;
             };
             inbounds = [
               {
@@ -230,10 +230,6 @@ in
               auto_detect_interface = true;
             };
             experimental = {
-              cache_file = {
-                enabled = true;
-                store_fakeip = true;
-              };
               clash_api = {
                 external_controller = "127.0.0.1:9090";
                 external_ui = pkgs.metacubexd;
