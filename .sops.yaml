@@ -3,7 +3,7 @@ keys:
     - &self ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMS5DHfxuhsH2yg1woBz1xTsRLDy+eZXgkGxYXJlYi91 yufei
     - &rxtp age1u0uu98n3q520ztc2m4f9wws332nu8ktszd403df7k434thumje9qezn99v
     - &rxrk age16m3s664w4eq50kkzsylm9f33xq4j5f9u0lg0q4vkjqeltz38e55qpgy445
-    - &hcde age1yaz2866jancllpnn6p9c0pxmw4cehuv9s54ljmdnp55xld6h75hqcxzhvr
+    - &hcde age1h6sszhgh4lqpjk2fegcezj4nlgx5q9cam2s4hzhx93qspmdv7ceqpls5sn
     - &lssg age1xh5ummespnq3t0ddt4wcfugk4ghdvmtrwce739uavv8rdmsshp2q4qm39x
 
 stores:

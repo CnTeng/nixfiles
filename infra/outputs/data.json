@@ -4,7 +4,7 @@
   },
   "hosts": {
     "hcde": {
-      "ipv4": "188.245.57.225",
+      "ipv4": "91.99.115.99",
       "ipv6": "2a01:4f8:c010:9f3f::1",
       "system": "aarch64-linux",
       "type": "remote"
