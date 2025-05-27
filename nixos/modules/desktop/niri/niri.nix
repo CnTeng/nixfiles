@@ -31,20 +31,19 @@ in
       render-drm-device "/dev/dri/card1"
     }
 
-    hotkey-overlay { skip-at-startup; }
-
     spawn-at-startup "xwayland-satellite" ":1"
+
+    prefer-no-csd
 
     environment { DISPLAY ":1"; }
 
-    prefer-no-csd
+    hotkey-overlay { skip-at-startup; }
 
     input {
       keyboard {
         xkb { options "ctrl:nocaps"; }
         repeat-delay 300
         repeat-rate 50
-        track-layout "global"
       }
       touchpad {
         tap
@@ -82,10 +81,11 @@ in
     binds {
       Mod+Shift+Slash { show-hotkey-overlay; }
 
-      Mod+Escape { spawn "${lib.getExe powerMenu}"; }
-      Mod+Return { spawn "kitty"; }
-      Mod+Space  { spawn "fuzzel"; }
-      Mod+E      { spawn "nautilus"; }
+      Mod+Escape hotkey-overlay-title="Open Power Menu"       { spawn "${lib.getExe powerMenu}"; }
+      Mod+Return hotkey-overlay-title="Open Terminal"         { spawn "kitty"; }
+      Mod+Space  hotkey-overlay-title="Open Launcher"         { spawn "fuzzel"; }
+      Mod+E      hotkey-overlay-title="Open File Manager"     { spawn "nautilus"; }
+      Mod+T      hotkey-overlay-title="Quick Access Terminal" { spawn "kitten" "quick-access-terminal"; }
 
       XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
       XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
@@ -96,6 +96,8 @@ in
       XF86MonBrightnessDown allow-when-locked=true { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%-"; }
 
       XF86Display { spawn "${lib.getExe pkgs.wdisplays}"; }
+
+      Mod+O repeat=false { toggle-overview; }
 
       Mod+Q { close-window; }
 
@@ -193,12 +195,19 @@ in
       Mod+BracketLeft  { consume-or-expel-window-left; }
       Mod+BracketRight { consume-or-expel-window-right; }
 
+      Mod+Comma  { consume-window-into-column; }
+      Mod+Period { expel-window-from-column; }
+
       Mod+R       { switch-preset-column-width; }
       Mod+Shift+R { switch-preset-window-height; }
       Mod+Ctrl+R  { reset-window-height; }
+
       Mod+F       { maximize-column; }
+      Mod+Ctrl+F  { expand-column-to-available-width; }
       Mod+Shift+F { fullscreen-window; }
+
       Mod+C       { center-column; }
+      Mod+Ctrl+C  { center-visible-columns; }
 
       Mod+Minus { set-column-width "-10%"; }
       Mod+Equal { set-column-width "+10%"; }
@@ -208,6 +217,8 @@ in
 
       Mod+V       { toggle-window-floating; }
       Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+      Mod+W { toggle-column-tabbed-display; }
 
       Print      { screenshot; }
       Ctrl+Print { screenshot-screen; }
