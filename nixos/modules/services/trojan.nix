@@ -39,7 +39,6 @@ let
     server = data.hosts.${host}.ipv4;
     server_port = port;
     password._secret = config.sops.secrets."proxy/password".path;
-    network = "tcp";
     tls = {
       enabled = true;
       server_name = "${host}.snakepi.xyz";
@@ -157,27 +156,6 @@ in
               }
             ];
             outbounds = [
-              {
-                type = "selector";
-                outbounds = [
-                  "lssg"
-                  "hcde"
-                  "auto"
-                  "direct"
-                ];
-                default = "lssg";
-                interrupt_exist_connections = false;
-                tag = "select";
-              }
-              {
-                type = "urltest";
-                outbounds = [
-                  "lssg"
-                  "hcde"
-                ];
-                interrupt_exist_connections = false;
-                tag = "auto";
-              }
               (mkOutbound "lssg")
               (mkOutbound "hcde")
               {
