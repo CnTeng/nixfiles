@@ -4,17 +4,17 @@
     ./hardware.nix
   ];
 
-  cli'.neovim = {
-    enable = true;
-    withExtraPackages = true;
-  };
-
   desktop' = {
     niri.enable = true;
     fonts.enable = true;
     input.enable = true;
     theme.enable = true;
     xdg.enable = true;
+  };
+
+  cli'.neovim = {
+    enable = true;
+    withExtraPackages = true;
   };
 
   gui' = {
@@ -24,6 +24,7 @@
   };
 
   services' = {
+    restic.enable = true;
     tailscale.enable = true;
     trojan.enableClient = true;
   };
