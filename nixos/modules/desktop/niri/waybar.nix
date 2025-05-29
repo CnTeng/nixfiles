@@ -24,7 +24,6 @@
 
         "niri/workspaces" = { };
         "wlr/taskbar" = {
-          icon-size = 15;
           on-click = "activate";
           on-click-middle = "close";
         };
@@ -137,7 +136,18 @@
         padding: 0 6px;
       }
 
+      #taskbar button {
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid transparent;
+        padding: 3px 8px 1px 8px;
+      }
+      #taskbar button.active {
+        border-bottom: 2px solid ${palette.accent_color};
+      }
+
       #workspaces button {
+        border-radius: 0;
         padding: 3px 6px;
       }
       #workspaces button.focused,
