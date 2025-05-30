@@ -7,6 +7,9 @@
 }:
 let
   cfg = config.gui'.jetbrains;
+
+  android-studio = pkgs.android-studio.override { forceWayland = true; };
+  clion = pkgs.jetbrains.clion.override { vmopts = "-Dawt.toolkit.name=WLToolkit"; };
 in
 {
   options.gui'.jetbrains = {
@@ -22,28 +25,23 @@ in
       { config, ... }:
       {
         home.packages =
-          lib.optionals cfg.android-studio.enable [
-            (pkgs.android-studio.override {
-              forceWayland = true;
-            })
-          ]
-          ++ lib.optionals cfg.clion.enable [
-            (pkgs.jetbrains.clion.override {
-              vmopts = "-Dawt.toolkit.name=WLToolkit";
-            })
-          ];
+          lib.optionals cfg.android-studio.enable [ android-studio ]
+          ++ lib.optionals cfg.clion.enable [ clion ];
 
         xdg.configFile."ideavim/ideavimrc".text = ''
-          set relativenumber
           set number
-          set commentary
+          set relativenumber
           set showmode
-          set NERDTree
           set clipboard+=unnamed
+
+          set commentary
+          set highlightedyank
+          set NERDTree
+          set which-key
 
           let mapleader = ' '
 
-          nmap <leader>w :<C-u>w<cr>
+          nmap <c-s> :<C-u>w<cr>
           nmap <leader>e :<C-u>NERDTreeToggle<cr>
 
           nmap <leader>b <Action>(Switcher)
