@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services'.authelia;
+  socket = "/run/authelia-default/authelia.sock";
 in
 {
   options.services'.authelia.enable = lib.mkEnableOption' { };
@@ -17,7 +18,7 @@ in
       settings = {
         theme = "auto";
         default_2fa_method = "webauthn";
-        server.address = "unix:///run/authelia-default/authelia.sock?umask=0111";
+        server.address = "unix://${socket}?umask=0111";
 
         authentication_backend = {
           password_reset.disable = true;
@@ -72,7 +73,7 @@ in
     services.caddy.virtualHosts.auth = {
       hostName = "auth.snakepi.xyz";
       extraConfig = ''
-        reverse_proxy "unix//run/authelia-default/authelia.sock"
+        reverse_proxy unix/${socket}
       '';
     };
 

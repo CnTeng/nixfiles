@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services'.ntfy;
+  socket = "/run/ntfy-sh/ntfy.sock";
 in
 {
   options.services'.ntfy.enable = lib.mkEnableOption' { };
@@ -11,7 +12,7 @@ in
       settings = {
         base-url = "https://ntfy.snakepi.xyz";
         listen-http = "";
-        listen-unix = "/run/ntfy-sh/ntfy.sock";
+        listen-unix = socket;
         listen-unix-mode = 511;
         behind-proxy = true;
       };
@@ -22,7 +23,7 @@ in
     services.caddy.virtualHosts.ntfy = {
       hostName = "ntfy.snakepi.xyz";
       extraConfig = ''
-        reverse_proxy "unix/${config.services.ntfy-sh.settings.listen-unix}"
+        reverse_proxy unix/${socket}
 
         @httpget {
             protocol http

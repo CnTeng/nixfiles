@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services'.miniflux;
+  socket = "/run/miniflux.sock";
 in
 {
   options.services'.miniflux.enable = lib.mkEnableOption' { };
@@ -9,7 +10,6 @@ in
     services.miniflux = {
       enable = true;
       config = {
-        LISTEN_ADDR = "/run/miniflux/miniflux.sock";
         BASE_URL = "https://rss.snakepi.xyz";
         WEBAUTHN = "1";
         OAUTH2_PROVIDER = "oidc";
@@ -22,7 +22,15 @@ in
       adminCredentialsFile = config.sops.secrets."miniflux/admin_credentials".path;
     };
 
-    systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
+    systemd.sockets.miniflux = {
+      description = "Miniflux socket";
+      wantedBy = [ "sockets.target" ];
+      listenStreams = [ socket ];
+      socketConfig = {
+        SocketUser = "miniflux";
+        SocketGroup = "miniflux";
+      };
+    };
 
     services.authelia.instances.default = {
       settings.identity_providers.oidc.clients = [
@@ -43,7 +51,7 @@ in
     services.caddy.virtualHosts.rss = {
       hostName = "rss.snakepi.xyz";
       extraConfig = ''
-        reverse_proxy "unix/${config.services.miniflux.config.LISTEN_ADDR}"
+        reverse_proxy unix/${socket}
       '';
     };
 

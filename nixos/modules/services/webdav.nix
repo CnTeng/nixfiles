@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.services'.webdav;
+  socket = "/run/webdav.sock";
 in
 {
   options.services'.webdav.enable = lib.mkEnableOption' { };
@@ -31,10 +32,9 @@ in
     systemd.sockets.webdav = {
       description = "WebDAV socket";
       wantedBy = [ "sockets.target" ];
-      requiredBy = [ config.systemd.services.webdav.name ];
       socketConfig = {
         FileDescriptorName = "webdav";
-        ListenStream = "/run/webdav.sock";
+        ListenStream = socket;
         SocketUser = config.services.webdav.user;
         SocketGroup = config.services.webdav.group;
       };
@@ -48,7 +48,7 @@ in
     services.caddy.virtualHosts.webdav = {
       hostName = "webdav.snakepi.xyz";
       extraConfig = ''
-        reverse_proxy "unix//run/webdav.sock"
+        reverse_proxy unix/${socket}
       '';
     };
 

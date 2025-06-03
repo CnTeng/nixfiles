@@ -32,7 +32,7 @@ in
     sops.secrets.anki-pwd = {
       key = "anki/password";
       sopsFile = ./secrets.yaml;
-      restartUnits = [ "anki-sync-server.service" ];
+      restartUnits = [ config.systemd.services.anki-sync-server.name ];
     };
   };
 }

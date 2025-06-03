@@ -31,7 +31,7 @@ in
     sops.secrets.cf-api-token = {
       key = "tokens/cf_tls_token";
       owner = config.services.caddy.user;
-      restartUnits = [ "caddy.service" ];
+      restartUnits = [ config.systemd.services.caddy.name ];
     };
 
     sops.templates.caddy = {
