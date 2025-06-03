@@ -156,6 +156,17 @@ in
               }
             ];
             outbounds = [
+              {
+                type = "selector";
+                outbounds = [
+                  "lssg"
+                  "hcde"
+                  "direct"
+                ];
+                default = "lssg";
+                interrupt_exist_connections = false;
+                tag = "select";
+              }
               (mkOutbound "lssg")
               (mkOutbound "hcde")
               {
