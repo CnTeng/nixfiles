@@ -21,5 +21,6 @@
     tailscale.enable = true;
     trojan.enableServer = true;
     vaultwarden.enable = true;
+    webdav.enable = true;
   };
 }

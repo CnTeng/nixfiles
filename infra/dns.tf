@@ -1,15 +1,16 @@
 locals {
   dns_rec = {
-    "@"   = { content = module.host["hcde"].ipv4 }
-    anki  = { content = module.host["hcde"].ipv4 }
-    atuin = { content = module.host["hcde"].ipv4 }
-    auth  = { content = module.host["hcde"].ipv4 }
-    ldap  = { content = module.host["hcde"].ipv4 }
-    ntfy  = { content = module.host["hcde"].ipv4 }
-    pb    = { content = module.host["hcde"].ipv4 }
-    rss   = { content = module.host["hcde"].ipv4 }
-    vault = { content = module.host["hcde"].ipv4 }
-    www   = { content = module.host["hcde"].ipv4 }
+    "@"    = { content = module.host["hcde"].ipv4 }
+    anki   = { content = module.host["hcde"].ipv4 }
+    atuin  = { content = module.host["hcde"].ipv4 }
+    auth   = { content = module.host["hcde"].ipv4 }
+    ldap   = { content = module.host["hcde"].ipv4 }
+    ntfy   = { content = module.host["hcde"].ipv4 }
+    pb     = { content = module.host["hcde"].ipv4 }
+    rss    = { content = module.host["hcde"].ipv4 }
+    vault  = { content = module.host["hcde"].ipv4 }
+    webdav = { content = module.host["hcde"].ipv4 }
+    www    = { content = module.host["hcde"].ipv4 }
   }
 }
 
