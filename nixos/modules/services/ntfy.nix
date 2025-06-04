@@ -1,6 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services'.ntfy;
+
+  hostName = "ntfy.snakepi.xyz";
   socket = "/run/ntfy-sh/ntfy.sock";
 in
 {
@@ -10,7 +12,7 @@ in
     services.ntfy-sh = {
       enable = true;
       settings = {
-        base-url = "https://ntfy.snakepi.xyz";
+        base-url = "https://${hostName}";
         listen-http = "";
         listen-unix = socket;
         listen-unix-mode = 511;
@@ -21,7 +23,7 @@ in
     systemd.services.ntfy-sh.serviceConfig.RuntimeDirectory = "ntfy-sh";
 
     services.caddy.virtualHosts.ntfy = {
-      hostName = "ntfy.snakepi.xyz";
+      inherit hostName;
       extraConfig = ''
         reverse_proxy unix/${socket}
 

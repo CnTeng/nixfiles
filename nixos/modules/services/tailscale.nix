@@ -20,7 +20,7 @@ in
 
     sops.secrets.tailnet_key = {
       key = "hosts/${hostName}/tailnet_key";
-      restartUnits = [ "tailscaled.service" ];
+      restartUnits = [ config.systemd.services.tailscaled.name ];
     };
   };
 }

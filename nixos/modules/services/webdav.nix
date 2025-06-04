@@ -1,11 +1,12 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.services'.webdav;
+
+  hostName = "webdav.snakepi.xyz";
   socket = "/run/webdav.sock";
 in
 {
@@ -21,12 +22,12 @@ in
         permissions = "CRUD";
         users = [
           {
-            username = user;
+            username = "{env}WEBDAV_USERNAME";
             password = "{env}WEBDAV_PASSWORD";
           }
         ];
       };
-      environmentFile = config.sops.secrets.webdav-env.path;
+      environmentFile = config.sops.secrets.webdav.path;
     };
 
     systemd.sockets.webdav = {
@@ -46,14 +47,14 @@ in
     };
 
     services.caddy.virtualHosts.webdav = {
-      hostName = "webdav.snakepi.xyz";
+      inherit hostName;
       extraConfig = ''
         reverse_proxy unix/${socket}
       '';
     };
 
-    sops.secrets.webdav-env = {
-      key = "webdav/env";
+    sops.secrets.webdav = {
+      owner = config.services.webdav.user;
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.webdav.name ];
     };

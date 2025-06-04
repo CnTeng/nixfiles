@@ -1,6 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services'.privatebin;
+
+  hostName = "pb.snakepi.xyz";
 in
 {
   options.services'.privatebin.enable = lib.mkEnableOption' { };
@@ -11,7 +13,7 @@ in
       group = "caddy";
       settings = {
         main = {
-          basepath = "https://pb.snakepi.xyz/";
+          basepath = "https://${hostName}/";
           fileupload = true;
           template = "bootstrap5";
           defaultformatter = "syntaxhighlighting";
@@ -20,7 +22,7 @@ in
     };
 
     services.caddy.virtualHosts.privatebin = {
-      hostName = "pb.snakepi.xyz";
+      inherit hostName;
       extraConfig = ''
         root * ${config.services.privatebin.package}
         encode gzip

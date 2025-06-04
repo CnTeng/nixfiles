@@ -1,6 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services'.atuin;
+
+  hostName = "atuin.snakepi.xyz";
 in
 {
   options.services'.atuin.enable = lib.mkEnableOption' { };
@@ -12,7 +14,7 @@ in
     };
 
     services.caddy.virtualHosts.atuin = {
-      hostName = "atuin.snakepi.xyz";
+      inherit hostName;
       extraConfig = ''
         reverse_proxy 127.0.0.1:${toString config.services.atuin.port}
       '';

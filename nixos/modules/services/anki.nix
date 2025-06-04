@@ -6,6 +6,8 @@
 }:
 let
   cfg = config.services'.anki-sync;
+
+  hostName = "anki.snakepi.xyz";
 in
 {
   options.services'.anki-sync.enable = lib.mkEnableOption' { };
@@ -17,20 +19,19 @@ in
       users = [
         {
           username = user;
-          passwordFile = config.sops.secrets.anki-pwd.path;
+          passwordFile = config.sops.secrets.anki-sync.path;
         }
       ];
     };
 
     services.caddy.virtualHosts.anki-sync = {
-      hostName = "anki.snakepi.xyz";
+      inherit hostName;
       extraConfig = ''
         reverse_proxy 127.0.0.1:${toString config.services.anki-sync-server.port}
       '';
     };
 
-    sops.secrets.anki-pwd = {
-      key = "anki/password";
+    sops.secrets.anki-sync = {
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.anki-sync-server.name ];
     };
