@@ -9,12 +9,11 @@
   services' = {
     anki-sync.enable = true;
     atuin.enable = true;
-    authelia.enable = true;
     caddy.enable = true;
     fail2ban.enable = true;
-    ldap.enable = true;
     miniflux.enable = true;
     ntfy.enable = true;
+    pocket-id.enable = true;
     postgresql.enable = true;
     privatebin.enable = true;
     restic.enable = true;

@@ -1,7 +1,10 @@
 { config, lib, ... }:
 let
   cfg = config.services'.miniflux;
+
+  hostName = "rss.snakepi.xyz";
   socket = "/run/miniflux.sock";
+  user = "miniflux";
 in
 {
   options.services'.miniflux.enable = lib.mkEnableOption' { };
@@ -10,16 +13,16 @@ in
     services.miniflux = {
       enable = true;
       config = {
-        BASE_URL = "https://rss.snakepi.xyz";
-        WEBAUTHN = "1";
+        BASE_URL = "https://${hostName}";
+        CREATE_ADMIN = 0;
+        DISABLE_LOCAL_AUTH = 1;
         OAUTH2_PROVIDER = "oidc";
-        OAUTH2_CLIENT_ID = "miniflux";
-        OAUTH2_CLIENT_SECRET_FILE = config.sops.secrets."miniflux/oauth2_client_secret".path;
-        OAUTH2_REDIRECT_URL = "https://rss.snakepi.xyz/oauth2/oidc/callback";
-        OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.snakepi.xyz";
-        OAUTH2_USER_CREATION = "1";
+        OAUTH2_OIDC_PROVIDER_NAME = "PocketID";
+        OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://id.snakepi.xyz";
+        OAUTH2_REDIRECT_URL = "https://${hostName}/oauth2/oidc/callback";
+        OAUTH2_USER_CREATION = 1;
       };
-      adminCredentialsFile = config.sops.secrets."miniflux/admin_credentials".path;
+      adminCredentialsFile = config.sops.secrets.miniflux.path;
     };
 
     systemd.sockets.miniflux = {
@@ -27,29 +30,13 @@ in
       wantedBy = [ "sockets.target" ];
       listenStreams = [ socket ];
       socketConfig = {
-        SocketUser = "miniflux";
-        SocketGroup = "miniflux";
+        SocketUser = user;
+        SocketGroup = config.users.users.${user}.group;
       };
     };
 
-    services.authelia.instances.default = {
-      settings.identity_providers.oidc.clients = [
-        {
-          client_id = "miniflux";
-          client_secret = "$pbkdf2-sha512$310000$0F8wxRB4Tv03RSnpPEAnHA$fJxCTbGhUSxG894JORm4xwL2SgLe0slP9GX9CBGhM/.DyROSUJHj0.xGUuBGVU4Xq0Dv8n65ft/8oXQ4kzrtww";
-          redirect_uris = [ "https://rss.snakepi.xyz/oauth2/oidc/callback" ];
-          authorization_policy = "two_factor";
-          scopes = [
-            "openid"
-            "profile"
-            "email"
-          ];
-        }
-      ];
-    };
-
     services.caddy.virtualHosts.rss = {
-      hostName = "rss.snakepi.xyz";
+      inherit hostName;
       extraConfig = ''
         reverse_proxy unix/${socket}
       '';
@@ -61,15 +48,10 @@ in
     };
     users.groups.miniflux = { };
 
-    sops.secrets = {
-      "miniflux/oauth2_client_secret" = {
-        owner = "miniflux";
-        sopsFile = ./secrets.yaml;
-      };
-      "miniflux/admin_credentials" = {
-        owner = "miniflux";
-        sopsFile = ./secrets.yaml;
-      };
+    sops.secrets.miniflux = {
+      owner = user;
+      sopsFile = ./secrets.yaml;
+      restartUnits = [ config.systemd.services.miniflux.name ];
     };
   };
 }
