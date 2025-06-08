@@ -35,7 +35,6 @@
     obs-studio.enable = true;
     office.enable = true;
     others.enable = true;
-    sioyek.enable = true;
     thunderbird.enable = true;
     wireshark.enable = true;
     yubikey.enable = true;
