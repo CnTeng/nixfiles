@@ -13,8 +13,8 @@ let
   loginctl = lib.getExe' config.systemd.package "loginctl";
 
   wallpaper = pkgs.fetchurl {
-    url = "https://w.wallhaven.cc/full/5g/wallhaven-5gx2q5.png";
-    sha256 = "sha256-2gpyEJ9GkTCnVMYbreKXB6QJTVvKc2Up8LHoPCHJ9Os=";
+    url = "https://w.wallhaven.cc/full/8g/wallhaven-8gxggk.jpg";
+    sha256 = "sha256-mbQQPS+lrXWnuStrf43PR8c8T2WsPt2hAWcFuiiouRI=";
   };
 in
 {
