@@ -18,28 +18,6 @@ in
           "--enable-features=TouchpadOverscrollHistoryNavigation"
         ];
       };
-
-      xdg.mimeApps.defaultApplications = {
-        "text/html" = "chromium-browser.desktop";
-        "text/xml" = "chromium-browser.desktop";
-
-        "application/xml" = "chromium-browser.desktop";
-        "application/xhtml+xml" = "chromium-browser.desktop";
-        "application/xhtml_xml" = "chromium-browser.desktop";
-        "application/rdf+xml" = "chromium-browser.desktop";
-        "application/rss+xml" = "chromium-browser.desktop";
-
-        "application/x-extension-htm" = "chromium-browser.desktop";
-        "application/x-extension-html" = "chromium-browser.desktop";
-        "application/x-extension-shtml" = "chromium-browser.desktop";
-        "application/x-extension-xht" = "chromium-browser.desktop";
-        "application/x-extension-xhtml" = "chromium-browser.desktop";
-
-        "x-scheme-handler/about" = "chromium-browser.desktop";
-        "x-scheme-handler/ftp" = "chromium-browser.desktop";
-        "x-scheme-handler/http" = "chromium-browser.desktop";
-        "x-scheme-handler/https" = "chromium-browser.desktop";
-      };
     };
 
     environment.variables = {

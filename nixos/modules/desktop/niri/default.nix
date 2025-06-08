@@ -70,6 +70,7 @@ in
 
     programs.file-roller.enable = true;
     services.gnome.sushi.enable = true;
+    programs.evince.enable = true;
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
