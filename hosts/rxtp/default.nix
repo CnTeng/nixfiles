@@ -18,6 +18,7 @@
       enable = true;
       withExtraPackages = true;
     };
+    npm.enable = true;
     podman.enable = true;
     todoist.enable = true;
   };
