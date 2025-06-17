@@ -280,6 +280,36 @@
         "type": "github"
       }
     },
+    "ph": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "git-hooks-nix": [
+          "git-hooks-nix"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2",
+        "treefmt": [
+          "treefmt"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750178054,
+        "narHash": "sha256-vv5LPU7WlmV0G0rf9C9eY8YcuYq38J5DHjuvWep/p40=",
+        "owner": "CnTeng",
+        "repo": "ph",
+        "rev": "5346d68135ebcb3bab40705a987133a8eecab581",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CnTeng",
+        "repo": "ph",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -317,6 +347,7 @@
         "lanzaboote": "lanzaboote",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
+        "ph": "ph",
         "rx-nvim": "rx-nvim",
         "sops-nix": "sops-nix",
         "todoist-cli": "todoist-cli",
@@ -336,6 +367,27 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "0be641045af6d8666c11c2c40e45ffc9667839b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "ph",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750041667,
+        "narHash": "sha256-/8F9L6T9w/Fx1D6L+BtWIXg5m9F6jwOFg6uhZpKnM/0=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "d72bd8c9fda03c9834ea89d7a5a21c7880b79277",
         "type": "github"
       },
       "original": {

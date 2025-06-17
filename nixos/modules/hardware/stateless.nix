@@ -2,7 +2,6 @@
   config,
   inputs,
   lib,
-  pkgs,
   user,
   ...
 }:
@@ -10,7 +9,10 @@ let
   cfg = config.hardware'.stateless;
 in
 {
-  imports = [ inputs.impermanence.nixosModules.impermanence ];
+  imports = [
+    inputs.impermanence.nixosModules.impermanence
+    inputs.ph.nixosModules.default
+  ];
 
   options.hardware'.stateless.enable = lib.mkEnableOption' { };
 
@@ -20,8 +22,6 @@ in
       boot.tmp.useTmpfs = true;
 
       sops.age.keyFile = lib.mkForce "/persist/var/lib/sops-nix/key";
-
-      environment.systemPackages = [ pkgs.persist ];
 
       environment.persistence."/persist" = {
         enable = true;
@@ -41,6 +41,8 @@ in
           ".local/state/nix"
         ];
       };
+
+      programs.ph.enable = true;
     })
   ];
 }

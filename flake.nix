@@ -59,6 +59,14 @@
       inputs.git-hooks-nix.follows = "git-hooks-nix";
       inputs.treefmt.follows = "treefmt";
     };
+
+    ph = {
+      url = "github:CnTeng/ph";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.git-hooks-nix.follows = "git-hooks-nix";
+      inputs.treefmt.follows = "treefmt";
+    };
   };
 
   outputs =
