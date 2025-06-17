@@ -24,6 +24,7 @@ jobs:
           declare -A inputs=(
             ["nixpkgs"]="github:NixOS/nixpkgs/nixos-unstable"
             ["rx-nvim"]="github:CnTeng/rx-nvim"
+            ["todoist-cli"]="github:CnTeng/todoist-cli"
           )
 
           check_flake_input() {
@@ -48,7 +49,6 @@ jobs:
             flake_url=${inputs[$flake_name]}
             if check_flake_input "$flake_name" "$flake_url"; then
               upgrade=true
-              break
             fi
           done
 
