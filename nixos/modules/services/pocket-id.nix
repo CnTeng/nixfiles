@@ -3,7 +3,7 @@ let
   cfg = config.services'.pocket-id;
 
   hostName = "id.snakepi.xyz";
-  port = 1411;
+  socket = "/run/pocket-id/pocket.sock";
 in
 {
   options.services'.pocket-id.enable = lib.mkEnableOption' { };
@@ -17,6 +17,7 @@ in
         TRUST_PROXY = true;
         PUID = config.users.users.pocket-id.uid;
         PGID = config.users.groups.pocket-id.gid;
+        UNIX_SOCKET = socket;
         UI_CONFIG_DISABLED = true;
 
         EMAILS_VERIFIED = true;
@@ -30,10 +31,16 @@ in
       };
     };
 
+    systemd.services.pocket-id.serviceConfig = {
+      RestrictAddressFamilies = [ "AF_UNIX" ];
+      RuntimeDirectory = "pocket-id";
+      UMask = lib.mkForce "0011";
+    };
+
     services.caddy.virtualHosts.id = {
       inherit hostName;
       extraConfig = ''
-        reverse_proxy 127.0.0.1:${toString port}
+        reverse_proxy unix/${socket}
       '';
     };
 
