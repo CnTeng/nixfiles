@@ -38,11 +38,14 @@ jobs:
             current_rev=$(nix flake metadata --json | jq -r ".locks.nodes[\"${flake_name}\"].locked.rev")
             latest_rev=$(nix flake metadata "${flake_url}" --json | jq -r '.revision')
 
-            echo "${flake_name}:"
-            echo "  current: $current_rev"
-            echo "  latest: $latest_rev"
-
-            [[ "$current_rev" != "$latest_rev" ]]
+            if [[ "$current_rev" != "$latest_rev" ]]; then
+              echo "${flake_name}:"
+              echo "  current: $current_rev"
+              echo "  latest: $latest_rev"
+              return 1
+            else
+              return 0
+            fi
           }
 
           upgrade=false
