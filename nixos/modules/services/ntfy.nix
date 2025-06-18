@@ -15,7 +15,7 @@ in
         base-url = "https://${hostName}";
         listen-http = "";
         listen-unix = socket;
-        listen-unix-mode = 511;
+        listen-unix-mode = 438;
         behind-proxy = true;
       };
     };

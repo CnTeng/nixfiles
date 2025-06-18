@@ -10,7 +10,6 @@ in
   config = lib.mkIf cfg.enable {
     services.privatebin = {
       enable = true;
-      group = "caddy";
       settings = {
         main = {
           basepath = "https://${hostName}/";
@@ -19,6 +18,10 @@ in
           defaultformatter = "syntaxhighlighting";
         };
       };
+    };
+
+    services.phpfpm.pools.privatebin = {
+      settings."listen.mode" = "0666";
     };
 
     services.caddy.virtualHosts.privatebin = {
