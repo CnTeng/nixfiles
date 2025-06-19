@@ -18,7 +18,7 @@ in
       home.packages = [ pkgs.wpsoffice-cn ];
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".config/Kingsoft"
         ".local/share/Kingsoft"

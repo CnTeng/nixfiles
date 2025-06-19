@@ -23,7 +23,7 @@ in
       pkiBundle = "/var/lib/sbctl";
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       directories = [ "/var/lib/sbctl" ];
     };
   };

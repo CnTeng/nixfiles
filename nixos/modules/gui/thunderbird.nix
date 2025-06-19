@@ -17,7 +17,7 @@ in
       package = pkgs.thunderbird-latest;
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".thunderbird"
         ".cache/thunderbird"

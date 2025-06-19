@@ -30,7 +30,7 @@ in
       sopsFile = ./secrets.yaml;
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".config/todoist"
         ".local/share/todoist"

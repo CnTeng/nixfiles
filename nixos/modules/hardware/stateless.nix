@@ -10,39 +10,79 @@ let
 in
 {
   imports = [
-    inputs.impermanence.nixosModules.impermanence
+    inputs.preservation.nixosModules.default
     inputs.ph.nixosModules.default
   ];
 
   options.hardware'.stateless.enable = lib.mkEnableOption' { };
 
-  config = lib.mkMerge [
-    { environment.persistence."/persist".enable = lib.mkDefault false; }
-    (lib.mkIf cfg.enable {
-      boot.tmp.useTmpfs = true;
+  config = lib.mkIf cfg.enable {
+    boot.tmp.useTmpfs = true;
 
-      sops.age.keyFile = lib.mkForce "/persist/var/lib/sops-nix/key";
-
-      environment.persistence."/persist" = {
-        enable = true;
-        hideMounts = true;
+    preservation = {
+      enable = true;
+      preserveAt."/persist" = {
         directories = [
-          "/var/cache"
-          "/var/lib"
+          {
+            directory = "/var/lib/nixos";
+            inInitrd = true;
+          }
+          {
+            directory = "/var/lib/private";
+            inInitrd = true;
+          }
+          "/var/lib/systemd"
+          "/var/lib/machines"
           "/var/log"
+
+          "/var/cache/private"
         ];
-        files = [ "/etc/machine-id" ];
+        files = [
+          {
+            file = "/etc/machine-id";
+            inInitrd = true;
+          }
+        ];
+
         users.${user}.directories = [
           ".cache/nix"
-          ".cache/pre-commit"
-          ".cache/treefmt"
-          ".local/share/direnv"
           ".local/share/nix"
           ".local/state/nix"
         ];
       };
+    };
 
-      programs.ph.enable = true;
-    })
-  ];
+    systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
+    systemd.services.systemd-machine-id-commit.unitConfig.ConditionFirstBoot = true;
+
+    systemd.tmpfiles.settings.preservation = {
+      "/home/${user}/.cache".d = {
+        inherit user;
+        group = "users";
+        mode = "0755";
+      };
+      "/home/${user}/.config".d = {
+        inherit user;
+        group = "users";
+        mode = "0755";
+      };
+      "/home/${user}/.local".d = {
+        inherit user;
+        group = "users";
+        mode = "0755";
+      };
+      "/home/${user}/.local/share".d = {
+        inherit user;
+        group = "users";
+        mode = "0755";
+      };
+      "/home/${user}/.local/state".d = {
+        inherit user;
+        group = "users";
+        mode = "0755";
+      };
+    };
+
+    programs.ph.enable = true;
+  };
 }

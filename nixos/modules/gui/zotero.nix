@@ -16,7 +16,7 @@ in
       home.packages = [ pkgs.zotero ];
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".cache/zotero"
         ".local/share/zotero"

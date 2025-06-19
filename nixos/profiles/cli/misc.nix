@@ -1,5 +1,12 @@
-{ pkgs, user, ... }:
 {
+  inputs,
+  pkgs,
+  user,
+  ...
+}:
+{
+  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
+
   documentation.dev.enable = true;
   environment.systemPackages = [
     pkgs.man-pages
@@ -9,6 +16,11 @@
 
   programs.direnv.enable = true;
   programs.screen.enable = true;
+  programs.nix-index-database.comma.enable = true;
+
+  preservation.preserveAt."/persist" = {
+    users.${user}.directories = [ ".local/share/direnv" ];
+  };
 
   home-manager.users.${user} = {
     programs.fastfetch.enable = true;

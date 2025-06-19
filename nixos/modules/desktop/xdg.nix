@@ -68,9 +68,7 @@ let
   };
 in
 {
-  options.desktop'.xdg = {
-    enable = lib.mkEnableOption' { };
-  };
+  options.desktop'.xdg.enable = lib.mkEnableOption' { };
 
   config = lib.mkIf cfg.enable {
     xdg.terminal-exec = {
@@ -91,7 +89,7 @@ in
       };
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         "Documents"
         "Downloads"

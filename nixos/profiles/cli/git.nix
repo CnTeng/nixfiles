@@ -27,13 +27,6 @@
       };
     };
 
-    programs.lazygit = {
-      enable = true;
-      settings = {
-        gui.nerdFontsVersion = "3";
-      };
-    };
-
     programs.ssh = {
       matchBlocks."github.com" = {
         hostname = "ssh.github.com";

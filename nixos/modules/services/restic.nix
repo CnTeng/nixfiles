@@ -81,5 +81,9 @@ in
           script = mkNtfyScript "failure" "high" "red_circle";
         };
       };
+
+      preservation.preserveAt."/persist".directories = [
+        "/var/cache/restic-backups-persist"
+      ];
     };
 }

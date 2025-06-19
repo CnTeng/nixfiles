@@ -5,5 +5,11 @@ in
 {
   options.services'.fail2ban.enable = lib.mkEnableOption' { };
 
-  config = lib.mkIf cfg.enable { services.fail2ban.enable = true; };
+  config = lib.mkIf cfg.enable {
+    services.fail2ban.enable = true;
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/fail2ban" ];
+    };
+  };
 }

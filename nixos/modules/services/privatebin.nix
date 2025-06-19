@@ -37,5 +37,9 @@ in
         try_files {path} {path}/ /index.php?{query}
       '';
     };
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/privatebin" ];
+    };
   };
 }
