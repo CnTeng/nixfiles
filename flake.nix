@@ -39,17 +39,16 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     rx-nvim = {
       url = "github:CnTeng/rx-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.git-hooks-nix.follows = "git-hooks-nix";
-      inputs.treefmt.follows = "treefmt";
-    };
-
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     todoist-cli = {
@@ -57,7 +56,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.git-hooks-nix.follows = "git-hooks-nix";
-      inputs.treefmt.follows = "treefmt";
     };
 
     ph = {
@@ -65,7 +63,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.git-hooks-nix.follows = "git-hooks-nix";
-      inputs.treefmt.follows = "treefmt";
     };
   };
 
@@ -106,7 +103,6 @@
                 p.tailscale
                 p.tls
               ]))
-              config.treefmt.build.wrapper
             ];
 
             shellHook = config.pre-commit.installationScript;
@@ -120,8 +116,6 @@
           treefmt.programs = {
             nixfmt.enable = true;
             prettier.enable = true;
-            shfmt.enable = true;
-            taplo.enable = true;
             terraform.enable = true;
           };
         };

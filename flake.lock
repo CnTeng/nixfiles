@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750263149,
-        "narHash": "sha256-VYSGDzq4ds4LIYvyEYG+RBqGMGBZhES2tvnmU4TJBn0=",
+        "lastModified": 1750304462,
+        "narHash": "sha256-Mj5t4yX05/rXnRqJkpoLZTWqgStB88Mr/fegTRqyiWc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "85e68c6a388ef1dfc799aaa01f00758c58e87d89",
+        "rev": "863842639722dd12ae9e37ca83bcb61a63b36f6c",
         "type": "github"
       },
       "original": {
@@ -282,17 +282,23 @@
     },
     "ph": {
       "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "git-hooks-nix": [
+          "git-hooks-nix"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1750254669,
-        "narHash": "sha256-QAD0XztMkpyKgHkUmAe0KcRB3CpvUgkkya5k3Ql1Dho=",
+        "lastModified": 1750302455,
+        "narHash": "sha256-Qxj3Bm6S/yF0oOcqtt5HIIf0LBEJtdPbpQjb1gFfT7Y=",
         "owner": "CnTeng",
         "repo": "ph",
-        "rev": "b10cddf53b243c82e40daf123984609d1645c5d0",
+        "rev": "039868f429500942eb266aa0b221456e950c4f4e",
         "type": "github"
       },
       "original": {
@@ -397,17 +403,14 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "treefmt": [
-          "treefmt"
         ]
       },
       "locked": {
-        "lastModified": 1750194510,
-        "narHash": "sha256-F32uGGTsjbIWNBMzWv4woVCPtx7Mob5no5HGyzZnnvA=",
+        "lastModified": 1750302557,
+        "narHash": "sha256-2fkjalb7uGA1JEnK4FbG5SQt2i2GrnKxMpldQ3fXvdw=",
         "owner": "CnTeng",
         "repo": "rx-nvim",
-        "rev": "8854275434e5046ada7d53d861ca1a0b57bd8090",
+        "rev": "6937b7e9ee75c04e214020b0bcf32ec1c6854eec",
         "type": "github"
       },
       "original": {
@@ -438,6 +441,9 @@
     },
     "todoist-cli": {
       "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
         "git-hooks-nix": [
           "git-hooks-nix"
         ],
@@ -446,11 +452,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750258444,
-        "narHash": "sha256-qLKhPaBzaTj3amjQ0Cevm5DxloAvB4ExwE3mHSaWu3c=",
+        "lastModified": 1750314815,
+        "narHash": "sha256-NpnO8CiizgwsBFPIRQBRGP9ahdi5ad2OmWYwVM/77dk=",
         "owner": "CnTeng",
         "repo": "todoist-cli",
-        "rev": "5553846afca436f0ede706bd1cebd3c789353a66",
+        "rev": "9ff4ace6096dc70a7850699dcf702036c2ca9ba7",
         "type": "github"
       },
       "original": {
