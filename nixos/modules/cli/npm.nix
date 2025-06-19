@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  user,
   ...
 }:
 let
@@ -18,6 +19,13 @@ in
         init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
         logs-dir=''${XDG_STATE_HOME}/npm/logs
       '';
+    };
+
+    preservation.preserveAt."/persist" = {
+      users.${user}.directories = [
+        ".local/state/npm"
+        ".cache/npm"
+      ];
     };
   };
 }

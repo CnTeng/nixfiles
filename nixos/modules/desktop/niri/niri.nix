@@ -1,4 +1,4 @@
-{ palette }:
+palette:
 { lib, pkgs, ... }:
 let
   powerMenu = pkgs.writeShellApplication {

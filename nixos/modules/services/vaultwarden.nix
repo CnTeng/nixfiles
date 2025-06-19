@@ -56,5 +56,9 @@ in
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.vaultwarden.name ];
     };
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/vaultwarden" ];
+    };
   };
 }

@@ -25,10 +25,10 @@ in
       GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
-        ".config/chromium"
         ".cache/chromium"
+        ".config/chromium"
       ];
     };
   };

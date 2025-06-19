@@ -64,7 +64,7 @@ in
           };
       };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories =
         [ ".config/java" ]
         ++ lib.optionals cfg.android-studio.enable [

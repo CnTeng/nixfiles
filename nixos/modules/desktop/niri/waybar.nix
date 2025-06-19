@@ -1,4 +1,4 @@
-{ palette }:
+palette:
 { lib, pkgs, ... }:
 {
   programs.waybar = {

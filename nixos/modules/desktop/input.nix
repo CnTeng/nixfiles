@@ -25,7 +25,7 @@ in
       plasma6Support = true;
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".config/fcitx"
         ".config/fcitx5"

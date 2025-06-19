@@ -38,5 +38,9 @@ in
       content = "CF_API_TOKEN=${config.sops.placeholder.cf-api-token}";
       owner = config.services.caddy.user;
     };
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/caddy" ];
+    };
   };
 }

@@ -17,10 +17,13 @@ in
         calibre
         spotify
         tdesktop
+
+        asciinema
+        asciinema-agg
       ];
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".cache/calibre"
         ".config/calibre"

@@ -30,13 +30,13 @@ in
       };
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories =
         [
+          ".config/github-copilot"
           ".local/share/nvim"
           ".local/state/nvim"
           ".cache/nvim"
-          ".config/github-copilot"
         ]
         ++ (lib.optionals cfg.withExtraPackages [
           ".local/share/go"

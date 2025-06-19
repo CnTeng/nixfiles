@@ -22,5 +22,10 @@ in
       key = "hosts/${hostName}/tailnet_key";
       restartUnits = [ config.systemd.services.tailscaled.name ];
     };
+
+    preservation.preserveAt."/persist".directories = [
+      "/var/cache/tailscale"
+      "/var/lib/tailscale"
+    ];
   };
 }

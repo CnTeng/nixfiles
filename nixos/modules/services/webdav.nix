@@ -58,5 +58,9 @@ in
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.webdav.name ];
     };
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/webdav" ];
+    };
   };
 }

@@ -49,5 +49,9 @@ in
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.pocket-id.name ];
     };
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/pocket-id" ];
+    };
   };
 }

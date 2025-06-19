@@ -232,5 +232,9 @@ in
         restartUnits = [ config.systemd.services.sing-box.name ];
       };
     };
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/sing-box" ];
+    };
   };
 }

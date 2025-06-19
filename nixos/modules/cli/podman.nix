@@ -13,7 +13,11 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.podman.enable = true;
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
+      directories = [
+        "/var/lib/cni"
+        "/var/lib/containers"
+      ];
       users.${user}.directories = [ ".local/share/containers" ];
     };
   };

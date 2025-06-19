@@ -24,16 +24,13 @@ in
     services.greetd = {
       enable = true;
       vt = 7;
-      settings = {
-        default_session.command = lib.concatStringsSep " " [
-          (lib.getExe pkgs.greetd.tuigreet)
-          "--time"
-          "--remember"
-          "--user-menu"
-          "--asterisks"
-          "--cmd niri-session"
-        ];
-      };
+      settings.default_session.command = lib.concatStringsSep " " [
+        (lib.getExe pkgs.greetd.tuigreet)
+        "--time"
+        "--user-menu"
+        "--asterisks"
+        "--cmd niri-session"
+      ];
     };
 
     programs.niri.enable = true;
@@ -45,17 +42,30 @@ in
 
     networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;
-    systemd.user.services.nm-applet.after = [ "graphical-session.target" ];
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
+
+    services.tlp.enable = true;
+    services.upower.enable = true;
 
     services.dbus.implementation = "broker";
     services.gvfs.enable = true;
     services.gnome.at-spi2-core.enable = true;
     services.playerctld.enable = true;
 
-    security.pam.services.gtklock = { };
+    programs.gtklock = {
+      enable = true;
+      config = {
+        main = {
+          background = builtins.toString wallpaper;
+          follow-focus = true;
+          start-hidden = true;
+        };
+        powerbar.show-labels = true;
+      };
+      modules = [ pkgs.gtklock-powerbar-module ];
+    };
 
     environment.systemPackages = with pkgs; [
       xwayland-satellite
@@ -76,8 +86,18 @@ in
       NIXOS_OZONE_WL = "1";
     };
 
-    environment.persistence."/persist" = {
-      directories = [ "/etc/NetworkManager/system-connections" ];
+    preservation.preserveAt."/persist" = {
+      directories = [
+        "/var/lib/NetworkManager"
+        "/etc/NetworkManager/system-connections"
+
+        "/var/lib/blueman"
+        "/var/lib/bluetooth"
+
+        "/var/lib/tlp"
+
+        "/var/lib/udisks2"
+      ];
       users.${user}.directories = [
         ".cache/fuzzel"
         ".config/dconf"
@@ -90,80 +110,13 @@ in
       { config, ... }:
       {
         imports = [
-          (import ./niri.nix { inherit palette; })
-          (import ./waybar.nix { inherit palette; })
+          (import ./niri.nix palette)
+          (import ./waybar.nix palette)
+          (import ./fuzzel.nix palette)
+          (import ./fnott.nix palette)
         ];
 
         services.poweralertd.enable = true;
-
-        programs.fuzzel = {
-          enable = true;
-          settings = {
-            main = {
-              font = "Adwaita Mono:size=13";
-              dpi-aware = "no";
-              icon-theme = "Papirus-Dark";
-              anchor = "top";
-              y-margin = 8;
-              lines = 5;
-              width = 50;
-              horizontal-pad = 24;
-              cache = "${config.xdg.cacheHome}/fuzzel/cache";
-            };
-            colors = {
-              background = lib.removeHashTag palette.dialog_bg_color + "ff";
-              text = lib.removeHashTag palette.dialog_fg_color + "ff";
-              prompt = lib.removeHashTag palette.dialog_fg_color + "ff";
-              input = lib.removeHashTag palette.dialog_fg_color + "ff";
-              match = lib.removeHashTag palette.accent_color + "ff";
-              selection = lib.removeHashTag palette.selected_bg_color + "ff";
-              selection-text = lib.removeHashTag palette.selected_fg_color + "ff";
-              selection-match = lib.removeHashTag palette.accent_color + "ff";
-            };
-            border = {
-              width = 0;
-              radius = 16;
-            };
-          };
-        };
-
-        services.fnott = {
-          enable = true;
-          settings = {
-            main = {
-              min-width = 500;
-              max-width = 500;
-              max-height = 200;
-              edge-margin-vertical = 8;
-              edge-margin-horizontal = 8;
-              icon-theme = "Papirus-Dark";
-              max-icon-size = 96;
-
-              background = lib.removeHashTag palette.dialog_bg_color + "ff";
-              border-radius = 16;
-              border-size = 0;
-
-              title-font = "Adwaita Mono:size=10";
-              title-format = "<b>%a%A</b>";
-              summary-font = "Adwaita Mono:size=10";
-              summary-format = "%s\n";
-              body-font = "Adwaita Mono:size=10";
-
-              max-timeout = 15;
-              default-timeout = 15;
-              idle-timeout = 15;
-            };
-            low = {
-              background = lib.removeHashTag palette.dialog_bg_color + "ff";
-              title-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-              summary-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-              body-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-            };
-            critical = {
-              background = lib.removeHashTag palette.error_bg_color + "ff";
-            };
-          };
-        };
 
         systemd.user.services.gtklock = {
           Unit = {
@@ -177,16 +130,6 @@ in
             ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
             ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 3";
           };
-        };
-
-        xdg.configFile."gtklock/config.ini".source = (pkgs.formats.ini { }).generate "config.ini" {
-          main = {
-            modules = "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so";
-            background = wallpaper;
-            follow-focus = true;
-            start-hidden = true;
-          };
-          powerbar.show-labels = true;
         };
 
         services.swayidle = {

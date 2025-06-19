@@ -16,7 +16,7 @@ in
       home.packages = [ pkgs.anki ];
     };
 
-    environment.persistence."/persist" = {
+    preservation.preserveAt."/persist" = {
       users.${user}.directories = [
         ".cache/Anki"
         ".local/share/Anki2"

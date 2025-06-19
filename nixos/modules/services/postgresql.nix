@@ -5,5 +5,11 @@ in
 {
   options.services'.postgresql.enable = lib.mkEnableOption' { };
 
-  config = lib.mkIf cfg.enable { services.postgresql.enable = true; };
+  config = lib.mkIf cfg.enable {
+    services.postgresql.enable = true;
+
+    preservation.preserveAt."/persist" = {
+      directories = [ "/var/lib/postgresql" ];
+    };
+  };
 }
