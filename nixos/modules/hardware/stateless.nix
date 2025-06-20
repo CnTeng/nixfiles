@@ -22,6 +22,8 @@ in
     preservation = {
       enable = true;
       preserveAt."/persist" = {
+        commonMountOptions = [ "x-gvfs-hide" ];
+
         directories = [
           {
             directory = "/var/lib/nixos";
