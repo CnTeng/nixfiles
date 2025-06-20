@@ -116,8 +116,6 @@ in
           (import ./fnott.nix palette)
         ];
 
-        services.poweralertd.enable = true;
-
         systemd.user.services.gtklock = {
           Unit = {
             ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
