@@ -6,7 +6,7 @@
   hardware'.stateless.enable = true;
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "rootwait"
       "earlycon"
@@ -20,10 +20,12 @@
 
   boot.initrd.systemd.enable = true;
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    installDeviceTree = true;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.loader.systemd-boot.installDeviceTree = true;
   hardware.deviceTree = {
     enable = true;
     name = "rockchip/rk3588-rock-5b.dtb";
