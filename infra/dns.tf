@@ -4,7 +4,6 @@ locals {
     anki   = { content = module.host["hcde"].ipv4 }
     atuin  = { content = module.host["hcde"].ipv4 }
     id     = { content = module.host["hcde"].ipv4 }
-    ldap   = { content = module.host["hcde"].ipv4 }
     ntfy   = { content = module.host["hcde"].ipv4 }
     pb     = { content = module.host["hcde"].ipv4 }
     rss    = { content = module.host["hcde"].ipv4 }
