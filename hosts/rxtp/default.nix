@@ -13,6 +13,7 @@
   };
 
   cli' = {
+    aichat.enable = true;
     flutter.enable = true;
     neovim = {
       enable = true;
