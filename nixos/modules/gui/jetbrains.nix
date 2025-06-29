@@ -32,7 +32,7 @@ in
           set number
           set relativenumber
           set showmode
-          set clipboard+=unnamed
+          set clipboard+=unnamedplus
 
           set commentary
           set highlightedyank
