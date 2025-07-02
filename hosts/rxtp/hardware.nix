@@ -28,9 +28,12 @@
   hardware.amdgpu.initrd.enable = true;
 
   services.fwupd.enable = true;
+  services.tlp.enable = true;
 
   preservation.preserveAt."/persist".directories = [
     "/var/lib/fwupd"
     "/var/cache/fwupd"
+
+    "/var/lib/tlp"
   ];
 }

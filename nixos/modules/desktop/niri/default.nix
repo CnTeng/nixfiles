@@ -46,7 +46,6 @@ in
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
 
-    services.tlp.enable = true;
     services.upower.enable = true;
 
     services.dbus.implementation = "broker";
@@ -94,8 +93,7 @@ in
         "/var/lib/blueman"
         "/var/lib/bluetooth"
 
-        "/var/lib/tlp"
-
+        "/var/lib/upower"
         "/var/lib/udisks2"
       ];
       users.${user}.directories = [

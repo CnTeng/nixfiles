@@ -32,4 +32,11 @@
   };
 
   hardware.enableRedistributableFirmware = true;
+
+  networking.networkmanager.enable = true;
+
+  preservation.preserveAt."/persist".directories = [
+    "/var/lib/NetworkManager"
+    "/etc/NetworkManager/system-connections"
+  ];
 }
