@@ -3,10 +3,11 @@
   programs.fish = {
     enable = true;
     useBabelfish = true;
-    shellInit = ''
-      set -U fish_greeting
-      fish_vi_key_bindings
-    '';
+    shellInit = # fish
+      ''
+        set -U fish_greeting
+        fish_vi_key_bindings
+      '';
   };
 
   environment.systemPackages = [ pkgs.fishPlugins.autopair ];

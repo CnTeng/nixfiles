@@ -1,5 +1,8 @@
 palette:
 { lib, pkgs, ... }:
+let
+  xmlFormat = pkgs.formats.xml { };
+in
 {
   programs.waybar = {
     enable = true;
@@ -90,6 +93,47 @@ palette:
           tooltip-format = ''
             {power}W
             {timeTo}'';
+
+          menu = "on-click-right";
+          menu-file = xmlFormat.generate "powermenu.xml" {
+            interface.object = {
+              "@class" = "GtkMenu";
+              "@id" = "menu";
+              child =
+                let
+                  mkGtkMenuItem = id: name: {
+                    object = {
+                      "@class" = "GtkMenuItem";
+                      "@id" = id;
+                      property = {
+                        "@name" = "label";
+                        "#text" = name;
+                      };
+                    };
+                  };
+                in
+                [
+                  (mkGtkMenuItem "lock" "Lock")
+                  (mkGtkMenuItem "logout" "Logout")
+                  {
+                    object = {
+                      "@class" = "GtkSeparatorMenuItem";
+                      "@id" = "delimiter";
+                    };
+                  }
+                  (mkGtkMenuItem "suspend" "Suspend")
+                  (mkGtkMenuItem "shutdown" "Shutdown")
+                  (mkGtkMenuItem "reboot" "Reboot")
+                ];
+            };
+          };
+          menu-actions = {
+            lock = "loginctl lock-session";
+            logout = "niri msg action quit";
+            suspend = "systemctl suspend";
+            shutdown = "systemctl poweroff";
+            reboot = "systemctl reboot";
+          };
         };
 
         clock = {
@@ -109,61 +153,62 @@ palette:
         };
       }
     ];
-    style = ''
-      * {
-        font-family: Adwaita Mono, Noto Sans Mono CJK SC, FiraCode Nerd Font;
-        font-weight: bold;
-        font-size: 14px;
-      }
+    style = # css
+      ''
+        * {
+          font-family: Adwaita Mono, Noto Sans Mono CJK SC, FiraCode Nerd Font;
+          font-weight: bold;
+          font-size: 14px;
+        }
 
-      window#waybar {
-        background: alpha(@theme_base_color, 0.9);
-        color: @theme_text_color;
-      }
+        window#waybar {
+          background: alpha(@theme_base_color, 0.9);
+          color: @theme_text_color;
+        }
 
-      #workspaces,
-      #taskbar button,
-      #mode,
-      #clock,
-      #tray,
-      #mpris,
-      #idle_inhibitor,
-      #backlight,
-      #cpu,
-      #memory,
-      #pulseaudio,
-      #battery {
-        padding: 0 6px;
-      }
+        #workspaces,
+        #taskbar button,
+        #mode,
+        #clock,
+        #tray,
+        #mpris,
+        #idle_inhibitor,
+        #backlight,
+        #cpu,
+        #memory,
+        #pulseaudio,
+        #battery {
+          padding: 0 6px;
+        }
 
-      #taskbar button {
-        border: none;
-        border-radius: 0;
-        border-bottom: 2px solid transparent;
-        padding: 3px 8px 1px 8px;
-      }
-      #taskbar button.active {
-        border-bottom: 2px solid ${palette.accent_color};
-      }
+        #taskbar button {
+          border: none;
+          border-radius: 0;
+          border-bottom: 2px solid transparent;
+          padding: 3px 8px 1px 8px;
+        }
+        #taskbar button.active {
+          border-bottom: 2px solid ${palette.accent_color};
+        }
 
-      #workspaces button {
-        border-radius: 0;
-        padding: 3px 6px;
-      }
-      #workspaces button.focused,
-      #workspaces button.active {
-        color: ${palette.accent_color};
-      }
+        #workspaces button {
+          border-radius: 0;
+          padding: 3px 6px;
+        }
+        #workspaces button.focused,
+        #workspaces button.active {
+          color: ${palette.accent_color};
+        }
 
-      #battery.warning {
-        color: ${palette.warning_color};
-      }
-      #battery.critical {
-        color: ${palette.error_color};
-      }
-      #battery.charging {
-        color: ${palette.success_color};
-      }
-    '';
+        #battery.warning {
+          color: ${palette.warning_color};
+        }
+        #battery.critical {
+          color: ${palette.error_color};
+        }
+        #battery.charging {
+          color: ${palette.success_color};
+        }
+      '';
   };
 }
