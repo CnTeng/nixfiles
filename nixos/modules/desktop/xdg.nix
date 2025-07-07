@@ -22,6 +22,9 @@ let
     "application/x-extension-shtml"
     "application/x-extension-xht"
     "application/x-extension-xhtml"
+    "x-scheme-handler/http"
+    "x-scheme-handler/https"
+    "x-scheme-handler/chrome"
   ];
 
   editorMimeTypes = [
@@ -62,7 +65,7 @@ let
   default = {
     terminal = "kitty.desktop";
     editor = "nvim.desktop";
-    browser = "chromium-browser.desktop";
+    browser = "firefox.desktop";
     imageViewer = "org.gnome.eog.desktop";
     pdfViewer = "org.gnome.Evince.desktop";
   };
