@@ -3,7 +3,10 @@
   ...
 }:
 {
-  hardware'.stateless.enable = true;
+  hardware' = {
+    stateless.enable = true;
+    usbip.enable = true;
+  };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
