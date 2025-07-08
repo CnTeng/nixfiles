@@ -18,6 +18,7 @@ in
         PUID = config.users.users.pocket-id.uid;
         PGID = config.users.groups.pocket-id.gid;
         UNIX_SOCKET = socket;
+        UNIX_SOCKET_MODE = "0666";
         UI_CONFIG_DISABLED = true;
 
         EMAILS_VERIFIED = true;
@@ -34,7 +35,6 @@ in
     systemd.services.pocket-id.serviceConfig = {
       RestrictAddressFamilies = [ "AF_UNIX" ];
       RuntimeDirectory = "pocket-id";
-      UMask = lib.mkForce "0011";
     };
 
     services.caddy.virtualHosts.id = {
