@@ -29,10 +29,11 @@ in
           ++ lib.optionals cfg.clion.enable [ clion ];
 
         xdg.configFile."ideavim/ideavimrc".text = ''
+          set clipboard+=unnamedplus
+          set hlsearch
           set number
           set relativenumber
           set showmode
-          set clipboard+=unnamedplus
 
           set commentary
           set highlightedyank
@@ -41,16 +42,16 @@ in
 
           let mapleader = ' '
 
-          nmap <c-s> :<C-u>w<cr>
+          nmap <C-s> :<C-u>w<cr>
           nmap <leader>e :<C-u>NERDTreeToggle<cr>
 
           nmap <leader>b <Action>(Switcher)
           map <leader>lf <Action>(ReformatCode)
 
-          nnoremap <c-h> <c-w>h
-          nnoremap <c-j> <c-w>j
-          nnoremap <c-k> <c-w>k
-          nnoremap <c-l> <c-w>l
+          nnoremap <C-h> <C-w>h
+          nnoremap <C-j> <C-w>j
+          nnoremap <C-k> <C-w>k
+          nnoremap <C-l> <C-w>l
         '';
 
         home.sessionVariables =
