@@ -17,7 +17,7 @@ resource "cloudflare_dns_record" "dns_rec" {
   for_each = local.dns_rec
 
   zone_id = cloudflare_zone.zones["sp_xyz"].id
-  name    = each.key
+  name    = each.key == "@" ? cloudflare_zone.zones["sp_xyz"].name : "${each.key}.${cloudflare_zone.zones["sp_xyz"].name}"
   ttl     = 1
   type    = "A"
   content = each.value.content

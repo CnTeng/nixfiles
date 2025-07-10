@@ -14,13 +14,13 @@ resource "cloudflare_zone" "zones" {
   name = each.value.zone
 }
 
-# resource "cloudflare_zone_setting" "rocket_loader" {
-#   for_each = cloudflare_zone.zones
-#
-#   zone_id    = each.value.id
-#   setting_id = "rocket_loader"
-#   value      = "off"
-# }
+resource "cloudflare_zone_setting" "rocket_loader" {
+  for_each = cloudflare_zone.zones
+
+  zone_id    = each.value.id
+  setting_id = "rocket_loader"
+  value      = "off"
+}
 
 data "cloudflare_api_token_permission_groups_list" "all" {}
 
@@ -41,8 +41,8 @@ resource "cloudflare_api_token" "cdntls" {
   policies = [{
     effect = "allow"
     permission_groups = [
-      { id = local.cf_api_permissions["DNS Write"] },
       { id = local.cf_api_permissions["Zone Read"] },
+      { id = local.cf_api_permissions["DNS Write"] },
     ]
     resources = {
       "com.cloudflare.api.account.zone.*" = "*"

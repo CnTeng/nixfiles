@@ -55,11 +55,12 @@ module "host" {
   source   = "./modules/host"
   for_each = local.hosts
 
-  zone_id = cloudflare_zone.zones["sp_xyz"].id
-  name    = each.key
-  system  = each.value.system
-  type    = each.value.type
-  ip      = lookup(local.hosts_ip, each.key, null)
+  zone_id   = cloudflare_zone.zones["sp_xyz"].id
+  zone_name = cloudflare_zone.zones["sp_xyz"].name
+  name      = each.key
+  system    = each.value.system
+  type      = each.value.type
+  ip        = lookup(local.hosts_ip, each.key, null)
 }
 
 locals {
