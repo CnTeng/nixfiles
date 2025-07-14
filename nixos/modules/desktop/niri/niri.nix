@@ -3,10 +3,6 @@ palette:
 {
   xdg.configFile."niri/config.kdl".text = # kdl
     ''
-      debug {
-        render-drm-device "/dev/dri/card1"
-      }
-
       spawn-at-startup "xwayland-satellite" ":1"
 
       prefer-no-csd
@@ -28,8 +24,8 @@ palette:
         focus-follows-mouse max-scroll-amount="10%"
       }
 
-      output "Dell Inc. DELL U2723QX 843R0P3"     { scale 1.75; }
-      output "Dell Inc. DELL U2518D 3M7K8013ARCL" { scale 1.25; }
+      output "Dell Inc. DELL U2723QX 843R0P3"     { position x=0 y=0; scale 1.75; }
+      output "Dell Inc. DELL U2518D 3M7K8013ARCL" { position x=0 y=0; scale 1.25; }
 
       layout {
         gaps 8
