@@ -9,6 +9,4 @@
       "default.nix"
       "secrets.yaml"
     ]);
-
-  removeHashTag = hex: lib.removePrefix "#" hex;
 }

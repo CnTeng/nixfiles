@@ -16,14 +16,14 @@ palette:
         cache = "${config.xdg.cacheHome}/fuzzel/cache";
       };
       colors = {
-        background = lib.removeHashTag palette.dialog_bg_color + "ff";
-        text = lib.removeHashTag palette.dialog_fg_color + "ff";
-        prompt = lib.removeHashTag palette.dialog_fg_color + "ff";
-        input = lib.removeHashTag palette.dialog_fg_color + "ff";
-        match = lib.removeHashTag palette.accent_color + "ff";
-        selection = lib.removeHashTag palette.selected_bg_color + "ff";
-        selection-text = lib.removeHashTag palette.selected_fg_color + "ff";
-        selection-match = lib.removeHashTag palette.accent_color + "ff";
+        background = palette.dialog_bg_color + "ff";
+        text = palette.dialog_fg_color + "ff";
+        prompt = palette.dialog_fg_color + "ff";
+        input = palette.dialog_fg_color + "ff";
+        match = palette.accent_color + "ff";
+        selection = palette.selected_bg_color + "ff";
+        selection-text = palette.selected_fg_color + "ff";
+        selection-match = palette.accent_color + "ff";
       };
       border = {
         width = 0;

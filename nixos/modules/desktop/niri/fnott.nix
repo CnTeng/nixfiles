@@ -1,5 +1,8 @@
 palette:
 { lib, ... }:
+let
+  removeHashTag = hex: lib.removePrefix "#" hex;
+in
 {
   services.fnott = {
     enable = true;
@@ -13,7 +16,7 @@ palette:
         icon-theme = "Papirus-Dark";
         max-icon-size = 96;
 
-        background = lib.removeHashTag palette.dialog_bg_color + "ff";
+        background = removeHashTag palette.dialog_bg_color + "ff";
         border-radius = 16;
         border-size = 0;
 
@@ -28,13 +31,13 @@ palette:
         idle-timeout = 15;
       };
       low = {
-        background = lib.removeHashTag palette.dialog_bg_color + "ff";
-        title-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-        summary-color = lib.removeHashTag palette.dialog_fg_color + "ff";
-        body-color = lib.removeHashTag palette.dialog_fg_color + "ff";
+        background = removeHashTag palette.dialog_bg_color + "ff";
+        title-color = removeHashTag palette.dialog_fg_color + "ff";
+        summary-color = removeHashTag palette.dialog_fg_color + "ff";
+        body-color = removeHashTag palette.dialog_fg_color + "ff";
       };
       critical = {
-        background = lib.removeHashTag palette.error_bg_color + "ff";
+        background = removeHashTag palette.error_bg_color + "ff";
       };
     };
   };
