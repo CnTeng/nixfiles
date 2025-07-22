@@ -6,13 +6,12 @@
 }:
 let
   cfg = config.desktop'.theme;
-  inherit (config.core') user;
 in
 {
   options.desktop'.theme.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${user} =
+    hm' =
       { config, ... }:
       {
         home.pointerCursor = {

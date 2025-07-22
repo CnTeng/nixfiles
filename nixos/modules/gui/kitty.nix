@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.gui'.kitty;
-  inherit (config.core') user;
   inherit (pkgs.vimPlugins) smart-splits-nvim;
 in
 {
@@ -15,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.variables.TERMINAL = "kitty";
 
-    home-manager.users.${user} = {
+    hm' = {
       xdg.configFile = {
         "kitty/neighboring_window.py" = {
           source = "${smart-splits-nvim}/kitty/neighboring_window.py";

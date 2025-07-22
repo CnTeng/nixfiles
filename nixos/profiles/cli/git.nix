@@ -1,11 +1,7 @@
-{ config, ... }:
-let
-  inherit (config.core') user;
-in
 {
   programs.git.enable = true;
 
-  home-manager.users.${user} = {
+  hm' = {
     programs.git = {
       enable = true;
       userName = "CnTeng";

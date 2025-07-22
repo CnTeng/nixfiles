@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.gui'.jetbrains;
-  inherit (config.core') user;
 
   android-studio = pkgs.android-studio.override { forceWayland = true; };
   clion = pkgs.jetbrains.clion.override { vmopts = "-Dawt.toolkit.name=WLToolkit"; };
@@ -18,10 +17,10 @@ in
   };
 
   config = lib.mkIf (cfg.android-studio.enable || cfg.clion.enable) {
-    users.users.${user}.extraGroups = lib.optionals cfg.android-studio.enable [ "adbusers" ];
+    user'.extraGroups = lib.optionals cfg.android-studio.enable [ "adbusers" ];
     programs.adb.enable = cfg.android-studio.enable;
 
-    home-manager.users.${user} =
+    hm' =
       { config, ... }:
       {
         home.packages =
@@ -65,24 +64,22 @@ in
           };
       };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories =
-        [ ".config/java" ]
-        ++ lib.optionals cfg.android-studio.enable [
-          ".config/android"
-          ".local/share/android"
+    preservation'.user.directories =
+      [ ".config/java" ]
+      ++ lib.optionals cfg.android-studio.enable [
+        ".config/android"
+        ".local/share/android"
 
-          ".cache/Google"
-          ".config/Google"
-          ".local/share/Google"
+        ".cache/Google"
+        ".config/Google"
+        ".local/share/Google"
 
-          ".gradle"
-        ]
-        ++ lib.optionals cfg.clion.enable [
-          ".cache/JetBrains"
-          ".config/JetBrains"
-          ".local/share/JetBrains"
-        ];
-    };
+        ".gradle"
+      ]
+      ++ lib.optionals cfg.clion.enable [
+        ".cache/JetBrains"
+        ".config/JetBrains"
+        ".local/share/JetBrains"
+      ];
   };
 }

@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.gui'.kdeconnect;
-  inherit (config.core') user;
 in
 {
   options.gui'.kdeconnect.enable = lib.mkEnableOption "";
@@ -26,15 +21,11 @@ in
       ];
     };
 
-    home-manager.users.${user} = {
-      services.kdeconnect = {
-        enable = true;
-        indicator = true;
-      };
+    hm'.services.kdeconnect = {
+      enable = true;
+      indicator = true;
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [ ".config/kdeconnect" ];
-    };
+    preservation'.user.directories = [ ".config/kdeconnect" ];
   };
 }

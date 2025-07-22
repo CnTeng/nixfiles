@@ -21,11 +21,10 @@ let
           };
 
           core' = {
-            user = "yufei";
+            userName = "yufei";
             hostName = host;
+            stateVersion = "25.05";
           };
-
-          system.stateVersion = "25.05";
         }
         self.nixosModules.default
         ./${host}

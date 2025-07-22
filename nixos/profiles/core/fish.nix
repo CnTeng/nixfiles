@@ -1,7 +1,4 @@
-{ config, pkgs, ... }:
-let
-  inherit (config.core') user;
-in
+{ pkgs, ... }:
 {
   programs.fish = {
     enable = true;
@@ -15,13 +12,9 @@ in
 
   environment.systemPackages = [ pkgs.fishPlugins.autopair ];
 
-  users.users.${user}.shell = pkgs.fish;
+  user'.shell = pkgs.fish;
 
-  home-manager.users.${user} = {
-    programs.fish.enable = true;
-  };
+  hm'.programs.fish.enable = true;
 
-  preservation.preserveAt."/persist" = {
-    users.${user}.directories = [ ".local/share/fish" ];
-  };
+  preservation'.user.directories = [ ".local/share/fish" ];
 }

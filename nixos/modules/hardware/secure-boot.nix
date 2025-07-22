@@ -23,8 +23,6 @@ in
       pkiBundle = "/var/lib/sbctl";
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/sbctl" ];
-    };
+    preservation'.os.directories = [ "/var/lib/sbctl" ];
   };
 }

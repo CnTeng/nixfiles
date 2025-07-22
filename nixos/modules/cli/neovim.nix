@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.cli'.neovim;
-  inherit (config.core') user;
 in
 {
   imports = [ inputs.rx-nvim.nixosModules.default ];
@@ -23,24 +22,20 @@ in
       withExtraPackages = cfg.withExtraPackages;
     };
 
-    home-manager.users.${user} = {
-      programs.go = {
-        enable = cfg.withExtraPackages;
-        goPath = ".local/share/go";
-      };
+    hm'.programs.go = {
+      enable = cfg.withExtraPackages;
+      goPath = ".local/share/go";
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories =
-        [
-          ".config/github-copilot"
-          ".local/share/nvim"
-          ".local/state/nvim"
-          ".cache/nvim"
-        ]
-        ++ (lib.optionals cfg.withExtraPackages [
-          ".local/share/go"
-        ]);
-    };
+    preservation'.user.directories =
+      [
+        ".config/github-copilot"
+        ".local/share/nvim"
+        ".local/state/nvim"
+        ".cache/nvim"
+      ]
+      ++ (lib.optionals cfg.withExtraPackages [
+        ".local/share/go"
+      ]);
   };
 }

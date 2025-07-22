@@ -6,13 +6,12 @@
 }:
 let
   cfg = config.gui'.megasync;
-  inherit (config.core') user;
 in
 {
   options.gui'.megasync.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${user} = {
+    hm' = {
       services.megasync = {
         enable = true;
         forceWayland = true;
@@ -29,8 +28,6 @@ in
       };
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [ ".local/share/data" ];
-    };
+    preservation'.user.directories = [ ".local/share/data" ];
   };
 }

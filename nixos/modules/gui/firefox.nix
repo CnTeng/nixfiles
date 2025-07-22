@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.gui'.firefox;
-  inherit (config.core') user;
 in
 {
   options.gui'.firefox.enable = lib.mkEnableOption "";
@@ -40,11 +35,9 @@ in
       };
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        ".mozilla"
-        ".cache/mozilla"
-      ];
-    };
+    preservation'.user.directories = [
+      ".mozilla"
+      ".cache/mozilla"
+    ];
   };
 }

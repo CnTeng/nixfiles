@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   cfg = config.services'.anki-sync;
-  user = config.core'.user;
 
   hostName = "anki.snakepi.xyz";
 in
@@ -14,7 +13,7 @@ in
       address = "127.0.0.1";
       users = [
         {
-          username = user;
+          username = config.core'.userName;
           passwordFile = config.sops.secrets.anki-sync.path;
         }
       ];

@@ -1,9 +1,6 @@
 { config, ... }:
-let
-  inherit (config.core') user;
-in
 {
-  home-manager.users.${user} = {
+  hm' = {
     services.ssh-agent.enable = true;
 
     programs.ssh = {
@@ -12,7 +9,7 @@ in
       addKeysToAgent = "yes";
       includes = [ "config.d/*.conf" ];
       matchBlocks."*" = {
-        inherit user;
+        user = config.core'.userName;
         identityFile = [
           "~/.ssh/id_ed25519"
           "~/.ssh/id_ed25519_sk_rk_ybk5@nixos"
@@ -22,7 +19,5 @@ in
     };
   };
 
-  preservation.preserveAt."/persist" = {
-    users.${user}.directories = [ ".ssh" ];
-  };
+  preservation'.user.directories = [ ".ssh" ];
 }

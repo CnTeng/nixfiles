@@ -1,12 +1,4 @@
-{
-  inputs,
-  config,
-  pkgs,
-  ...
-}:
-let
-  inherit (config.core') user;
-in
+{ inputs, pkgs, ... }:
 {
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
@@ -21,11 +13,9 @@ in
   programs.screen.enable = true;
   programs.nix-index-database.comma.enable = true;
 
-  preservation.preserveAt."/persist" = {
-    users.${user}.directories = [ ".local/share/direnv" ];
-  };
+  preservation'.user.directories = [ ".local/share/direnv" ];
 
-  home-manager.users.${user} = {
+  hm' = {
     programs.fastfetch.enable = true;
     programs.ripgrep.enable = true;
     programs.fd.enable = true;

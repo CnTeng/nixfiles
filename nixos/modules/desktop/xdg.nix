@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.desktop'.xdg;
-  inherit (config.core') user;
 
   mkDefaultApp = app: mimeTypes: lib.genAttrs mimeTypes (_: app);
 
@@ -79,7 +74,7 @@ in
       settings.default = [ default.terminal ];
     };
 
-    home-manager.users.${user} = {
+    hm' = {
       xdg.userDirs.enable = true;
 
       xdg.mimeApps = {
@@ -92,14 +87,11 @@ in
       };
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        "Documents"
-        "Downloads"
-        "Pictures"
-        "Projects"
-      ];
-    };
+    preservation'.user.directories = [
+      "Documents"
+      "Downloads"
+      "Pictures"
+      "Projects"
+    ];
   };
-
 }

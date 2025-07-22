@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.core') user hostName;
+  inherit (config.core') userName hostName;
 
   authorizedKeys = [
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMu1Lx0CAwI3cS7GAScUI65xAk597v4O6tx62uFj81sLAAAADnNzaDp5Yms1QG5peG9z ssh:ybk5@nixos"
@@ -30,7 +30,7 @@ in
   };
 
   users.users = {
-    ${user}.openssh.authorizedKeys.keys = authorizedKeys;
+    ${userName}.openssh.authorizedKeys.keys = authorizedKeys;
     root.openssh.authorizedKeys.keys = authorizedKeys;
   };
 

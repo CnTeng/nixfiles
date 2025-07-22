@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.gui'.yubikey;
-  inherit (config.core') user;
 
   yubikeyPkgs = with pkgs; [
     yubikey-manager
@@ -25,11 +24,9 @@ in
 
     programs.yubikey-touch-detector.enable = true;
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        ".config/Yubico"
-        ".local/share/com.yubico.authenticator"
-      ];
-    };
+    preservation'.user.directories = [
+      ".config/Yubico"
+      ".local/share/com.yubico.authenticator"
+    ];
   };
 }

@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.cli'.podman;
-  inherit (config.core') user;
 in
 {
   options.cli'.podman.enable = lib.mkEnableOption "";
@@ -13,12 +8,12 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.podman.enable = true;
 
-    preservation.preserveAt."/persist" = {
-      directories = [
+    preservation' = {
+      os.directories = [
         "/var/lib/cni"
         "/var/lib/containers"
       ];
-      users.${user}.directories = [ ".local/share/containers" ];
+      user.directories = [ ".local/share/containers" ];
     };
   };
 }

@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.cli'.npm;
-  inherit (config.core') user;
 in
 {
   options.cli'.npm.enable = lib.mkEnableOption "";
@@ -21,11 +16,9 @@ in
       '';
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        ".local/state/npm"
-        ".cache/npm"
-      ];
-    };
+    preservation'.user.directories = [
+      ".local/state/npm"
+      ".cache/npm"
+    ];
   };
 }

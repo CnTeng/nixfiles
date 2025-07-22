@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.desktop'.niri;
-  inherit (config.core') user;
 
   palette = import ./palette.nix;
 
@@ -36,7 +35,7 @@ in
 
     programs.niri.enable = true;
 
-    users.users.${user}.extraGroups = [
+    user'.extraGroups = [
       "networkmanager"
       "video"
     ];
@@ -86,8 +85,8 @@ in
       NIXOS_OZONE_WL = "1";
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [
+    preservation' = {
+      os.directories = [
         "/var/lib/NetworkManager"
         "/etc/NetworkManager/system-connections"
 
@@ -97,7 +96,8 @@ in
         "/var/lib/upower"
         "/var/lib/udisks2"
       ];
-      users.${user}.directories = [
+
+      user.directories = [
         ".cache/fuzzel"
         ".config/dconf"
         ".local/share/keyrings"
@@ -105,70 +105,68 @@ in
       ];
     };
 
-    home-manager.users.${user} =
-      { config, ... }:
-      {
-        imports = [
-          (import ./niri.nix palette)
-          (import ./waybar.nix palette)
-          (import ./fuzzel.nix palette)
-          (import ./fnott.nix palette)
-        ];
+    hm' = {
+      imports = [
+        (import ./niri.nix palette)
+        (import ./waybar.nix palette)
+        (import ./fuzzel.nix palette)
+        (import ./fnott.nix palette)
+      ];
 
-        systemd.user.services.gtklock = {
-          Unit = {
-            ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
-            PartOf = [ "graphical-session.target" ];
-            After = [ "graphical-session.target" ];
-          };
-          Service = {
-            Type = "forking";
-            ExecStartPre = "${lib.getExe pkgs.niri} msg action do-screen-transition --delay-ms 1000";
-            ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
-            ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 3";
-          };
+      systemd.user.services.gtklock = {
+        Unit = {
+          ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
         };
-
-        services.swayidle = {
-          enable = true;
-          timeouts = [
-            {
-              timeout = 600;
-              command = "${loginctl} lock-session";
-            }
-            {
-              timeout = 900;
-              command = "${systemctl} suspend";
-            }
-          ];
-          events = [
-            {
-              event = "lock";
-              command = "${systemctl} --user start gtklock";
-            }
-            {
-              event = "unlock";
-              command = "${systemctl} --user stop gtklock";
-            }
-            {
-              event = "before-sleep";
-              command = "${systemctl} --user start gtklock";
-            }
-          ];
-        };
-
-        systemd.user.services.swaybg = {
-          Unit = {
-            Description = "Wallpaper tool for Wayland compositors";
-            PartOf = [ "graphical-session.target" ];
-            After = [ "graphical-session.target" ];
-          };
-          Service = {
-            ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper} -m fill";
-            Restart = "on-failure";
-          };
-          Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Type = "forking";
+          ExecStartPre = "${lib.getExe pkgs.niri} msg action do-screen-transition --delay-ms 1000";
+          ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
+          ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 3";
         };
       };
+
+      services.swayidle = {
+        enable = true;
+        timeouts = [
+          {
+            timeout = 600;
+            command = "${loginctl} lock-session";
+          }
+          {
+            timeout = 900;
+            command = "${systemctl} suspend";
+          }
+        ];
+        events = [
+          {
+            event = "lock";
+            command = "${systemctl} --user start gtklock";
+          }
+          {
+            event = "unlock";
+            command = "${systemctl} --user stop gtklock";
+          }
+          {
+            event = "before-sleep";
+            command = "${systemctl} --user start gtklock";
+          }
+        ];
+      };
+
+      systemd.user.services.swaybg = {
+        Unit = {
+          Description = "Wallpaper tool for Wayland compositors";
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+        };
+        Service = {
+          ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper} -m fill";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+    };
   };
 }

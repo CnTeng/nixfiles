@@ -1,13 +1,5 @@
-{ config, ... }:
-let
-  inherit (config.core') user;
-in
 {
-  home-manager.users.${user} = {
-    programs.zoxide.enable = true;
-  };
+  hm'.programs.zoxide.enable = true;
 
-  preservation.preserveAt."/persist" = {
-    users.${user}.directories = [ ".local/share/zoxide" ];
-  };
+  preservation'.user.directories = [ ".local/share/zoxide" ];
 }

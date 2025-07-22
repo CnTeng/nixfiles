@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.desktop'.input;
-  inherit (config.core') user;
 in
 {
   options.desktop'.input.enable = lib.mkEnableOption "";
@@ -25,12 +24,10 @@ in
       plasma6Support = true;
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        ".config/fcitx"
-        ".config/fcitx5"
-        ".local/share/fcitx5"
-      ];
-    };
+    preservation'.user.directories = [
+      ".config/fcitx"
+      ".config/fcitx5"
+      ".local/share/fcitx5"
+    ];
   };
 }

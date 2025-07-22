@@ -6,12 +6,20 @@
 }:
 let
   cfg = config.hardware'.stateless;
-  inherit (config.core') user;
+
+  user = config.core'.userName;
+  storage = "/persist";
 in
 {
   imports = [
     inputs.preservation.nixosModules.default
     inputs.ph.nixosModules.default
+
+    (lib.mkAliasOptionModule [ "preservation'" "os" ] [ "preservation" "preserveAt" storage ])
+    (lib.mkAliasOptionModule
+      [ "preservation'" "user" ]
+      [ "preservation" "preserveAt" storage "users" user ]
+    )
   ];
 
   options.hardware'.stateless.enable = lib.mkEnableOption "";

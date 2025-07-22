@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.gui'.thunderbird;
-  inherit (config.core') user;
 in
 {
   options.gui'.thunderbird.enable = lib.mkEnableOption "";
@@ -17,11 +16,9 @@ in
       package = pkgs.thunderbird-latest;
     };
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        ".thunderbird"
-        ".cache/thunderbird"
-      ];
-    };
+    preservation'.user.directories = [
+      ".thunderbird"
+      ".cache/thunderbird"
+    ];
   };
 }

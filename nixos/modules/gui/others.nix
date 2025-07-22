@@ -6,34 +6,29 @@
 }:
 let
   cfg = config.gui'.others;
-  inherit (config.core') user;
 in
 {
   options.gui'.others.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${user} = {
-      home.packages = with pkgs; [
-        calibre
-        spotify
-        tdesktop
+    hm'.home.packages = with pkgs; [
+      calibre
+      spotify
+      tdesktop
 
-        asciinema
-        asciinema-agg
-      ];
-    };
+      asciinema
+      asciinema-agg
+    ];
 
-    preservation.preserveAt."/persist" = {
-      users.${user}.directories = [
-        ".cache/calibre"
-        ".config/calibre"
+    preservation'.user.directories = [
+      ".cache/calibre"
+      ".config/calibre"
 
-        ".cache/spotify"
-        ".config/spotify"
+      ".cache/spotify"
+      ".config/spotify"
 
-        ".cache/TelegramDesktop"
-        ".local/share/TelegramDesktop"
-      ];
-    };
+      ".cache/TelegramDesktop"
+      ".local/share/TelegramDesktop"
+    ];
   };
 }
