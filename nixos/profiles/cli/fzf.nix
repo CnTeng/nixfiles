@@ -1,10 +1,11 @@
 {
+  config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
+  inherit (config.core') user;
   command = filetype: "${lib.getExe pkgs.fd} -t ${filetype} -H -E .git";
 in
 {

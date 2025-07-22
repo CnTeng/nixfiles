@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.zotero;
+  inherit (config.core') user;
 in
 {
   options.gui'.zotero.enable = lib.mkEnableOption "";

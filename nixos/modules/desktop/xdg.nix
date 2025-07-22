@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.desktop'.xdg;
+  inherit (config.core') user;
 
   mkDefaultApp = app: mimeTypes: lib.genAttrs mimeTypes (_: app);
 

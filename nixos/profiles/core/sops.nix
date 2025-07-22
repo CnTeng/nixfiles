@@ -1,9 +1,11 @@
 {
   inputs,
   config,
-  user,
   ...
 }:
+let
+  inherit (config.core') user;
+in
 {
   imports = [ inputs.sops-nix.nixosModules.default ];
 

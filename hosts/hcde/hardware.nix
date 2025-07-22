@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.networking) hostName;
+  inherit (config.core') hostName;
 in
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];

@@ -1,11 +1,7 @@
-{
-  config,
-  lib,
-  user,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.services'.anki-sync;
+  user = config.core'.user;
 
   hostName = "anki.snakepi.xyz";
 in

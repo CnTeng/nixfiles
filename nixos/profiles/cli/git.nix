@@ -1,4 +1,7 @@
-{ user, ... }:
+{ config, ... }:
+let
+  inherit (config.core') user;
+in
 {
   programs.git.enable = true;
 

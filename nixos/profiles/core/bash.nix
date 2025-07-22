@@ -1,4 +1,7 @@
-{ user, ... }:
+{ config, ... }:
+let
+  inherit (config.core') user;
+in
 {
   home-manager.users.${user} =
     { config, ... }:

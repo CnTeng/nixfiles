@@ -1,12 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.services'.tailscale;
 
-  inherit (config.networking) hostName;
+  inherit (config.core') hostName;
 in
 {
   options.services'.tailscale.enable = lib.mkEnableOption "";

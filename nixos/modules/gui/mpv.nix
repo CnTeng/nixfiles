@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.gui'.mpv;
+  inherit (config.core') user;
 in
 {
   options.gui'.mpv.enable = lib.mkEnableOption "";

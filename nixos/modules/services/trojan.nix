@@ -8,7 +8,7 @@
 let
   cfg = config.services'.trojan;
 
-  hostName = "${config.networking.hostName}.snakepi.xyz";
+  hostName = "${config.core'.hostName}.snakepi.xyz";
   port = 10808;
 
   mkOutbound = host: {

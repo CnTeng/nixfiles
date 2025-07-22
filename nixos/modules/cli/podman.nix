@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.cli'.podman;
+  inherit (config.core') user;
 in
 {
   options.cli'.podman.enable = lib.mkEnableOption "";

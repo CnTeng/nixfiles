@@ -1,4 +1,7 @@
-{ pkgs, user, ... }:
+{ config, pkgs, ... }:
+let
+  inherit (config.core') user;
+in
 {
   programs.fish = {
     enable = true;

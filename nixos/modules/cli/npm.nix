@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.cli'.npm;
+  inherit (config.core') user;
 in
 {
   options.cli'.npm.enable = lib.mkEnableOption "";

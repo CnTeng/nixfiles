@@ -1,9 +1,7 @@
-{
-  config,
-  inputs,
-  user,
-  ...
-}:
+{ config, inputs, ... }:
+let
+  inherit (config.core') user;
+in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 

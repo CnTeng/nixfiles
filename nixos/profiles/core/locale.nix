@@ -1,4 +1,3 @@
-{ ... }:
 {
   time.timeZone = "Asia/Shanghai";
 }

@@ -1,6 +1,7 @@
-{ user, ... }:
+{ config, ... }:
 let
   hashedPassword = "$y$j9T$riMCfL.4mC/J482G5yj..1$d1hE7FKgRGPGtO.d4sIWVT6NB0x6RIIH46ZsZB.YUe.";
+  inherit (config.core') user;
 in
 {
   users = {

@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.office;
+  inherit (config.core') user;
 in
 {
   options.gui'.office.enable = lib.mkEnableOption "";

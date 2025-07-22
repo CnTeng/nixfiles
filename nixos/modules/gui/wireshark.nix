@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.wireshark;
+  inherit (config.core') user;
 in
 {
   options.gui'.wireshark.enable = lib.mkEnableOption "";

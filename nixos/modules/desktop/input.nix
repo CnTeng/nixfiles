@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.desktop'.input;
+  inherit (config.core') user;
 in
 {
   options.desktop'.input.enable = lib.mkEnableOption "";

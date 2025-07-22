@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.megasync;
+  inherit (config.core') user;
 in
 {
   options.gui'.megasync.enable = lib.mkEnableOption "";

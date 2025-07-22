@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.gui'.ghostty;
+  inherit (config.core') user;
 in
 {
   options.gui'.ghostty.enable = lib.mkEnableOption "";

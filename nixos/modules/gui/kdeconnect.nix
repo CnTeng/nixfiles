@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.gui'.kdeconnect;
+  inherit (config.core') user;
 in
 {
   options.gui'.kdeconnect.enable = lib.mkEnableOption "";

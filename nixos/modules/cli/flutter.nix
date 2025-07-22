@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.cli'.flutter;
+  inherit (config.core') user;
 in
 {
   options.cli'.flutter.enable = lib.mkEnableOption "";

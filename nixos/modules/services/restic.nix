@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.services'.restic;
-  inherit (config.networking) hostName;
+  inherit (config.core') hostName;
 in
 {
   options.services'.restic.enable = lib.mkEnableOption "";

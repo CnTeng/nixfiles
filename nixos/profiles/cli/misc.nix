@@ -1,9 +1,12 @@
 {
   inputs,
+  config,
   pkgs,
-  user,
   ...
 }:
+let
+  inherit (config.core') user;
+in
 {
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 

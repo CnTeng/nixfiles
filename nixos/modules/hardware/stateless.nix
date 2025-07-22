@@ -2,11 +2,11 @@
   config,
   inputs,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.hardware'.stateless;
+  inherit (config.core') user;
 in
 {
   imports = [

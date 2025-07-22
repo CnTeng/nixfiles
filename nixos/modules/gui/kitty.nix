@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.kitty;
+  inherit (config.core') user;
   inherit (pkgs.vimPlugins) smart-splits-nvim;
 in
 {

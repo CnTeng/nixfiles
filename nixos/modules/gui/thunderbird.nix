@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.thunderbird;
+  inherit (config.core') user;
 in
 {
   options.gui'.thunderbird.enable = lib.mkEnableOption "";

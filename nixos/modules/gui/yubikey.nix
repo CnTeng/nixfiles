@@ -2,11 +2,12 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.yubikey;
+  inherit (config.core') user;
+
   yubikeyPkgs = with pkgs; [
     yubikey-manager
     yubioath-flutter

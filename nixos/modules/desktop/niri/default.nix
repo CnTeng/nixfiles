@@ -2,11 +2,12 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.desktop'.niri;
+  inherit (config.core') user;
+
   palette = import ./palette.nix;
 
   systemctl = lib.getExe' config.systemd.package "systemctl";

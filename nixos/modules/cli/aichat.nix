@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.cli'.aichat;
+  inherit (config.core') user;
 in
 {
   options.cli'.aichat.enable = lib.mkEnableOption "";

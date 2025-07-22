@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.jetbrains;
+  inherit (config.core') user;
 
   android-studio = pkgs.android-studio.override { forceWayland = true; };
   clion = pkgs.jetbrains.clion.override { vmopts = "-Dawt.toolkit.name=WLToolkit"; };

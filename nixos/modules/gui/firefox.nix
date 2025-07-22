@@ -1,11 +1,11 @@
 {
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.gui'.firefox;
+  inherit (config.core') user;
 in
 {
   options.gui'.firefox.enable = lib.mkEnableOption "";

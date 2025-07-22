@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.others;
+  inherit (config.core') user;
 in
 {
   options.gui'.others.enable = lib.mkEnableOption "";

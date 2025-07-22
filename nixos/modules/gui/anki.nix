@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.gui'.anki;
+  inherit (config.core') user;
 in
 {
   options.gui'.anki.enable = lib.mkEnableOption "";

@@ -2,11 +2,11 @@
   inputs,
   lib,
   config,
-  user,
   ...
 }:
 let
   cfg = config.cli'.neovim;
+  inherit (config.core') user;
 in
 {
   imports = [ inputs.rx-nvim.nixosModules.default ];

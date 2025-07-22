@@ -2,11 +2,11 @@
   inputs,
   config,
   lib,
-  user,
   ...
 }:
 let
   cfg = config.cli'.todoist;
+  inherit (config.core') user;
 in
 {
   options.cli'.todoist.enable = lib.mkEnableOption "";
