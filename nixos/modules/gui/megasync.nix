@@ -9,7 +9,7 @@ let
   cfg = config.gui'.megasync;
 in
 {
-  options.gui'.megasync.enable = lib.mkEnableOption' { };
+  options.gui'.megasync.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

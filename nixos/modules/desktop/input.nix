@@ -9,7 +9,7 @@ let
   cfg = config.desktop'.input;
 in
 {
-  options.desktop'.input.enable = lib.mkEnableOption' { };
+  options.desktop'.input.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     i18n.inputMethod = {

@@ -9,7 +9,7 @@ let
   inherit (config.networking) hostName;
 in
 {
-  options.services'.restic.enable = lib.mkEnableOption' { };
+  options.services'.restic.enable = lib.mkEnableOption "";
 
   config =
     let

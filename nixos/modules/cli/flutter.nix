@@ -8,7 +8,7 @@ let
   cfg = config.cli'.flutter;
 in
 {
-  options.cli'.flutter.enable = lib.mkEnableOption' { };
+  options.cli'.flutter.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     preservation.preserveAt."/persist" = {

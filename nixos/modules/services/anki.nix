@@ -10,7 +10,7 @@ let
   hostName = "anki.snakepi.xyz";
 in
 {
-  options.services'.anki-sync.enable = lib.mkEnableOption' { };
+  options.services'.anki-sync.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.anki-sync-server = {

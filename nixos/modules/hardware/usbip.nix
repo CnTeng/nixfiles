@@ -8,7 +8,7 @@ let
   cfg = config.hardware'.usbip;
 in
 {
-  options.hardware'.usbip.enable = lib.mkEnableOption' { };
+  options.hardware'.usbip.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [

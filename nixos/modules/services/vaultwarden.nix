@@ -7,7 +7,7 @@ let
   user = "vaultwarden";
 in
 {
-  options.services'.vaultwarden.enable = lib.mkEnableOption' { };
+  options.services'.vaultwarden.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {

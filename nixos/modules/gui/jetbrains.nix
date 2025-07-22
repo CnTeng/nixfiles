@@ -13,8 +13,8 @@ let
 in
 {
   options.gui'.jetbrains = {
-    android-studio.enable = lib.mkEnableOption' { };
-    clion.enable = lib.mkEnableOption' { };
+    android-studio.enable = lib.mkEnableOption "";
+    clion.enable = lib.mkEnableOption "";
   };
 
   config = lib.mkIf (cfg.android-studio.enable || cfg.clion.enable) {

@@ -9,7 +9,7 @@ let
   cfg = config.desktop'.theme;
 in
 {
-  options.desktop'.theme.enable = lib.mkEnableOption' { };
+  options.desktop'.theme.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} =

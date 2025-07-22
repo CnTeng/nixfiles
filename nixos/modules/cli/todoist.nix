@@ -9,7 +9,7 @@ let
   cfg = config.cli'.todoist;
 in
 {
-  options.cli'.todoist.enable = lib.mkEnableOption' { };
+  options.cli'.todoist.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [

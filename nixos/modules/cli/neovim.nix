@@ -12,8 +12,8 @@ in
   imports = [ inputs.rx-nvim.nixosModules.default ];
 
   options.cli'.neovim = {
-    enable = lib.mkEnableOption' { };
-    withExtraPackages = lib.mkEnableOption' { };
+    enable = lib.mkEnableOption "";
+    withExtraPackages = lib.mkEnableOption "";
   };
 
   config = lib.mkIf cfg.enable {

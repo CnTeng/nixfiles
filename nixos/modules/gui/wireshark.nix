@@ -9,7 +9,7 @@ let
   cfg = config.gui'.wireshark;
 in
 {
-  options.gui'.wireshark.enable = lib.mkEnableOption' { };
+  options.gui'.wireshark.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     users.users.${user}.extraGroups = [ "wireshark" ];

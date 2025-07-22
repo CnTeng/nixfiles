@@ -197,8 +197,8 @@ let
 in
 {
   options.services'.trojan = {
-    enableServer = lib.mkEnableOption' { };
-    enableClient = lib.mkEnableOption' { };
+    enableServer = lib.mkEnableOption "";
+    enableClient = lib.mkEnableOption "";
   };
 
   config = lib.mkIf (cfg.enableServer || cfg.enableClient) {

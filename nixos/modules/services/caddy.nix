@@ -8,7 +8,7 @@ let
   cfg = config.services'.caddy;
 in
 {
-  options.services'.caddy.enable = lib.mkEnableOption' { };
+  options.services'.caddy.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [

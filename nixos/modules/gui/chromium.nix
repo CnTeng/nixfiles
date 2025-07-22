@@ -8,7 +8,7 @@ let
   cfg = config.gui'.chromium;
 in
 {
-  options.gui'.chromium.enable = lib.mkEnableOption' { };
+  options.gui'.chromium.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

@@ -8,7 +8,7 @@ let
   cfg = config.gui'.obs-studio;
 in
 {
-  options.gui'.obs-studio.enable = lib.mkEnableOption' { };
+  options.gui'.obs-studio.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     programs.obs-studio = {

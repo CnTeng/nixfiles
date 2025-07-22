@@ -78,7 +78,6 @@
         inputs.git-hooks-nix.flakeModule
         inputs.treefmt.flakeModule
         ./hosts
-        ./lib
         ./nixos
         ./pkgs
       ];

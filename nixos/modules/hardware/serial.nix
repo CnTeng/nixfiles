@@ -8,7 +8,7 @@ let
   cfg = config.hardware'.serial;
 in
 {
-  options.hardware'.serial.enable = lib.mkEnableOption' { };
+  options.hardware'.serial.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.usbutils ];

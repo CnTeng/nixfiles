@@ -5,7 +5,7 @@ let
   hostName = "pb.snakepi.xyz";
 in
 {
-  options.services'.privatebin.enable = lib.mkEnableOption' { };
+  options.services'.privatebin.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.privatebin = {

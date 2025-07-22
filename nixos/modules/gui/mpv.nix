@@ -8,7 +8,7 @@ let
   cfg = config.gui'.mpv;
 in
 {
-  options.gui'.mpv.enable = lib.mkEnableOption' { };
+  options.gui'.mpv.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

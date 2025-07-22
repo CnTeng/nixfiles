@@ -13,7 +13,7 @@ let
   ];
 in
 {
-  options.gui'.yubikey.enable = lib.mkEnableOption' { };
+  options.gui'.yubikey.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.pcscd.enable = true;

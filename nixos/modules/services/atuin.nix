@@ -5,7 +5,7 @@ let
   hostName = "atuin.snakepi.xyz";
 in
 {
-  options.services'.atuin.enable = lib.mkEnableOption' { };
+  options.services'.atuin.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.atuin = {

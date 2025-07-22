@@ -7,7 +7,7 @@ let
   user = "miniflux";
 in
 {
-  options.services'.miniflux.enable = lib.mkEnableOption' { };
+  options.services'.miniflux.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.miniflux = {

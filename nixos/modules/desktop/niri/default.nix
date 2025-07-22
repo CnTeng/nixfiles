@@ -18,7 +18,7 @@ let
   };
 in
 {
-  options.desktop'.niri.enable = lib.mkEnableOption' { };
+  options.desktop'.niri.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.greetd = {

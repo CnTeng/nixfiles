@@ -8,7 +8,7 @@ let
   cfg = config.gui'.ghostty;
 in
 {
-  options.gui'.ghostty.enable = lib.mkEnableOption' { };
+  options.gui'.ghostty.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

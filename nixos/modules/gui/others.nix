@@ -9,7 +9,7 @@ let
   cfg = config.gui'.others;
 in
 {
-  options.gui'.others.enable = lib.mkEnableOption' { };
+  options.gui'.others.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

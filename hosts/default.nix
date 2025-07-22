@@ -2,43 +2,36 @@
   inputs,
   lib,
   self,
-  withSystem,
   ...
 }:
 let
   data = lib.importJSON ../infra/outputs/data.json;
   user = "yufei";
 
-  mkNixosSystem =
-    host:
-    let
-      inherit (data.hosts.${host}) system;
-    in
-    withSystem system (
-      { pkgs, lib, ... }:
-      lib.nixosSystem {
-        pkgs = pkgs;
-        specialArgs = {
-          inherit inputs data user;
-        };
-        modules = [
-          {
-            networking.hostName = host;
-            nixpkgs.hostPlatform = system;
+  mkNixosSystem = host: _: {
+    ${host} = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs data user;
+      };
+      modules = [
+        {
+          nixpkgs = {
+            config.allowUnfree = true;
+            overlays = [ self.overlays.default ];
+            hostPlatform = data.hosts.${host}.system;
+          };
 
-            system.stateVersion = "25.05";
-          }
-          self.nixosModules.default
-          ./${host}
-        ];
-      }
-    );
+          networking.hostName = host;
+          system.stateVersion = "25.05";
+        }
+        self.nixosModules.default
+        ./${host}
+      ];
+    };
+  };
 in
 {
-  flake.nixosConfigurations = {
-    rxtp = mkNixosSystem "rxtp";
-    hcde = mkNixosSystem "hcde";
-    lssg = mkNixosSystem "lssg";
-    rxrk = mkNixosSystem "rxrk";
-  };
+  flake.nixosConfigurations = lib.concatMapAttrs mkNixosSystem (
+    lib.filterAttrs (n: _: n != "default.nix") (builtins.readDir ./.)
+  );
 }

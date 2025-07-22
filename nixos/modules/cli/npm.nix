@@ -8,7 +8,7 @@ let
   cfg = config.cli'.npm;
 in
 {
-  options.cli'.npm.enable = lib.mkEnableOption' { };
+  options.cli'.npm.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     programs.npm = {

@@ -6,7 +6,7 @@ let
   socket = "/run/ntfy-sh/ntfy.sock";
 in
 {
-  options.services'.ntfy.enable = lib.mkEnableOption' { };
+  options.services'.ntfy.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.ntfy-sh = {

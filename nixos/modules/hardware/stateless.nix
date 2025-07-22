@@ -14,7 +14,7 @@ in
     inputs.ph.nixosModules.default
   ];
 
-  options.hardware'.stateless.enable = lib.mkEnableOption' { };
+  options.hardware'.stateless.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     boot.tmp.useTmpfs = true;

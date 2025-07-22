@@ -6,7 +6,7 @@ let
   socket = "/run/pocket-id/pocket.sock";
 in
 {
-  options.services'.pocket-id.enable = lib.mkEnableOption' { };
+  options.services'.pocket-id.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.pocket-id = {

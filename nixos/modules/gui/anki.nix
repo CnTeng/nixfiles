@@ -9,7 +9,7 @@ let
   cfg = config.gui'.anki;
 in
 {
-  options.gui'.anki.enable = lib.mkEnableOption' { };
+  options.gui'.anki.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

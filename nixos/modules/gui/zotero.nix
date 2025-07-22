@@ -9,7 +9,7 @@ let
   cfg = config.gui'.zotero;
 in
 {
-  options.gui'.zotero.enable = lib.mkEnableOption' { };
+  options.gui'.zotero.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

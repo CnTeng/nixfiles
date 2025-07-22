@@ -9,7 +9,7 @@ let
   inherit (config.networking) hostName;
 in
 {
-  options.services'.tailscale.enable = lib.mkEnableOption' { };
+  options.services'.tailscale.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.tailscale = {

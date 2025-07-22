@@ -8,7 +8,7 @@ let
   cfg = config.cli'.aichat;
 in
 {
-  options.cli'.aichat.enable = lib.mkEnableOption' { };
+  options.cli'.aichat.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {

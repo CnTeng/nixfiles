@@ -10,7 +10,7 @@ let
   socket = "/run/webdav.sock";
 in
 {
-  options.services'.webdav.enable = lib.mkEnableOption' { };
+  options.services'.webdav.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.webdav = {
