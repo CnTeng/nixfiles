@@ -42,6 +42,7 @@ in
           let mapleader = ' '
 
           nmap <C-s> :<C-u>w<cr>
+          nmap <C-q> :<C-u>q<cr>
           nmap <leader>e :<C-u>NERDTreeToggle<cr>
 
           nmap <leader>b <Action>(Switcher)
