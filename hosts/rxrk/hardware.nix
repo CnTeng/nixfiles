@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   hardware' = {
     stateless.enable = true;
@@ -37,6 +34,7 @@
   hardware.enableRedistributableFirmware = true;
 
   networking.networkmanager.enable = true;
+  user'.extraGroups = [ "networkmanager" ];
 
   preservation.preserveAt."/persist".directories = [
     "/var/lib/NetworkManager"

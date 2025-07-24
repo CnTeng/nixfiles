@@ -3,16 +3,16 @@
   imports = [ inputs.disko.nixosModules.default ];
 
   disko.devices = {
-    disk.mmcblk0 = {
+    disk.nvme0n1 = {
       type = "disk";
-      device = "/dev/mmcblk0";
+      device = "/dev/nvme0n1";
       content = {
         type = "gpt";
         partitions = {
           ESP = {
             type = "EF00";
             label = "ESP";
-            size = "1G";
+            size = "2G";
             content = {
               type = "filesystem";
               format = "vfat";
