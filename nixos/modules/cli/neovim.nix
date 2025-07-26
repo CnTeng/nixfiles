@@ -27,15 +27,14 @@ in
       goPath = ".local/share/go";
     };
 
-    preservation'.user.directories =
-      [
-        ".config/github-copilot"
-        ".local/share/nvim"
-        ".local/state/nvim"
-        ".cache/nvim"
-      ]
-      ++ (lib.optionals cfg.withExtraPackages [
-        ".local/share/go"
-      ]);
+    preservation'.user.directories = [
+      ".config/github-copilot"
+      ".local/share/nvim"
+      ".local/state/nvim"
+      ".cache/nvim"
+    ]
+    ++ (lib.optionals cfg.withExtraPackages [
+      ".local/share/go"
+    ]);
   };
 }

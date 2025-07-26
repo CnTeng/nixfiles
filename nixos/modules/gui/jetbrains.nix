@@ -54,33 +54,33 @@ in
           nnoremap <C-l> <C-w>l
         '';
 
-        home.sessionVariables =
-          {
-            _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
-          }
-          // lib.optionalAttrs cfg.android-studio.enable {
-            ADB_VENDOR_KEY = "${config.xdg.configHome}/android";
-            ANDROID_USER_HOME = "${config.xdg.dataHome}/android";
-            ANDROID_AVD_HOME = "${config.xdg.dataHome}/android/avd";
-          };
+        home.sessionVariables = {
+          _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
+        }
+        // lib.optionalAttrs cfg.android-studio.enable {
+          ADB_VENDOR_KEY = "${config.xdg.configHome}/android";
+          ANDROID_USER_HOME = "${config.xdg.dataHome}/android";
+          ANDROID_AVD_HOME = "${config.xdg.dataHome}/android/avd";
+        };
       };
 
-    preservation'.user.directories =
-      [ ".config/java" ]
-      ++ lib.optionals cfg.android-studio.enable [
-        ".config/android"
-        ".local/share/android"
+    preservation'.user.directories = [
+      ".config/java"
+    ]
+    ++ lib.optionals cfg.android-studio.enable [
+      ".config/android"
+      ".local/share/android"
 
-        ".cache/Google"
-        ".config/Google"
-        ".local/share/Google"
+      ".cache/Google"
+      ".config/Google"
+      ".local/share/Google"
 
-        ".gradle"
-      ]
-      ++ lib.optionals cfg.clion.enable [
-        ".cache/JetBrains"
-        ".config/JetBrains"
-        ".local/share/JetBrains"
-      ];
+      ".gradle"
+    ]
+    ++ lib.optionals cfg.clion.enable [
+      ".cache/JetBrains"
+      ".config/JetBrains"
+      ".local/share/JetBrains"
+    ];
   };
 }

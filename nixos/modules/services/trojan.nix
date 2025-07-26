@@ -206,12 +206,11 @@ in
 
     services.sing-box = {
       enable = true;
-      settings =
-        {
-          log.level = "info";
-        }
-        // lib.optionalAttrs cfg.enableServer serverConfig
-        // lib.optionalAttrs cfg.enableClient clientConfig;
+      settings = {
+        log.level = "info";
+      }
+      // lib.optionalAttrs cfg.enableServer serverConfig
+      // lib.optionalAttrs cfg.enableClient clientConfig;
     };
 
     networking.firewall.trustedInterfaces = [ "tun0" ];

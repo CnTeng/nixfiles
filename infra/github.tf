@@ -22,7 +22,7 @@ resource "github_actions_secret" "ssh_config" {
     HostName ${module.host[host].ipv4}
   %{endif~}
   %{endfor}
-  EOF 
+  EOF
 }
 
 resource "github_actions_secret" "ssh_known_hosts" {
@@ -35,7 +35,7 @@ resource "github_actions_secret" "ssh_known_hosts" {
   ${module.host[host].ipv4} ${module.host[host].host_ed25519_key_pub}
   %{endif~}
   %{endfor}
-  EOF 
+  EOF
 }
 
 resource "github_actions_secret" "ntfy_token" {
