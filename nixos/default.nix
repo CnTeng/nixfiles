@@ -2,8 +2,8 @@
 let
   listModules =
     dir:
-    lib.flatten (
-      lib.mapAttrsToList (
+    lib.pipe (builtins.readDir dir) [
+      (lib.mapAttrsToList (
         name: type:
         let
           path = dir + "/${name}";
@@ -14,8 +14,9 @@ let
           if isNixDir then path else listModules path
         else
           lib.optional isNixFile path
-      ) (builtins.readDir dir)
-    );
+      ))
+      lib.flatten
+    ];
 in
 {
   flake.nixosModules.default = {

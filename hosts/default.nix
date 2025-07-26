@@ -33,7 +33,8 @@ let
   };
 in
 {
-  flake.nixosConfigurations = lib.concatMapAttrs mkNixosSystem (
-    lib.filterAttrs (n: _: n != "default.nix") (builtins.readDir ./.)
-  );
+  flake.nixosConfigurations = lib.pipe (builtins.readDir ./.) [
+    (lib.filterAttrs (n: _: n != "default.nix"))
+    (lib.concatMapAttrs mkNixosSystem)
+  ];
 }
