@@ -1,49 +1,26 @@
 {
   programs.git.enable = true;
 
-  hm' = {
-    programs.git = {
-      enable = true;
-      userName = "CnTeng";
-      userEmail = "rxsnakepi@gmail.com";
-      signing = {
-        key = "~/.ssh/id_ed25519_sk_rk_ybk5@sign";
-        format = "ssh";
-        signByDefault = true;
-      };
-      extraConfig = {
-        gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-      };
-
-      lfs.enable = true;
-
-      delta = {
-        enable = true;
-        options = {
-          dark = true;
-          line-numbers = true;
-        };
-      };
+  hm'.programs.git = {
+    enable = true;
+    userName = "CnTeng";
+    userEmail = "rxsnakepi@gmail.com";
+    signing = {
+      key = "~/.ssh/id_ed25519_sk_rk_ybk5@sign";
+      format = "ssh";
+      signByDefault = true;
+    };
+    extraConfig = {
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
     };
 
-    programs.ssh = {
-      matchBlocks."github.com" = {
-        hostname = "ssh.github.com";
-        port = 443;
-        user = "git";
-        identityFile = [
-          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
-          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
-        ];
-      };
+    lfs.enable = true;
 
-      matchBlocks."codeberg" = {
-        hostname = "codeberg.org";
-        user = "git";
-        identityFile = [
-          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
-          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
-        ];
+    delta = {
+      enable = true;
+      options = {
+        dark = true;
+        line-numbers = true;
       };
     };
   };

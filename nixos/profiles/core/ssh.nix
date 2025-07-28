@@ -14,6 +14,8 @@
           "~/.ssh/id_ed25519"
           "~/.ssh/id_ed25519_sk_rk_ybk5@nixos"
           "~/.ssh/id_ed25519_sk_rk_ybk5c@nixos"
+          "~/.ssh/id_ed25519_sk_rk_ybk5@git"
+          "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
         ];
       };
     };
