@@ -8,7 +8,7 @@ let
   cfg = config.gui'.jetbrains;
 
   android-studio = pkgs.android-studio.override { forceWayland = true; };
-  clion = pkgs.jetbrains.clion.override { vmopts = "-Dawt.toolkit.name=WLToolkit"; };
+  clion = pkgs.jetbrains.clion.override { forceWayland = true; };
 in
 {
   options.gui'.jetbrains = {
