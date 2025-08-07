@@ -46,6 +46,10 @@ in
     services.blueman.enable = true;
 
     services.upower.enable = true;
+    services.tuned = {
+      enable = true;
+      settings.dynamic_tuning = true;
+    };
 
     services.dbus.implementation = "broker";
     services.gvfs.enable = true;

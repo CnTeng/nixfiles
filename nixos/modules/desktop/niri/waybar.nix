@@ -19,6 +19,7 @@ in
         modules-right = [
           "tray"
           "idle_inhibitor"
+          "power-profiles-daemon"
           "memory"
           "backlight"
           "pulseaudio"
@@ -40,6 +41,16 @@ in
           format-icons = {
             activated = " ";
             deactivated = " ";
+          };
+        };
+
+        power-profiles-daemon = {
+          format = "{icon}";
+          format-icons = {
+            default = " ";
+            performance = " ";
+            balanced = " ";
+            power-saver = " ";
           };
         };
 
@@ -173,6 +184,7 @@ in
         #tray,
         #mpris,
         #idle_inhibitor,
+        #power-profiles-daemon,
         #backlight,
         #cpu,
         #memory,
@@ -198,6 +210,13 @@ in
         #workspaces button.focused,
         #workspaces button.active {
           color: ${palette.accent_color};
+        }
+
+        #power-profiles-daemon.performance {
+          color: ${palette.warning_color};
+        }
+        #power-profiles-daemon.power-saver {
+          color: ${palette.success_color};
         }
 
         #battery.warning {
