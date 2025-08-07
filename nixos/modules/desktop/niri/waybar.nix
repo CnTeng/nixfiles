@@ -19,11 +19,11 @@ in
         modules-right = [
           "tray"
           "idle_inhibitor"
-          "power-profiles-daemon"
           "memory"
           "backlight"
           "pulseaudio"
           "battery"
+          "power-profiles-daemon"
         ];
 
         "niri/workspaces" = { };
@@ -41,16 +41,6 @@ in
           format-icons = {
             activated = " ";
             deactivated = " ";
-          };
-        };
-
-        power-profiles-daemon = {
-          format = "{icon}";
-          format-icons = {
-            default = " ";
-            performance = " ";
-            balanced = " ";
-            power-saver = " ";
           };
         };
 
@@ -147,6 +137,16 @@ in
           };
         };
 
+        power-profiles-daemon = {
+          format = "{icon}";
+          format-icons = {
+            default = " ";
+            performance = " ";
+            balanced = " ";
+            power-saver = " ";
+          };
+        };
+
         clock = {
           format = "{:%a %b %d %R}";
           calendar.format = {
@@ -184,12 +184,12 @@ in
         #tray,
         #mpris,
         #idle_inhibitor,
-        #power-profiles-daemon,
         #backlight,
         #cpu,
         #memory,
         #pulseaudio,
-        #battery {
+        #battery,
+        #power-profiles-daemon {
           padding: 0 6px;
         }
 
@@ -212,13 +212,6 @@ in
           color: ${palette.accent_color};
         }
 
-        #power-profiles-daemon.performance {
-          color: ${palette.warning_color};
-        }
-        #power-profiles-daemon.power-saver {
-          color: ${palette.success_color};
-        }
-
         #battery.warning {
           color: ${palette.warning_color};
         }
@@ -226,6 +219,13 @@ in
           color: ${palette.error_color};
         }
         #battery.charging {
+          color: ${palette.success_color};
+        }
+
+        #power-profiles-daemon.performance {
+          color: ${palette.warning_color};
+        }
+        #power-profiles-daemon.power-saver {
           color: ${palette.success_color};
         }
       '';
