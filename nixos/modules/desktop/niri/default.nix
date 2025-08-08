@@ -55,7 +55,6 @@ in
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
 
-    services.upower.enable = true;
     services.tuned = {
       enable = true;
       settings.dynamic_tuning = true;
@@ -133,9 +132,8 @@ in
           After = [ "graphical-session.target" ];
         };
         Service = {
-          Type = "forking";
           ExecStartPre = "${lib.getExe pkgs.niri} msg action do-screen-transition --delay-ms 1000";
-          ExecStart = "${lib.getExe pkgs.gtklock} --daemonize";
+          ExecStart = lib.getExe pkgs.gtklock;
           ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 3";
         };
       };
