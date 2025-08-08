@@ -45,11 +45,8 @@ in
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
 
+    services.power-profiles-daemon.enable = true;
     services.upower.enable = true;
-    services.tuned = {
-      enable = true;
-      settings.dynamic_tuning = true;
-    };
 
     services.dbus.implementation = "broker";
     services.gvfs.enable = true;
@@ -96,6 +93,7 @@ in
         "/var/lib/blueman"
         "/var/lib/bluetooth"
 
+        "/var/lib/power-profiles-daemon"
         "/var/lib/upower"
         "/var/lib/udisks2"
       ];
