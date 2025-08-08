@@ -24,12 +24,22 @@ in
     services.greetd = {
       enable = true;
       settings.default_session.command = lib.concatStringsSep " " [
-        (lib.getExe pkgs.greetd.tuigreet)
+        (lib.getExe pkgs.tuigreet)
         "--time"
         "--user-menu"
         "--asterisks"
         "--cmd niri-session"
       ];
+    };
+
+    systemd.services.greetd.serviceConfig = {
+      StandardInput = "tty";
+      StandardOutput = "tty";
+      StandardError = "journal";
+
+      TTYReset = true;
+      TTYVHangup = true;
+      TTYVTDisallocate = true;
     };
 
     programs.niri.enable = true;
