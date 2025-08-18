@@ -1,0 +1,64 @@
+From 99532b665cf4dcccde3f5eadf14c50438626e01d Mon Sep 17 00:00:00 2001
+From: CnTeng <rxsnakepi@gmail.com>
+Date: Mon, 18 Aug 2025 14:41:39 +0800
+Subject: [PATCH] ensure single instance
+
+---
+ src/source.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/src/source.c b/src/source.c
+index ad2ac22..686e122 100644
+--- a/src/source.c
++++ b/src/source.c
+@@ -4,6 +4,7 @@
+ #define _POSIX_C_SOURCE 200809L
+ 
+ #include <signal.h>
++#include <sys/file.h>
+ #include <sys/wait.h>
+ #include <locale.h>
+ #include <glib-unix.h>
+@@ -86,6 +87,8 @@ static GOptionEntry debug_entries[] = {
+ 
+ static pid_t parent = -2;
+ 
++static char *lock_file = "/tmp/gtklock.lock";
++
+ static void monitors_added(GdkDisplay *display, GdkMonitor *monitor, gpointer user_data) {
+ 	struct Window *w = NULL;
+ 	if(window_by_monitor(monitor) == NULL) w = create_window(monitor);
+@@ -253,6 +256,24 @@ static void daemonize(void) {
+ 	else if(pid != 0) exit(EXIT_SUCCESS);
+ }
+ 
++static void ensure_single_instance(void) {
++  int fd = open(lock_file, O_RDWR | O_CREAT, 0666);
++	if (fd < 0) {
++			report_error_and_exit("Failed to open lock file!\n");
++			exit(EXIT_FAILURE);
++	}
++
++	if (flock(fd, LOCK_EX | LOCK_NB) < 0) {
++		if(errno == EWOULDBLOCK) {
++			g_print("gtklock is already running.\n");
++			exit(EXIT_SUCCESS);
++		} else {
++			report_error_and_exit("Failed to lock file!\n");
++			exit(EXIT_FAILURE);
++		}
++	}
++}
++
+ static gboolean signal_handler(gpointer data) {
+ 	g_application_quit(G_APPLICATION(gtklock->app));
+ 	return G_SOURCE_REMOVE;
+@@ -281,6 +302,8 @@ int main(int argc, char **argv) {
+ 		exit(EXIT_SUCCESS);
+ 	}
+ 
++	ensure_single_instance();
++
+ 	if(should_daemonize) daemonize();
+ 
+ 	if(config_path == NULL) config_path = xdg_get_config_path("config.ini");

@@ -9,9 +9,6 @@ let
 
   palette = import ./palette.nix;
 
-  systemctl = lib.getExe' config.systemd.package "systemctl";
-  loginctl = lib.getExe' config.systemd.package "loginctl";
-
   wallpaper = pkgs.fetchurl {
     url = "https://w.wallhaven.cc/full/8g/wallhaven-8gxggk.jpg";
     sha256 = "sha256-mbQQPS+lrXWnuStrf43PR8c8T2WsPt2hAWcFuiiouRI=";
@@ -125,46 +122,34 @@ in
         (import ./fnott.nix palette)
       ];
 
-      systemd.user.services.gtklock = {
-        Unit = {
-          ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
+      services.swayidle =
+        let
+          loginctl = lib.getExe' config.systemd.package "loginctl";
+          systemctl = lib.getExe' config.systemd.package "systemctl";
+        in
+        {
+          enable = true;
+          timeouts = [
+            {
+              timeout = 600;
+              command = "${loginctl} lock-session";
+            }
+            {
+              timeout = 900;
+              command = "${systemctl} suspend";
+            }
+          ];
+          events = [
+            {
+              event = "lock";
+              command = "${lib.getExe pkgs.gtklock} -d";
+            }
+            {
+              event = "before-sleep";
+              command = "${loginctl} lock-session";
+            }
+          ];
         };
-        Service = {
-          ExecStartPre = "${lib.getExe pkgs.niri} msg action do-screen-transition --delay-ms 1000";
-          ExecStart = lib.getExe pkgs.gtklock;
-          ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 3";
-        };
-      };
-
-      services.swayidle = {
-        enable = true;
-        timeouts = [
-          {
-            timeout = 600;
-            command = "${loginctl} lock-session";
-          }
-          {
-            timeout = 900;
-            command = "${systemctl} suspend";
-          }
-        ];
-        events = [
-          {
-            event = "lock";
-            command = "${systemctl} --user start gtklock";
-          }
-          {
-            event = "unlock";
-            command = "${systemctl} --user stop gtklock";
-          }
-          {
-            event = "before-sleep";
-            command = "${systemctl} --user start gtklock";
-          }
-        ];
-      };
 
       systemd.user.services.swaybg = {
         Unit = {
