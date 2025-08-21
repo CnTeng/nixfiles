@@ -20,6 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = true;
+      useTextGreeter = true;
       settings.default_session.command = lib.concatStringsSep " " [
         (lib.getExe pkgs.tuigreet)
         "--time"
@@ -27,16 +28,6 @@ in
         "--asterisks"
         "--cmd niri-session"
       ];
-    };
-
-    systemd.services.greetd.serviceConfig = {
-      StandardInput = "tty";
-      StandardOutput = "tty";
-      StandardError = "journal";
-
-      TTYReset = true;
-      TTYVHangup = true;
-      TTYVTDisallocate = true;
     };
 
     programs.niri.enable = true;
