@@ -29,7 +29,6 @@ in
       programs.kitty = {
         enable = true;
         font.name = "FiraCode Nerd Font";
-        themeFile = "adwaita_dark";
         settings = {
           tab_bar_style = "powerline";
           tab_powerline_style = "round";
@@ -96,6 +95,15 @@ in
           map --when-focus-on var:IS_NVIM alt+h
           map --when-focus-on var:IS_NVIM alt+l
         '';
+      };
+
+      xdg.configFile = {
+        "kitty/dark-theme.auto.conf".source =
+          "${pkgs.kitty-themes}/share/kitty-themes/themes/adwaita_dark.conf";
+        "kitty/light-theme.auto.conf".source =
+          "${pkgs.kitty-themes}/share/kitty-themes/themes/adwaita_light.conf";
+        "kitty/no-preference-theme.auto.conf".source =
+          "${pkgs.kitty-themes}/share/kitty-themes/themes/adwaita_light.conf";
       };
     };
   };
