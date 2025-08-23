@@ -98,6 +98,7 @@ in
       ];
 
       user.directories = [
+        ".cache/darkman"
         ".cache/fuzzel"
         ".config/dconf"
         ".local/share/keyrings"
@@ -112,6 +113,16 @@ in
         (import ./fuzzel.nix palette)
         (import ./fnott.nix palette)
       ];
+
+      services.darkman = {
+        enable = true;
+        darkModeScripts.gtk-theme = ''
+          ${lib.getExe pkgs.dconf} write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+        '';
+        lightModeScripts.gtk-theme = ''
+          ${lib.getExe pkgs.dconf} write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
+        '';
+      };
 
       services.swayidle =
         let
