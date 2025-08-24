@@ -32,10 +32,7 @@ in
       };
     };
 
-    systemd.services.pocket-id.serviceConfig = {
-      RestrictAddressFamilies = [ "AF_UNIX" ];
-      RuntimeDirectory = "pocket-id";
-    };
+    systemd.services.pocket-id.serviceConfig.RuntimeDirectory = "pocket-id";
 
     services.caddy.virtualHosts.id = {
       inherit hostName;
