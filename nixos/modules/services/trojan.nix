@@ -59,16 +59,19 @@ let
       servers = [
         {
           tag = "google";
-          address = "tls://8.8.8.8";
+          type = "tls";
+          server = "8.8.8.8";
         }
         {
           tag = "local";
-          address = "223.5.5.5";
-          detour = "direct";
+          type = "udp";
+          server = "223.5.5.5";
         }
         {
           tag = "remote";
-          address = "fakeip";
+          type = "fakeip";
+          inet4_range = "198.18.0.0/15";
+          inet6_range = "fc00::/18";
         }
       ];
       rules = [
@@ -81,10 +84,6 @@ let
           server = "local";
         }
         {
-          outbound = "any";
-          server = "local";
-        }
-        {
           query_type = [
             "A"
             "AAAA"
@@ -92,11 +91,6 @@ let
           server = "remote";
         }
       ];
-      fakeip = {
-        enabled = true;
-        inet4_range = "198.18.0.0/15";
-        inet6_range = "fc00::/18";
-      };
       strategy = "ipv4_only";
     };
     inbounds = [
@@ -110,18 +104,6 @@ let
         auto_route = true;
         strict_route = false;
         exclude_interface = [ "tailscale0" ];
-      }
-      {
-        type = "mixed";
-        listen = "0.0.0.0";
-        listen_port = port;
-        sniff = true;
-        users = [
-          {
-            username._secret = config.sops.secrets."proxy/username".path;
-            password._secret = config.sops.secrets."proxy/password".path;
-          }
-        ];
       }
     ];
     outbounds = [
@@ -185,6 +167,7 @@ let
           path = "${pkgs.sing-geoip}/share/sing-box/rule-set/geoip-cn.srs";
         }
       ];
+      default_domain_resolver = "local";
       auto_detect_interface = true;
     };
     experimental = {
