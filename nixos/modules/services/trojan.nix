@@ -58,11 +58,6 @@ let
     dns = {
       servers = [
         {
-          tag = "google";
-          type = "tls";
-          server = "8.8.8.8";
-        }
-        {
           tag = "local";
           type = "udp";
           server = "223.5.5.5";
@@ -115,7 +110,6 @@ let
           "direct"
         ];
         default = "lssg";
-        interrupt_exist_connections = false;
         tag = "select";
       }
       (mkOutbound "lssg")
@@ -127,9 +121,7 @@ let
     ];
     route = {
       rules = [
-        {
-          action = "sniff";
-        }
+        { action = "sniff"; }
         {
           protocol = "dns";
           action = "hijack-dns";
@@ -139,10 +131,7 @@ let
           outbound = "direct";
         }
         {
-          port = [
-            22
-            2222
-          ];
+          ip_cidr = [ "100.64.0.0/10" ];
           outbound = "direct";
         }
         {
@@ -158,7 +147,7 @@ let
           type = "local";
           tag = "geosite-cn";
           format = "binary";
-          path = "${pkgs.sing-geosite}/share/sing-box/rule-set/geosite-cn.srs";
+          path = "${pkgs.sing-geosite}/share/sing-box/rule-set/geosite-geolocation-cn.srs";
         }
         {
           type = "local";
@@ -185,7 +174,10 @@ in
   };
 
   config = lib.mkIf (cfg.enableServer || cfg.enableClient) {
-    networking.firewall.allowedTCPPorts = [ port ];
+    networking.firewall = {
+      allowedTCPPorts = lib.mkIf cfg.enableServer [ port ];
+      trustedInterfaces = lib.mkIf cfg.enableClient [ "tun0" ];
+    };
 
     services.sing-box = {
       enable = true;
@@ -195,8 +187,6 @@ in
       // lib.optionalAttrs cfg.enableServer serverConfig
       // lib.optionalAttrs cfg.enableClient clientConfig;
     };
-
-    networking.firewall.trustedInterfaces = [ "tun0" ];
 
     sops.secrets = {
       cf-dns01-token = lib.mkIf cfg.enableServer {
