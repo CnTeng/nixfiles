@@ -16,13 +16,10 @@ in
       type = "fcitx5";
     };
 
-    i18n.inputMethod.fcitx5 = {
-      addons = with pkgs; [
-        qt6Packages.fcitx5-chinese-addons
-        fcitx5-pinyin-zhwiki
-      ];
-      plasma6Support = true;
-    };
+    i18n.inputMethod.fcitx5.addons = with pkgs; [
+      fcitx5-chinese-addons
+      fcitx5-pinyin-zhwiki
+    ];
 
     preservation'.user.directories = [
       ".config/fcitx"
