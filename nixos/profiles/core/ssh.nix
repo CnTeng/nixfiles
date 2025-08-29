@@ -5,10 +5,10 @@
 
     programs.ssh = {
       enable = true;
-      forwardAgent = true;
-      addKeysToAgent = "yes";
       includes = [ "config.d/*.conf" ];
       matchBlocks."*" = {
+        forwardAgent = true;
+        addKeysToAgent = "yes";
         user = config.core'.userName;
         identityFile = [
           "~/.ssh/id_ed25519"
