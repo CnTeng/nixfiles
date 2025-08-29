@@ -42,6 +42,7 @@ let
           server_name = hostName;
           acme = {
             domain = hostName;
+            data_directory = "/var/lib/sing-box/certmagic";
             email = "rxsnakepi@gmail.com";
             dns01_challenge = {
               provider = "cloudflare";
