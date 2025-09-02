@@ -17,3 +17,6 @@ pull_request_rules:
     conditions: []
     actions:
       queue:
+
+merge_queue:
+  max_parallel_checks: 1
