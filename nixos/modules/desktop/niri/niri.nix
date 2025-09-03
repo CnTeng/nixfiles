@@ -3,11 +3,7 @@ palette:
 {
   xdg.configFile."niri/config.kdl".text = # kdl
     ''
-      spawn-at-startup "xwayland-satellite" ":1"
-
       prefer-no-csd
-
-      environment { DISPLAY ":1"; }
 
       hotkey-overlay { skip-at-startup; }
 
@@ -59,19 +55,19 @@ palette:
         Mod+E      hotkey-overlay-title="Open File Manager"     { spawn "nautilus"; }
         Mod+T      hotkey-overlay-title="Quick Access Terminal" { spawn "kitten" "quick-access-terminal"; }
 
-        XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-        XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-        XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-        XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+        XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"; }
+        XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
+        XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+        XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-        XF86MonBrightnessUp   allow-when-locked=true { spawn "${lib.getExe pkgs.brightnessctl}" "set" "+5%"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%-"; }
+        XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "${lib.getExe pkgs.brightnessctl} set +5%"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn-sh "${lib.getExe pkgs.brightnessctl} set 5%-"; }
 
         XF86Display { spawn "${lib.getExe pkgs.wdisplays}"; }
 
         Mod+O repeat=false { toggle-overview; }
 
-        Mod+Q { close-window; }
+        Mod+Q repeat=false { close-window; }
 
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-window-down; }
