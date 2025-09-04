@@ -26,7 +26,6 @@ in
           "power-profiles-daemon"
         ];
 
-        "niri/workspaces" = { };
         "wlr/taskbar" = {
           on-click = "activate";
           on-click-middle = "close";
@@ -178,7 +177,6 @@ in
         }
 
         #workspaces,
-        #taskbar button,
         #mode,
         #clock,
         #tray,
@@ -196,11 +194,11 @@ in
         #taskbar button {
           border: none;
           border-radius: 0;
-          border-bottom: 2px solid transparent;
-          padding: 3px 8px 1px 8px;
+          box-shadow: inset 0 -3px transparent;
+          padding: 3px 8px;
         }
         #taskbar button.active {
-          border-bottom: 2px solid ${palette.accent_color};
+          box-shadow: inset 0 -3px ${palette.accent_color};
         }
 
         #workspaces button {
