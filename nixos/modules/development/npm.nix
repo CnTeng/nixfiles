@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.cli'.npm;
+  cfg = config.development'.npm;
 in
 {
-  options.cli'.npm.enable = lib.mkEnableOption "";
+  options.development'.npm.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     programs.npm = {

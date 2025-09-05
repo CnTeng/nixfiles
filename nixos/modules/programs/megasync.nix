@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.megasync;
+  cfg = config.programs'.megasync;
 in
 {
-  options.gui'.megasync.enable = lib.mkEnableOption "";
+  options.programs'.megasync.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     hm' = {

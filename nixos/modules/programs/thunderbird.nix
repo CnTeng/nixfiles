@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.thunderbird;
+  cfg = config.programs'.thunderbird;
 in
 {
-  options.gui'.thunderbird.enable = lib.mkEnableOption "";
+  options.programs'.thunderbird.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     programs.thunderbird = {

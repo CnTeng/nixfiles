@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.gui'.mpv;
+  cfg = config.programs'.mpv;
 in
 {
-  options.gui'.mpv.enable = lib.mkEnableOption "";
+  options.programs'.mpv.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     hm'.programs.mpv.enable = true;

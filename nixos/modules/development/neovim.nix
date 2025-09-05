@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.cli'.neovim;
+  cfg = config.development'.neovim;
 in
 {
   imports = [ inputs.rx-nvim.nixosModules.default ];
 
-  options.cli'.neovim = {
+  options.development'.neovim = {
     enable = lib.mkEnableOption "";
     withExtraPackages = lib.mkEnableOption "";
   };

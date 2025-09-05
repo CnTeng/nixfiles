@@ -1,7 +1,7 @@
 {
   imports = [ ./hardware.nix ];
 
-  cli'.neovim.enable = true;
+  development'.neovim.enable = true;
 
   services' = {
     fail2ban.enable = true;

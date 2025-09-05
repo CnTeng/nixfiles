@@ -4,7 +4,7 @@
     ./hardware.nix
   ];
 
-  cli'.neovim.enable = true;
+  development'.neovim.enable = true;
 
   services' = {
     anki-sync.enable = true;

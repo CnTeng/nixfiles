@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.cli'.flutter;
+  cfg = config.development'.flutter;
 in
 {
-  options.cli'.flutter.enable = lib.mkEnableOption "";
+  options.development'.flutter.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     preservation'.user.directories = [

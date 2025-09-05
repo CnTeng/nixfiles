@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.zotero;
+  cfg = config.programs'.zotero;
 in
 {
-  options.gui'.zotero.enable = lib.mkEnableOption "";
+  options.programs'.zotero.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     hm'.home.packages = [ pkgs.zotero ];

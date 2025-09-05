@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config.gui'.jetbrains;
+  cfg = config.development'.jetbrains;
 
   android-studio = pkgs.android-studio.override { forceWayland = true; };
   clion = pkgs.jetbrains.clion.override { forceWayland = true; };
 in
 {
-  options.gui'.jetbrains = {
+  options.development'.jetbrains = {
     android-studio.enable = lib.mkEnableOption "";
     clion.enable = lib.mkEnableOption "";
   };

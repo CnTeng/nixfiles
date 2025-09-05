@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.gui'.chromium;
+  cfg = config.programs'.chromium;
 in
 {
-  options.gui'.chromium.enable = lib.mkEnableOption "";
+  options.programs'.chromium.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     hm'.programs.chromium = {

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.office;
+  cfg = config.programs'.office;
 in
 {
-  options.gui'.office.enable = lib.mkEnableOption "";
+  options.programs'.office.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     fonts.packages = [ pkgs.ttf-wps-fonts ];
