@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.cli'.podman;
+  cfg = config.development'.podman;
 in
 {
-  options.cli'.podman.enable = lib.mkEnableOption "";
+  options.development'.podman.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     virtualisation.podman.enable = true;

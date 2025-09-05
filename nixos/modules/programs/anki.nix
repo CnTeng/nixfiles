@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.anki;
+  cfg = config.programs'.anki;
 in
 {
-  options.gui'.anki.enable = lib.mkEnableOption "";
+  options.programs'.anki.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     hm'.home.packages = [ pkgs.anki ];

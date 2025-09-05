@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.wireshark;
+  cfg = config.development'.wireshark;
 in
 {
-  options.gui'.wireshark.enable = lib.mkEnableOption "";
+  options.development'.wireshark.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     user'.extraGroups = [ "wireshark" ];

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.gui'.yubikey;
+  cfg = config.programs'.yubikey;
 
   yubikeyPkgs = with pkgs; [
     yubikey-manager
@@ -13,7 +13,7 @@ let
   ];
 in
 {
-  options.gui'.yubikey.enable = lib.mkEnableOption "";
+  options.programs'.yubikey.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     services.pcscd.enable = true;

@@ -4,9 +4,13 @@
     ./hardware.nix
   ];
 
-  cli'.neovim = {
-    enable = true;
-    withExtraPackages = true;
+  development' = {
+    neovim = {
+      enable = true;
+      withExtraPackages = true;
+    };
+    podman.enable = true;
+    qemu.enable = true;
   };
 
   services' = {

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.cli'.todoist;
+  cfg = config.programs'.todoist;
 in
 {
-  options.cli'.todoist.enable = lib.mkEnableOption "";
+  options.programs'.todoist.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     home-manager.sharedModules = [ inputs.todoist-cli.homeModules.default ];

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.gui'.obs-studio;
+  cfg = config.programs'.obs-studio;
 in
 {
-  options.gui'.obs-studio.enable = lib.mkEnableOption "";
+  options.programs'.obs-studio.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     programs.obs-studio = {

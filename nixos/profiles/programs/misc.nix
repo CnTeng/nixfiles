@@ -9,8 +9,6 @@
 
     home.packages = with pkgs; [
       gdu
-      lrzsz
-      scc
       tree
       unrar
       unzipNLS

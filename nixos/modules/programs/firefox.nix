@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.gui'.firefox;
+  cfg = config.programs'.firefox;
 in
 {
-  options.gui'.firefox.enable = lib.mkEnableOption "";
+  options.programs'.firefox.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     programs.firefox = {

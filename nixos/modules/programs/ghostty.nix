@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.gui'.ghostty;
+  cfg = config.programs'.ghostty;
 in
 {
-  options.gui'.ghostty.enable = lib.mkEnableOption "";
+  options.programs'.ghostty.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
     hm'.programs.ghostty = {

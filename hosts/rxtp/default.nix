@@ -12,33 +12,37 @@
     xdg.enable = true;
   };
 
-  cli' = {
-    aichat.enable = true;
+  development' = {
     flutter.enable = true;
+    jetbrains.clion.enable = true;
     neovim = {
       enable = true;
       withExtraPackages = true;
     };
     npm.enable = true;
     podman.enable = true;
-    todoist.enable = true;
+    qemu.enable = true;
+    tools.enable = true;
+    wireshark.enable = true;
   };
 
-  gui' = {
+  programs' = {
+    aichat.enable = true;
     anki.enable = true;
+    calibre.enable = true;
     chromium.enable = true;
     firefox.enable = true;
     ghostty.enable = true;
-    jetbrains.clion.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
     megasync.enable = true;
     mpv.enable = true;
     obs-studio.enable = true;
     office.enable = true;
-    others.enable = true;
+    spotify.enable = true;
+    telegram.enable = true;
     thunderbird.enable = true;
-    wireshark.enable = true;
+    todoist.enable = true;
     yubikey.enable = true;
     zotero.enable = true;
   };
