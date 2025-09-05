@@ -1,5 +1,7 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
+  environment.systemPackages = [ pkgs.kitty.terminfo ];
+
   hm' = {
     services.ssh-agent.enable = true;
 
