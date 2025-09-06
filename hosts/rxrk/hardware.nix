@@ -3,6 +3,7 @@
   hardware' = {
     stateless.enable = true;
     usbip.enable = true;
+    zswap.enable = true;
   };
 
   boot = {

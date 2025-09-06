@@ -10,7 +10,10 @@ in
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
-  hardware'.stateless.enable = true;
+  hardware' = {
+    stateless.enable = true;
+    zswap.enable = true;
+  };
 
   boot.initrd.systemd.enable = true;
 
