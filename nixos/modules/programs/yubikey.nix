@@ -6,23 +6,15 @@
 }:
 let
   cfg = config.programs'.yubikey;
-
-  yubikeyPkgs = with pkgs; [
-    yubikey-manager
-    yubioath-flutter
-  ];
 in
 {
   options.programs'.yubikey.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    services.pcscd.enable = true;
-
-    services.udev.packages = yubikeyPkgs;
-
-    environment.systemPackages = yubikeyPkgs;
-
+    programs.yubikey-manager.enable = true;
     programs.yubikey-touch-detector.enable = true;
+
+    environment.systemPackages = [ pkgs.yubioath-flutter ];
 
     preservation'.user.directories = [
       ".config/Yubico"
