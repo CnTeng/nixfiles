@@ -20,6 +20,7 @@
           "~/.ssh/id_ed25519_sk_rk_ybk5c@git"
         ];
       };
+      enableDefaultConfig = false;
     };
   };
 
