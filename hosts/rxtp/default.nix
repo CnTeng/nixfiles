@@ -13,8 +13,8 @@
   };
 
   development' = {
+    clion.enable = true;
     flutter.enable = true;
-    jetbrains.clion.enable = true;
     neovim = {
       enable = true;
       withExtraPackages = true;
