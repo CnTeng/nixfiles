@@ -22,19 +22,11 @@ in
       withExtraPackages = cfg.withExtraPackages;
     };
 
-    hm'.programs.go = {
-      enable = cfg.withExtraPackages;
-      goPath = ".local/share/go";
-    };
-
     preservation'.user.directories = [
       ".config/github-copilot"
       ".local/share/nvim"
       ".local/state/nvim"
       ".cache/nvim"
-    ]
-    ++ (lib.optionals cfg.withExtraPackages [
-      ".local/share/go"
-    ]);
+    ];
   };
 }
