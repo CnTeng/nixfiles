@@ -6,10 +6,14 @@ in
   options.development'.go.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    hm'.programs.go = {
-      enable = true;
-      env.GOPATH = ".local/share/go";
-    };
+    hm' =
+      { config, ... }:
+      {
+        programs.go = {
+          enable = true;
+          env.GOPATH = "${config.xdg.dataHome}/go";
+        };
+      };
 
     preservation'.user.directories = [ ".local/share/go" ];
   };
