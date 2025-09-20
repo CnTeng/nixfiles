@@ -47,7 +47,6 @@ in
       "Documents"
       "Downloads"
       "Pictures"
-      "Projects"
     ];
   };
 }
