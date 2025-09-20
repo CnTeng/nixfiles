@@ -22,6 +22,10 @@ in
       withExtraPackages = cfg.withExtraPackages;
     };
 
+    hm'.xdg.mimeApps.associations.added = {
+      "text/markdown" = "nvim.desktop";
+    };
+
     preservation'.user.directories = [
       ".config/github-copilot"
       ".local/share/nvim"
