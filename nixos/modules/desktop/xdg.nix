@@ -11,6 +11,7 @@ let
     terminal = pkgs.kitty;
     editor = config.programs.rx-nvim.finalPackage;
     browser = pkgs.firefox;
+    archiver = pkgs.file-roller;
     fileManager = pkgs.nautilus;
     imageViewer = pkgs.eog;
     pdfViewer = pkgs.evince;
@@ -35,6 +36,7 @@ in
           default.terminal
           default.editor
           default.browser
+          default.archiver
           default.fileManager
           default.imageViewer
           default.pdfViewer
