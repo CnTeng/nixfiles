@@ -2,7 +2,6 @@
   hardware' = {
     secure-boot.enable = true;
     stateless.enable = true;
-    usbip.enable = true;
     zswap.enable = true;
   };
 
