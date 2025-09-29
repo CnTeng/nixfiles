@@ -9,7 +9,7 @@ let
 
   default = {
     terminal = pkgs.kitty;
-    editor = config.programs.rx-nvim.finalPackage;
+    editor = pkgs.neovim;
     browser = pkgs.firefox;
     archiver = pkgs.file-roller;
     fileManager = pkgs.nautilus;
