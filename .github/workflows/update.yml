@@ -24,7 +24,6 @@ jobs:
           declare -A inputs=(
             ["nixpkgs"]="github:NixOS/nixpkgs/nixos-unstable"
             ["rx-nvim"]="github:CnTeng/rx-nvim"
-            ["todoist-cli"]="github:CnTeng/todoist-cli"
             ["ph"]="github:CnTeng/ph"
           )
 
