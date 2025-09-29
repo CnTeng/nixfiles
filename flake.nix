@@ -51,13 +51,6 @@
       inputs.git-hooks-nix.follows = "git-hooks-nix";
     };
 
-    todoist-cli = {
-      url = "github:CnTeng/todoist-cli";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.git-hooks-nix.follows = "git-hooks-nix";
-    };
-
     ph = {
       url = "github:CnTeng/ph";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +83,7 @@
               jq
               sops
               age
+              nix-update
               nixos-anywhere
               (opentofu.withPlugins (p: [
                 p.aws

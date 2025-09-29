@@ -1,22 +1,35 @@
 {
-  inputs,
   config,
   lib,
+  pkgs,
   ...
 }:
 let
   cfg = config.programs'.todoist;
+  format = pkgs.formats.toml { };
 in
 {
   options.programs'.todoist.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    home-manager.sharedModules = [ inputs.todoist-cli.homeModules.default ];
+    hm' = {
+      home.packages = [ pkgs.todoist-cli ];
 
-    hm'.programs.todoist-cli = {
-      enable = true;
-      settings = {
-        daemon.api_token_file = config.sops.secrets."todoist/token".path;
+      xdg.configFile = {
+        "todoist/config.toml".source = format.generate "config.toml" {
+          daemon.api_token_file = config.sops.secrets."todoist/token".path;
+        };
+      };
+
+      systemd.user.services.todoist-cli = {
+        Unit.Description = "Todoist CLI Daemon";
+
+        Install.WantedBy = [ "default.target" ];
+
+        Service = {
+          ExecStart = "${lib.getExe pkgs.todoist-cli} daemon";
+          Restart = "on-failure";
+        };
       };
     };
 

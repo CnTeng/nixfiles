@@ -21,6 +21,10 @@
         overlays = [ self.overlays.default ];
       };
 
+      packages = {
+        todoist-cli = pkgs.todoist-cli;
+      };
+
       legacyPackages = pkgs;
     };
 }

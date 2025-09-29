@@ -347,7 +347,6 @@
         "preservation": "preservation",
         "rx-nvim": "rx-nvim",
         "sops-nix": "sops-nix",
-        "todoist-cli": "todoist-cli",
         "treefmt": "treefmt"
       }
     },
@@ -436,32 +435,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "todoist-cli": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "git-hooks-nix": [
-          "git-hooks-nix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1756830427,
-        "narHash": "sha256-5IYRBKFgLUCmusw0wHvhrDJciewfgzpC/SJ61jLs8Dw=",
-        "owner": "CnTeng",
-        "repo": "todoist-cli",
-        "rev": "44f00eba598796c5c453fccac68fc1d905a5f755",
-        "type": "github"
-      },
-      "original": {
-        "owner": "CnTeng",
-        "repo": "todoist-cli",
         "type": "github"
       }
     },
