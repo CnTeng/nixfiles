@@ -72,3 +72,33 @@ jobs:
             {{ env.GIT_COMMIT_MESSAGE }}
             ```
           pr-labels: merge-queue
+
+  update-pkgs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Install nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            extra-substituters = https://cache.garnix.io
+            extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+
+      - name: Update packages
+        run: |
+          nix run nixpkgs#nix-update -- todoist-cli --version=branch --flake --commit
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "bump: packages"
+          branch: bump_packages
+          delete-branch: true
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          title: "bump: packages"
+          labels: merge-queue
+          body: |
+            Automated bump of packages.
