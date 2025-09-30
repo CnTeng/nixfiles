@@ -70,7 +70,7 @@ jobs:
             ```
             {{ env.GIT_COMMIT_MESSAGE }}
             ```
-          pr-labels: merge-queue
+          pr-labels: auto-merge
 
   update-pkgs:
     runs-on: ubuntu-latest
@@ -103,6 +103,6 @@ jobs:
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           title: "bump: packages"
-          labels: merge-queue
+          labels: auto-merge
           body: |
             Automated bump of packages.
