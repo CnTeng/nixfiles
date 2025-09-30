@@ -50,6 +50,7 @@
   };
 
   services' = {
+    fwupd.enable = true;
     restic.enable = true;
     tailscale.enable = true;
     trojan.enableClient = true;
