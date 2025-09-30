@@ -47,8 +47,11 @@ in
       restartUnits = [ config.systemd.services.pocket-id.name ];
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/pocket-id" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = config.services.pocket-id.dataDir;
+        inherit (config.services.pocket-id) user group;
+      }
+    ];
   };
 }

@@ -57,8 +57,13 @@ in
       restartUnits = [ config.systemd.services.vaultwarden.name ];
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/vaultwarden" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = "/var/lib/vaultwarden";
+        user = "vaultwarden";
+        group = "vaultwarden";
+        mode = "0700";
+      }
+    ];
   };
 }

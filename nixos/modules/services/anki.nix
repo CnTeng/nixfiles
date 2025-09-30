@@ -22,7 +22,7 @@ in
     services.caddy.virtualHosts.anki-sync = {
       inherit hostName;
       extraConfig = ''
-        reverse_proxy 127.0.0.1:${toString config.services.anki-sync-server.port}
+        reverse_proxy localhost:${toString config.services.anki-sync-server.port}
       '';
     };
 

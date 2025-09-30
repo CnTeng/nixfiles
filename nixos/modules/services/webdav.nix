@@ -55,8 +55,12 @@ in
       restartUnits = [ config.systemd.services.webdav.name ];
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/webdav" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = "/var/lib/webdav";
+        inherit (config.services.webdav) user group;
+        mode = "0700";
+      }
+    ];
   };
 }

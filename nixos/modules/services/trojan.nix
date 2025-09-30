@@ -206,8 +206,13 @@ in
       };
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/sing-box" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = "/var/lib/sing-box";
+        user = "sing-box";
+        group = "sing-box";
+        mode = "0700";
+      }
+    ];
   };
 }

@@ -10,13 +10,11 @@ in
   config = lib.mkIf cfg.enable {
     services.privatebin = {
       enable = true;
-      settings = {
-        main = {
-          basepath = "https://${hostName}/";
-          fileupload = true;
-          template = "bootstrap5";
-          defaultformatter = "syntaxhighlighting";
-        };
+      settings.main = {
+        basepath = "https://${hostName}/";
+        fileupload = true;
+        template = "bootstrap5";
+        defaultformatter = "syntaxhighlighting";
       };
     };
 
@@ -38,8 +36,11 @@ in
       '';
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/privatebin" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = config.services.privatebin.dataDir;
+        inherit (config.services.privatebin) user group;
+      }
+    ];
   };
 }

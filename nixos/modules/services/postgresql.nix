@@ -16,8 +16,12 @@ in
       package = pkgs.postgresql_17;
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/postgresql" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = "/var/lib/postgresql";
+        user = "postgres";
+        group = "postgres";
+      }
+    ];
   };
 }

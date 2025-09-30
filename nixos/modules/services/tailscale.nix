@@ -19,9 +19,15 @@ in
       restartUnits = [ config.systemd.services.tailscaled.name ];
     };
 
-    preservation.preserveAt."/persist".directories = [
-      "/var/cache/tailscale"
-      "/var/lib/tailscale"
+    preservation'.os.directories = [
+      {
+        directory = "/var/cache/tailscale";
+        mode = "0750";
+      }
+      {
+        directory = "/var/lib/tailscale";
+        mode = "0700";
+      }
     ];
   };
 }

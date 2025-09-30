@@ -28,7 +28,7 @@
   hardware.amdgpu.initrd.enable = true;
 
   services.fwupd.enable = true;
-  preservation.preserveAt."/persist".directories = [
+  preservation'.os.directories = [
     "/var/lib/fwupd"
     "/var/cache/fwupd"
   ];

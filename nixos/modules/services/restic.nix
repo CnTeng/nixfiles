@@ -82,7 +82,7 @@ in
         };
       };
 
-      preservation.preserveAt."/persist".directories = [
+      preservation'.os.directories = [
         "/var/cache/restic-backups-persist"
       ];
     };

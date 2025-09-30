@@ -16,7 +16,7 @@ in
     services.caddy.virtualHosts.atuin = {
       inherit hostName;
       extraConfig = ''
-        reverse_proxy 127.0.0.1:${toString config.services.atuin.port}
+        reverse_proxy localhost:${toString config.services.atuin.port}
       '';
     };
   };

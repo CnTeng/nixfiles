@@ -39,8 +39,11 @@ in
       owner = config.services.caddy.user;
     };
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/caddy" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = config.services.caddy.dataDir;
+        inherit (config.services.caddy) user group;
+      }
+    ];
   };
 }

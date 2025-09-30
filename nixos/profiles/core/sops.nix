@@ -10,6 +10,7 @@
   preservation'.os.directories = [
     {
       directory = "/var/lib/sops-nix";
+      mode = "0700";
       inInitrd = true;
     }
   ];

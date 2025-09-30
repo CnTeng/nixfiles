@@ -8,8 +8,11 @@ in
   config = lib.mkIf cfg.enable {
     services.fail2ban.enable = true;
 
-    preservation.preserveAt."/persist" = {
-      directories = [ "/var/lib/fail2ban" ];
-    };
+    preservation'.os.directories = [
+      {
+        directory = "/var/lib/fail2ban";
+        mode = "0750";
+      }
+    ];
   };
 }

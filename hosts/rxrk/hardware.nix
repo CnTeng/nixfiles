@@ -36,7 +36,7 @@
   networking.networkmanager.enable = true;
   user'.extraGroups = [ "networkmanager" ];
 
-  preservation.preserveAt."/persist".directories = [
+  preservation'.os.directories = [
     "/var/lib/NetworkManager"
     "/etc/NetworkManager/system-connections"
   ];

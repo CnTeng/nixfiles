@@ -34,17 +34,20 @@ in
 
         directories = [
           {
+            directory = "/var/lib/machines";
+            mode = "0700";
+          }
+          {
             directory = "/var/lib/nixos";
             inInitrd = true;
           }
           {
             directory = "/var/lib/private";
-            inInitrd = true;
+            mode = "0700";
           }
           "/var/lib/systemd"
-          "/var/lib/machines"
-          "/var/log"
 
+          "/var/log"
           "/var/cache/private"
         ];
         files = [
