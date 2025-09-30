@@ -1,6 +1,10 @@
 name: Auto Merge
 on:
   pull_request:
+    types:
+      - opened
+      - reopened
+      - labeled
 
 permissions:
   pull-requests: write
