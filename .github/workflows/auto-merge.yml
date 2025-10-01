@@ -2,16 +2,17 @@ name: Auto Merge
 on:
   pull_request:
     types:
-      - opened
-      - reopened
       - labeled
-
-permissions:
-  pull-requests: write
-  contents: write
 
 jobs:
   auto-merge:
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: "auto-merge:${{ github.head_ref }}"
+      cancel-in-progress: true
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
