@@ -20,6 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
+      - name: Dump PR labels
+        run: echo "${{ toJson(github.event.pull_request.labels) }}"
+
       - name: Enable Automerge
         if: contains(github.event.pull_request.labels.*.name, 'auto-merge')
         run: gh pr merge --auto --rebase ${{ github.event.pull_request.number }}
