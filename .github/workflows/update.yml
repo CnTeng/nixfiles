@@ -61,6 +61,7 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@main
         if: steps.check.outputs.upgrade == 'true'
         with:
+          token: ${{ secrets.GH_TOKEN }}
           commit-msg: "bump: flake inputs"
           branch: bump_flake_inputs
           pr-title: "bump: flake inputs"
@@ -97,6 +98,7 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.GH_TOKEN }}
           commit-message: "bump: packages"
           branch: bump_packages
           delete-branch: true
