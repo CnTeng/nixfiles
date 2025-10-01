@@ -1,7 +1,3 @@
-data "github_repository" "nixfiles" {
-  full_name = "CnTeng/nixfiles"
-}
-
 resource "tls_private_key" "nixos_deploy_key" {
   algorithm = "ED25519"
 }
@@ -42,6 +38,18 @@ resource "github_actions_secret" "ntfy_token" {
   repository      = "nixfiles"
   secret_name     = "NTFY_TOKEN"
   plaintext_value = local.secrets.ntfy.token
+}
+
+resource "github_actions_secret" "nixfile_gh_token" {
+  repository      = "nixfiles"
+  secret_name     = "GH_TOKEN"
+  plaintext_value = local.secrets.github.gh_token
+}
+
+resource "github_actions_secret" "rx-nvim_gh_token" {
+  repository      = "rx-nvim"
+  secret_name     = "GH_TOKEN"
+  plaintext_value = local.secrets.github.gh_token
 }
 
 locals {
