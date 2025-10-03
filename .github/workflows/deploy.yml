@@ -30,26 +30,3 @@ jobs:
 
       - name: Deploy remote hosts
         run: make remote REBUILD="nix run nixpkgs#nixos-rebuild-ng --"
-
-      - name: Notify success
-        if: success()
-        run: |
-          curl -u :${{ secrets.NTFY_TOKEN }} \
-            -H "Title: Deploy NixOS" \
-            -H "Tags: rocket,green_circle" \
-            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            -H "Icon: https://avatars.githubusercontent.com/u/487568?s=200&v=4" \
-            -d "Deploy success." \
-            https://ntfy.snakepi.xyz/dev
-
-      - name: Notify failure
-        if: failure()
-        run: |
-          curl -u :${{ secrets.NTFY_TOKEN }} \
-            -H "Title: Deploy NixOS" \
-            -H "Priority: high" \
-            -H "Tags: rocket,red_circle" \
-            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            -H "Icon: https://avatars.githubusercontent.com/u/487568?s=200&v=4" \
-            -d "Deploy failure." \
-            https://ntfy.snakepi.xyz/dev

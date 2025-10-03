@@ -34,12 +34,6 @@ resource "github_actions_secret" "ssh_known_hosts" {
   EOF
 }
 
-resource "github_actions_secret" "ntfy_token" {
-  repository      = "nixfiles"
-  secret_name     = "NTFY_TOKEN"
-  plaintext_value = local.secrets.ntfy.token
-}
-
 resource "github_actions_secret" "nixfile_gh_token" {
   repository      = "nixfiles"
   secret_name     = "GH_TOKEN"
