@@ -60,7 +60,10 @@ in
       };
     };
 
-    networking.hostName = cfg.hostName;
+    networking = {
+      inherit (cfg) hostName;
+      domain = "snakepi.xyz";
+    };
 
     time.timeZone = "Asia/Shanghai";
 

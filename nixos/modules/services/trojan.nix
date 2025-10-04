@@ -8,7 +8,6 @@
 let
   cfg = config.services'.trojan;
 
-  hostName = "${config.core'.hostName}.snakepi.xyz";
   port = 10808;
 
   mkOutbound = host: {
@@ -39,9 +38,9 @@ let
         ];
         tls = {
           enabled = true;
-          server_name = hostName;
+          server_name = config.networking.fqdn;
           acme = {
-            domain = hostName;
+            domain = config.networking.fqdn;
             data_directory = "/var/lib/sing-box/certmagic";
             email = "rxsnakepi@gmail.com";
             dns01_challenge = {
