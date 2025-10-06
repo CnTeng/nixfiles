@@ -20,9 +20,6 @@ in
 
       pciutils
       usbutils
-
-      asciinema
-      asciinema-agg
     ];
   };
 }

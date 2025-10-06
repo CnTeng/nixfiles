@@ -13,6 +13,7 @@
   };
 
   development' = {
+    asciinema.enable = true;
     clion.enable = true;
     flutter.enable = true;
     go.enable = true;
