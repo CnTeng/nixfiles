@@ -19,6 +19,7 @@ in
           name = "Adwaita";
           size = 24;
           gtk.enable = true;
+          dotIcons.enable = false;
         };
 
         qt = {
