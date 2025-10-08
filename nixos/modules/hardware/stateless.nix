@@ -68,34 +68,6 @@ in
     systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
     systemd.services.systemd-machine-id-commit.unitConfig.ConditionFirstBoot = true;
 
-    systemd.tmpfiles.settings.preservation = {
-      "/home/${user}/.cache".d = {
-        inherit user;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${user}/.config".d = {
-        inherit user;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${user}/.local".d = {
-        inherit user;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${user}/.local/share".d = {
-        inherit user;
-        group = "users";
-        mode = "0755";
-      };
-      "/home/${user}/.local/state".d = {
-        inherit user;
-        group = "users";
-        mode = "0755";
-      };
-    };
-
     programs.ph.enable = true;
   };
 }
