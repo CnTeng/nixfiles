@@ -14,7 +14,6 @@
 
   development' = {
     asciinema.enable = true;
-    clion.enable = true;
     go.enable = true;
     neovim = {
       enable = true;
