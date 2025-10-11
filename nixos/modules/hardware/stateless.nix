@@ -30,7 +30,10 @@ in
     preservation = {
       enable = true;
       preserveAt."/persist" = {
-        commonMountOptions = [ "x-gvfs-hide" ];
+        commonMountOptions = [
+          "x-gvfs-hide"
+          "x-gdu.hide"
+        ];
 
         directories = [
           {
