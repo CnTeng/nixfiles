@@ -8,8 +8,15 @@ jobs:
   update-flake:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Create github app token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -61,7 +68,7 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@main
         if: steps.check.outputs.upgrade == 'true'
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           commit-msg: "bump: flake inputs"
           branch: bump_flake_inputs
           pr-title: "bump: flake inputs"
@@ -76,8 +83,15 @@ jobs:
   update-pkgs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Create github app token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -98,7 +112,7 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           commit-message: "bump: packages"
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>

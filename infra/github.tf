@@ -34,16 +34,28 @@ resource "github_actions_secret" "ssh_known_hosts" {
   EOF
 }
 
-resource "github_actions_secret" "nixfile_gh_token" {
+resource "github_actions_secret" "nixfile_app_id" {
   repository      = "nixfiles"
-  secret_name     = "GH_TOKEN"
-  plaintext_value = local.secrets.github.gh_token
+  secret_name     = "APP_ID"
+  plaintext_value = local.secrets.github.app_id
 }
 
-resource "github_actions_secret" "rx-nvim_gh_token" {
+resource "github_actions_secret" "nixfiles_app_private_key" {
+  repository      = "nixfiles"
+  secret_name     = "APP_PRIVATE_KEY"
+  plaintext_value = local.secrets.github.app_private_key
+}
+
+resource "github_actions_secret" "rx-nvim_app_id" {
   repository      = "rx-nvim"
-  secret_name     = "GH_TOKEN"
-  plaintext_value = local.secrets.github.gh_token
+  secret_name     = "APP_ID"
+  plaintext_value = local.secrets.github.app_id
+}
+
+resource "github_actions_secret" "rx-nvim_app_private_key" {
+  repository      = "rx-nvim"
+  secret_name     = "APP_PRIVATE_KEY"
+  plaintext_value = local.secrets.github.app_private_key
 }
 
 locals {
