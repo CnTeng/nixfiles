@@ -8,7 +8,6 @@
     programs.fd.enable = true;
 
     home.packages = with pkgs; [
-      gdu
       tree
       unrar
       unzipNLS
