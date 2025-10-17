@@ -86,15 +86,15 @@
               nix-update
               nixos-anywhere
               (opentofu.withPlugins (p: [
-                p.aws
-                p.cloudflare
-                p.github
-                p.hcloud
-                p.local
-                p.null
-                p.sops
-                p.tailscale
-                p.tls
+                p.carlpett_sops
+                p.cloudflare_cloudflare
+                p.hashicorp_aws
+                p.hashicorp_local
+                p.hashicorp_null
+                p.hashicorp_tls
+                p.hetznercloud_hcloud
+                p.integrations_github
+                p.tailscale_tailscale
               ]))
             ];
 
