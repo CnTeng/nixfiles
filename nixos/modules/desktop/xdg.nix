@@ -10,7 +10,7 @@ let
   default = {
     terminal = pkgs.kitty;
     editor = pkgs.neovim;
-    browser = pkgs.firefox;
+    browser = pkgs.chromium;
     archiver = pkgs.file-roller;
     fileManager = pkgs.nautilus;
     imageViewer = pkgs.eog;
