@@ -163,6 +163,8 @@ in
         };
         Install.WantedBy = [ "graphical-session.target" ];
       };
+
+      services.tailscale-systray.enable = true;
     };
   };
 }
