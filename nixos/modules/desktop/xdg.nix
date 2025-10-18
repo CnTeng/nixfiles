@@ -15,7 +15,7 @@ let
     fileManager = pkgs.nautilus;
     imageViewer = pkgs.eog;
     pdfViewer = pkgs.evince;
-    office = pkgs.wpsoffice-cn;
+    office = pkgs.libreoffice-fresh;
   };
 in
 {
