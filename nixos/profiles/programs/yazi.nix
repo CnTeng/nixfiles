@@ -33,10 +33,9 @@
       };
     };
 
-    initLua = # lua
-      ''
-        require("git"):setup()
-        require("starship"):setup()
-      '';
+    initLua = /* lua */ ''
+      require("git"):setup()
+      require("starship"):setup()
+    '';
   };
 }

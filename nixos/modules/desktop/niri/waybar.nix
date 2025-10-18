@@ -163,69 +163,68 @@ in
         };
       }
     ];
-    style = # css
-      ''
-        * {
-          font-family: Adwaita Mono, Noto Sans Mono CJK SC, FiraCode Nerd Font;
-          font-weight: bold;
-          font-size: 14px;
-        }
+    style = /* css */ ''
+      * {
+        font-family: Adwaita Mono, Noto Sans Mono CJK SC, FiraCode Nerd Font;
+        font-weight: bold;
+        font-size: 14px;
+      }
 
-        window#waybar {
-          background: alpha(@theme_base_color, 0.9);
-          color: @theme_text_color;
-        }
+      window#waybar {
+        background: alpha(@theme_base_color, 0.9);
+        color: @theme_text_color;
+      }
 
-        #workspaces,
-        #mode,
-        #clock,
-        #tray,
-        #mpris,
-        #idle_inhibitor,
-        #backlight,
-        #cpu,
-        #memory,
-        #pulseaudio,
-        #battery,
-        #power-profiles-daemon {
-          padding: 0 6px;
-        }
+      #workspaces,
+      #mode,
+      #clock,
+      #tray,
+      #mpris,
+      #idle_inhibitor,
+      #backlight,
+      #cpu,
+      #memory,
+      #pulseaudio,
+      #battery,
+      #power-profiles-daemon {
+        padding: 0 6px;
+      }
 
-        #taskbar button {
-          border: none;
-          border-radius: 0;
-          box-shadow: inset 0 -3px transparent;
-          padding: 3px 8px;
-        }
-        #taskbar button.active {
-          box-shadow: inset 0 -3px ${palette.accent_color};
-        }
+      #taskbar button {
+        border: none;
+        border-radius: 0;
+        box-shadow: inset 0 -3px transparent;
+        padding: 3px 8px;
+      }
+      #taskbar button.active {
+        box-shadow: inset 0 -3px ${palette.accent_color};
+      }
 
-        #workspaces button {
-          border-radius: 0;
-          padding: 3px 6px;
-        }
-        #workspaces button.focused,
-        #workspaces button.active {
-          color: ${palette.accent_color};
-        }
+      #workspaces button {
+        border-radius: 0;
+        padding: 3px 6px;
+      }
+      #workspaces button.focused,
+      #workspaces button.active {
+        color: ${palette.accent_color};
+      }
 
-        #battery.warning {
-          color: ${palette.warning_color};
-        }
-        #battery.critical {
-          color: ${palette.error_color};
-        }
-        #battery.charging {
-          color: ${palette.success_color};
-        }
+      #battery.warning {
+        color: ${palette.warning_color};
+      }
+      #battery.critical {
+        color: ${palette.error_color};
+      }
+      #battery.charging {
+        color: ${palette.success_color};
+      }
 
-        #power-profiles-daemon.performance {
-          color: ${palette.warning_color};
-        }
-        #power-profiles-daemon.power-saver {
-          color: ${palette.success_color};
-        }
-      '';
+      #power-profiles-daemon.performance {
+        color: ${palette.warning_color};
+      }
+      #power-profiles-daemon.power-saver {
+        color: ${palette.success_color};
+      }
+    '';
   };
 }
