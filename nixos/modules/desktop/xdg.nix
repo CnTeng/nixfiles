@@ -14,7 +14,6 @@ let
     archiver = pkgs.file-roller;
     fileManager = pkgs.nautilus;
     imageViewer = pkgs.eog;
-    pdfViewer = pkgs.evince;
     office = pkgs.libreoffice-fresh;
   };
 in
@@ -39,7 +38,6 @@ in
           default.archiver
           default.fileManager
           default.imageViewer
-          default.pdfViewer
           default.office
         ];
       };
