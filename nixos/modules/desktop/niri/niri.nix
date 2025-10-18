@@ -42,7 +42,6 @@ palette:
 
       window-rule {
         match app-id=r#"firefox$"# title="^(Picture-in-Picture|Library)$"
-        match app-id=r#"^nz\.co\.mega\.$"#
         match app-id=r#"^org\.gnome\.NautilusPreviewer$"#
         open-floating true
       }

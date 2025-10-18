@@ -36,10 +36,10 @@
     ghostty.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
-    megasync.enable = true;
     mpv.enable = true;
     obs-studio.enable = true;
     office.enable = true;
+    onedrive.enable = true;
     spotify.enable = true;
     telegram.enable = true;
     thunderbird.enable = true;
