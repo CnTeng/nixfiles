@@ -11,11 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    treefmt = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +64,6 @@
 
       imports = [
         inputs.git-hooks-nix.flakeModule
-        inputs.treefmt.flakeModule
         ./hosts
         ./nixos
         ./pkgs
@@ -101,15 +95,23 @@
             shellHook = config.pre-commit.installationScript;
           };
 
-          pre-commit.settings.hooks = {
-            commitizen.enable = true;
-            treefmt.enable = true;
+          formatter = pkgs.nixfmt-tree.override {
+            settings.formatter.terraform = {
+              command = "tofu";
+              options = [ "fmt" ];
+              includes = [
+                "*.tf"
+                "*.tfvars"
+              ];
+            };
           };
 
-          treefmt.programs = {
-            nixfmt.enable = true;
-            prettier.enable = true;
-            terraform.enable = true;
+          pre-commit.settings.hooks = {
+            treefmt = {
+              enable = true;
+              package = config.formatter;
+            };
+            commitizen.enable = true;
           };
         };
     };
