@@ -42,15 +42,11 @@
     rx-nvim = {
       url = "github:CnTeng/rx-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.git-hooks-nix.follows = "git-hooks-nix";
     };
 
     ph = {
       url = "github:CnTeng/ph";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.git-hooks-nix.follows = "git-hooks-nix";
     };
   };
 
