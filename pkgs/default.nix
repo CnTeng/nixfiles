@@ -1,30 +1,5 @@
-{
-  inputs,
-  lib,
-  self,
-  ...
-}:
-{
-  flake.overlays.default =
-    final: prev:
-    lib.packagesFromDirectoryRecursive {
-      callPackage = lib.callPackageWith (prev.pkgs // { inherit prev; });
-      directory = ./.;
-    };
-
-  perSystem =
-    { pkgs, system, ... }:
-    {
-      _module.args.pkgs = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ self.overlays.default ];
-      };
-
-      packages = {
-        todoist-cli = pkgs.todoist-cli;
-      };
-
-      legacyPackages = pkgs;
-    };
+final: prev:
+prev.lib.packagesFromDirectoryRecursive {
+  callPackage = prev.lib.callPackageWith (prev.pkgs // { inherit prev; });
+  directory = ./.;
 }

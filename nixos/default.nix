@@ -19,7 +19,7 @@ let
     ];
 in
 {
-  flake.nixosModules.default = {
+  default = {
     imports = (listModules ./modules) ++ (listModules ./profiles);
   };
 }

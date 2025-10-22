@@ -4,13 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
-    git-hooks-nix = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +24,6 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
     };
 
     nix-index-database = {
@@ -51,64 +43,70 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-
-      imports = [
-        inputs.git-hooks-nix.flakeModule
-        ./hosts
-        ./nixos
-        ./pkgs
-      ];
-
-      perSystem =
-        { config, pkgs, ... }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              jq
-              sops
-              age
-              nix-update
-              nixos-anywhere
-              (opentofu.withPlugins (p: [
-                p.carlpett_sops
-                p.cloudflare_cloudflare
-                p.hashicorp_aws
-                p.hashicorp_local
-                p.hashicorp_null
-                p.hashicorp_tls
-                p.hetznercloud_hcloud
-                p.integrations_github
-                p.tailscale_tailscale
-              ]))
-            ];
-
-            shellHook = config.pre-commit.installationScript;
-          };
-
-          formatter = pkgs.nixfmt-tree.override {
-            settings.formatter.terraform = {
-              command = "tofu";
-              options = [ "fmt" ];
-              includes = [
-                "*.tf"
-                "*.tfvars"
-              ];
-            };
-          };
-
-          pre-commit.settings.hooks = {
-            treefmt = {
-              enable = true;
-              package = config.formatter;
-            };
-            commitizen.enable = true;
-          };
+    inputs@{ self, nixpkgs, ... }:
+    let
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ self.overlays.default ];
         };
+
+      forEachSystem =
+        f:
+        nixpkgs.lib.genAttrs [
+          "x86_64-linux"
+          "aarch64-linux"
+        ] (system: f (mkPkgs system));
+
+      inherit (nixpkgs) lib;
+    in
+    {
+      overlays.default = import ./pkgs;
+
+      nixosModules = import ./nixos { inherit lib; };
+
+      nixosConfigurations = import ./hosts { inherit inputs lib self; };
+
+      legacyPackages = forEachSystem (pkgs: pkgs);
+
+      devShells = forEachSystem (pkgs: {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            jq
+            sops
+            age
+            nix-update
+            nixos-anywhere
+            (pkgs.opentofu.withPlugins (p: [
+              p.carlpett_sops
+              p.cloudflare_cloudflare
+              p.hashicorp_aws
+              p.hashicorp_local
+              p.hashicorp_null
+              p.hashicorp_tls
+              p.hetznercloud_hcloud
+              p.integrations_github
+              p.tailscale_tailscale
+            ]))
+          ];
+        };
+      });
+
+      formatter = forEachSystem (
+        pkgs:
+        pkgs.nixfmt-tree.override {
+          settings.formatter.terraform = {
+            command = "tofu";
+            options = [ "fmt" ];
+            includes = [
+              "*.tf"
+              "*.tfvars"
+            ];
+          };
+          runtimeInputs = [ pkgs.opentofu ];
+        }
+      );
     };
 }
