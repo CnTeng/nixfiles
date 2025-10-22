@@ -26,6 +26,10 @@ in
       type = lib.types.nullOr lib.types.str;
     };
 
+    hostInfo = lib.mkOption {
+      type = lib.types.nullOr lib.types.attrs;
+    };
+
     stateVersion = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
     };
@@ -40,6 +44,10 @@ in
       {
         assertion = cfg.hostName != null;
         message = "Host name must be specified in core'.hostName";
+      }
+      {
+        assertion = cfg.hostInfo != null;
+        message = "Host info must be specified in core'.hostInfo";
       }
       {
         assertion = cfg.stateVersion != null;

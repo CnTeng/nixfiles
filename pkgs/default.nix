@@ -1,5 +1,9 @@
-final: prev:
-prev.lib.packagesFromDirectoryRecursive {
-  callPackage = prev.lib.callPackageWith (prev.pkgs // { inherit prev; });
-  directory = ./.;
+{ lib, ... }:
+{
+  default =
+    final: prev:
+    lib.packagesFromDirectoryRecursive {
+      callPackage = lib.callPackageWith (prev.pkgs // { inherit prev; });
+      directory = ./.;
+    };
 }

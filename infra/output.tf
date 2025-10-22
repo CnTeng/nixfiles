@@ -1,8 +1,7 @@
 locals {
-  public_output = jsonencode(merge(
-    { github = local.github_output },
+  public_output = jsonencode(
     { hosts = local.public_hosts_output },
-  ))
+  )
   private_output = yamlencode(merge(
     { tokens = local.tokens_output },
     { r2 = local.r2_output },

@@ -1,12 +1,4 @@
-{
-  config,
-  modulesPath,
-  data,
-  ...
-}:
-let
-  inherit (config.core') hostName;
-in
+{ config, modulesPath, ... }:
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
@@ -27,7 +19,7 @@ in
       useDHCP = true;
       ipv6.addresses = [
         {
-          address = data.hosts.${hostName}.ipv6;
+          address = config.core'.hostInfo.ipv6;
           prefixLength = 64;
         }
       ];

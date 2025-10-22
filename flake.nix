@@ -45,6 +45,8 @@
   outputs =
     inputs@{ self, nixpkgs, ... }:
     let
+      inherit (nixpkgs) lib;
+
       mkPkgs =
         system:
         import nixpkgs {
@@ -55,28 +57,26 @@
 
       forEachSystem =
         f:
-        nixpkgs.lib.genAttrs [
+        lib.genAttrs [
           "x86_64-linux"
           "aarch64-linux"
         ] (system: f (mkPkgs system));
-
-      inherit (nixpkgs) lib;
     in
     {
-      overlays.default = import ./pkgs;
-
       nixosModules = import ./nixos { inherit lib; };
 
-      nixosConfigurations = import ./hosts { inherit inputs lib self; };
+      nixosConfigurations = import ./hosts { inherit self inputs lib; };
+
+      overlays = import ./pkgs { inherit lib; };
 
       legacyPackages = forEachSystem (pkgs: pkgs);
 
       devShells = forEachSystem (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            age
             jq
             sops
-            age
             nix-update
             nixos-anywhere
             (pkgs.opentofu.withPlugins (p: [

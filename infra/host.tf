@@ -33,6 +33,10 @@ locals {
   hosts_ip = { for host, outputs in merge(module.hcloud, module.lightsail) : host => outputs.ip }
 }
 
+resource "tls_private_key" "host_deploy_key" {
+  algorithm = "ED25519"
+}
+
 module "hcloud" {
   source   = "./modules/hcloud"
   for_each = local.hcloud
@@ -55,12 +59,13 @@ module "host" {
   source   = "./modules/host"
   for_each = local.hosts
 
-  zone_id   = cloudflare_zone.zones["sp_xyz"].id
-  zone_name = cloudflare_zone.zones["sp_xyz"].name
-  name      = each.key
-  system    = each.value.system
-  type      = each.value.type
-  ip        = lookup(local.hosts_ip, each.key, null)
+  zone_id    = cloudflare_zone.zones["sp_xyz"].id
+  zone_name  = cloudflare_zone.zones["sp_xyz"].name
+  name       = each.key
+  system     = each.value.system
+  type       = each.value.type
+  ip         = lookup(local.hosts_ip, each.key, null)
+  deploy_key = tls_private_key.host_deploy_key.public_key_openssh
 }
 
 locals {

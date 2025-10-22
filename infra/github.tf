@@ -1,11 +1,7 @@
-resource "tls_private_key" "nixos_deploy_key" {
-  algorithm = "ED25519"
-}
-
 resource "github_actions_secret" "nixos_deploy_key" {
   repository      = "nixfiles"
   secret_name     = "NIXOS_DEPLOY_KEY"
-  plaintext_value = tls_private_key.nixos_deploy_key.private_key_openssh
+  plaintext_value = tls_private_key.host_deploy_key.private_key_openssh
 }
 
 resource "github_actions_secret" "ssh_config" {
@@ -56,10 +52,4 @@ resource "github_actions_secret" "rx-nvim_app_private_key" {
   repository      = "rx-nvim"
   secret_name     = "APP_PRIVATE_KEY"
   plaintext_value = local.secrets.github.app_private_key
-}
-
-locals {
-  github_output = {
-    deploy_key_pub = trimspace(tls_private_key.nixos_deploy_key.public_key_openssh)
-  }
 }

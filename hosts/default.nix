@@ -1,17 +1,15 @@
 {
+  self,
   inputs,
   lib,
-  self,
   ...
 }:
 let
   data = lib.importJSON ../infra/outputs/data.json;
 
   mkNixosSystem = host: _: {
-    ${host} = inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs data;
-      };
+    ${host} = lib.nixosSystem {
+      specialArgs = { inherit inputs data; };
       modules = [
         {
           nixpkgs = {
@@ -23,6 +21,7 @@ let
           core' = {
             userName = "yufei";
             hostName = host;
+            hostInfo = data.hosts.${host};
             stateVersion = "25.05";
           };
         }

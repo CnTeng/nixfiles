@@ -1,27 +1,32 @@
 {
-  "github": {
-    "deploy_key_pub": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMRLKADrpGSsMXXy/5Obv6A77oHB3jMdvYSB2NBKXP4X"
-  },
   "hosts": {
     "hcde": {
+      "authorized_keys": [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDxznqcOdYhyvqSiTTwp3PWkKxa9jL+BdOuV/0nmzX5M\n"
+      ],
       "ipv4": "91.99.115.99",
       "ipv6": "2a01:4f8:c010:9f3f::1",
       "system": "aarch64-linux",
       "type": "remote"
     },
     "lssg": {
+      "authorized_keys": [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDxznqcOdYhyvqSiTTwp3PWkKxa9jL+BdOuV/0nmzX5M\n"
+      ],
       "ipv4": "52.76.117.48",
       "ipv6": "2406:da18:661:6c02:70ff:5749:3d2d:d794",
       "system": "x86_64-linux",
       "type": "remote"
     },
     "rxrk": {
+      "authorized_keys": [],
       "ipv4": null,
       "ipv6": null,
       "system": "aarch64-linux",
       "type": "local"
     },
     "rxtp": {
+      "authorized_keys": [],
       "ipv4": null,
       "ipv6": null,
       "system": "x86_64-linux",

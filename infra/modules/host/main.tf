@@ -22,6 +22,10 @@ variable "ip" {
   })
 }
 
+variable "deploy_key" {
+  type = string
+}
+
 output "system" {
   value = var.system
 }

@@ -7,6 +7,10 @@ resource "tls_private_key" "host_ed25519_key" {
   algorithm = "ED25519"
 }
 
+output "authorized_keys" {
+  value = var.type == "remote" ? [var.deploy_key] : []
+}
+
 output "host_rsa_key_pub" {
   value     = trimspace(tls_private_key.host_rsa_key.public_key_openssh)
   sensitive = true
