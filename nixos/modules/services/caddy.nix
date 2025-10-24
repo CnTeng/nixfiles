@@ -23,6 +23,7 @@ in
         hash = "sha256-AcWko5513hO8I0lvbCLqVbM1eWegAhoM0J0qXoWL/vI=";
       };
       globalConfig = ''
+        admin off
         dns cloudflare {env.CF_API_TOKEN}
       '';
       environmentFile = config.sops.templates.caddy.path;
