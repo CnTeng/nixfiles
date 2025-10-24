@@ -3,7 +3,7 @@ let
   cfg = config.services'.webdav;
 
   hostName = "webdav.snakepi.xyz";
-  socket = "/run/webdav.sock";
+  socket = "@webdav.sock";
 in
 {
   options.services'.webdav.enable = lib.mkEnableOption "";
@@ -12,7 +12,7 @@ in
     services.webdav = {
       enable = true;
       settings = {
-        address = "sd-listen-fd:webdav";
+        address = "unix:${socket}";
         behindProxy = true;
         directory = "/var/lib/webdav";
         permissions = "CRUD";
@@ -24,17 +24,6 @@ in
         ];
       };
       environmentFile = config.sops.secrets.webdav.path;
-    };
-
-    systemd.sockets.webdav = {
-      description = "WebDAV socket";
-      wantedBy = [ "sockets.target" ];
-      socketConfig = {
-        FileDescriptorName = "webdav";
-        ListenStream = socket;
-        SocketUser = config.services.webdav.user;
-        SocketGroup = config.services.webdav.group;
-      };
     };
 
     systemd.services.webdav.serviceConfig = {

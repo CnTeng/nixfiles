@@ -3,7 +3,7 @@ let
   cfg = config.services'.pocket-id;
 
   hostName = "id.snakepi.xyz";
-  socket = "/run/pocket-id/pocket.sock";
+  socket = "@pocket.sock";
 in
 {
   options.services'.pocket-id.enable = lib.mkEnableOption "";
@@ -18,7 +18,6 @@ in
         PUID = config.users.users.pocket-id.uid;
         PGID = config.users.groups.pocket-id.gid;
         UNIX_SOCKET = socket;
-        UNIX_SOCKET_MODE = "0666";
         UI_CONFIG_DISABLED = true;
 
         EMAILS_VERIFIED = true;
@@ -31,8 +30,6 @@ in
         EMAIL_API_KEY_EXPIRATION_ENABLED = true;
       };
     };
-
-    systemd.services.pocket-id.serviceConfig.RuntimeDirectory = "pocket-id";
 
     services.caddy.virtualHosts.id = {
       inherit hostName;

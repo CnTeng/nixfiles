@@ -3,7 +3,7 @@ let
   cfg = config.services'.ntfy;
 
   hostName = "ntfy.snakepi.xyz";
-  socket = "/run/ntfy-sh/ntfy.sock";
+  socket = "@ntfy.sock";
 in
 {
   options.services'.ntfy.enable = lib.mkEnableOption "";
@@ -15,12 +15,9 @@ in
         base-url = "https://${hostName}";
         listen-http = "";
         listen-unix = socket;
-        listen-unix-mode = 438;
         behind-proxy = true;
       };
     };
-
-    systemd.services.ntfy-sh.serviceConfig.RuntimeDirectory = "ntfy-sh";
 
     services.caddy.virtualHosts.ntfy = {
       inherit hostName;
