@@ -11,7 +11,7 @@ in
   options.programs'.telegram.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    hm'.home.packages = [ pkgs.tdesktop ];
+    hm'.home.packages = [ pkgs.telegram-desktop ];
 
     preservation'.user.directories = [
       ".cache/TelegramDesktop"
