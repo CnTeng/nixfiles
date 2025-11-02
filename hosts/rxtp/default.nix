@@ -43,7 +43,6 @@
     spotify.enable = true;
     telegram.enable = true;
     thunderbird.enable = true;
-    todoist.enable = true;
     yubikey.enable = true;
     zotero.enable = true;
   };

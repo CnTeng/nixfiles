@@ -76,10 +76,6 @@
 
       overlays = import ./pkgs { inherit lib; };
 
-      packages = forEachSystem (pkgs: {
-        inherit (pkgs) todoist-cli;
-      });
-
       legacyPackages = forEachSystem (pkgs: pkgs);
 
       devShells = forEachSystem (pkgs: {
@@ -88,7 +84,6 @@
             age
             jq
             sops
-            nix-update
             nixos-anywhere
             (pkgs.opentofu.withPlugins (p: [
               p.carlpett_sops
