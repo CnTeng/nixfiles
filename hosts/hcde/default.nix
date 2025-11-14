@@ -17,7 +17,6 @@
     postgresql.enable = true;
     privatebin.enable = true;
     restic.enable = true;
-    rustical.enable = true;
     tailscale.enable = true;
     trojan.enableServer = true;
     vaultwarden.enable = true;

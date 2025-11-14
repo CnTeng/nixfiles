@@ -3,7 +3,6 @@ locals {
     "@"    = { content = module.host["hcde"].ipv4 }
     anki   = { content = module.host["hcde"].ipv4 }
     atuin  = { content = module.host["hcde"].ipv4 }
-    cal    = { content = module.host["hcde"].ipv4 }
     id     = { content = module.host["hcde"].ipv4 }
     ntfy   = { content = module.host["hcde"].ipv4 }
     pb     = { content = module.host["hcde"].ipv4 }
