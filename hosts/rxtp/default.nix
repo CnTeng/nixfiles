@@ -13,7 +13,6 @@
   };
 
   development' = {
-    asciinema.enable = true;
     go.enable = true;
     neovim = {
       enable = true;
