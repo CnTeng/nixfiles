@@ -10,10 +10,10 @@ let
   default = {
     terminal = pkgs.kitty;
     editor = pkgs.neovim;
-    browser = pkgs.chromium;
     archiver = pkgs.file-roller;
     fileManager = pkgs.nautilus;
     imageViewer = pkgs.eog;
+    browser = pkgs.chromium;
     office = pkgs.libreoffice-fresh;
   };
 in
@@ -34,10 +34,10 @@ in
         defaultApplicationPackages = [
           default.terminal
           default.editor
-          default.browser
           default.archiver
           default.fileManager
           default.imageViewer
+          default.browser
           default.office
         ];
       };
