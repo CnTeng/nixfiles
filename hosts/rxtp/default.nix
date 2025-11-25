@@ -37,7 +37,6 @@
     kitty.enable = true;
     mpv.enable = true;
     obs-studio.enable = true;
-    office.enable = true;
     onedrive.enable = true;
     spotify.enable = true;
     telegram.enable = true;
