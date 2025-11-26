@@ -14,7 +14,6 @@ let
     fileManager = pkgs.nautilus;
     imageViewer = pkgs.eog;
     browser = pkgs.chromium;
-    office = pkgs.libreoffice-fresh;
   };
 in
 {
@@ -38,7 +37,6 @@ in
           default.fileManager
           default.imageViewer
           default.browser
-          default.office
         ];
       };
     };
