@@ -27,6 +27,11 @@ locals {
       system = "x86_64-linux"
       type   = "local"
     }
+
+    rxwk = {
+      system = "x86_64-linux"
+      type   = "local"
+    }
   }
 
   hosts    = merge(local.hcloud, local.lightsail, local.local)
