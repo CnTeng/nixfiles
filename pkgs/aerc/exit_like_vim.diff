@@ -1,0 +1,26 @@
+diff --git a/app/exline.go b/app/exline.go
+index 4363900b..7e019794 100644
+--- a/app/exline.go
++++ b/app/exline.go
+@@ -97,7 +97,7 @@ func (ex *ExLine) Event(event vaxis.Event) bool {
+ 		case key.Matches(vaxis.KeyDown):
+ 			ex.input.Set(ex.cmdHistory.Next())
+ 			ex.Invalidate()
+-		case key.Matches(vaxis.KeyEsc), key.Matches('c', vaxis.ModCtrl):
++		case key.Matches(vaxis.KeyEsc), key.Matches('c', vaxis.ModCtrl), key.Matches('[', vaxis.ModCtrl):
+ 			ex.input.Focus(false)
+ 			ex.cmdHistory.Reset()
+ 			ex.finish()
+diff --git a/app/listbox.go b/app/listbox.go
+index 7c2a325c..538e51b8 100644
+--- a/app/listbox.go
++++ b/app/listbox.go
+@@ -319,7 +319,7 @@ func (lb *ListBox) Event(event vaxis.Event) bool {
+ 			return true
+ 		case key.Matches(vaxis.KeyEnter):
+ 			return lb.quit(lb.selected)
+-		case key.Matches(vaxis.KeyEsc):
++		case key.Matches(vaxis.KeyEsc), key.Matches('[', vaxis.ModCtrl):
+ 			return lb.quit("")
+ 		}
+ 	}

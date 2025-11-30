@@ -30,7 +30,10 @@ in
       ];
     };
 
-    programs.niri.enable = true;
+    programs.niri = {
+      enable = true;
+      useNautilus = true;
+    };
 
     user'.extraGroups = [
       "networkmanager"
@@ -68,7 +71,6 @@ in
 
     environment.systemPackages = with pkgs; [
       xwayland-satellite
-      nautilus
       file-roller
       eog
       sushi

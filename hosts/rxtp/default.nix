@@ -4,6 +4,11 @@
     ./hardware.nix
   ];
 
+  accounts' = {
+    gmail.enable = true;
+    lkml.enable = true;
+  };
+
   desktop' = {
     niri.enable = true;
     fonts.enable = true;
@@ -40,7 +45,6 @@
     onedrive.enable = true;
     spotify.enable = true;
     telegram.enable = true;
-    thunderbird.enable = true;
     yubikey.enable = true;
     zotero.enable = true;
   };
