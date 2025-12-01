@@ -13,9 +13,9 @@ resource "cloudflare_api_token" "r2_backups" {
     permission_groups = [
       { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
     ]
-    resources = {
+    resources = jsonencode({
       "com.cloudflare.edge.r2.bucket.${local.secrets.cloudflare.account_id}_default_backups" = "*"
-    }
+    })
   }]
 }
 

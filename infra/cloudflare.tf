@@ -44,9 +44,9 @@ resource "cloudflare_api_token" "cdntls" {
       { id = local.cf_api_permissions["Zone Read"] },
       { id = local.cf_api_permissions["DNS Write"] },
     ]
-    resources = {
+    resources = jsonencode({
       "com.cloudflare.api.account.zone.*" = "*"
-    }
+    })
   }]
 }
 
