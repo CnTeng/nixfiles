@@ -30,10 +30,7 @@ in
       ];
     };
 
-    programs.niri = {
-      enable = true;
-      useNautilus = true;
-    };
+    programs.niri.enable = true;
 
     user'.extraGroups = [
       "networkmanager"
