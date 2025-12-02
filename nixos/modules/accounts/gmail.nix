@@ -48,7 +48,8 @@ in
       accounts.email.accounts.gmail.imapnotify = {
         enable = true;
         extraConfig = {
-          OnNewMail = "mbsync gmail";
+          onNewMail = "mbsync gmail";
+          onChangedMail = "mbsync gmail";
           onDeletedMail = "mbsync gmail";
         };
       };

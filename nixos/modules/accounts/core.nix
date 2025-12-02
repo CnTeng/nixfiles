@@ -101,7 +101,7 @@ in
             q = ":close<Enter>";
             o = ":open<Enter>";
             "<C-s>" = ":save<Enter>";
-            "|" = ":pipe<Epace>";
+            "|" = ":pipe<Space>";
             d = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
             a = ":read<Enter>:archive flat<Enter>";
 
