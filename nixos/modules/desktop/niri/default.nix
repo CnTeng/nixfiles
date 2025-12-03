@@ -137,16 +137,10 @@ in
               command = "${systemctl} suspend";
             }
           ];
-          events = [
-            {
-              event = "lock";
-              command = "${lib.getExe pkgs.gtklock} -d";
-            }
-            {
-              event = "before-sleep";
-              command = "${loginctl} lock-session";
-            }
-          ];
+          events = {
+            before-sleep = "${loginctl} lock-session";
+            lock = "${lib.getExe pkgs.gtklock} -d";
+          };
         };
 
       systemd.user.services.swaybg = {
