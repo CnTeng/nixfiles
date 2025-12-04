@@ -13,7 +13,7 @@
       "authorized_keys": [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDxznqcOdYhyvqSiTTwp3PWkKxa9jL+BdOuV/0nmzX5M\n"
       ],
-      "ipv4": "52.76.117.48",
+      "ipv4": "13.214.11.121",
       "ipv6": "2406:da18:661:6c02:70ff:5749:3d2d:d794",
       "system": "x86_64-linux",
       "type": "remote"
