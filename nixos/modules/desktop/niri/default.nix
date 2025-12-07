@@ -68,6 +68,7 @@ in
 
     environment.systemPackages = with pkgs; [
       xwayland-satellite
+      nautilus
       file-roller
       eog
       sushi
