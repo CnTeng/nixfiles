@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
-  services.resolved.enable = true;
+  services.resolved.enable = lib.mkDefault true;
 }

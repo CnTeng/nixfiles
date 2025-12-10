@@ -1,9 +1,11 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 {
   imports = [ inputs.wsl.nixosModules.default ];
 
   wsl = {
     enable = true;
-    defaultUser = "yufei";
+    defaultUser = config.core'.userName;
   };
+
+  services.resolved.enable = false;
 }
