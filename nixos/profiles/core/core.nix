@@ -86,6 +86,7 @@ in
       home.stateVersion = cfg.stateVersion;
 
       xdg.enable = true;
+      home.preferXdgDirectories = true;
     };
   };
 }
