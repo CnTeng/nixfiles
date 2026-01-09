@@ -19,8 +19,8 @@ palette:
       focus-follows-mouse max-scroll-amount="10%"
     }
 
+    output "Dell Inc. DELL U2518D 3M7K8013ARCL" { position x=0 y=0; transform "90"; scale 1.25; }
     output "Dell Inc. DELL U2723QX 843R0P3"     { position x=0 y=0; scale 1.75; }
-    output "Dell Inc. DELL U2518D 3M7K8013ARCL" { position x=0 y=0; scale 1.25; }
 
     layout {
       gaps 8
