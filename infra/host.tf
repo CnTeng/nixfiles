@@ -2,7 +2,7 @@ locals {
   hcloud = {
     hcde = {
       plan   = "cax11"
-      region = "fsn1-dc14"
+      region = "fsn1"
       system = "aarch64-linux"
       type   = "remote"
     }

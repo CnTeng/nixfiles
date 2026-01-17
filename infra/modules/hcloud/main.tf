@@ -26,7 +26,7 @@ resource "hcloud_server" "server" {
   name        = var.hostname
   server_type = var.plan
   image       = "debian-12"
-  datacenter  = var.region
+  location    = var.region
   public_net {
     ipv4 = hcloud_primary_ip.ipv4.id
     ipv6 = hcloud_primary_ip.ipv6.id
@@ -37,7 +37,7 @@ resource "hcloud_server" "server" {
 resource "hcloud_primary_ip" "ipv4" {
   name          = "${var.hostname}-v4"
   type          = "ipv4"
-  datacenter    = var.region
+  location      = var.region
   auto_delete   = false
   assignee_type = "server"
 }
@@ -45,7 +45,7 @@ resource "hcloud_primary_ip" "ipv4" {
 resource "hcloud_primary_ip" "ipv6" {
   name          = "${var.hostname}-v6"
   type          = "ipv6"
-  datacenter    = var.region
+  location      = var.region
   auto_delete   = false
   assignee_type = "server"
 }
