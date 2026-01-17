@@ -28,7 +28,10 @@ in
 
       programs.kitty = {
         enable = true;
-        font.name = "FiraCode Nerd Font";
+        font = {
+          name = "FiraCode Nerd Font";
+          size = 10;
+        };
         settings = {
           tab_bar_style = "powerline";
           tab_powerline_style = "round";

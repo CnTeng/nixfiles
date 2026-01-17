@@ -10,7 +10,7 @@ in
       enable = true;
       settings = {
         font-family = "FiraCode Nerd Font";
-        font-size = 10.5;
+        font-size = 10;
 
         adjust-cell-height = "20%";
         adjust-underline-position = "20%";
