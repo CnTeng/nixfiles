@@ -32,7 +32,6 @@
   };
 
   programs' = {
-    aichat.enable = true;
     anki.enable = true;
     calibre.enable = true;
     chromium.enable = true;
@@ -43,6 +42,7 @@
     mpv.enable = true;
     obs-studio.enable = true;
     onedrive.enable = true;
+    opencode.enable = true;
     spotify.enable = true;
     telegram.enable = true;
     yubikey.enable = true;
