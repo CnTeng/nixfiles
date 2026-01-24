@@ -36,7 +36,6 @@ in
     };
 
     preservation'.user.directories = [
-      ".mozilla"
       ".cache/mozilla"
       ".config/mozilla"
     ];
