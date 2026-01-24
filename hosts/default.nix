@@ -9,7 +9,7 @@ let
 
   mkNixosSystem = host: _: {
     ${host} = lib.nixosSystem {
-      specialArgs = { inherit inputs data; };
+      specialArgs = { inherit inputs; };
       modules = [
         {
           nixpkgs = {
