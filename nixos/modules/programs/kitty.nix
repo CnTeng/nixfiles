@@ -32,6 +32,11 @@ in
           name = "FiraCode Nerd Font";
           size = 10;
         };
+        autoThemeFiles = {
+          light = "adwaita_light";
+          dark = "adwaita_dark";
+          noPreference = "adwaita_light";
+        };
         settings = {
           tab_bar_style = "powerline";
           tab_powerline_style = "round";
@@ -98,15 +103,6 @@ in
           map --when-focus-on var:IS_NVIM alt+h
           map --when-focus-on var:IS_NVIM alt+l
         '';
-      };
-
-      xdg.configFile = {
-        "kitty/dark-theme.auto.conf".source =
-          "${pkgs.kitty-themes}/share/kitty-themes/themes/adwaita_dark.conf";
-        "kitty/light-theme.auto.conf".source =
-          "${pkgs.kitty-themes}/share/kitty-themes/themes/adwaita_light.conf";
-        "kitty/no-preference-theme.auto.conf".source =
-          "${pkgs.kitty-themes}/share/kitty-themes/themes/adwaita_light.conf";
       };
     };
   };
