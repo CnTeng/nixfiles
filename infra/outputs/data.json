@@ -18,13 +18,6 @@
       "system": "x86_64-linux",
       "type": "remote"
     },
-    "rxrk": {
-      "authorized_keys": [],
-      "ipv4": null,
-      "ipv6": null,
-      "system": "aarch64-linux",
-      "type": "local"
-    },
     "rxtp": {
       "authorized_keys": [],
       "ipv4": null,

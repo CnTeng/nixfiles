@@ -15,10 +15,6 @@ REMOTE_FLAGS	?= $(LOCAL_FLAGS)$@ --target-host root@$@
 local:
 	sudo $(REBUILD) $(LOCAL_FLAGS)$(HOSTNAME)
 
-.PHONY: rxrk
-rxrk:
-	$(REBUILD) $(REMOTE_FLAGS) --build-host root@$@
-
 .PHONY: remote
 remote: hcde lssg
 

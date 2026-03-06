@@ -2,5 +2,3 @@ builds:
   include:
     - nixosConfigurations.*
     - devShells.*.*
-  exclude:
-    - nixosConfigurations.rxrk
