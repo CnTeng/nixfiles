@@ -11,11 +11,6 @@ in
   options.services'.caddy.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-    ];
-
     services.caddy = {
       enable = true;
       package = pkgs.caddy.withPlugins {
@@ -27,6 +22,7 @@ in
         dns cloudflare {env.CF_API_TOKEN}
       '';
       environmentFile = config.sops.templates.caddy.path;
+      openFirewall = true;
     };
 
     sops.secrets.cf-api-token = {
