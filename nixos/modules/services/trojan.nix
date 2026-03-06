@@ -17,7 +17,6 @@ let
     tls = {
       enabled = true;
       server_name = "${host}.snakepi.xyz";
-      utls.enabled = true;
     };
     multiplex.enabled = true;
     tag = host;
