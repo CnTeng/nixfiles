@@ -2,10 +2,7 @@
 {
   hm'.programs.yazi = {
     enable = true;
-    plugins = {
-      git = pkgs.yaziPlugins.git;
-      starship = pkgs.yaziPlugins.starship;
-    };
+    shellWrapperName = "y";
 
     settings = {
       plugin.prepend_fetchers = [
@@ -37,5 +34,10 @@
       require("git"):setup()
       require("starship"):setup()
     '';
+
+    plugins = {
+      git = pkgs.yaziPlugins.git;
+      starship = pkgs.yaziPlugins.starship;
+    };
   };
 }
