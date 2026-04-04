@@ -8,14 +8,11 @@ in
   config = lib.mkIf cfg.enable {
     hm' = {
       programs.codex.enable = true;
-      programs.gemini-cli.enable = true;
       programs.opencode.enable = true;
     };
 
     preservation'.user.directories = [
       ".config/codex"
-
-      ".gemini"
 
       ".cache/opencode"
       ".config/opencode"
