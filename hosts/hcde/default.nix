@@ -21,5 +21,6 @@
     trojan.enableServer = true;
     vaultwarden.enable = true;
     webdav.enable = true;
+    wiki-js.enable = true;
   };
 }

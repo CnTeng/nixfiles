@@ -9,6 +9,7 @@ locals {
     rss    = { content = module.host["hcde"].ipv4 }
     vault  = { content = module.host["hcde"].ipv4 }
     webdav = { content = module.host["hcde"].ipv4 }
+    wiki   = { content = module.host["hcde"].ipv4 }
     www    = { content = module.host["hcde"].ipv4 }
   }
 }
