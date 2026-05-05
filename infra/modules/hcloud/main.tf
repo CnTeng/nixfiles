@@ -35,19 +35,17 @@ resource "hcloud_server" "server" {
 }
 
 resource "hcloud_primary_ip" "ipv4" {
-  name          = "${var.hostname}-v4"
-  type          = "ipv4"
-  location      = var.region
-  auto_delete   = false
-  assignee_type = "server"
+  name        = "${var.hostname}-v4"
+  type        = "ipv4"
+  location    = var.region
+  auto_delete = false
 }
 
 resource "hcloud_primary_ip" "ipv6" {
-  name          = "${var.hostname}-v6"
-  type          = "ipv6"
-  location      = var.region
-  auto_delete   = false
-  assignee_type = "server"
+  name        = "${var.hostname}-v6"
+  type        = "ipv6"
+  location    = var.region
+  auto_delete = false
 }
 
 resource "hcloud_firewall" "main" {
