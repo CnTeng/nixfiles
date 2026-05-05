@@ -48,7 +48,6 @@ in
       settings.dynamic_tuning = true;
     };
 
-    services.dbus.implementation = "broker";
     services.gvfs.enable = true;
     services.gnome.at-spi2-core.enable = true;
     services.playerctld.enable = true;
