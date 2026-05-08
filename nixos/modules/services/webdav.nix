@@ -46,7 +46,7 @@ in
 
     preservation'.os.directories = [
       {
-        directory = "/var/lib/webdav";
+        directory = config.services.webdav.settings.directory;
         inherit (config.services.webdav) user group;
         mode = "0700";
       }
