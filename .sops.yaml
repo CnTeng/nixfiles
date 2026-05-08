@@ -2,7 +2,6 @@ keys:
   age:
     - &self ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMS5DHfxuhsH2yg1woBz1xTsRLDy+eZXgkGxYXJlYi91 yufei
     - &rxtp age1u0uu98n3q520ztc2m4f9wws332nu8ktszd403df7k434thumje9qezn99v
-    - &rxwk age1vadkpzjzerfwelmky93p2ld3vlgjan6haps2l2e0ws2xxq4ltqcsyana68
     - &hcde age1h6sszhgh4lqpjk2fegcezj4nlgx5q9cam2s4hzhx93qspmdv7ceqpls5sn
     - &lssg age1xh5ummespnq3t0ddt4wcfugk4ghdvmtrwce739uavv8rdmsshp2q4qm39x
 
@@ -16,7 +15,6 @@ creation_rules:
       - age:
           - *self
           - *rxtp
-          - *rxwk
           - *hcde
           - *lssg
 
@@ -25,6 +23,5 @@ creation_rules:
       - age:
           - *self
           - *rxtp
-          - *rxwk
           - *hcde
           - *lssg
