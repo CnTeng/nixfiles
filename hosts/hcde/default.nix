@@ -17,10 +17,10 @@
     postgresql.enable = true;
     privatebin.enable = true;
     restic.enable = true;
+    silverbullet.enable = true;
     tailscale.enable = true;
     trojan.enableServer = true;
     vaultwarden.enable = true;
     webdav.enable = true;
-    wiki-js.enable = true;
   };
 }
