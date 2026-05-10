@@ -3,7 +3,7 @@ let
   cfg = config.services'.silverbullet;
 
   hostName = "note.snakepi.xyz";
-  user = "silverbullet";
+  socket = "@silverbullet.sock";
 in
 {
   options.services'.silverbullet.enable = lib.mkEnableOption "";
@@ -14,15 +14,17 @@ in
       envFile = config.sops.secrets.silverbullet.path;
     };
 
+    systemd.services.silverbullet.environment.SB_UNIX_SOCKET = socket;
+
     services.caddy.virtualHosts.note = {
       inherit hostName;
       extraConfig = ''
-        reverse_proxy localhost:${toString config.services.silverbullet.listenPort}
+        reverse_proxy unix/${socket}
       '';
     };
 
     sops.secrets.silverbullet = {
-      owner = user;
+      owner = config.services.silverbullet.user;
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.vaultwarden.name ];
     };

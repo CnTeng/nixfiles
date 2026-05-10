@@ -7,13 +7,13 @@
 }:
 
 let
-  version = "2.7.0";
+  version = "2.7.0-bronze";
 
   src = fetchFromGitHub {
-    owner = "silverbulletmd";
+    owner = "CnTeng";
     repo = "silverbullet";
     rev = version;
-    hash = "sha256-6Jpo7Nugais7KaFnkyzKttZDHcwgcFGMlVXa2gGcmqk=";
+    hash = "sha256-NZA2hiBvJESg+oPmUeb5uXF0OdoBYTpaUxo/Wdy0ywU=";
   };
 
   frontend = buildNpmPackage (finalAttrs: {
@@ -28,7 +28,6 @@ let
 
     postBuild = ''
       npm run build:plug-compile
-      rm -f client_bundle/client_bundle
     '';
 
     installPhase = ''
