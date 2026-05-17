@@ -6,24 +6,29 @@
   replaceVars,
 }:
 
-let
-  version = "2.7.0-bronze";
+buildGoModule (finalAttrs: {
+  pname = "silverbullet";
+  version = "2.8.0";
 
   src = fetchFromGitHub {
-    owner = "CnTeng";
+    owner = "silverbulletmd";
     repo = "silverbullet";
-    rev = version;
-    hash = "sha256-NZA2hiBvJESg+oPmUeb5uXF0OdoBYTpaUxo/Wdy0ywU=";
+    rev = finalAttrs.version;
+    hash = "sha256-8TRarV40wcs0kAbh+xe/IihbubQY0S8EPUKoAio6wK0=";
   };
 
-  frontend = buildNpmPackage (finalAttrs: {
-    pname = "silverbullet-frontend";
-    inherit version src;
+  vendorHash = "sha256-8zZlhVptJq8y3k2DBghJ0lPNcIcaZYkrxN67b6dNBPs=";
 
-    npmDepsHash = "sha256-cn7s7JK6JV9NF0w+gTU56Y3bnR0xKMzvNRlh5GIpuA8=";
+  subPackages = [ "." ];
+
+  frontend = buildNpmPackage {
+    pname = "silverbullet-frontend";
+    inherit (finalAttrs) version src;
+
+    npmDepsHash = "sha256-g5IAIIXUGzOIRrnAcUH1MWYBD8cZqpZPx3hpUA4O/iE=";
 
     patches = [
-      (replaceVars ./override-public-version.patch { inherit version; })
+      (replaceVars ./override-public-version.patch { inherit (finalAttrs) version; })
     ];
 
     postBuild = ''
@@ -38,18 +43,11 @@ let
 
       runHook postInstall
     '';
-  });
-in
-buildGoModule {
-  pname = "silverbullet";
-  inherit version src;
-
-  vendorHash = "sha256-SvMPyJbSVrj+lwXrNh2WEYNI41oqlzchFxCtXvIl4/4=";
-  subPackages = [ "." ];
+  };
 
   preBuild = ''
-    cp -r ${frontend}/client_bundle .
-    cp ${frontend}/public_version.ts .
+    cp -r ${finalAttrs.frontend}/client_bundle .
+    cp ${finalAttrs.frontend}/public_version.ts .
   '';
 
   installPhase = ''
@@ -61,11 +59,14 @@ buildGoModule {
   '';
 
   meta = {
-    changelog = "https://github.com/silverbulletmd/silverbullet/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/silverbulletmd/silverbullet/blob/${finalAttrs.version}/website/CHANGELOG.md";
     description = "Open-source, self-hosted, offline-capable Personal Knowledge Management (PKM) web application";
     homepage = "https://silverbullet.md";
     license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
+      aorith
+      CnTeng
+    ];
     mainProgram = "silverbullet";
-    platforms = lib.platforms.unix;
   };
-}
+})
