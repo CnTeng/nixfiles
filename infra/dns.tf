@@ -24,3 +24,20 @@ resource "cloudflare_dns_record" "dns_rec" {
   content = each.value.content
   proxied = lookup(each.value, "proxied", true)
 }
+
+resource "cloudflare_ruleset" "note_cache_bypass" {
+  zone_id     = cloudflare_zone.zones["sp_xyz"].id
+  name        = "note cache rules"
+  description = "Bypass cache for note"
+  kind        = "zone"
+  phase       = "http_request_cache_settings"
+
+  rules = [{
+    description = "Bypass cache for note"
+    expression  = "(http.host eq \"note.snakepi.xyz\")"
+    action      = "set_cache_settings"
+    action_parameters = {
+      cache = false
+    }
+  }]
+}

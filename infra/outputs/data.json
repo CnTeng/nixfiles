@@ -24,13 +24,6 @@
       "ipv6": null,
       "system": "x86_64-linux",
       "type": "local"
-    },
-    "rxwk": {
-      "authorized_keys": [],
-      "ipv4": null,
-      "ipv6": null,
-      "system": "x86_64-linux",
-      "type": "local"
     }
   }
 }
