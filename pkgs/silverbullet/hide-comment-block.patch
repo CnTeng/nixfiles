@@ -1,0 +1,25 @@
+diff --git a/client/codemirror/html_widget.ts b/client/codemirror/html_widget.ts
+index baffe00c..be0683e3 100644
+--- a/client/codemirror/html_widget.ts
++++ b/client/codemirror/html_widget.ts
+@@ -89,8 +89,19 @@ export function htmlBlockPlugin(client: Client) {
+     const widgets: Range<Decoration>[] = [];
+     syntaxTree(state).iterate({
+       enter: (node) => {
+-        if (node.name !== "HTMLBlock") return;
+         const { from, to } = node;
++        if (node.name === "CommentBlock") {
++          const hideFrom = state.doc.lineAt(from).from;
++          const endLine = state.doc.lineAt(to);
++          const hideTo = endLine.number < state.doc.lines
++            ? state.doc.line(endLine.number + 1).from
++            : endLine.to;
++          if (isCursorInRange(state, [hideFrom, hideTo])) return;
++          widgets.push(invisibleDecoration.range(hideFrom, hideTo));
++          return;
++        }
++
++        if (node.name !== "HTMLBlock") return;
+         if (isCursorInRange(state, [from, to])) return;
+
+         const sourceText = state.sliceDoc(from, to);

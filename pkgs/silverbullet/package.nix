@@ -8,13 +8,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "silverbullet";
-  version = "2.8.0";
+  version = "2.8.0-unstable-2026-05-19";
 
   src = fetchFromGitHub {
     owner = "silverbulletmd";
     repo = "silverbullet";
-    rev = finalAttrs.version;
-    hash = "sha256-8TRarV40wcs0kAbh+xe/IihbubQY0S8EPUKoAio6wK0=";
+    rev = "0be1ad91938aa26cc77db50451d8831524718127";
+    hash = "sha256-M9lHbIZifZbE29UfC5EX84STWjrbX7xWP+6Lpt4nRIg=";
   };
 
   vendorHash = "sha256-8zZlhVptJq8y3k2DBghJ0lPNcIcaZYkrxN67b6dNBPs=";
@@ -28,7 +28,10 @@ buildGoModule (finalAttrs: {
     npmDepsHash = "sha256-g5IAIIXUGzOIRrnAcUH1MWYBD8cZqpZPx3hpUA4O/iE=";
 
     patches = [
-      (replaceVars ./override-public-version.patch { inherit (finalAttrs) version; })
+      ./hide-comment-block.patch
+      (replaceVars ./override-public-version.patch {
+        inherit (finalAttrs) version;
+      })
     ];
 
     postBuild = ''
