@@ -1,25 +1,50 @@
 diff --git a/client/codemirror/html_widget.ts b/client/codemirror/html_widget.ts
-index baffe00c..be0683e3 100644
+index baffe00c..8049da58 100644
 --- a/client/codemirror/html_widget.ts
 +++ b/client/codemirror/html_widget.ts
-@@ -89,8 +89,19 @@ export function htmlBlockPlugin(client: Client) {
+@@ -3,6 +3,8 @@ import { syntaxTree } from "@codemirror/language";
+ import { Decoration, WidgetType } from "@codemirror/view";
+ import {
+   decoratorStateField,
++  hiddenLineDecoration,
++  hideBlockSource,
+   invisibleDecoration,
+   isCursorInRange,
+ } from "./util.ts";
+@@ -89,10 +91,22 @@ export function htmlBlockPlugin(client: Client) {
      const widgets: Range<Decoration>[] = [];
      syntaxTree(state).iterate({
        enter: (node) => {
 -        if (node.name !== "HTMLBlock") return;
          const { from, to } = node;
+         if (isCursorInRange(state, [from, to])) return;
+
 +        if (node.name === "CommentBlock") {
-+          const hideFrom = state.doc.lineAt(from).from;
-+          const endLine = state.doc.lineAt(to);
-+          const hideTo = endLine.number < state.doc.lines
-+            ? state.doc.line(endLine.number + 1).from
-+            : endLine.to;
-+          if (isCursorInRange(state, [hideFrom, hideTo])) return;
-+          widgets.push(invisibleDecoration.range(hideFrom, hideTo));
++          const fromLine = state.doc.lineAt(from);
++          const toLine = state.doc.lineAt(to);
++          if (from === fromLine.from && to === toLine.to) {
++            widgets.push(hiddenLineDecoration.range(fromLine.from));
++          } else {
++            hideBlockSource(widgets, state, from, to);
++          }
 +          return;
 +        }
 +
 +        if (node.name !== "HTMLBlock") return;
-         if (isCursorInRange(state, [from, to])) return;
-
++
          const sourceText = state.sliceDoc(from, to);
+         const parseTree = lezerToParseTree(
+           state.sliceDoc(0, to),
+diff --git a/client/codemirror/util.ts b/client/codemirror/util.ts
+index 43d121dc..628eb0f9 100644
+--- a/client/codemirror/util.ts
++++ b/client/codemirror/util.ts
+@@ -189,7 +189,7 @@ export function isCursorInRange(state: EditorState, range: [number, number]) {
+  */
+ export const invisibleDecoration = Decoration.replace({});
+
+-const hiddenLineDecoration = Decoration.line({
++export const hiddenLineDecoration = Decoration.line({
+   class: "sb-line-table-outside",
+ });
+

@@ -13,8 +13,8 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "silverbulletmd";
     repo = "silverbullet";
-    rev = "0be1ad91938aa26cc77db50451d8831524718127";
-    hash = "sha256-M9lHbIZifZbE29UfC5EX84STWjrbX7xWP+6Lpt4nRIg=";
+    rev = "be3cc4b01fccfff71394bb9b7ccc8532d5d7bc4e";
+    hash = "sha256-YQ5zkurrlMrem+Dc5Yw3q+sPln7x/clsZlA32kZ44uI=";
   };
 
   vendorHash = "sha256-8zZlhVptJq8y3k2DBghJ0lPNcIcaZYkrxN67b6dNBPs=";
