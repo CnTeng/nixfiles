@@ -8,7 +8,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "silverbullet";
-  version = "2.8.0-unstable-2026-05-19";
+  version = "2.8.0-unstable-2026-05-20";
 
   src = fetchFromGitHub {
     owner = "silverbulletmd";
@@ -28,6 +28,7 @@ buildGoModule (finalAttrs: {
     npmDepsHash = "sha256-g5IAIIXUGzOIRrnAcUH1MWYBD8cZqpZPx3hpUA4O/iE=";
 
     patches = [
+      ./add-vim-keymaps.patch
       ./hide-comment-block.patch
       (replaceVars ./override-public-version.patch {
         inherit (finalAttrs) version;

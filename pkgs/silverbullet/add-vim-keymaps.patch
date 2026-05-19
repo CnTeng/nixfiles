@@ -1,0 +1,26 @@
+diff --git a/client/plugos/syscalls/editor.ts b/client/plugos/syscalls/editor.ts
+index 626d2b65..d4ec531c 100644
+--- a/client/plugos/syscalls/editor.ts
++++ b/client/plugos/syscalls/editor.ts
+@@ -573,7 +573,21 @@ export function editorSyscalls(client: Client): SysCallMapping {
+       // Override the default "o" binding to be more intelligent and follow the markdown editor's behavior
+       Vim.mapCommand("o", "action", "newline-continue-markup", {}, {});
+       Vim.mapCommand("O", "action", "back-newline-continue-markup", {}, {});
++      Vim.mapCommand("<C-i>", "action", "jumpListWalk", { forward: true }, { context: "normal" });
++      Vim.mapCommand("<C-o>", "action", "jumpListWalk", { forward: false }, { context: "normal" });
++      Vim.mapCommand("gcc", "action", "toggle-comment", {}, { context: "normal" });
++      Vim.mapCommand("gc", "action", "toggle-comment", {}, { context: "visual" });
+       Vim.unmap("<C-q>", undefined as any);
++      Vim.defineAction("toggle-comment", (cm) => {
++        const result = toggleComment({
++          state: client.editorView.state,
++          dispatch: client.editorView.dispatch,
++        });
++        if (cm.state.vim?.visualMode) {
++          Vim.handleKey(cm, "<Esc>", "+input");
++        }
++        return result;
++      });
+       Vim.defineAction("newline-continue-markup", (cm) => {
+         // Append at end of line
+         Vim.handleKey(cm, "A", "+input");
