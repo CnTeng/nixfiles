@@ -8,11 +8,11 @@
     programs.ssh = {
       enable = true;
       includes = [ "config.d/*.conf" ];
-      matchBlocks."*" = {
-        forwardAgent = true;
-        addKeysToAgent = "yes";
-        user = config.core'.userName;
-        identityFile = [
+      settings."*" = {
+        ForwardAgent = true;
+        AddKeysToAgent = "yes";
+        User = config.core'.userName;
+        IdentityFile = [
           "~/.ssh/id_ed25519"
           "~/.ssh/id_ed25519_sk_rk_ybk5@nixos"
           "~/.ssh/id_ed25519_sk_rk_ybk5c@nixos"
