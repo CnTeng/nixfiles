@@ -22,7 +22,7 @@ let
             userName = "yufei";
             hostName = host;
             hostInfo = data.hosts.${host};
-            stateVersion = "25.11";
+            stateVersion = "26.05";
           };
         }
         self.nixosModules.default
