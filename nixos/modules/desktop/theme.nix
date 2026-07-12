@@ -13,6 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     hm' = {
       home.pointerCursor = {
+        enable = true;
         package = pkgs.adwaita-icon-theme;
         name = "Adwaita";
         size = 24;

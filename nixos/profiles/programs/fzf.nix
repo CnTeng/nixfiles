@@ -11,12 +11,17 @@ in
       "--layout reverse"
       "--info inline"
     ];
-    fileWidgetCommand = command "f";
-    fileWidgetOptions = [
-      "--preview 'bat --color=always {}'"
-      "--preview-window '~3'"
-    ];
-    changeDirWidgetCommand = command "d";
-    changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
+    fileWidget = {
+      command = command "f";
+      options = [
+        "--preview 'bat --color=always {}'"
+        "--preview-window '~3'"
+      ];
+    };
+    changeDirWidget = {
+      command = command "d";
+      options = [ "--preview 'tree -C {} | head -200'" ];
+    };
+    historyWidget.command = "";
   };
 }
