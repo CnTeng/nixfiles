@@ -8,6 +8,7 @@ locals {
 
 resource "cloudflare_zone" "zones" {
   for_each = local.zones
+
   account = {
     id = local.secrets.cloudflare.account_id
   }
@@ -15,9 +16,9 @@ resource "cloudflare_zone" "zones" {
 }
 
 resource "cloudflare_zone_setting" "rocket_loader" {
-  for_each = cloudflare_zone.zones
+  for_each = local.zones
 
-  zone_id    = each.value.id
+  zone_id    = cloudflare_zone.zones[each.key].id
   setting_id = "rocket_loader"
   value      = "off"
 }

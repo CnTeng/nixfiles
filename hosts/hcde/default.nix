@@ -12,6 +12,7 @@
     caddy.enable = true;
     fail2ban.enable = true;
     miniflux.enable = true;
+    niks3.enable = true;
     ntfy.enable = true;
     pocket-id.enable = true;
     postgresql.enable = true;
