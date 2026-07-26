@@ -1,5 +1,6 @@
 {
   inputs,
+  data,
   config,
   lib,
   ...
@@ -20,7 +21,7 @@ in
       enable = true;
 
       s3 = {
-        endpoint = "c351f1c6712517e99c7a22cb196a98a2.r2.cloudflarestorage.com";
+        inherit (data.r2) endpoint;
         bucket = "nix-cache";
         region = "auto";
         useSSL = true;
@@ -59,11 +60,6 @@ in
       "niks3/sign_key" = {
         owner = config.services.niks3.user;
         sopsFile = ./secrets.yaml;
-      };
-
-      "niks3/endpoint" = {
-        key = "r2/nix_cache/endpoint";
-        owner = config.services.niks3.user;
       };
 
       "niks3/access-key" = {

@@ -64,7 +64,7 @@ module "host" {
 }
 
 locals {
-  public_hosts_output = {
+  hosts_public_output = {
     for host, outputs in module.host :
     host => {
       for name, output in outputs :
@@ -72,7 +72,7 @@ locals {
     }
   }
 
-  private_hosts_output = {
+  hosts_private_output = {
     for host, outputs in module.host :
     host => {
       for name, output in outputs :

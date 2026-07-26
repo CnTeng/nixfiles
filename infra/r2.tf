@@ -1,5 +1,5 @@
 resource "cloudflare_r2_bucket" "backups" {
-  account_id    = local.secrets.cloudflare.account_id
+  account_id    = local.cf_account_id
   name          = "backups"
   location      = "APAC"
   storage_class = "Standard"
@@ -14,20 +14,20 @@ resource "cloudflare_api_token" "r2_backups" {
       { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
     ]
     resources = jsonencode({
-      "com.cloudflare.edge.r2.bucket.${local.secrets.cloudflare.account_id}_default_${cloudflare_r2_bucket.backups.name}" = "*"
+      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.backups.name}" = "*"
     })
   }]
 }
 
 resource "cloudflare_r2_bucket" "nix_cache" {
-  account_id    = local.secrets.cloudflare.account_id
+  account_id    = local.cf_account_id
   name          = "nix-cache"
   location      = "APAC"
   storage_class = "Standard"
 }
 
 resource "cloudflare_r2_custom_domain" "nix_cache" {
-  account_id  = local.secrets.cloudflare.account_id
+  account_id  = local.cf_account_id
   bucket_name = cloudflare_r2_bucket.nix_cache.name
   domain      = "cache.snakepi.xyz"
   enabled     = true
@@ -68,20 +68,22 @@ resource "cloudflare_api_token" "r2_nix_cache" {
       { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
     ]
     resources = jsonencode({
-      "com.cloudflare.edge.r2.bucket.${local.secrets.cloudflare.account_id}_default_${cloudflare_r2_bucket.nix_cache.name}" = "*"
+      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.nix_cache.name}" = "*"
     })
   }]
 }
 
 locals {
-  r2_output = {
+  r2_public_output = {
+    endpoint = "${local.cf_account_id}.r2.cloudflarestorage.com"
+  }
+
+  r2_private_output = {
     backups = {
-      endpoint   = "https://${local.secrets.cloudflare.account_id}.r2.cloudflarestorage.com/backups"
       access_key = cloudflare_api_token.r2_backups.id
       secret_key = sha256(cloudflare_api_token.r2_backups.value)
     }
     nix_cache = {
-      endpoint   = "${local.secrets.cloudflare.account_id}.r2.cloudflarestorage.com"
       access_key = cloudflare_api_token.r2_nix_cache.id
       secret_key = sha256(cloudflare_api_token.r2_nix_cache.value)
     }

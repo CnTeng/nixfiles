@@ -88,7 +88,6 @@
               p.cloudflare_cloudflare
               p.hashicorp_aws
               p.hashicorp_local
-              p.hashicorp_null
               p.hashicorp_tls
               p.hetznercloud_hcloud
               p.integrations_github

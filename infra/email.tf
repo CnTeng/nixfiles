@@ -10,12 +10,12 @@ resource "cloudflare_email_routing_settings" "main" {
 }
 
 resource "cloudflare_email_routing_address" "main" {
-  account_id = local.secrets.cloudflare.account_id
+  account_id = local.cf_account_id
   email      = "rxsnakepi@gmail.com"
 }
 
 resource "cloudflare_email_routing_address" "noreply" {
-  account_id = local.secrets.cloudflare.account_id
+  account_id = local.cf_account_id
   email      = "istengyf@gmail.com"
 }
 

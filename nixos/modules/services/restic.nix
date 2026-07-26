@@ -1,5 +1,6 @@
 {
   config,
+  data,
   lib,
   pkgs,
   ...
@@ -28,24 +29,19 @@ in
         "restic/password".sopsFile = ./secrets.yaml;
         "restic/ntfy".sopsFile = ./secrets.yaml;
 
-        "restic/endpoint".key = "r2/backups/endpoint";
         "restic/access-key".key = "r2/backups/access_key";
         "restic/secret-key".key = "r2/backups/secret_key";
       };
 
-      sops.templates."restic/repository".content = "s3:${
-        config.sops.placeholder."restic/endpoint"
-      }/persist/${hostName}";
-
-      sops.templates."restic/environment".content = ''
+      sops.templates."restic/env".content = ''
         AWS_ACCESS_KEY_ID=${config.sops.placeholder."restic/access-key"}
         AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."restic/secret-key"}
       '';
 
       services.restic.backups.persist = {
         passwordFile = config.sops.secrets."restic/password".path;
-        environmentFile = config.sops.templates."restic/environment".path;
-        repositoryFile = config.sops.templates."restic/repository".path;
+        environmentFile = config.sops.templates."restic/env".path;
+        repository = "s3:https://${data.r2.endpoint}/backups/persist/${hostName}";
         paths = [ "/persist" ];
         exclude = [ "/persist/home/*/.cache" ];
         timerConfig = {

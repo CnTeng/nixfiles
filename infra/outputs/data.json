@@ -25,5 +25,8 @@
       "system": "x86_64-linux",
       "type": "local"
     }
+  },
+  "r2": {
+    "endpoint": "c351f1c6712517e99c7a22cb196a98a2.r2.cloudflarestorage.com"
   }
 }

@@ -4,7 +4,6 @@ terraform {
     cloudflare = { source = "cloudflare/cloudflare" }
     github     = { source = "integrations/github" }
     hcloud     = { source = "hetznercloud/hcloud" }
-    null       = { source = "hashicorp/null" }
     sops       = { source = "carlpett/sops" }
     tailscale  = { source = "tailscale/tailscale" }
     tls        = { source = "hashicorp/tls" }

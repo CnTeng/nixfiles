@@ -1,4 +1,6 @@
 locals {
+  cf_account_id = one(data.cloudflare_accounts.yufei.result).id
+
   zones = {
     sp_xyz = { zone = "snakepi.xyz" }
     sp_eo  = { zone = "snakepi.eu.org" }
@@ -6,11 +8,15 @@ locals {
   }
 }
 
+data "cloudflare_accounts" "yufei" {
+  name = "yufei"
+}
+
 resource "cloudflare_zone" "zones" {
   for_each = local.zones
 
   account = {
-    id = local.secrets.cloudflare.account_id
+    id = local.cf_account_id
   }
   name = each.value.zone
 }

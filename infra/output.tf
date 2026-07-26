@@ -1,22 +1,28 @@
 locals {
-  public_output = jsonencode(
-    { hosts = local.public_hosts_output },
-  )
+  public_output = jsonencode(merge(
+    { r2 = local.r2_public_output },
+    { hosts = local.hosts_public_output },
+  ))
   private_output = yamlencode(merge(
     { tokens = local.tokens_output },
-    { r2 = local.r2_output },
-    { hosts = local.private_hosts_output },
+    { r2 = local.r2_private_output },
+    { hosts = local.hosts_private_output },
   ))
 }
 
-resource "null_resource" "output" {
+resource "terraform_data" "output" {
+  triggers_replace = {
+    public_output  = local.public_output
+    private_output = local.private_output
+  }
+
   provisioner "local-exec" {
     command = <<-EOF
     mkdir -p "$OUTPUT_DIR"
 
-    echo "$PUBLIC_OUTPUT" | jq . >"$OUTPUT_DIR/$PUBLIC_FILE"
+    printf '%s\n' "$PUBLIC_OUTPUT" | jq . >"$OUTPUT_DIR/$PUBLIC_FILE"
 
-    echo "$PRIVATE_OUTPUT" | sops --config "$CONFIG_FILE" \
+    printf '%s\n' "$PRIVATE_OUTPUT" | sops --config "$CONFIG_FILE" \
       --input-type yaml \
       --output-type yaml \
       --filename-override "infra/$OUTPUT_DIR/$PRIVATE_FILE" \
@@ -31,10 +37,5 @@ resource "null_resource" "output" {
       PUBLIC_FILE    = "data.json"
       PRIVATE_FILE   = "secrets.yaml"
     }
-  }
-
-  triggers = {
-    public_output  = local.public_output
-    private_output = local.private_output
   }
 }
