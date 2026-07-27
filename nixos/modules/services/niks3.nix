@@ -32,6 +32,13 @@ in
       apiTokenFile = config.sops.secrets."niks3/api_token".path;
       signKeyFiles = [ config.sops.secrets."niks3/sign_key".path ];
 
+      oidc.providers.github = {
+        issuer = "https://token.actions.githubusercontent.com";
+        audience = "https://${hostName}";
+        boundClaims.repository_owner = [ "CnTeng" ];
+        boundSubject = [ "repo:CnTeng/*:*" ];
+      };
+
       cacheUrl = "https://cache.snakepi.xyz";
       serverUrl = "https://${hostName}";
     };

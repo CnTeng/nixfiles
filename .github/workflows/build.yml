@@ -1,0 +1,44 @@
+name: Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  id-token: write
+
+jobs:
+  build:
+    uses: stepbrobd/atelier/.github/workflows/discover.yaml@master
+    with:
+      rules: .github/atelier.toml
+      push-command: |
+        set -euo pipefail
+
+        trap 'echo "::warning::niks3 push failed"; exit 0' ERR
+
+        outputs="$(nix build "${INSTALLABLE}^*" --no-link --print-out-paths)"
+        mapfile -t paths <<<"$outputs"
+
+        nix profile add nixpkgs#niks3
+
+        token_script="$(mktemp)"
+        trap 'rm -f -- "$token_script"' EXIT
+
+        cat >"$token_script" <<'EOF'
+        #!/bin/sh
+        exec curl -fsS --get \
+          -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+          --data-urlencode "audience=$NIKS3_SERVER" \
+          "$ACTIONS_ID_TOKEN_REQUEST_URL" |
+          jq '{token: .value, expires_at: ((now + 240) | todateiso8601)}'
+        EOF
+        chmod 700 "$token_script"
+
+        niks3 push \
+          --server-url "$NIKS3_SERVER" \
+          --auth-token-script "$token_script" \
+          "${paths[@]}"

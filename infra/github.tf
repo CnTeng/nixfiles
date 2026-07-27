@@ -30,6 +30,12 @@ resource "github_actions_secret" "ssh_known_hosts" {
   EOF
 }
 
+resource "github_actions_variable" "niks3_server" {
+  repository    = "nixfiles"
+  variable_name = "NIKS3_SERVER"
+  value         = "https://niks3.snakepi.xyz"
+}
+
 resource "github_actions_secret" "nixfile_app_id" {
   repository  = "nixfiles"
   secret_name = "APP_ID"

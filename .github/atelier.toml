@@ -1,0 +1,8 @@
+substituters = ["https://cache.snakepi.xyz"]
+trusted-public-keys = [
+  "cache.snakepi.xyz:WdGroyejMlx4d8XIbFK/SKxu8riTPHn428fJul/Cw60=",
+]
+
+systems = ["x86_64-linux", "aarch64-linux"]
+
+include = ["devShells.*.default", "nixosConfigurations.*"]
