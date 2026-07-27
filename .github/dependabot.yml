@@ -3,6 +3,19 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: friday
     commit-message:
       prefix: ci
+
+  - package-ecosystem: nix
+    directory: /
+    schedule:
+      interval: weekly
+      day: friday
+    commit-message:
+      prefix: chore
+    labels: ["auto-merge"]
+    groups:
+      nix:
+        patterns: ["*"]
