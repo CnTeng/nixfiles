@@ -13,8 +13,8 @@
       "nix-command"
     ];
 
-    substituters = [ "https://cache.garnix.io" ];
-    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+    substituters = [ "https://cache.snakepi.xyz" ];
+    trusted-public-keys = [ "cache.snakepi.xyz:WdGroyejMlx4d8XIbFK/SKxu8riTPHn428fJul/Cw60=" ];
     trusted-users = [ "@wheel" ];
     use-cgroups = true;
     use-xdg-base-directories = true;

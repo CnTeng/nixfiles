@@ -25,8 +25,8 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            extra-substituters = https://cache.garnix.io
-            extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+            extra-substituters = https://cache.snakepi.xyz
+            extra-trusted-public-keys = cache.snakepi.xyz:WdGroyejMlx4d8XIbFK/SKxu8riTPHn428fJul/Cw60=
 
       - name: Deploy remote hosts
         run: make remote REBUILD="nix run nixpkgs#nixos-rebuild-ng --"
