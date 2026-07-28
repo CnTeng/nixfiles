@@ -1,3 +1,10 @@
+locals {
+  gh_repos = toset([
+    "nixfiles",
+    "rx-nvim",
+  ])
+}
+
 resource "github_actions_secret" "nixos_deploy_key" {
   repository  = "nixfiles"
   secret_name = "NIXOS_DEPLOY_KEY"
@@ -36,26 +43,26 @@ resource "github_actions_variable" "niks3_server" {
   value         = "https://niks3.snakepi.xyz"
 }
 
-resource "github_actions_secret" "nixfile_app_id" {
-  repository  = "nixfiles"
-  secret_name = "APP_ID"
-  value       = local.secrets.github.app_id
+resource "github_actions_variable" "client_id" {
+  for_each = local.gh_repos
+
+  repository    = each.value
+  variable_name = "CLIENT_ID"
+  value         = local.secrets.github.client_id
 }
 
-resource "github_actions_secret" "nixfiles_app_private_key" {
-  repository  = "nixfiles"
+resource "github_actions_secret" "app_private_key" {
+  for_each = local.gh_repos
+
+  repository  = each.value
   secret_name = "APP_PRIVATE_KEY"
   value       = local.secrets.github.app_private_key
 }
 
-resource "github_actions_secret" "rx-nvim_app_id" {
-  repository  = "rx-nvim"
-  secret_name = "APP_ID"
-  value       = local.secrets.github.app_id
-}
+resource "github_dependabot_secret" "app_private_key" {
+  for_each = local.gh_repos
 
-resource "github_actions_secret" "rx-nvim_app_private_key" {
-  repository  = "rx-nvim"
+  repository  = each.value
   secret_name = "APP_PRIVATE_KEY"
   value       = local.secrets.github.app_private_key
 }
