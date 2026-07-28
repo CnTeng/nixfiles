@@ -9,7 +9,7 @@ let
   cfg = config.services'.niks3;
 
   hostName = "niks3.snakepi.xyz";
-  socket = "/run/niks3.sock";
+  port = 5751;
 in
 {
   imports = [ inputs.niks3.nixosModules.default ];
@@ -19,6 +19,7 @@ in
   config = lib.mkIf cfg.enable {
     services.niks3 = {
       enable = true;
+      httpAddr = "127.0.0.1:${toString port}";
 
       s3 = {
         inherit (data.r2) endpoint;
@@ -43,18 +44,10 @@ in
       serverUrl = "https://${hostName}";
     };
 
-    systemd.sockets.niks3 = {
-      listenStreams = [ socket ];
-      socketConfig = {
-        SocketUser = config.services.niks3.user;
-        SocketGroup = config.services.niks3.group;
-      };
-    };
-
     services.caddy.virtualHosts.niks3 = {
       inherit hostName;
       extraConfig = ''
-        reverse_proxy unix/${socket}
+        reverse_proxy localhost:${toString port}
       '';
     };
 
@@ -79,5 +72,13 @@ in
         owner = config.services.niks3.user;
       };
     };
+
+    preservation'.os.directories = [
+      {
+        directory = "/var/lib/niks3";
+        inherit (config.services.niks3) user group;
+        mode = "0700";
+      }
+    ];
   };
 }
