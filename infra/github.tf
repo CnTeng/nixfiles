@@ -38,7 +38,9 @@ resource "github_actions_secret" "ssh_known_hosts" {
 }
 
 resource "github_actions_variable" "niks3_server" {
-  repository    = "nixfiles"
+  for_each = local.gh_repos
+
+  repository    = each.value
   variable_name = "NIKS3_SERVER"
   value         = "https://niks3.snakepi.xyz"
 }
