@@ -14,11 +14,11 @@
     miniflux.enable = true;
     niks3.enable = true;
     ntfy.enable = true;
+    outline.enable = true;
     pocket-id.enable = true;
     postgresql.enable = true;
     privatebin.enable = true;
     restic.enable = true;
-    silverbullet.enable = true;
     tailscale.enable = true;
     trojan.enableServer = true;
     vaultwarden.enable = true;

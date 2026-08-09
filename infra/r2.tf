@@ -73,6 +73,46 @@ resource "cloudflare_api_token" "r2_nix_cache" {
   }]
 }
 
+resource "cloudflare_r2_bucket" "outline" {
+  account_id    = local.cf_account_id
+  name          = "outline"
+  location      = "APAC"
+  storage_class = "Standard"
+}
+
+resource "cloudflare_r2_bucket_cors" "outline" {
+  account_id  = local.cf_account_id
+  bucket_name = cloudflare_r2_bucket.outline.name
+
+  rules = [{
+    id = "outline"
+    allowed = {
+      origins = ["https://wiki.snakepi.xyz"]
+      methods = ["PUT"]
+      headers = [
+        "cache-control",
+        "content-disposition",
+        "content-type",
+      ]
+    }
+    max_age_seconds = 3600
+  }]
+}
+
+resource "cloudflare_api_token" "r2_outline" {
+  name   = "r2_outline"
+  status = "active"
+  policies = [{
+    effect = "allow"
+    permission_groups = [
+      { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
+    ]
+    resources = jsonencode({
+      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.outline.name}" = "*"
+    })
+  }]
+}
+
 locals {
   r2_public_output = {
     endpoint = "${local.cf_account_id}.r2.cloudflarestorage.com"
@@ -86,6 +126,10 @@ locals {
     nix_cache = {
       access_key = cloudflare_api_token.r2_nix_cache.id
       secret_key = sha256(cloudflare_api_token.r2_nix_cache.value)
+    }
+    outline = {
+      access_key = cloudflare_api_token.r2_outline.id
+      secret_key = sha256(cloudflare_api_token.r2_outline.value)
     }
   }
 }
