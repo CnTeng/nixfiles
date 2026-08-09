@@ -14,7 +14,7 @@ in
       users = [
         {
           username = config.core'.userName;
-          passwordFile = config.sops.secrets.anki-sync.path;
+          passwordFile = config.sops.secrets."anki/password".path;
         }
       ];
     };
@@ -26,7 +26,7 @@ in
       '';
     };
 
-    sops.secrets.anki-sync = {
+    sops.secrets."anki/password" = {
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.anki-sync-server.name ];
     };

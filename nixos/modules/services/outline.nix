@@ -34,8 +34,8 @@ in
         SECRET_KEY_FILE = config.sops.secrets."outline/secret_key".path;
         UTILS_SECRET_FILE = config.sops.secrets."outline/utils_secret".path;
 
-        AWS_ACCESS_KEY_ID_FILE = config.sops.secrets."outline/r2-access-key".path;
-        AWS_SECRET_ACCESS_KEY_FILE = config.sops.secrets."outline/r2-secret-key".path;
+        AWS_ACCESS_KEY_ID_FILE = config.sops.secrets."outline/r2_access_key".path;
+        AWS_SECRET_ACCESS_KEY_FILE = config.sops.secrets."outline/r2_secret_key".path;
         AWS_S3_UPLOAD_METHOD = "put";
 
         DATABASE_URL = "postgres://localhost/outline?host=/run/postgresql";
@@ -43,7 +43,11 @@ in
 
         OIDC_ISSUER_URL = "https://id.snakepi.xyz";
 
-        SMTP_SERVICE = "Gmail";
+        SMTP_HOST = "smtp.gmail.com";
+        SMTP_PORT = "587";
+        SMTP_USERNAME = "istengyf";
+        SMTP_PASSWORD_FILE = config.sops.secrets."outline/smtp_password".path;
+        SMTP_SECURE = "false";
         SMTP_FROM_EMAIL = "Outline <noreply@snakepi.xyz>";
       };
 
@@ -68,26 +72,38 @@ in
       "outline/secret_key" = {
         owner = config.services.outline.user;
         sopsFile = ./secrets.yaml;
+        restartUnits = [ config.systemd.services.outline.name ];
       };
 
       "outline/utils_secret" = {
         owner = config.services.outline.user;
         sopsFile = ./secrets.yaml;
+        restartUnits = [ config.systemd.services.outline.name ];
+      };
+
+      "outline/smtp_password" = {
+        key = "smtp/password";
+        owner = config.services.outline.user;
+        sopsFile = ./secrets.yaml;
+        restartUnits = [ config.systemd.services.outline.name ];
       };
 
       "outline/env" = {
         owner = config.services.outline.user;
         sopsFile = ./secrets.yaml;
+        restartUnits = [ config.systemd.services.outline.name ];
       };
 
-      "outline/r2-access-key" = {
+      "outline/r2_access_key" = {
         key = "r2/outline/access_key";
         owner = config.services.outline.user;
+        restartUnits = [ config.systemd.services.outline.name ];
       };
 
-      "outline/r2-secret-key" = {
+      "outline/r2_secret_key" = {
         key = "r2/outline/secret_key";
         owner = config.services.outline.user;
+        restartUnits = [ config.systemd.services.outline.name ];
       };
     };
   };

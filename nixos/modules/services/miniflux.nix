@@ -22,7 +22,7 @@ in
         OAUTH2_REDIRECT_URL = "https://${hostName}/oauth2/oidc/callback";
         OAUTH2_USER_CREATION = 1;
       };
-      adminCredentialsFile = config.sops.secrets.miniflux.path;
+      adminCredentialsFile = config.sops.secrets."miniflux/env".path;
     };
 
     systemd.sockets.miniflux = {
@@ -48,7 +48,7 @@ in
     };
     users.groups.miniflux = { };
 
-    sops.secrets.miniflux = {
+    sops.secrets."miniflux/env" = {
       owner = user;
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.miniflux.name ];

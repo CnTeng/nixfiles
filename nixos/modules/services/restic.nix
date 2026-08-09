@@ -29,13 +29,13 @@ in
         "restic/password".sopsFile = ./secrets.yaml;
         "restic/ntfy".sopsFile = ./secrets.yaml;
 
-        "restic/access-key".key = "r2/backups/access_key";
-        "restic/secret-key".key = "r2/backups/secret_key";
+        "restic/r2_access_key".key = "r2/backups/access_key";
+        "restic/r2_secret_key".key = "r2/backups/secret_key";
       };
 
       sops.templates."restic/env".content = ''
-        AWS_ACCESS_KEY_ID=${config.sops.placeholder."restic/access-key"}
-        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."restic/secret-key"}
+        AWS_ACCESS_KEY_ID=${config.sops.placeholder."restic/r2_access_key"}
+        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."restic/r2_secret_key"}
       '';
 
       services.restic.backups.persist = {

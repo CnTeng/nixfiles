@@ -1,12 +1,24 @@
-resource "cloudflare_r2_bucket" "backups" {
+locals {
+  r2_buckets = {
+    backups   = "backups"
+    nix_cache = "nix-cache"
+    outline   = "outline"
+  }
+}
+
+resource "cloudflare_r2_bucket" "buckets" {
+  for_each = local.r2_buckets
+
   account_id    = local.cf_account_id
-  name          = "backups"
+  name          = each.value
   location      = "APAC"
   storage_class = "Standard"
 }
 
-resource "cloudflare_api_token" "r2_backups" {
-  name   = "r2_backups"
+resource "cloudflare_api_token" "r2_tokens" {
+  for_each = local.r2_buckets
+
+  name   = "r2_${each.key}"
   status = "active"
   policies = [{
     effect = "allow"
@@ -14,21 +26,14 @@ resource "cloudflare_api_token" "r2_backups" {
       { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
     ]
     resources = jsonencode({
-      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.backups.name}" = "*"
+      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.buckets[each.key].name}" = "*"
     })
   }]
 }
 
-resource "cloudflare_r2_bucket" "nix_cache" {
-  account_id    = local.cf_account_id
-  name          = "nix-cache"
-  location      = "APAC"
-  storage_class = "Standard"
-}
-
 resource "cloudflare_r2_custom_domain" "nix_cache" {
   account_id  = local.cf_account_id
-  bucket_name = cloudflare_r2_bucket.nix_cache.name
+  bucket_name = cloudflare_r2_bucket.buckets["nix_cache"].name
   domain      = "cache.snakepi.xyz"
   enabled     = true
   zone_id     = cloudflare_zone.zones["sp_xyz"].id
@@ -59,30 +64,9 @@ resource "cloudflare_ruleset" "nix_cache_redirects" {
   }]
 }
 
-resource "cloudflare_api_token" "r2_nix_cache" {
-  name   = "r2_nix_cache"
-  status = "active"
-  policies = [{
-    effect = "allow"
-    permission_groups = [
-      { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
-    ]
-    resources = jsonencode({
-      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.nix_cache.name}" = "*"
-    })
-  }]
-}
-
-resource "cloudflare_r2_bucket" "outline" {
-  account_id    = local.cf_account_id
-  name          = "outline"
-  location      = "APAC"
-  storage_class = "Standard"
-}
-
 resource "cloudflare_r2_bucket_cors" "outline" {
   account_id  = local.cf_account_id
-  bucket_name = cloudflare_r2_bucket.outline.name
+  bucket_name = cloudflare_r2_bucket.buckets["outline"].name
 
   rules = [{
     id = "outline"
@@ -99,37 +83,15 @@ resource "cloudflare_r2_bucket_cors" "outline" {
   }]
 }
 
-resource "cloudflare_api_token" "r2_outline" {
-  name   = "r2_outline"
-  status = "active"
-  policies = [{
-    effect = "allow"
-    permission_groups = [
-      { id = local.cf_api_permissions["Workers R2 Storage Bucket Item Write"] },
-    ]
-    resources = jsonencode({
-      "com.cloudflare.edge.r2.bucket.${local.cf_account_id}_default_${cloudflare_r2_bucket.outline.name}" = "*"
-    })
-  }]
-}
-
 locals {
   r2_public_output = {
     endpoint = "${local.cf_account_id}.r2.cloudflarestorage.com"
   }
 
   r2_private_output = {
-    backups = {
-      access_key = cloudflare_api_token.r2_backups.id
-      secret_key = sha256(cloudflare_api_token.r2_backups.value)
-    }
-    nix_cache = {
-      access_key = cloudflare_api_token.r2_nix_cache.id
-      secret_key = sha256(cloudflare_api_token.r2_nix_cache.value)
-    }
-    outline = {
-      access_key = cloudflare_api_token.r2_outline.id
-      secret_key = sha256(cloudflare_api_token.r2_outline.value)
+    for name, token in cloudflare_api_token.r2_tokens : name => {
+      access_key = token.id
+      secret_key = sha256(token.value)
     }
   }
 }

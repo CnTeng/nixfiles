@@ -21,18 +21,18 @@ in
         admin off
         dns cloudflare {env.CF_API_TOKEN}
       '';
-      environmentFile = config.sops.templates.caddy.path;
+      environmentFile = config.sops.templates."caddy/env".path;
       openFirewall = true;
     };
 
-    sops.secrets.cf-api-token = {
+    sops.secrets.cf_api_token = {
       key = "tokens/cf_tls_token";
       owner = config.services.caddy.user;
       restartUnits = [ config.systemd.services.caddy.name ];
     };
 
-    sops.templates.caddy = {
-      content = "CF_API_TOKEN=${config.sops.placeholder.cf-api-token}";
+    sops.templates."caddy/env" = {
+      content = "CF_API_TOKEN=${config.sops.placeholder.cf_api_token}";
       owner = config.services.caddy.user;
     };
 

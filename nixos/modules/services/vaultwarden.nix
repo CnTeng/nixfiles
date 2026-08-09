@@ -23,12 +23,14 @@ in
         SMTP_HOST = "smtp.gmail.com";
         SMTP_FROM = "noreply@snakepi.xyz";
         SMTP_FROM_NAME = "Vaultwarden";
+        SMTP_USERNAME = "istengyf";
+        SMTP_PASSWORD_FILE = config.sops.secrets."vaultwarden/smtp_password".path;
         SMTP_SECURITY = "starttls";
         SMTP_PORT = 587;
 
         EXPERIMENTAL_CLIENT_FEATURE_FLAGS = "fido2-vault-credentials,ssh-key-vault-item,ssh-agent";
       };
-      environmentFile = config.sops.secrets.vaultwarden.path;
+      environmentFile = config.sops.secrets."vaultwarden/env".path;
     };
 
     services.caddy.virtualHosts.vault = {
@@ -51,10 +53,19 @@ in
       '';
     };
 
-    sops.secrets.vaultwarden = {
-      owner = user;
-      sopsFile = ./secrets.yaml;
-      restartUnits = [ config.systemd.services.vaultwarden.name ];
+    sops.secrets = {
+      "vaultwarden/smtp_password" = {
+        key = "smtp/password";
+        owner = user;
+        sopsFile = ./secrets.yaml;
+        restartUnits = [ config.systemd.services.vaultwarden.name ];
+      };
+
+      "vaultwarden/env" = {
+        owner = user;
+        sopsFile = ./secrets.yaml;
+        restartUnits = [ config.systemd.services.vaultwarden.name ];
+      };
     };
 
     preservation'.os.directories = [

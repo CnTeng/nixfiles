@@ -26,8 +26,8 @@ in
         bucket = "nix-cache";
         region = "auto";
         useSSL = true;
-        accessKeyFile = config.sops.secrets."niks3/access-key".path;
-        secretKeyFile = config.sops.secrets."niks3/secret-key".path;
+        accessKeyFile = config.sops.secrets."niks3/r2_access_key".path;
+        secretKeyFile = config.sops.secrets."niks3/r2_secret_key".path;
       };
 
       apiTokenFile = config.sops.secrets."niks3/api_token".path;
@@ -62,12 +62,12 @@ in
         sopsFile = ./secrets.yaml;
       };
 
-      "niks3/access-key" = {
+      "niks3/r2_access_key" = {
         key = "r2/nix_cache/access_key";
         owner = config.services.niks3.user;
       };
 
-      "niks3/secret-key" = {
+      "niks3/r2_secret_key" = {
         key = "r2/nix_cache/secret_key";
         owner = config.services.niks3.user;
       };

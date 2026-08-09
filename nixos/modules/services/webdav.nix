@@ -23,7 +23,7 @@ in
           }
         ];
       };
-      environmentFile = config.sops.secrets.webdav.path;
+      environmentFile = config.sops.secrets."webdav/env".path;
     };
 
     systemd.services.webdav.serviceConfig = {
@@ -38,7 +38,7 @@ in
       '';
     };
 
-    sops.secrets.webdav = {
+    sops.secrets."webdav/env" = {
       owner = config.services.webdav.user;
       sopsFile = ./secrets.yaml;
       restartUnits = [ config.systemd.services.webdav.name ];

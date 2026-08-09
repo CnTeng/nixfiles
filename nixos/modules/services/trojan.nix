@@ -43,7 +43,7 @@ let
             email = "rxsnakepi@gmail.com";
             dns01_challenge = {
               provider = "cloudflare";
-              api_token._secret = config.sops.secrets.cf-dns01-token.path;
+              api_token._secret = config.sops.secrets."proxy/cf_dns01_token".path;
             };
           };
         };
@@ -187,7 +187,7 @@ in
     };
 
     sops.secrets = {
-      cf-dns01-token = lib.mkIf cfg.enableServer {
+      "proxy/cf_dns01_token" = lib.mkIf cfg.enableServer {
         key = "tokens/cf_tls_token";
         restartUnits = [ config.systemd.services.sing-box.name ];
       };
