@@ -1,0 +1,31 @@
+diff --git a/shared/editor/components/Image.tsx b/shared/editor/components/Image.tsx
+index 553988307..9de45ebc6 100644
+--- a/shared/editor/components/Image.tsx
++++ b/shared/editor/components/Image.tsx
+@@ -418,6 +418,26 @@ const ImageWrapper = styled.div<{ isFullWidth: boolean; $dragging: boolean }>`
+       opacity: 1;
+     }
+   }
++
++  @media (any-hover: none) and (pointer: coarse) {
++    ${ResizeLeft}, ${ResizeRight} {
++      pointer-events: none;
++    }
++
++    ${ResizeTopLeft}, ${ResizeTopRight}, ${ResizeBottomLeft}, ${ResizeBottomRight} {
++      display: none;
++    }
++
++    &.ProseMirror-selectednode {
++      ${ResizeLeft}, ${ResizeRight} {
++        opacity: 1;
++
++        &:after {
++          pointer-events: auto;
++        }
++      }
++    }
++  }
+ `;
+
+ const Separator = styled.div<{ height?: number }>`
