@@ -111,6 +111,10 @@ in
 
       services.darkman = {
         enable = true;
+        settings = {
+          dbusserver = true;
+          portal = true;
+        };
         darkModeScripts.gtk-theme = /* shell */ ''
           ${lib.getExe pkgs.dconf} write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
         '';
