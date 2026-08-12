@@ -51,7 +51,7 @@
 
       hostname = {
         format = "[$hostname]($style)";
-        style = "bold white";
+        style = "bold";
       };
 
       nix_shell = {
@@ -60,7 +60,7 @@
       };
 
       username = {
-        style_user = "bold white";
+        style_user = "bold";
         format = "[$user]($style)";
       };
     };
