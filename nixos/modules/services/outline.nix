@@ -1,9 +1,4 @@
-{
-  config,
-  data,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.services'.outline;
 
@@ -24,7 +19,7 @@ in
         accessKey = "unset";
         secretKeyFile = "/unset";
         region = "auto";
-        uploadBucketUrl = "https://${data.r2.endpoint}";
+        uploadBucketUrl = "https://${config.core'.serviceInfo.r2.endpoint}";
         uploadBucketName = "outline";
       };
     };
