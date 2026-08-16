@@ -44,6 +44,8 @@ in
       serverUrl = "https://${hostName}";
     };
 
+    systemd.services.niks3.environment.NIX_CACHE_PRIORITY = "50";
+
     services.caddy.virtualHosts.niks3 = {
       inherit hostName;
       extraConfig = ''

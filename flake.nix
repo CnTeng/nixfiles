@@ -32,7 +32,7 @@
     };
 
     niks3 = {
-      url = "github:Mic92/niks3";
+      url = "github:CnTeng/niks3/nix_priority";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
