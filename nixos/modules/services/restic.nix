@@ -1,13 +1,13 @@
 {
   config,
-  data,
   lib,
   pkgs,
   ...
 }:
 let
   cfg = config.services'.restic;
-  inherit (config.core') hostName;
+
+  inherit (config.core') hostName serviceInfo;
 in
 {
   options.services'.restic.enable = lib.mkEnableOption "";
@@ -41,7 +41,7 @@ in
       services.restic.backups.persist = {
         passwordFile = config.sops.secrets."restic/password".path;
         environmentFile = config.sops.templates."restic/env".path;
-        repository = "s3:https://${data.r2.endpoint}/backups/persist/${hostName}";
+        repository = "s3:https://${serviceInfo.r2.endpoint}/backups/persist/${hostName}";
         paths = [ "/persist" ];
         exclude = [ "/persist/home/*/.cache" ];
         timerConfig = {

@@ -11,7 +11,7 @@ let
 
   mkOutbound = host: {
     type = "trojan";
-    server = "${host}.snakepi.xyz";
+    server = config.core'.serviceInfo.hosts.${host}.ipv4;
     server_port = port;
     password._secret = config.sops.secrets."proxy/password".path;
     tls = {

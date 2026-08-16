@@ -9,7 +9,7 @@ let
 
   mkNixosSystem = host: _: {
     ${host} = lib.nixosSystem {
-      specialArgs = { inherit inputs data; };
+      specialArgs = { inherit inputs; };
       modules = [
         {
           nixpkgs = {
@@ -22,6 +22,7 @@ let
             userName = "yufei";
             hostName = host;
             hostInfo = data.hosts.${host};
+            serviceInfo = data;
             stateVersion = "26.05";
           };
         }

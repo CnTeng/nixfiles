@@ -1,6 +1,5 @@
 {
   inputs,
-  data,
   config,
   lib,
   ...
@@ -22,7 +21,7 @@ in
       httpAddr = "127.0.0.1:${toString port}";
 
       s3 = {
-        inherit (data.r2) endpoint;
+        inherit (config.core'.serviceInfo.r2) endpoint;
         bucket = "nix-cache";
         region = "auto";
         useSSL = true;

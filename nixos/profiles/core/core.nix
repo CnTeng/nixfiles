@@ -30,6 +30,10 @@ in
       type = lib.types.nullOr lib.types.attrs;
     };
 
+    serviceInfo = lib.mkOption {
+      type = lib.types.nullOr lib.types.attrs;
+    };
+
     stateVersion = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
     };
@@ -48,6 +52,10 @@ in
       {
         assertion = cfg.hostInfo != null;
         message = "Host info must be specified in core'.hostInfo";
+      }
+      {
+        assertion = cfg.serviceInfo != null;
+        message = "Service info must be specified in core'.serviceInfo";
       }
       {
         assertion = cfg.stateVersion != null;
