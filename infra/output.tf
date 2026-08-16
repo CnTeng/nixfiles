@@ -7,6 +7,7 @@ locals {
     { tokens = local.tokens_output },
     { r2 = local.r2_private_output },
     { hosts = local.hosts_private_output },
+    { oidc = local.oidc_private_output }
   ))
 }
 

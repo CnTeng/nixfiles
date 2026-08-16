@@ -16,12 +16,17 @@ provider "cloudflare" {
   api_token = local.secrets.cloudflare.token
 }
 
+provider "github" {
+  token = local.secrets.github.token
+}
+
 provider "hcloud" {
   token = local.secrets.hcloud.token
 }
 
-provider "github" {
-  token = local.secrets.github.token
+provider "pocketid" {
+  base_url  = "https://id.snakepi.xyz"
+  api_token = local.secrets.pocketid.token
 }
 
 provider "tailscale" {

@@ -19,3 +19,14 @@ updates:
     groups:
       nix:
         patterns: ["*"]
+
+  - package-ecosystem: opentofu
+    directory: /infra
+    schedule:
+      interval: weekly
+      day: friday
+    commit-message:
+      prefix: chore
+    groups:
+      opentofu:
+        patterns: ["*"]

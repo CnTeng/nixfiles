@@ -83,16 +83,7 @@
             jq
             sops
             nixos-anywhere
-            (pkgs.opentofu.withPlugins (p: [
-              p.carlpett_sops
-              p.cloudflare_cloudflare
-              p.hashicorp_aws
-              p.hashicorp_local
-              p.hashicorp_tls
-              p.hetznercloud_hcloud
-              p.integrations_github
-              p.tailscale_tailscale
-            ]))
+            opentofu
           ];
         };
       });

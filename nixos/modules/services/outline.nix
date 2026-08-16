@@ -42,6 +42,8 @@ in
         PGSSLMODE = "disable";
 
         OIDC_ISSUER_URL = "https://id.snakepi.xyz";
+        OIDC_CLIENT_ID_FILE = config.sops.secrets."outline/oidc_client_id".path;
+        OIDC_CLIENT_SECRET_FILE = config.sops.secrets."outline/oidc_client_secret".path;
 
         SMTP_HOST = "smtp.gmail.com";
         SMTP_PORT = "587";
@@ -56,7 +58,6 @@ in
 
       serviceConfig = {
         ExecStart = lib.getExe' config.services.outline.package "outline-server";
-        EnvironmentFile = config.sops.secrets."outline/env".path;
         UnsetEnvironment = [ "AWS_ACCESS_KEY_ID" ];
       };
     };
@@ -81,14 +82,20 @@ in
         restartUnits = [ config.systemd.services.outline.name ];
       };
 
-      "outline/smtp_password" = {
-        key = "smtp/password";
+      "outline/oidc_client_id" = {
+        key = "oidc/outline/client_id";
         owner = config.services.outline.user;
-        sopsFile = ./secrets.yaml;
         restartUnits = [ config.systemd.services.outline.name ];
       };
 
-      "outline/env" = {
+      "outline/oidc_client_secret" = {
+        key = "oidc/outline/client_secret";
+        owner = config.services.outline.user;
+        restartUnits = [ config.systemd.services.outline.name ];
+      };
+
+      "outline/smtp_password" = {
+        key = "smtp/password";
         owner = config.services.outline.user;
         sopsFile = ./secrets.yaml;
         restartUnits = [ config.systemd.services.outline.name ];
