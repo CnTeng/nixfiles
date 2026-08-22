@@ -26,6 +26,8 @@ in
 
     systemd.services.outline = {
       environment = {
+        SERVICES = "collaboration,websockets,worker,web,cron";
+
         SECRET_KEY_FILE = config.sops.secrets."outline/secret_key".path;
         UTILS_SECRET_FILE = config.sops.secrets."outline/utils_secret".path;
 
