@@ -8,10 +8,7 @@ in
   options.services'.atuin.enable = lib.mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
-    services.atuin = {
-      enable = true;
-      openRegistration = true;
-    };
+    services.atuin.enable = true;
 
     services.caddy.virtualHosts.atuin = {
       inherit hostName;
