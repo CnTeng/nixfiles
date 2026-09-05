@@ -12,7 +12,7 @@ let
     editor = pkgs.neovim;
     archiver = pkgs.file-roller;
     fileManager = pkgs.nautilus;
-    imageViewer = pkgs.eog;
+    imageViewer = pkgs.loupe;
     browser = pkgs.chromium;
   };
 in

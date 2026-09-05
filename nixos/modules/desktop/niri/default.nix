@@ -68,7 +68,7 @@ in
     environment.systemPackages = with pkgs; [
       nautilus
       file-roller
-      eog
+      loupe
       sushi
     ];
     programs.nautilus-open-any-terminal = {
