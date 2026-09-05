@@ -37,7 +37,6 @@
     calibre.enable = true;
     chromium.enable = true;
     firefox.enable = true;
-    ghostty.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
     mpv.enable = true;
