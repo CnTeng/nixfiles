@@ -7,7 +7,6 @@ A highly customized NixOS configuration.
 
 ## ✨ Features
 
-- Structure configuration using [flake-parts](https://flake.parts/)
 - Secret provisioning with [sops-nix](https://github.com/Mic92/sops-nix)
 - Disk partitioning with [disko](https://github.com/nix-community/disko)
 - Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote)
