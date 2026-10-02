@@ -6,7 +6,8 @@ locals {
 }
 
 resource "cloudflare_email_routing_settings" "main" {
-  zone_id = cloudflare_zone.zones["sp_xyz"].id
+  zone_id            = cloudflare_zone.zones["sp_xyz"].id
+  support_subaddress = false
 }
 
 resource "cloudflare_email_routing_address" "main" {
