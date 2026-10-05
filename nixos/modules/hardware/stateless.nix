@@ -69,7 +69,6 @@ in
     };
 
     systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
-    systemd.services.systemd-machine-id-commit.unitConfig.ConditionFirstBoot = true;
 
     programs.ph.enable = true;
   };

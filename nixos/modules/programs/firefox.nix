@@ -9,7 +9,6 @@ in
     programs.firefox = {
       enable = true;
       policies = {
-        DisableAppUpdate = true;
         DisablePocket = true;
         DisableSetDesktopBackground = true;
         FirefoxHome = {
