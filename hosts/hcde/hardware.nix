@@ -2,13 +2,12 @@
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
-  hardware' = {
-    stateless.enable = true;
-    zswap.enable = true;
-  };
+  hardware'.stateless.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.zswap.enable = true;
 
   networking = {
     useDHCP = false;

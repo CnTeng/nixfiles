@@ -2,7 +2,6 @@
   hardware' = {
     secure-boot.enable = true;
     stateless.enable = true;
-    zswap.enable = true;
   };
 
   boot = {
@@ -19,6 +18,8 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.zswap.enable = true;
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
