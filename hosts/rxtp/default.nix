@@ -4,11 +4,6 @@
     ./hardware.nix
   ];
 
-  accounts' = {
-    gmail.enable = true;
-    lkml.enable = true;
-  };
-
   desktop' = {
     niri.enable = true;
     fonts.enable = true;
