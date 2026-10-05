@@ -19,7 +19,6 @@
       withExtraPackages = true;
     };
     npm.enable = true;
-    podman.enable = true;
     qemu.enable = true;
     sources.enable = true;
     tools.enable = true;
