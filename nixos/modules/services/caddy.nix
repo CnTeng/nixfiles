@@ -21,6 +21,7 @@ in
         admin off
         dns cloudflare {env.CF_API_TOKEN}
       '';
+      enableReload = false;
       environmentFile = config.sops.templates."caddy/env".path;
       openFirewall = true;
     };
