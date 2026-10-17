@@ -14,29 +14,35 @@ in
 
   config =
     let
-      mkNtfyScript = status: priority: tag: ''
-        ${lib.getExe pkgs.curl} -u :$(cat $NTFY_TOKEN) \
-          -H "Title: Restic Backup" \
-          -H "Priority: ${priority}" \
-          -H "Tags: floppy_disk,${tag}" \
-          -H "Icon: https://avatars.githubusercontent.com/u/10073512?s=200&v=4" \
-          -d "Backup ${hostName} ${status}." \
-          https://ntfy.snakepi.xyz/dev
+      mkTelegramScript = status: emoji: /* bash */ ''
+        ${lib.getExe pkgs.curl} --fail --silent --show-error \
+          --connect-timeout 10 --max-time 30 --output /dev/null \
+          --data-urlencode "chat_id=$TG_CHAT_ID" \
+          --data-urlencode ${lib.escapeShellArg "text=${emoji} Restic Backup: ${hostName} ${status}."} \
+          "https://api.telegram.org/bot$TG_TOKEN/sendMessage" || true
       '';
     in
     lib.mkIf cfg.enable {
       sops.secrets = {
         "restic/password".sopsFile = ./secrets.yaml;
-        "restic/ntfy".sopsFile = ./secrets.yaml;
-
         "restic/r2_access_key".key = "r2/backups/access_key";
         "restic/r2_secret_key".key = "r2/backups/secret_key";
+
+        "tg-bot/token".sopsFile = ./secrets.yaml;
+        "tg-bot/chat_id".sopsFile = ./secrets.yaml;
       };
 
-      sops.templates."restic/env".content = ''
-        AWS_ACCESS_KEY_ID=${config.sops.placeholder."restic/r2_access_key"}
-        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."restic/r2_secret_key"}
-      '';
+      sops.templates = {
+        "restic/env".content = ''
+          AWS_ACCESS_KEY_ID=${config.sops.placeholder."restic/r2_access_key"}
+          AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."restic/r2_secret_key"}
+        '';
+
+        "tg-bot/env".content = ''
+          TG_TOKEN=${config.sops.placeholder."tg-bot/token"}
+          TG_CHAT_ID=${config.sops.placeholder."tg-bot/chat_id"}
+        '';
+      };
 
       services.restic.backups.persist = {
         passwordFile = config.sops.secrets."restic/password".path;
@@ -57,25 +63,18 @@ in
           "--keep-weekly 4"
           "--keep-monthly 3"
         ];
-        backupPrepareCommand = mkNtfyScript "start" "default" "yellow_circle";
+        backupPrepareCommand = mkTelegramScript "start" "🟡";
       };
 
-      systemd.services = {
-        restic-backups-persist = {
-          environment.NTFY_TOKEN = config.sops.secrets."restic/ntfy".path;
-          onSuccess = [ "restic-ntfy-success.service" ];
-          onFailure = [ "restic-ntfy-failure.service" ];
-        };
-
-        restic-ntfy-success = {
-          environment.NTFY_TOKEN = config.sops.secrets."restic/ntfy".path;
-          script = mkNtfyScript "success" "default" "green_circle";
-        };
-
-        restic-ntfy-failure = {
-          environment.NTFY_TOKEN = config.sops.secrets."restic/ntfy".path;
-          script = mkNtfyScript "failure" "high" "red_circle";
-        };
+      systemd.services.restic-backups-persist = {
+        serviceConfig.EnvironmentFile = [ config.sops.templates."tg-bot/env".path ];
+        postStop = lib.mkAfter /* bash */ ''
+          if [ "$SERVICE_RESULT" = success ]; then
+            ${mkTelegramScript "success" "🟢"}
+          else
+            ${mkTelegramScript "failure" "🔴"}
+          fi
+        '';
       };
 
       preservation'.os.directories = [
