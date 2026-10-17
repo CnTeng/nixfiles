@@ -17,7 +17,6 @@
     outline.enable = true;
     pocket-id.enable = true;
     postgresql.enable = true;
-    privatebin.enable = true;
     restic.enable = true;
     tailscale.enable = true;
     trojan.enableServer = true;
