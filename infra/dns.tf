@@ -5,7 +5,6 @@ locals {
     atuin  = { content = module.host["hcde"].ipv4 }
     id     = { content = module.host["hcde"].ipv4 }
     niks3  = { content = module.host["hcde"].ipv4 }
-    ntfy   = { content = module.host["hcde"].ipv4 }
     rss    = { content = module.host["hcde"].ipv4 }
     vault  = { content = module.host["hcde"].ipv4 }
     webdav = { content = module.host["hcde"].ipv4 }
