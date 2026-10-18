@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.programs'.kitty;
-  inherit (pkgs.vimPlugins) smart-splits-nvim;
 in
 {
   options.programs'.kitty.enable = lib.mkEnableOption "";
@@ -15,17 +9,6 @@ in
     environment.variables.TERMINAL = "kitty";
 
     hm' = {
-      xdg.configFile = {
-        "kitty/neighboring_window.py" = {
-          source = "${smart-splits-nvim}/kitty/neighboring_window.py";
-          executable = true;
-        };
-        "kitty/relative_resize.py" = {
-          source = "${smart-splits-nvim}/kitty/relative_resize.py";
-          executable = true;
-        };
-      };
-
       programs.kitty = {
         enable = true;
         font = {
@@ -84,9 +67,9 @@ in
 
           "alt+w" = "select_tab";
 
-          "alt+j" = "kitten relative_resize.py down  3";
-          "alt+k" = "kitten relative_resize.py up    3";
-          "alt+h" = "kitten relative_resize.py left  3";
+          "alt+j" = "kitten relative_resize.py down 3";
+          "alt+k" = "kitten relative_resize.py up 3";
+          "alt+h" = "kitten relative_resize.py left 3";
           "alt+l" = "kitten relative_resize.py right 3";
         };
         extraConfig = ''
@@ -104,6 +87,33 @@ in
           map --when-focus-on var:IS_NVIM alt+l
         '';
       };
+
+      xdg.configFile."kitty/relative_resize.py".text = /* python */ ''
+        from kittens.tui.handler import result_handler
+
+
+        def main(args):
+            pass
+
+
+        @result_handler(no_ui=True)
+        def handle_result(args, result, target_window_id, boss):
+            tab = boss.active_tab
+            window = boss.window_id_map.get(target_window_id)
+            if tab is None or window is None:
+                return
+
+            direction, amount = args[1], int(args[2])
+            neighbors = tab.current_layout.neighbors_for_window(window, tab.windows)
+            horizontal = direction in ("left", "right")
+            before, after = ("left", "right") if horizontal else ("top", "bottom")
+            if not (neighbors.get(before) or neighbors.get(after)):
+                return
+
+            smaller, larger = ("narrower", "wider") if horizontal else ("shorter", "taller")
+            grow = (direction in ("right", "down")) == bool(neighbors.get(after))
+            tab.resize_window(larger if grow else smaller, amount)
+      '';
     };
   };
 }
