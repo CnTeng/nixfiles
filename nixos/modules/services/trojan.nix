@@ -7,26 +7,32 @@
 let
   cfg = config.services'.trojan;
 
-  port = 10808;
+  hostName = config.networking.fqdn;
+  port = 1080;
 
   mkOutbound = host: {
     type = "trojan";
+    tag = host;
     server = config.core'.serviceInfo.hosts.${host}.ipv4;
-    server_port = port;
+    server_port = 443;
     password._secret = config.sops.secrets."proxy/password".path;
     tls = {
       enabled = true;
       server_name = "${host}.snakepi.xyz";
     };
+    transport = {
+      type = "ws";
+      path = "/trojan";
+      headers.Host = "${host}.snakepi.xyz";
+    };
     multiplex.enabled = true;
-    tag = host;
   };
 
   serverConfig = {
     inbounds = [
       {
         type = "trojan";
-        listen = "::";
+        listen = "127.0.0.1";
         listen_port = port;
         users = [
           {
@@ -34,18 +40,9 @@ let
             password._secret = config.sops.secrets."proxy/password".path;
           }
         ];
-        tls = {
-          enabled = true;
-          server_name = config.networking.fqdn;
-          acme = {
-            domain = config.networking.fqdn;
-            data_directory = "/var/lib/sing-box/certmagic";
-            email = "rxsnakepi@gmail.com";
-            dns01_challenge = {
-              provider = "cloudflare";
-              api_token._secret = config.sops.secrets."proxy/cf_dns01_token".path;
-            };
-          };
+        transport = {
+          type = "ws";
+          path = "/trojan";
         };
         multiplex.enabled = true;
       }
@@ -53,6 +50,12 @@ let
   };
 
   clientConfig = {
+    http_clients = [
+      {
+        tag = "proxy";
+        detour = "select";
+      }
+    ];
     dns = {
       servers = [
         {
@@ -62,6 +65,12 @@ let
         }
         {
           tag = "remote";
+          type = "https";
+          server = "1.1.1.1";
+          detour = "select";
+        }
+        {
+          tag = "fakeip";
           type = "fakeip";
           inet4_range = "198.18.0.0/15";
           inet6_range = "fc00::/18";
@@ -81,9 +90,11 @@ let
             "A"
             "AAAA"
           ];
-          server = "remote";
+          server = "fakeip";
         }
       ];
+      final = "remote";
+      reverse_mapping = true;
       strategy = "ipv4_only";
     };
     inbounds = [
@@ -95,7 +106,6 @@ let
           "fdfe:dcba:9876::1/126"
         ];
         auto_route = true;
-        strict_route = false;
         exclude_interface = [ "tailscale0" ];
       }
     ];
@@ -107,7 +117,6 @@ let
           "hcde"
           "direct"
         ];
-        default = "lssg";
         tag = "select";
       }
       (mkOutbound "lssg")
@@ -144,24 +153,29 @@ let
         {
           type = "local";
           tag = "geosite-cn";
-          format = "binary";
           path = "${pkgs.sing-geosite}/share/sing-box/rule-set/geosite-geolocation-cn.srs";
         }
         {
           type = "local";
           tag = "geoip-cn";
-          format = "binary";
           path = "${pkgs.sing-geoip}/share/sing-box/rule-set/geoip-cn.srs";
         }
       ];
+      final = "select";
       default_domain_resolver = "local";
       auto_detect_interface = true;
     };
-    experimental = {
-      clash_api = {
-        external_controller = "127.0.0.1:9090";
-        external_ui = pkgs.metacubexd;
-      };
+    services = [
+      {
+        type = "api";
+        listen = "127.0.0.1";
+        listen_port = 9090;
+        dashboard = "${pkgs.sing-box-dashboard}";
+      }
+    ];
+    experimental.cache_file = {
+      enabled = true;
+      store_fakeip = true;
     };
   };
 in
@@ -172,27 +186,33 @@ in
   };
 
   config = lib.mkIf (cfg.enableServer || cfg.enableClient) {
-    networking.firewall = {
-      allowedTCPPorts = lib.mkIf cfg.enableServer [ port ];
-      trustedInterfaces = lib.mkIf cfg.enableClient [ "tun0" ];
+    services'.caddy.enable = lib.mkIf cfg.enableServer true;
+
+    services.caddy.virtualHosts.trojan = lib.mkIf cfg.enableServer {
+      inherit hostName;
+      extraConfig = ''
+        handle /trojan {
+          reverse_proxy 127.0.0.1:${toString port}
+        }
+        handle {
+          respond 404
+        }
+      '';
     };
+
+    networking.firewall.trustedInterfaces = lib.mkIf cfg.enableClient [ "tun0" ];
 
     services.sing-box = {
       enable = true;
       settings = {
-        log.level = "info";
+        log.level = "error";
       }
       // lib.optionalAttrs cfg.enableServer serverConfig
       // lib.optionalAttrs cfg.enableClient clientConfig;
     };
 
     sops.secrets = {
-      "proxy/cf_dns01_token" = lib.mkIf cfg.enableServer {
-        key = "tokens/cf_tls_token";
-        restartUnits = [ config.systemd.services.sing-box.name ];
-      };
-
-      "proxy/username" = {
+      "proxy/username" = lib.mkIf cfg.enableServer {
         sopsFile = ./secrets.yaml;
         restartUnits = [ config.systemd.services.sing-box.name ];
       };
