@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.development'.npm;
 in
@@ -8,6 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     hm'.programs.npm = {
       enable = true;
+      package = pkgs.nodejs_latest;
       settings = {
         prefix = "\${XDG_DATA_HOME}/npm";
         cache = "\${XDG_CACHE_HOME}/npm";
