@@ -6,15 +6,6 @@
 }:
 let
   cfg = config.desktop'.xdg;
-
-  default = {
-    terminal = pkgs.kitty;
-    editor = pkgs.neovim;
-    archiver = pkgs.file-roller;
-    fileManager = pkgs.nautilus;
-    imageViewer = pkgs.loupe;
-    browser = pkgs.chromium;
-  };
 in
 {
   options.desktop'.xdg.enable = lib.mkEnableOption "";
@@ -30,13 +21,13 @@ in
 
       xdg.mimeApps = {
         enable = true;
-        defaultApplicationPackages = [
-          default.terminal
-          default.editor
-          default.archiver
-          default.fileManager
-          default.imageViewer
-          default.browser
+        defaultApplicationPackages = with pkgs; [
+          kitty
+          neovim
+          file-roller
+          nautilus
+          loupe
+          chromium
         ];
       };
     };

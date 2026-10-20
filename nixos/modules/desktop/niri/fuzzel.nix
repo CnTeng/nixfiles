@@ -1,5 +1,5 @@
 palette:
-{ config, lib, ... }:
+{ config, ... }:
 {
   programs.fuzzel = {
     enable = true;
