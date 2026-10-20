@@ -32,6 +32,10 @@ in
 
     programs.niri.enable = true;
 
+    services.gnome.gnome-keyring.enable = false;
+    services.oo7.enable = true;
+    xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
+
     user'.extraGroups = [
       "networkmanager"
       "video"
@@ -93,6 +97,10 @@ in
       ];
 
       user.directories = [
+        {
+          directory = ".config/credstore.encrypted";
+          mode = "0700";
+        }
         ".cache/darkman"
         ".cache/fuzzel"
         ".config/dconf"
