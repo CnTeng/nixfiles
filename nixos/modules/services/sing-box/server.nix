@@ -10,7 +10,7 @@ let
   hostName = config.networking.fqdn;
 
   trojanPort = 1080;
-  hysteria2Port = 8443;
+  hysteria2Port = 1081;
 
   certificate = config.security.acme.certs.${hostName};
   tls = {
