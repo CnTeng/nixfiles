@@ -33,6 +33,7 @@ in
 
     services.caddy.virtualHosts.webdav = {
       inherit hostName;
+      useACMEHost = hostName;
       extraConfig = ''
         reverse_proxy unix/${socket}
       '';

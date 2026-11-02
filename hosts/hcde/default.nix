@@ -17,8 +17,8 @@
     pocket-id.enable = true;
     postgresql.enable = true;
     restic.enable = true;
+    sing-box.server.enable = true;
     tailscale.enable = true;
-    trojan.enableServer = true;
     vaultwarden.enable = true;
     webdav.enable = true;
   };

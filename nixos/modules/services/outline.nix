@@ -61,6 +61,7 @@ in
 
     services.caddy.virtualHosts.outline = {
       inherit hostName;
+      useACMEHost = hostName;
       extraConfig = ''
         reverse_proxy localhost:${toString port}
       '';

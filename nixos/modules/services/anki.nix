@@ -21,6 +21,7 @@ in
 
     services.caddy.virtualHosts.anki-sync = {
       inherit hostName;
+      useACMEHost = hostName;
       extraConfig = ''
         reverse_proxy localhost:${toString config.services.anki-sync-server.port}
       '';

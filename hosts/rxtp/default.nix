@@ -45,7 +45,7 @@
   services' = {
     fwupd.enable = true;
     restic.enable = true;
+    sing-box.client.enable = true;
     tailscale.enable = true;
-    trojan.enableClient = true;
   };
 }

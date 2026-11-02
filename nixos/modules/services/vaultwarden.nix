@@ -35,6 +35,7 @@ in
 
     services.caddy.virtualHosts.vault = {
       inherit hostName;
+      useACMEHost = hostName;
       extraConfig = ''
         header / {
           Strict-Transport-Security "max-age=31536000;"

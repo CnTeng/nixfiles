@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -13,34 +12,35 @@ in
   config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
-      package = pkgs.caddy.withPlugins {
-        plugins = [ "github.com/caddy-dns/cloudflare@v0.2.4" ];
-        hash = "sha256-tubXIDCJnO2mvdnPlZclwDhNGaeeYLSt7lnni3+pXDo=";
-      };
       globalConfig = ''
         admin off
-        dns cloudflare {env.CF_API_TOKEN}
       '';
       enableReload = false;
-      environmentFile = config.sops.templates."caddy/env".path;
       openFirewall = true;
     };
 
-    sops.secrets.cf_api_token = {
-      key = "tokens/cf_tls_token";
-      owner = config.services.caddy.user;
-      restartUnits = [ config.systemd.services.caddy.name ];
+    security.acme = {
+      acceptTerms = true;
+      defaults = {
+        email = "rxsnakepi@gmail.com";
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
+        credentialFiles.CF_DNS_API_TOKEN_FILE = config.sops.secrets.cf_api_token.path;
+      };
     };
 
-    sops.templates."caddy/env" = {
-      content = "CF_API_TOKEN=${config.sops.placeholder.cf_api_token}";
-      owner = config.services.caddy.user;
-    };
+    sops.secrets.cf_api_token.key = "tokens/cf_tls_token";
 
     preservation'.os.directories = [
       {
         directory = config.services.caddy.dataDir;
         inherit (config.services.caddy) user group;
+      }
+      {
+        directory = "/var/lib/acme";
+        user = "acme";
+        group = "acme";
+        mode = "0755";
       }
     ];
   };

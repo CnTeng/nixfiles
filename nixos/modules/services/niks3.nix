@@ -46,6 +46,7 @@ in
 
     services.caddy.virtualHosts.niks3 = {
       inherit hostName;
+      useACMEHost = hostName;
       extraConfig = ''
         reverse_proxy localhost:${toString port}
       '';

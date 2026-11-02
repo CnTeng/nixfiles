@@ -5,7 +5,7 @@
 
   services' = {
     fail2ban.enable = true;
+    sing-box.server.enable = true;
     tailscale.enable = true;
-    trojan.enableServer = true;
   };
 }

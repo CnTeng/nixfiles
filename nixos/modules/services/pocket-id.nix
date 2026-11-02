@@ -35,6 +35,7 @@ in
 
     services.caddy.virtualHosts.id = {
       inherit hostName;
+      useACMEHost = hostName;
       extraConfig = ''
         reverse_proxy unix/${socket}
       '';
