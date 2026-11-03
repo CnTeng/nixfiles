@@ -18,6 +18,12 @@ let
     certificate_path = "${certificate.directory}/fullchain.pem";
     key_path = "${certificate.directory}/key.pem";
   };
+  users = [
+    {
+      name._secret = config.sops.secrets."proxy/username".path;
+      password._secret = config.sops.secrets."proxy/password".path;
+    }
+  ];
 in
 {
   options.services'.sing-box.server.enable = lib.mkEnableOption "";
@@ -30,10 +36,10 @@ in
         plugins = [ "github.com/mholt/caddy-l4@v0.1.2" ];
         hash = "sha256-FwGmHobFqBkEI7LN/YaPsL0t+dJn8uZMhCp9asDEsYw=";
       };
-      globalConfig = ''
+      globalConfig = /* caddy */ ''
         default_bind 127.0.0.1
 
-        # L4 owns all public HTTP/HTTPS listeners.
+        # L4 owns all public HTTP/HTTPS listeners
         layer4 {
           tcp/:80 {
             route {
@@ -41,7 +47,13 @@ in
             }
           }
           tcp/:443 {
-            @trojan tls sni ${hostName}
+            # Trojan clients leave ALPN unset
+            @trojan {
+              tls sni ${hostName}
+              not {
+                tls alpn h2 http/1.1
+              }
+            }
             route @trojan {
               proxy tcp/127.0.0.1:${toString trojanPort}
             }
@@ -62,46 +74,34 @@ in
       '';
     };
 
-    security.acme.certs.${hostName} = {
-      group = "sing-box";
-      reloadServices = [ config.systemd.services.sing-box.name ];
+    services.caddy.virtualHosts.default = {
+      inherit hostName;
+      useACMEHost = hostName;
+      extraConfig = "respond 404";
     };
+
+    users.users.sing-box.extraGroups = [ certificate.group ];
     systemd.services.sing-box = {
       wants = [ "acme-${hostName}.service" ];
       after = [ "acme-${hostName}.service" ];
     };
 
-    services.sing-box.settings = {
-      inbounds = [
-        {
-          type = "trojan";
-          listen = "127.0.0.1";
-          listen_port = trojanPort;
-          users = [
-            {
-              name._secret = config.sops.secrets."proxy/username".path;
-              password._secret = config.sops.secrets."proxy/password".path;
-            }
-          ];
-          inherit tls;
-          multiplex.enabled = true;
-        }
-        {
-          type = "hysteria2";
-          listen = "127.0.0.1";
-          listen_port = hysteria2Port;
-          users = [
-            {
-              name._secret = config.sops.secrets."proxy/username".path;
-              password._secret = config.sops.secrets."proxy/password".path;
-            }
-          ];
-          ignore_client_bandwidth = true;
-          bbr_profile = "conservative";
-          inherit tls;
-        }
-      ];
-    };
+    services.sing-box.settings.inbounds = [
+      {
+        type = "trojan";
+        listen = "127.0.0.1";
+        listen_port = trojanPort;
+        inherit users tls;
+        multiplex.enabled = true;
+      }
+      {
+        type = "hysteria2";
+        listen = "127.0.0.1";
+        listen_port = hysteria2Port;
+        inherit users tls;
+        ignore_client_bandwidth = true;
+      }
+    ];
 
     sops.secrets."proxy/username" = {
       sopsFile = ../secrets.yaml;
