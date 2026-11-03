@@ -41,18 +41,11 @@ in
     networking.firewall.trustedInterfaces = [ "tun0" ];
 
     services.sing-box.settings = {
-      http_clients = [
-        {
-          tag = "proxy";
-          detour = "select";
-        }
-      ];
       dns = {
         servers = [
           {
             tag = "local";
-            type = "udp";
-            server = "223.5.5.5";
+            type = "local";
           }
           {
             tag = "remote";
@@ -69,7 +62,7 @@ in
         ];
         rules = [
           {
-            domain_keyword = [ "tailscale" ];
+            domain_suffix = [ "ts.net" ];
             server = "local";
           }
           {
@@ -130,10 +123,6 @@ in
           }
           {
             ip_is_private = true;
-            outbound = "direct";
-          }
-          {
-            ip_cidr = [ "100.64.0.0/10" ];
             outbound = "direct";
           }
           {
