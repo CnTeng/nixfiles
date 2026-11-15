@@ -34,7 +34,7 @@ in
     services.caddy = {
       package = pkgs.caddy.withPlugins {
         plugins = [ "github.com/mholt/caddy-l4@v0.1.2" ];
-        hash = "sha256-FwGmHobFqBkEI7LN/YaPsL0t+dJn8uZMhCp9asDEsYw=";
+        hash = "sha256-orq1LkXp8KeBLsp1eoRQ+dHGeM9t+R47Be58s0/irWI=";
       };
       globalConfig = /* caddy */ ''
         default_bind 127.0.0.1
