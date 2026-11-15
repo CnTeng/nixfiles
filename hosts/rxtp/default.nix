@@ -27,10 +27,10 @@
   };
 
   programs' = {
-    agent.enable = true;
     anki.enable = true;
     calibre.enable = true;
     chromium.enable = true;
+    codex.enable = true;
     firefox.enable = true;
     kdeconnect.enable = true;
     kitty.enable = true;
