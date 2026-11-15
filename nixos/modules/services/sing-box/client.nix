@@ -66,6 +66,13 @@ in
             server = "local";
           }
           {
+            domain_suffix = [
+              "tailscale.com"
+              "tailscale.io"
+            ];
+            server = "remote";
+          }
+          {
             rule_set = "geosite-cn";
             server = "local";
           }
