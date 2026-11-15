@@ -51,6 +51,26 @@
         "type": "github"
       }
     },
+    "gaze": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794597164,
+        "narHash": "sha256-thS4/qO9A/D57x5Pkszq0zlAuraIs+QpFmpDO2kWmrc=",
+        "owner": "GunduLabs",
+        "repo": "gaze",
+        "rev": "bb56b3c1c55c37cf00684cb651a45f2511dcc3b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GunduLabs",
+        "repo": "gaze",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -212,6 +232,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "gaze": "gaze",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "niks3": "niks3",

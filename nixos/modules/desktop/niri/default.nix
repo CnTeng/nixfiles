@@ -117,6 +117,8 @@ in
         (import ./fnott.nix palette)
       ];
 
+      services.polkit-gnome.enable = true;
+
       services.darkman = {
         enable = true;
         settings = {

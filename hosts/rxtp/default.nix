@@ -7,6 +7,7 @@
   desktop' = {
     niri.enable = true;
     fonts.enable = true;
+    gaze.enable = true;
     input.enable = true;
     theme.enable = true;
     xdg.enable = true;
