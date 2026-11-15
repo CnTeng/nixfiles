@@ -72,7 +72,7 @@ resource "cloudflare_r2_bucket_cors" "outline" {
     id = "outline"
     allowed = {
       origins = ["https://wiki.snakepi.xyz"]
-      methods = ["PUT"]
+      methods = ["PUT", "GET"]
       headers = [
         "cache-control",
         "content-disposition",
